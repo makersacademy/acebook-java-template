@@ -11,7 +11,11 @@ It uses:
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+<a href="https://trello.com/b/ZxdzZhwn/acebook-super-team"> Team's Trello Board</a> 
+
+### Database Schema
+
+<img src="images/db_schema.png" width="700" height="500">
 
 ### Design
 

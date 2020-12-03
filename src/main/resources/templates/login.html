@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" href="/main.css">
+    <meta charset="UTF-8">
+    <title>Acebook | Log In</title>
+</head>
+<body>
+
+<!--If the user fails to authenticate, the page is redirected to /login?error, and your page -->
+<!--displays the appropriate error message. Upon successfully signing out, your application is s-->
+<!--ent to /login?logout, and your page displays the appropriate success message.-->
+<div class="card">
+    <div class="form-container">
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <h1> Sign into Acebook!</h1>
+
+    <!--a form below captures a username and password and posts them to /login. As configured,-->
+    <!--Spring Security provides a filter that intercepts that request and authenticates the user.-->
+        <form th:action="@{/login}" method="post">
+            <input type="text" id="email" name="username" placeholder="Username"><br><br>
+            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+            <input type="submit" id="login" class="login login-submit" value="Login"><br><br>
+        </form>
+
+        <form action="/register">
+            <input type="submit" id="signup-btn" value="Sign Up" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

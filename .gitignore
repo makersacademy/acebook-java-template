@@ -5,3 +5,6 @@ dependency-reduced-pom.xml
 *.iml
 .log
 /src/main/resources/static/built
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
