@@ -28,25 +28,25 @@
               	    <installDirectory>target</installDirectory>
                  </configuration>
                  <executions>
-              	    <execution>
-              		      <id>install node and npm</id>
-                    		<goals>
-                    		    <goal>install-node-and-npm</goal>
-                    		</goals>
-                    		<configuration>
-                    			<nodeVersion>v9.9.0</nodeVersion>
-                    			<npmVersion>5.6.0</npmVersion>
-                    		</configuration>
-              	    </execution>
-              	    <execution>
-                		    <id>npm install</id>
-              		      <goals>
-              			         <goal>npm</goal>
-              		      </goals>
-                    		<configuration>
-                    			<arguments>install</arguments>
-                    		</configuration>
-              	    </execution>
+<!--              	    <execution>-->
+<!--              		      <id>install node and npm</id>-->
+<!--                    		<goals>-->
+<!--                    		    <goal>install-node-and-npm</goal>-->
+<!--                    		</goals>-->
+<!--                    		<configuration>-->
+<!--                    			<nodeVersion>v9.9.0</nodeVersion>-->
+<!--                    			<npmVersion>5.6.0</npmVersion>-->
+<!--                    		</configuration>-->
+<!--              	    </execution>-->
+<!--              	    <execution>-->
+<!--                		    <id>npm install</id>-->
+<!--              		      <goals>-->
+<!--              			         <goal>npm</goal>-->
+<!--              		      </goals>-->
+<!--                    		<configuration>-->
+<!--                    			<arguments>install</arguments>-->
+<!--                    		</configuration>-->
+<!--              	    </execution>-->
                 	  <execution>
                   	    <id>webpack build</id>
                     		<goals>

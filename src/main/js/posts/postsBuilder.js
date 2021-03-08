@@ -6,6 +6,7 @@ class PostsBuilder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {posts: []};
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -14,9 +15,14 @@ class PostsBuilder extends React.Component {
     });
   }
 
+  onDelete(post) {
+  console.log(post);
+  	client({method: 'DELETE', path: post})
+  }
+
 	render() {
 		return (
-      <Posts posts={this.state.posts}/>
+      <Posts posts={this.state.posts} onDelete={this.onDelete}/>
 		)
 	}
 }
