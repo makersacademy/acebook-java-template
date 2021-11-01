@@ -91,3 +91,5 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 
 * [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
+## Trello boards
+[Devs from Metaverse](https://trello.com/b/S1iIjtWb/acebook-devs-from-metaverse)
