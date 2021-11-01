@@ -10,4 +10,8 @@ public class HomeController {
 	public RedirectView index() {
 		return new RedirectView("/posts");
 	}
+
+	public void tests(){
+		
+	}
 }
