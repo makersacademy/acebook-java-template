@@ -9,7 +9,7 @@
     margin-bottom: 0.5rem;;
 }
 
-.logout_btn_wrapper {
+.logout_form {
     display: flex;
     justify-content: flex-end;
 }
