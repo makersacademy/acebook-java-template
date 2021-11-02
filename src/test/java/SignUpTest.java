@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,10 +19,12 @@ public class SignUpTest {
 
     WebDriver driver;
     Faker faker;
+    @Value("${spring.datasource.chromedriver}")
+    private String chromedriver;
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", chromedriver);
         driver = new ChromeDriver();
         faker = new Faker();
     }
