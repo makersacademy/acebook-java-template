@@ -91,5 +91,27 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 
 * [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
-## Trello boards
+## Trello board
 [Devs from Metaverse](https://trello.com/b/S1iIjtWb/acebook-devs-from-metaverse)
+
+## ENV variable for CHROMEDRIVER - BEWARE, ensure correct spellings, copy and paste instead of typing it out.
+1. run which chromedriver in terminal
+2. /opt/homebrew/bin/chromedriver
+3. copy the above output (step 2)
+4. run open ~/.zshrc and paste step 2 in the blackbox that pops out, save
+5. run source ~/.zshrc
+6. run echo $CHROMEDRIVER
+7. go to src/main/resources/application.properties and add this line: spring.datasource.chromedriver=${CHROMEDRIVER}
+8. go to src/test/java/SignUpTest.java
+  1. add this line: import org.springframework.beans.factory.annotation.Value;
+  2. under Faker faker; add these lines
+    - @Value("${spring.datasource.chromedriver}")
+    - private String chromedriver;
+  3. inside System.setProperty(), replace /opt/homebrew/bin/chromedriver with chromedriver. See example below
+      @Before
+        public void setup() {
+          System.setProperty("webdriver.chrome.driver", chromedriver);
+          driver = new ChromeDriver();
+          faker = new Faker();
+      }
+9. run mvn test
