@@ -95,12 +95,12 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 [Devs from Metaverse](https://trello.com/b/S1iIjtWb/acebook-devs-from-metaverse)
 
 ## ENV variable for CHROMEDRIVER - BEWARE, ensure correct spellings, copy and paste instead of typing it out.
-1. run which chromedriver in terminal
-2. /opt/homebrew/bin/chromedriver
+1. run `which chromedriver` in terminal
+2. `/opt/homebrew/bin/chromedriver`
 3. copy the above output (step 2)
-4. run open ~/.zshrc and paste step 2 in the blackbox that pops out, save
-5. run source ~/.zshrc
-6. run echo $CHROMEDRIVER
+4. run `open ~/.zshrc` and paste step 2 in the blackbox that pops out, save
+5. run `source ~/.zshrc`
+6. run `echo $CHROMEDRIVER`
 7. go to src/main/resources/application.properties and add this line: spring.datasource.chromedriver=${CHROMEDRIVER}
 8. go to src/test/java/SignUpTest.java
   1. add this line: import org.springframework.beans.factory.annotation.Value;
@@ -114,4 +114,5 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
           driver = new ChromeDriver();
           faker = new Faker();
       }
-9. run mvn test
+9. run `mvn test`from your terminal
+  - make sure that spring-boot is currently running with `mvn spring-boot:run`
