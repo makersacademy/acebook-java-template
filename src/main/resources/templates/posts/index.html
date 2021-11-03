@@ -25,11 +25,8 @@
     </div>
 
     <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <!-- <p> What do you want to share? </p> -->
         <p><input class="text-box" type="text" placeholder="What would you like to share?"
                 th:field="*{content}" /><input class="button" type="submit" value="Post" /></p>
-        <!-- <p><input class="button" type="submit" value="Post" /></p> -->
-        <!-- <p><input class="button" type="reset" value="Reset" /></p> -->
     </form>
 
     <ul class="post" th:each="post: ${posts}">
