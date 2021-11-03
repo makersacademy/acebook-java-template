@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.pagefactory.ByAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,10 +35,28 @@ public class SignUpTest {
     @Test
     public void successfulSignUpRedirectsToSignIn() {
         driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+        String name = faker.name().firstName();
+        driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
+    }
+
+    @Test
+    public void successfulSignInAfterSignUp(){
+                //signup
+                driver.get("http://localhost:8080/users/new");
+                String name = faker.name().firstName();
+                driver.findElement(By.id("username")).sendKeys(name);
+                driver.findElement(By.id("password")).sendKeys("password");
+                driver.findElement(By.id("submit")).click();
+        
+                //sign in
+                driver.findElement(By.id("username")).sendKeys(name);
+                driver.findElement(By.id("password")).sendKeys("password");
+                driver.findElement(By.xpath("//button")).click(); //how to click?
+                String title = driver.getTitle();
+                Assert.assertEquals("Acebook", title);
     }
 }
