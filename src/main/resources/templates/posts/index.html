@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head lang="en">
-    <meta charset="UTF-8" />
-    <title>Acebook</title>
-    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
-</head>
-
-<body>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Acebook</title>
+        <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+    </head>
+    <body>
+      
+        <div style="float:right;">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>   
+        </div>
 
     <h1>beta</h1>
     <h2>like meta but better</h2>
