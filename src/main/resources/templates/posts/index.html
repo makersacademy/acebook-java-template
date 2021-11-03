@@ -1,32 +1,39 @@
 <!DOCTYPE html>
+
     <html xmlns:th="http://www.thymeleaf.org"
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
         <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
+        <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
     </head>
     <body>
+      
         <div style="float:right;">
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out"/>
             </form>   
         </div>
 
-    <h1>Posts</h1>
+    <h1>beta</h1>
+    <h2>like meta but better</h2>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
+    <div class="greeting" sec:authorize="isAuthenticated()">
+        Hey, <span sec:authentication="name"></span>!
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <!-- <p> What do you want to share? </p> -->
+        <p><input class="text-box" type="text" placeholder="What would you like to share?"
+                th:field="*{content}" /><input class="button" type="submit" value="Post" /></p>
+        <!-- <p><input class="button" type="submit" value="Post" /></p> -->
+        <!-- <p><input class="button" type="reset" value="Reset" /></p> -->
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+    <ul class="post" th:each="post: ${posts}">
+        <span th:text="${post.content}">
     </ul>
 
-    </body>
+</body>
+
 </html>
