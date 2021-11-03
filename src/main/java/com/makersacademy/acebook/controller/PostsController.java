@@ -11,17 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-
 @Controller
 public class PostsController {
 
     @Autowired
-    PostRepository repository;
+    private IPostService postService;
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAllOrderByDateDesc();
+        Iterable<Post> posts = postService.findAllOrderByDateDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -29,11 +27,8 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        repository.save(post);
+        postService.save(post);
         return new RedirectView("/posts");
     }
-
-    @Autowired
-    private IPostService postService;
 
 }
