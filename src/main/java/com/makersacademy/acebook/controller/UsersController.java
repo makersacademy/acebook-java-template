@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UsersController {
@@ -31,6 +32,17 @@ public class UsersController {
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
-        return new RedirectView("/login");
+        return new RedirectView("/login.html");
     }
+
+	@RequestMapping("/login.html")
+	public String login() {
+		return "/users/login.html";
+	}
+
+	@RequestMapping("/login-error.html")
+	public String loginError(Model model) {
+	model.addAttribute("loginError", true);
+	return "/users/login.html";
+	}
 }
