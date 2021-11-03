@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+
+<body>
+
+
+    <nav>
+        <a href="/logout">Logout</a>
+    </nav>
 
     <h1>Posts</h1>
 
@@ -23,5 +29,6 @@
         <li> th:text="${post.content}" </li>
     </ul>
 
-    </body>
+</body>
+
 </html>
