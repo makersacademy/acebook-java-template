@@ -26,6 +26,15 @@
         </div>
       </nav>
 
+    <!-- Logout button -->
+    <!-- <div class="logout_btn_wrapper">
+      <button class="logout_btn" type="button">Log Out</button>  
+    </div> -->
+
+    <form class="logout_form" name="logoutForm" th:action="@{/logout}" method="POST" th:hidden="true">
+        <input class="logout_btn" type="submit" value="Log Out" />
+    </form>
+    
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">

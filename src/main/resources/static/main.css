@@ -12,3 +12,18 @@
 .sign-up-form {
   margin-top: 0.8rem;
 }
+
+.logout_form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout_btn {
+    border-radius: 5px;
+    cursor: pointer;
+    height: 3rem;
+    width: 5rem;
+    background-color: rgb(50, 50, 50);
+    color: rgb(208, 255, 0);
+    font-weight: bold;
+}
