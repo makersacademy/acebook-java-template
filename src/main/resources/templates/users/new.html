@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Signup</title>
-    </head>
-    <body style="text-align:center">
-        <h1>Sign Up</h1>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-            <p>Username: <input type="text" th:field="*{username}" /></p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
-        </form>
-    </body>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>beta</h1>
+    <h2>like meta but better</h2>
+
+    <form class="post" action="#" th:action="@{/users}" th:object="${user}" method="post">
+        <p>Username: <input class="credentials" type="text" th:field="*{username}" /></p>
+        <p>Password: <input class="credentials" type="password" th:field="*{password}" /></p>
+        <p><input class="button" type="submit" value="Sign Up" id="submit" /> </p>
+        <!-- <input type="reset" value="Reset" /> -->
+    </form>
+</body>
+
+
 </html>

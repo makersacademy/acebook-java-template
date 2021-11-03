@@ -1,0 +1,111 @@
+h1 {
+    font-family: Tahoma, sans-serif;
+    font-size: 450%;
+    color: #6B5B95;
+    text-align: center;
+    margin-bottom: 0;
+    /* margin-top: 120px; */
+}
+
+h2 {
+    font-family: 'Brush Script MT';
+    font-size: 160%;
+    color: grey;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 14px;
+    text-align: center;
+    background-color: #F0F0F0;
+}
+
+.greeting {
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: bold;
+    color: #696969;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.button {
+    background-color: #6B5B95;
+    border: none; 
+    color: white;
+    padding: 12px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.sign-out-button {
+    float: right;
+    margin-right: 20px;
+    height: 0px;
+}
+
+.text-box {
+    background-color: #F0F0F0;
+    color: #808080;
+    border: 1px; 
+    border-style: solid; 
+    border-color: #D8D8D8; 
+    border: none; 
+    padding: 12px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 300px; 
+    margin-right: 15px;
+}
+
+.credentials{
+    background-color: #F0F0F0;
+    color: #808080;
+    border: 1px; 
+    border-style: solid; 
+    border-color: #D8D8D8; 
+    border: none; 
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 150px; 
+    margin-right: 15px;
+}
+
+.post {
+    border: 1px; 
+    border-style: solid; 
+    border-color: #D8D8D8; 
+    background-color: white;
+    padding: 20px; 
+    width: 50%; 
+    height: auto;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-content: center;
+    border-radius: 8px;
+}
+
+/* colour trials  */
+/* blue - #002db3
+orange - #ff8c66
+purple -  #8c66ff
+Raspberry Sorbet D2386C
+Rust #B55A30 
+Amethyst Orchid #926AA6
+Mint 00A170 
+2018 - Ultra Violet #6B5B95
+2020 - Classic Blue #34568B
+*/
