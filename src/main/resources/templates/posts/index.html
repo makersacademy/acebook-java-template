@@ -19,8 +19,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="/posts">Posts</a>
-              <a class="nav-link" href="#">Log out</a>
+              <a class="nav-link active" aria-current="page" th:href="@{/posts}">Posts</a>
+              <form class="form-inline my-2 my-lg-0 logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Log Out</button>
+              </form>
             </div>
           </div>
         </div>
@@ -31,7 +33,7 @@
       <button class="logout_btn" type="button">Log Out</button>  
     </div> -->
 
-    <form class="logout_form" name="logoutForm" th:action="@{/logout}" method="POST" th:hidden="true">
+    <form class="logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
         <input class="logout_btn" type="submit" value="Log Out" />
     </form>
     
