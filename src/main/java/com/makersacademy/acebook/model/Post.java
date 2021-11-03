@@ -1,9 +1,14 @@
 package com.makersacademy.acebook.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.GenerationType;
 
 import lombok.Data;
@@ -17,6 +22,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    @CreationTimestamp
+    private Timestamp time;
 
     public Post() {}
 
