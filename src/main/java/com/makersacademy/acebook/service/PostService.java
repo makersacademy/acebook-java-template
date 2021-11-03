@@ -19,4 +19,9 @@ public class PostService implements IPostService {
         return repository.findAllOrderByDateDesc();
     }
 
+    @Override
+    public Post save(Post post) {
+        return repository.save(post);
+    }
+
 }

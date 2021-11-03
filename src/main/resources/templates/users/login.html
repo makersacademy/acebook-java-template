@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Login page</title>
-  </head>
-  <body>
-    <img src="/images/beta_small.png" alt="Beta" width="80">
-    <h1>Beta</h1>
-    <h2>like Meta, but Beta</h2>
-    <h1>Login page</h1>
-    <p th:if="${loginError}" class="error">Wrong user or password</p>
-    <form th:action="@{/login.html}" method="post">
-      <label for="username">Username</label>:
-      <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-      <label for="password">Password</label>:
-      <input type="password" id="password" name="password" /> <br />
-      <input type="submit" value="Log in" />
-    </form>
 
-    <div>
-        <br><a href="/users/new"> Sign Up</a> 
-    </div>
-  </body>
+<head>
+  <title>Login page</title>
+  <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <img src="/images/beta_small.png" alt="Beta" width="80">
+  <h1>Beta</h1>
+  <h2>like Meta, but Beta</h2>
+  <!-- <h1>Login page</h1> -->
+  <p th:if="${loginError}" class="error">Wrong user or password</p>
+  <form class="post" th:action="@{/login.html}" method="post">
+    <label for="username">Username</label>:
+    <input class="credentials" type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <label for="password">Password</label>:
+    <input class="credentials" type="password" id="password" name="password" /> <br />
+    <input class="button" type="submit" value="Log in" />
+  </form>
+
+  <div>
+    <br><a href="/users/new"> Sign Up</a>
+  </div>
+</body>
+
 </html>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IPostService {
     List<Post> findAllOrderByDateDesc();
+
+    Post save(Post post);
 }
