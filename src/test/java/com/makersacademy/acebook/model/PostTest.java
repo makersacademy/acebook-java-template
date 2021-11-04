@@ -3,6 +3,8 @@ package com.makersacademy.acebook.model;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
+import java.beans.Transient;
+
 import org.junit.Test;
 
 public class PostTest {
@@ -12,6 +14,12 @@ public class PostTest {
 	@Test
 	public void postHasContent() {
 		assertThat(post.getContent(), containsString("hello"));
+	}
+
+	@Test 
+	public void likepost(){
+		post.like();
+		assertThat(post.getLikes(), Integer.valueOf(1));
 	}
 
 }
