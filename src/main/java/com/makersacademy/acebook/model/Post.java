@@ -18,12 +18,35 @@ public class Post {
     private Long id;
     private String content;
 
+    //---newly added-------//
+    private String username;
+
+    //---------------------//
+
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, String username) {
+        this.content = content;
+        this.username = username;
+
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
         this.content = content;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
+
+    public String getUser(){
+        return this.username;
+    }
+
+    public void setUser(String username){
+        this.username = username;
+    }
+
+
 
 }

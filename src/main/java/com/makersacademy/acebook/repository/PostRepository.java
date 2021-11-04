@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface PostRepository extends CrudRepository<Post, Long> {
 
     @Query("FROM Post ORDER BY created_at DESC")
+    // @Query("SELECT * FROM Post LEFT JOIN users ON(Post.fk_user_id=users.id)")
     List<Post> findAllOrderByDateDesc();
 
 }

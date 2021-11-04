@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD username varchar(60) references users(username);

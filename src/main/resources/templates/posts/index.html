@@ -25,12 +25,29 @@
     </div>
 
     <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p><input class="text-box" type="text" placeholder="What would you like to share?"
-                th:field="*{content}" /><input class="button" type="submit" value="Post" /></p>
+        <p>
+            <input
+                class="text-box"
+                type="text"
+                placeholder="What would you like to share?"
+                th:field="*{content}"
+            />
+            <!-- <input type="text" hidden th:field="*{fk_user_id}" value="*{sec:authentication="> -->
+
+            <input class="button" type="submit" value="Post" />
+        </p>
+
     </form>
 
     <ul class="post" th:each="post: ${posts}">
-        <span th:text="${post.content}">
+        <div>
+            <p class="post_username" th:text="${post.username}">
+        </div>
+        <p th:text="${post.content}">
+
+
+
+        <!-- <span th:text="${post.username}"> -->
     </ul>
 
 </body>
