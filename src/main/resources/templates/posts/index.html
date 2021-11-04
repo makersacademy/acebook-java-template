@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+
+<body>
+
+
+    <nav>
+        <a href="/logout">Logout</a>
+    </nav>
 
     <h1>Posts</h1>
 
@@ -15,13 +21,14 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li> th:text="${post.content}" </li>
     </ul>
 
-    </body>
+</body>
+
 </html>
