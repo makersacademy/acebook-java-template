@@ -1,24 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
 
 <head>
-  <title tiles:fragment="title">Log in</title>
+  <title tiles:fragment="title">Please sign in</title>
 </head>
 
 <body>
-  <div tiles:fragment="content">
+  <div tiles:fragment="content" style="text-align:center;">
     <form name="f" th:action="@{/login}" method="post">
       <fieldset>
-        <legend>Please sign in</legend>
-        <div th:if="${param.error}" class="alert alert-error">
-          Invalid username and password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
+        <legend>
+          <h4>Please sign in</h4>
+        </legend>
+        <div th:if="${param.error}" class="alert alert-error" style="color:red">
+          Bad credentials
+        </div><br>
+        <div th:if="${param.logout}" class="alert alert-success" style="color:green">
           You have been logged out.
-        </div>
-        <input type="text" id="username" name="username" placeholder="Username" />
-        <input type="password" id="password" name="password" placeholder="Password" />
+        </div><br>
+        <input type="text" id="username" name="username" placeholder="Username" required />
+        <input type="password" id="password" name="password" placeholder="Password" required /><br><br>
         <div class="form-actions">
-          <button type="submit" class="btn">Sign in</button>
+          <button type="submit" class="btn"
+            style="background:#306fa3;color:white; border-radius: 14px; padding:10px;">Sign in</button>
         </div>
       </fieldset>
     </form>
