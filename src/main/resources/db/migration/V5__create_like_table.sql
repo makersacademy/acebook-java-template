@@ -1,10 +1,6 @@
 
 CREATE TABLE liked_posts(
-user_id bigint,
-post_id bigint,
+user_id bigint NOT NULL references users (id), 
+post_id bigint NOT NULL references posts (id)
 
- FOREIGN KEY(post_id)
-   REFERENCES
- FOREIGN KEY(user_id) 
-	  REFERENCES users(id)
 );
