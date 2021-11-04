@@ -40,8 +40,12 @@
     </form>
 
     <ul class="post" th:each="post: ${posts}">
+        <div>
+            <p class="post_username" th:text="${post.username}">
+        </div>
         <p th:text="${post.content}">
-        <p th:text="${post.username}">
+
+
 
         <!-- <span th:text="${post.username}"> -->
     </ul>
