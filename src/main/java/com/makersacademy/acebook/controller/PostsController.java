@@ -19,14 +19,18 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
+        // System.out.println(model);
+        Iterable<Post> posts = repository.findAllByOrderByTimestampDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        // System.out.println(model);
         return "posts/index";
     }
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        System.out.println(post.getTimestamp());
+        System.out.println("Hello world!");
         repository.save(post);
         return new RedirectView("/posts");
     }

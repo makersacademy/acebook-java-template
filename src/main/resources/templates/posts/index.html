@@ -24,11 +24,13 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p>Timestamp: <input type="text" th:field="*{timestamp}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <li th:text="${post.timestamp}" />
     </ul>
 
     </body>

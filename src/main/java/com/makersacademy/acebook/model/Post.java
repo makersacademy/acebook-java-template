@@ -17,13 +17,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String timestamp;
 
     public Post() {}
-
-    public Post(String content) {
-        this.content = content;
-    }
+    public Post(String content) { this.content = content; }
+    public Post(String content, String timestamp) { this.content = content; this.timestamp = timestamp; }
+    
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
+    public String getTimestamp() { return this.timestamp; }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 
 }
