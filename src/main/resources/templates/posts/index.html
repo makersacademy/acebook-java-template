@@ -4,14 +4,25 @@
 <head lang="en">
     <meta charset="UTF-8" />
     <title>Acebook</title>
-    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/login.css" />
 </head>
 
 <body>
 
 
     <nav>
-        <a href="/logout">Logout</a>
+        <div class="logout">
+            <a href="#popup1">
+                <button class="logoutbtn">Logout</button>
+            </a>
+            <div id="popup1" class="overlay">
+                <div class="popup">
+                    <h2>Are you sure you want to log out?</h2>
+                    <a class="close" href="/logout">Yes</a><br><br>
+                    <a class="close" href="#">No</a>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <h1>Posts</h1>
@@ -21,12 +32,13 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+        <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required"
+                required /></p>
         <p><input id="submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" >
+        <li th:text="${post.content}">
     </ul>
 
 </body>
