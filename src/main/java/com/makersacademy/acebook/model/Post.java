@@ -21,10 +21,9 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+    public String content;
     @CreationTimestamp
-    private Timestamp time;
-
+    public Timestamp time;
     public Post() {}
 
     public Post(String content) {
