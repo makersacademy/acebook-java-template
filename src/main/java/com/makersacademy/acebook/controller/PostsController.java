@@ -17,10 +17,11 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
-    
+
     @GetMapping("/posts")
     public String index(Model model) {
         List<PostQuery> posts = repository.postsSortedByDate();
+        // Iterable<Post> post = repository.findAll();
 
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
@@ -30,6 +31,12 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         repository.save(post);
+        return new RedirectView("/posts");
+    }
+
+    @PostMapping("/deletePost/{id}")
+    public RedirectView deletePost(@PathVariable Long id) {
+        repository.deleteById(id);
         return new RedirectView("/posts");
     }
 }
