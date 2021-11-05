@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface IPostService {
   List<Post> findAllByOrderByTimestampDesc();
-
   Post save(Post post);
 }

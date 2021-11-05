@@ -1,10 +1,8 @@
-package com.makersacademy.bean;
+package com.makersacademy.acebook.bean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import com.makersacademy.acebook.model.Date;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
