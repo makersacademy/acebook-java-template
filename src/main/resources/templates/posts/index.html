@@ -29,13 +29,15 @@
         </div>
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <p>Content: <input type="text" name="content" th:value="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <p>Usern: <input type="text" name="usern" th:value="*{sec:authentication='name'}"  required/></p>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
         <ul th:each="post: ${posts}">
             <li th:text="${post.content}" ></li>
             <div th:text="${post.time}" ></div>
+            <div th:text="${post.usern}" ></div>
         </ul>
     </body>
 </html>

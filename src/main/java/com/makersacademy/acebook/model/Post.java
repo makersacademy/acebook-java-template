@@ -22,14 +22,19 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String content;
+    public String usern;
     @CreationTimestamp
     public Timestamp time;
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, String usern) {
         this.content = content;
+        this.usern = usern;
     }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
+
+    public String getUsern() { return this.usern; }
+    public void setUsern(String usern) { this.usern = usern; }
 
 }
