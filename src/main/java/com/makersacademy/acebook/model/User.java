@@ -7,13 +7,17 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.lang.Boolean.TRUE;
+
+
 
 @Data
 @Entity
 @Table(name = "USERS")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,5 +44,11 @@ public class User {
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+        String encodedPassword = encoder.encode(password);
+        this.password = encodedPassword;
+    }
+
+
 }
