@@ -16,6 +16,7 @@
     <h2>like Meta, but Beta</h2>
 
     <form class="post" action="#" th:action="@{/users}" th:object="${user}" method="post">
+        <p th:if="${userExists}">username already taken</p>
         <p>Username: <input class="credentials" type="text" th:field="*{username}" /></p>
         <p>Password: <input class="credentials" type="password" th:field="*{password}" /></p>
         <p><input class="button" type="submit" value="Sign Up" id="submit" /> </p>
