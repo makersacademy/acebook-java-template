@@ -55,7 +55,7 @@ public class SignUpTest {
         //sign in
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.xpath("//button")).click(); //how to click?
+        driver.findElement(By.xpath("//button")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Acebook", title);
     }
@@ -106,11 +106,8 @@ public class SignUpTest {
         //sign in
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.xpath("//button")).click(); //how to click?
+        driver.findElement(By.xpath("//button")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Acebook", title);
     }
-
-
-
 }
