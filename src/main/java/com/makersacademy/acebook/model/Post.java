@@ -22,7 +22,8 @@ public class Post {
     private String username;
   
     @ManyToMany(mappedBy = "likedPosts")
-    Set<User> likes;
+    Set<User> likes; // Creates a 'Set' of 'Users' called likes. 
+    //Each user associated with a post represents 1 like
 
     public Post() {}
 
@@ -40,7 +41,8 @@ public class Post {
         this.content = content;
     }
 
-    public Integer getLikes() { return this.likes.size(); }
+    public Integer getLikes() { return this.likes.size(); } 
+    // returns number of users in set. I.e number of likes.
   
     public String getUser(){
         return this.username;

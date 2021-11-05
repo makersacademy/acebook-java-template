@@ -41,7 +41,8 @@
     <ul class="post" th:each="post: ${posts}">
         <p class="post_username" th:text="${post.getUser()}"></p>
         <p th:text="${post.content}"></p>
-        <span th:text="${post.likes}"></span> likes</br>
+        <span th:text="${post.likes}"></span> likes</br> 
+        <!--outputs post.likes (integer). See line 44 in Post.java   -->
         <form class="comment" action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p><input class="comment-text" type="text" /></p>
             <p><input class="comment-button" type="submit" value="Like" id="submit" /><input class="comment-button"

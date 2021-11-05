@@ -28,10 +28,10 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-    name = "liked_posts",
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "post_id"))
-    Set<Post> likedPosts;
+    name = "liked_posts", 
+    joinColumns = @JoinColumn(name = "user_id"), //FK
+    inverseJoinColumns = @JoinColumn(name = "post_id")) //FK
+    Set<Post> likedPosts; 
 
     public User() {
         this.enabled = TRUE;
