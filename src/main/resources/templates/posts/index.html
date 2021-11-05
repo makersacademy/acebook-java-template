@@ -41,7 +41,7 @@
 
     <ul class="post" th:each="post: ${posts}">
         <div>
-            <p class="post_username" th:text="${post.username}">
+            <p class="post_username" th:text="${post.getUser()}">
         </div>
         <p th:text="${post.content}">
 
