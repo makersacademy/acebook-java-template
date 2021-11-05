@@ -29,7 +29,7 @@ public class Post {
         this.content = content;
     }
     public String getContent() { return this.content; }
-    public Set<User> getLikes() { return this.likes; }
+    public Integer getLikes() { return this.likes.size(); }
     public void setContent(String content) { this.content = content; }
 
 }

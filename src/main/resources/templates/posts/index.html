@@ -17,7 +17,7 @@
     </div>
 
     <img src="/images/beta_small.png" alt="Beta" width="80">
-    <h1>QWERTY</h1>
+    <h1>Beta</h1>
     <h2>like Meta, but Beta</h2>
 
     <div class="greeting" sec:authorize="isAuthenticated()">
@@ -30,10 +30,8 @@
     </form>
 
     <ul class="post" th:each="post: ${posts}">
-        <li>
-        <span th:text="${post.content}"></span>
-        <span th:text="${post.likes}"></span>
-        </li>
+        <span th:text="${post.content}"></span></br>
+        <span th:text="${post.likes}"></span> likes
     </ul>
 
 </body>
