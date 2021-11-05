@@ -13,17 +13,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SignUpTest {
 
+
+public class SignInTest {
     WebDriver driver;
     Faker faker;
+    public String name;
 
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
-    }
+        
+        name = faker.name().firstName();
+
+        // user sign up
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(name);
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
+        }
 
     @After
     public void tearDown() {
@@ -31,12 +41,13 @@ public class SignUpTest {
     }
 
     @Test
-    public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+    public void successfulSignInRedirectsToPosts() {
+        // directs to login page after sign up
+        driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.cssSelector("input[value='Log in']")).click();
+
         String title = driver.getTitle();
-        Assert.assertEquals("Login page", title);
+        Assert.assertEquals("Beta", title);
     }
 }
