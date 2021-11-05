@@ -1,45 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-    <head lang="en">
-        <meta charset="UTF-8" />
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/login.css" />
-    </head>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/login.css" />
+  </head>
 
-    <body>
-        <nav>
-            <div class="logout">
-                <a href="#popup1">
-                    <button class="logoutbtn">Logout</button>
-                </a>
-                <div id="popup1" class="overlay">
-                    <div class="popup">
-                        <h2>Are you sure you want to log out?</h2>
-                        <a class="close" href="/logout">Yes</a><br><br>
-                        <a class="close" href="#">No</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <h1>Posts</h1>
-
-        <div sec:authorize="isAuthenticated()">
-            Signed in as <span sec:authentication="name"></span>
+  <body>
+    <nav>
+      <div class="logout">
+        <a href="#popup1">
+          <button class="logoutbtn">Logout</button>
+        </a>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>Are you sure you want to log out?</h2>
+            <a class="close" href="/logout">Yes</a><br /><br />
+            <a class="close" href="#">No</a>
+          </div>
         </div>
+      </div>
+    </nav>
 
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
-            <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+    <h1>Posts</h1>
 
-        <ul th:each="post: ${posts}">
-            <li th:text="${post.content}" ></li>
-            <div th:text="${post.time}" ></div>
-            <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+    <div sec:authorize="isAuthenticated()">
+      Signed in as <span sec:authentication="name"></span>
+    </div>
+
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <p>
+        Content:
+        <input
+          type="text"
+          th:field="*{content}"
+          pattern=".*\S+.*"
+          title="This field is required"
+          required
+        />
+      </p>
+      <p>
+        <input id="submit" type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+
+    <ul th:each="post: ${posts}">
+      <li th:text="${post.content}"></li>
+      <div th:text="${post.time}"></div>
+      <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
               <input type="hidden" th:id="${post.id}">Delete</input>
               <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"/>
           </form>   
-        </ul>
-    </body>
+    </ul>
+  </body>
 </html>

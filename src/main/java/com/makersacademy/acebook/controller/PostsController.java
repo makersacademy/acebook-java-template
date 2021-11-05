@@ -17,10 +17,11 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
-    
+
     @GetMapping("/posts")
     public String index(Model model) {
         List<PostQuery> posts = repository.postsSortedByDate();
+        // Iterable<Post> post = repository.findAll();
 
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());

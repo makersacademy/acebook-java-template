@@ -32,9 +32,6 @@ public class PostsTest {
     System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     driver = new ChromeDriver();
     faker = new Faker();
-
-  @Test
-  public void deletePost() {
     // signup
     driver.get("http://localhost:8080/users/new");
     String name = faker.name().firstName();
@@ -47,21 +44,6 @@ public class PostsTest {
     driver.findElement(By.id("password")).sendKeys("password");
     driver.findElement(By.xpath("//button")).click();
 
-    // making posts
-    driver.findElement(By.id("content")).sendKeys("Happy days");
-    driver.findElement(By.id("submit")).click();
-    driver.findElement(By.id("content")).sendKeys("Happy morning");
-    driver.findElement(By.id("submit")).click();
-
-    // delete post
-    List<WebElement> a = driver.findElements(By.id("delete"));
-    a.get(0).click();
-    driver.switchTo().alert().accept(); // handle popup window
-
-    String bodyText = driver.findElement(By.tagName("body")).getText();
-    Assert.assertFalse("checks that the post appears", bodyText.contains("Happy days"));
-    Assert.assertTrue("checks that the second post appears", bodyText.contains("Happy morning"));
-
   }
 
   @After
@@ -70,7 +52,28 @@ public class PostsTest {
   }
 
   @Test
+  public void deletePost() {
+
+    // making posts
+    driver.findElement(By.id("content")).sendKeys("Happy days");
+    driver.findElement(By.id("submit")).click();
+    driver.findElement(By.id("content")).sendKeys("Good evening!");
+    driver.findElement(By.id("submit")).click();
+
+    // delete post
+    List<WebElement> a = driver.findElements(By.id("delete"));
+    a.get(0).click();
+    driver.switchTo().alert().accept(); // handle popup window
+
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertFalse("checks that the post appears", bodyText.contains("Good evening!"));
+    Assert.assertTrue("checks that the second post appears", bodyText.contains("Happy days"));
+
+  }
+
+  @Test
   public void DatabaseDateTest() {
+
     // making post
     Date time = new Date(System.currentTimeMillis());
     driver.findElement(By.id("content")).sendKeys("What is the time?");
@@ -82,17 +85,6 @@ public class PostsTest {
 
   @Test
   public void successfulPost() {
-    // signup
-    driver.get("http://localhost:8080/users/new");
-    String name = faker.name().firstName();
-    driver.findElement(By.id("username")).sendKeys(name);
-    driver.findElement(By.id("password")).sendKeys("password");
-    driver.findElement(By.id("submit")).click();
-
-    // sign in
-    driver.findElement(By.id("username")).sendKeys(name);
-    driver.findElement(By.id("password")).sendKeys("password");
-    driver.findElement(By.xpath("//button")).click();
 
     // making post
     driver.findElement(By.id("content")).sendKeys("5G for the win in vaccines");
@@ -104,6 +96,8 @@ public class PostsTest {
 
   @Test
   public void twoPostsAppear() {
+
+    // making first post
     driver.findElement(By.id("content")).sendKeys("The weather today is sunny!");
     driver.findElement(By.id("submit")).click();
 
