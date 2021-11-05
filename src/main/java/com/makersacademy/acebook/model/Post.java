@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToMany;
 import javax.persistence.GenerationType;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -17,11 +19,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-
-    //---newly added-------//
     private String username;
-
-    //---------------------//
+  
+    @ManyToMany(mappedBy = "likedPosts")
+    Set<User> likes;
 
     public Post() {}
 
@@ -39,6 +40,11 @@ public class Post {
         this.content = content;
     }
 
+    public String getContent() { return this.content; }
+    public void setContent(String content) { this.content = content; }
+
+    public Integer getLikes() { return this.likes.size(); }
+  
     public String getUser(){
         return this.username;
     }
@@ -46,7 +52,4 @@ public class Post {
     public void setUser(String username){
         this.username = username;
     }
-
-
-
 }
