@@ -40,6 +40,37 @@ public class PostsTest {
   }
 
   @Test
+  public void deletePost() {
+    // signup
+    driver.get("http://localhost:8080/users/new");
+    String name = faker.name().firstName();
+    driver.findElement(By.id("username")).sendKeys(name);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.id("submit")).click();
+
+    // sign in
+    driver.findElement(By.id("username")).sendKeys(name);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.xpath("//button")).click();
+
+    // making posts
+    driver.findElement(By.id("content")).sendKeys("Happy days");
+    driver.findElement(By.id("submit")).click();
+    driver.findElement(By.id("content")).sendKeys("Happy morning");
+    driver.findElement(By.id("submit")).click();
+
+    // delete post
+    List<WebElement> a = driver.findElements(By.id("delete"));
+    a.get(0).click();
+    driver.switchTo().alert().accept(); // handle popup window
+
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertFalse("checks that the post appears", bodyText.contains("Happy days"));
+    Assert.assertTrue("checks that the second post appears", bodyText.contains("Happy morning"));
+
+  }
+  
+  @Test
   public void successfulPost() {
     // signup
     driver.get("http://localhost:8080/users/new");
@@ -60,7 +91,7 @@ public class PostsTest {
     String bodyText = driver.findElement(By.tagName("body")).getText();
     Assert.assertTrue("checks that the post appears", bodyText.contains("5G for the win in vaccines"));
   }
-
+  
   @Test
   public void twoPostsAppear() {
     // signup
@@ -96,32 +127,4 @@ public class PostsTest {
   // Test pictureAppears
   // Test postsShownInReverseChronologicalOrder
 
-  @Test
-  public void deletePost() {
-    // signup
-    driver.get("http://localhost:8080/users/new");
-    String name = faker.name().firstName();
-    driver.findElement(By.id("username")).sendKeys(name);
-    driver.findElement(By.id("password")).sendKeys("password");
-    driver.findElement(By.id("submit")).click();
-
-    // sign in
-    driver.findElement(By.id("username")).sendKeys(name);
-    driver.findElement(By.id("password")).sendKeys("password");
-    driver.findElement(By.xpath("//button")).click();
-
-    // making posts
-    driver.findElement(By.id("content")).sendKeys("Happy days");
-    driver.findElement(By.id("submit")).click();
-    driver.findElement(By.id("content")).sendKeys("Happy morning");
-    driver.findElement(By.id("submit")).click();
-
-    // delete post
-    List<WebElement> a = driver.findElements(By.id("delete"));
-    a.get(0).click();
-    driver.switchTo().alert().accept(); // handle popup window
-
-    String bodyText = driver.findElement(By.tagName("body")).getText();
-    Assert.assertFalse("checks that the post appears", bodyText.contains("Happy days"));
-  }
 }
