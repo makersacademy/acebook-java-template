@@ -30,5 +30,4 @@ public class PostTest {
 		Post post = new Post("  Hello, This is a sentence.   ");
 		assertThat(post.getContent(), containsString("Hello, This is a sentence."));
 	}
-
 }
