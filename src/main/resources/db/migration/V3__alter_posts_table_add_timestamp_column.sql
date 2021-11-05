@@ -1,1 +1,1 @@
-ALTER TABLE posts ADD COLUMN timestamp VARCHAR(60);
+ALTER TABLE posts ADD timestamp VARCHAR(255);
