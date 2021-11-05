@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.*;
 
 import lombok.Data;
 
@@ -21,6 +25,13 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
+    @ManyToMany
+    @JoinTable(
+    name = "liked_posts",
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "post_id"))
+    Set<Post> likedPosts;
 
     public User() {
         this.enabled = TRUE;
