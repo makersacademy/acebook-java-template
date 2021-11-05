@@ -27,6 +27,7 @@
     <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>
             <input
+                maxlength="250"
                 class="text-box"
                 type="text"
                 placeholder="What would you like to share?"
