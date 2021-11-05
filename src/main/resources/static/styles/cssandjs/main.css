@@ -104,12 +104,13 @@ body {
 }
 
 .post_username {
-    position:fixed;
+    /* position:fixed; */
     align-self: left;
+    text-align: left;
     color:#FBF8FF;
     background-color:#E97690;
 
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     margin:0;
     border-radius:8px 0px 8px 0px;
     padding:0.3rem 1rem 0.3rem;
@@ -117,6 +118,35 @@ body {
 
 }
 
+.comment-button {
+    background-color: #6B5B95;
+    border: none; 
+    color: white;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.6rem;
+    border-radius: 8px;
+    margin: 0px 5px 0px 5px;
+}
+
+.comment-text {
+    background-color: #F0F0F0;
+    color: #808080;
+    border: none; 
+    border-style: solid; 
+    border-color: #D8D8D8; 
+    border: none; 
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 200px; 
+    margin-right: 15px;
+}
 
 /* colour trials  */
 /* blue - #002db3
