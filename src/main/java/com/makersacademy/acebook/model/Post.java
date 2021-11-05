@@ -17,13 +17,18 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String photo;
 
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, String photo) {
         this.content = content;
+        this.photo = photo;
     }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
+
+    public String getPhoto() { return this.photo; }
+    public void setPhoto(String photo) { this.photo = photo; }
 
 }

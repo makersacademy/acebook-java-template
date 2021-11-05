@@ -27,3 +27,7 @@
     color: rgb(208, 255, 0);
     font-weight: bold;
 }
+
+.photo {
+    width: 30%;
+}

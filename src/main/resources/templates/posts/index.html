@@ -44,12 +44,16 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
+        <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+        <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li class="text" th:text="${post.content}" />
+        <li>
+          <img class="photo" th:src="${post.photo}"/>
+        </li>
     </ul>
 
 
