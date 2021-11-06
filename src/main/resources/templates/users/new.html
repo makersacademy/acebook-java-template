@@ -17,9 +17,9 @@
 
     <form class="post" action="#" th:action="@{/users}" th:object="${user}" method="post">
         <p th:if="${userExists}">username already taken</p>
-        <p>Username: <input class="credentials" type="text" th:field="*{username}" /></p>
-        <p>Password: <input class="credentials" type="password" th:field="*{password}" /></p>
-        <p><input class="button" type="submit" value="Sign Up" id="submit" /> </p>
+        <div>Username: <input class="credentials" type="text" th:field="*{username}" /></div>
+        <div>Password: <input class="credentials" type="password" th:field="*{password}" /></div>
+        <div><input class="button" type="submit" value="Sign Up" id="submit" /> </div>
     </form>
 </body>
 
