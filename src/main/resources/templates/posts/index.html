@@ -44,16 +44,17 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-            <!-- <input type="hidden" value="${execInfo.now}" th:field="*{timestamp}"/></p>  -->
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
+        <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+        <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-        <!-- <li th:text="${post.timestamp}" />   **Prints timestamp** -->
+        <li class="text" th:text="${post.content}" />
+        <li>
+          <img class="photo" th:src="${post.photo}"/>
+        </li>
     </ul>
-
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
