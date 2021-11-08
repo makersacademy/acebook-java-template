@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
   
-  @Query("SELECT new com.makersacademy.acebook.lib.PostQuery(p.content, p.usern, p.time) FROM Post p ORDER BY p.time DESC")
+  @Query("SELECT new com.makersacademy.acebook.lib.PostQuery(p.content, p.usern, p.time, p.id) FROM Post p ORDER BY p.time DESC")
   List<PostQuery> postsSortedByDate();
 
 }

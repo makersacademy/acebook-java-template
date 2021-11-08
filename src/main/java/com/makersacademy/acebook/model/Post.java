@@ -31,8 +31,18 @@ public class Post {
         this.content = content;
         this.usern = usern;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getUsern() { return this.usern; }
     public void setUsern(String usern) { this.usern = usern; }
