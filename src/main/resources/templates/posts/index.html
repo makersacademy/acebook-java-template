@@ -57,6 +57,13 @@
                 <input class="comment-button" type="submit" value="Comment" id="submit" />
             </p> -->
             <!-- <hr class="new1"> -->
+<!--         <p th:text="${post.content}"></p>
+        <p th:text="${post.getFormattedTimestamp()}"></p>
+        <span th:text="${post.likes}"></span> likes</br>
+        <form class="comment" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+            <p><input class="comment-text" type="text" /></p>
+            <p><input class="comment-button" type="submit" value="Like" id="submit" /><input class="comment-button"
+                    type="submit" value="Comment" id="submit" /></p> -->
         </form>
         <!-- <hr class="new1"> -->
         <ul class="comment-post" th:each="comment: ${post.comments}">
