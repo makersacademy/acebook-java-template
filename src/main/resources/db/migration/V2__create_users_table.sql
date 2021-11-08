@@ -4,7 +4,8 @@ CREATE TABLE users (
   id bigserial PRIMARY KEY,
   username varchar(50) NOT NULL UNIQUE,
   password varchar(50) NOT NULL,
-  enabled boolean NOT NULL
+  enabled boolean NOT NULL,
+  profileimage bytea
 );
 
 CREATE TABLE authorities (

@@ -37,5 +37,11 @@
             <li th:text="${post.content}" ></li>
             <div th:text="${post.time}" ></div>
         </ul>
+
+        <ul th:each="user: ${profileImage}">
+            <div th:if="${user.profileimage != null} ">
+                <img th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.profileimage)}" alt="" />
+            </div>
+        </ul>
     </body>
 </html>
