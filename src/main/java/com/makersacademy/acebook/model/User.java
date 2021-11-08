@@ -27,11 +27,10 @@ public class User {
     private boolean enabled;
 
     @ManyToMany
-    @JoinTable(
-    name = "liked_posts", //links to bridge table
-    joinColumns = @JoinColumn(name = "user_id"), //FK
-    inverseJoinColumns = @JoinColumn(name = "post_id")) //FK
-    Set<Post> likedPosts; 
+    @JoinTable(name = "liked_posts", // links to bridge table
+            joinColumns = @JoinColumn(name = "user_id"), // FK
+            inverseJoinColumns = @JoinColumn(name = "post_id")) // FK
+    Set<Post> likedPosts;
 
     public User() {
         this.enabled = TRUE;
@@ -49,10 +48,22 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public Long getId() {return this.id;}
-    public void setUsername(String username) { this.username = username; }
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
         String encodedPassword = encoder.encode(password);
