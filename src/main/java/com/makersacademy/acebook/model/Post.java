@@ -1,10 +1,15 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +30,12 @@ public class Post {
     public String usern;
     @CreationTimestamp
     public Timestamp time;
+    // public String user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
+    // public String getUsername() { return username; }
 
     public Post() {
     }

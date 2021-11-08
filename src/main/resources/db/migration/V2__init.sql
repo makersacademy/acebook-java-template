@@ -5,9 +5,9 @@ CREATE TABLE posts (
   usern varchar(250),
   content varchar(250) NOT NULL,
   time timestamp default CURRENT_TIMESTAMP NOT NULL,
-  username varchar(250),
-  constraint fk_posts_users foreign key(username) references users(username) 
+  user_id bigserial NOT NULL,
+  constraint fk_posts_users foreign key(user_id) references users(id) 
 );
 
-create unique index ix_post_username on posts(content,time, username);
+-- create unique index ix_post_username on posts(content,time, username);
 
