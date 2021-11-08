@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,6 +26,11 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
+
+
     public Post() {}
 
     public Post(String content) {

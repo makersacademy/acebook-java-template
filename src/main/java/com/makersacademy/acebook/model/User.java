@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
@@ -21,6 +22,11 @@ public class User {
     private String password;
     private boolean enabled;
     public byte[] profileimage;
+    @Transient
+    public static User user;
+    //If filter by post made my user
+    // @OneToMany(mappedBy = "id")
+    // List<Post> postsMade = new ArrayList<>();
 
     public User() {
         this.enabled = TRUE;

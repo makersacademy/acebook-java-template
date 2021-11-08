@@ -34,14 +34,12 @@
         </form>
 
         <ul th:each="post: ${posts}">
+            <div th:if="${post.user.profileimage != null} ">
+                <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+            </div>
+            <div th:text="${post.user.username}" ></div>
             <li th:text="${post.content}" ></li>
             <div th:text="${post.time}" ></div>
-        </ul>
-
-        <ul th:each="user: ${profileImage}">
-            <div th:if="${user.profileimage != null} ">
-                <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.profileimage)}" alt="" />
-            </div>
         </ul>
     </body>
 </html>

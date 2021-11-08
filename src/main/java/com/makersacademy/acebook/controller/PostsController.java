@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.data.domain.Sort;
 
 @Controller
 public class PostsController {
@@ -26,12 +27,9 @@ public class PostsController {
     
     @GetMapping("/posts")
     public String index(Model model) throws Exception{
-        List<PostQuery> posts = repository.postsSortedByDate();
-        Iterable<User> users = Userrepository.findAll();
-
+        Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "time"));
+        
         model.addAttribute("imgUtil", new ImageUtil());
-        model.addAttribute("profileImage", users);
-
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -39,6 +37,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        post.user = User.user;
         repository.save(post);
         return new RedirectView("/posts");
     }
