@@ -25,26 +25,35 @@ public class Post {
     public String usern;
     @CreationTimestamp
     public Timestamp time;
-    public Post() {}
 
-    public Post(String content, String usern) {
-        this.content = content;
-        this.usern = usern;
+    public Post() {
     }
 
-    public String getContent() {
-        return this.content;
+    public Post(String content, String usern, Timestamp time, Long id) {
+        this.content = content;
+        this.usern = usern;
+        this.time = time;
+        this.id = id;
     }
 
     public Long getId() {
         return this.id;
     }
 
+    public String getContent() {
+        return this.content;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
 
-    public String getUsern() { return this.usern; }
-    public void setUsern(String usern) { this.usern = usern; }
+    public String getUsern() {
+        return this.usern;
+    }
+
+    public void setUsern(String usern) {
+        this.usern = usern;
+    }
 
 }
