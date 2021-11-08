@@ -33,12 +33,14 @@ public class SignInTest {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
-        }
+    }
 
     @After
     public void tearDown() {
         driver.close();
     }
+
+
 
     @Test
     public void successfulSignInRedirectsToPosts() {
