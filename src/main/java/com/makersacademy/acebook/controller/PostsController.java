@@ -2,7 +2,6 @@ package com.makersacademy.acebook.controller;
 
 import java.util.List;
 
-import com.makersacademy.acebook.lib.PostQuery;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.PostRepository;
 //import org.omg.CORBA.Request;
