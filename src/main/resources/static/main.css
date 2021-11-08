@@ -8,3 +8,9 @@
     text-align: left;
     margin-bottom: 0.5rem;;
 }
+
+img.profileImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}

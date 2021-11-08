@@ -40,7 +40,7 @@
 
         <ul th:each="user: ${profileImage}">
             <div th:if="${user.profileimage != null} ">
-                <img th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.profileimage)}" alt="" />
+                <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(user.profileimage)}" alt="" />
             </div>
         </ul>
     </body>

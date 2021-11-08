@@ -1,3 +1,6 @@
+import java.io.File;
+import java.net.URL;
+
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import org.junit.After;
@@ -109,5 +112,40 @@ public class SignUpTest {
         driver.findElement(By.xpath("//button")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Acebook", title);
+
+    }
+    @Test
+    public void uploadPicture() {
+        //signup
+        driver.get("http://localhost:8080/users/new");
+        String name = faker.name().firstName();
+        driver.findElement(By.id("username")).sendKeys(name);
+        driver.findElement(By.id("password")).sendKeys("password");
+
+        URL url = getClass().getResource("static/images/BigDuck.jpg");
+        driver.findElement(By.id("file")).sendKeys(url.getPath());
+
+        driver.findElement(By.id("submit")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Please sign in", title);
+    }
+
+    @Test
+    public void uploaAndShowdPicture() {
+        //signup
+        driver.get("http://localhost:8080/users/new");
+        String name = faker.name().firstName();
+        driver.findElement(By.id("username")).sendKeys(name);
+        driver.findElement(By.id("password")).sendKeys("password");
+        URL url = getClass().getResource("static/images/BigDuck.jpg");
+        driver.findElement(By.id("file")).sendKeys(url.getPath());
+        driver.findElement(By.id("submit")).click();
+
+        driver.findElement(By.id("username")).sendKeys(name);
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.xpath("//button")).click();
+        //uploadPicture()
+        String text = driver.findElement(By.tagName("img")).getAttribute("class");
+        Assert.assertEquals(text, "profileImage");
     }
 }
