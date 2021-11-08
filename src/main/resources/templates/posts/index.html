@@ -41,7 +41,7 @@
     <ul class="post" th:each="post: ${posts}">
         <p class="post_username" th:text="${post.getUser()}"></p>
         <p th:text="${post.content}"></p>
-        <p th:text="${post.getCreatedAt()}"></p>
+        <p th:text="${post.getFormattedTimestamp()}"></p>
         <span th:text="${post.likes}"></span> likes</br>
         <form class="comment" action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p><input class="comment-text" type="text" /></p>

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 
 import java.sql.Timestamp;
 import java.util.Set;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import lombok.Data;
 
@@ -57,5 +58,12 @@ public class Post {
 
     public Timestamp getCreatedAt() {
         return this.created_at;
+    }
+
+    public String getFormattedTimestamp() {
+		PrettyTime p = new PrettyTime();
+
+		// Traditional Date API:
+		return (p.format(getCreatedAt()));
     }
 }

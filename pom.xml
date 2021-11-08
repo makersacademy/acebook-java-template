@@ -108,6 +108,11 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <dependency>
+        <groupId>org.ocpsoft.prettytime</groupId>
+        <artifactId>prettytime</artifactId>
+        <version>5.0.2.Final</version>
+        </dependency>
     </dependencies>
 
 
