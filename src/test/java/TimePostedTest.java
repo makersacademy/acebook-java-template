@@ -48,6 +48,6 @@ public class TimePostedTest {
     public void successfulPostDisplaysTimePosted() {
         driver.findElement(By.id("content")).sendKeys("Hello");
         driver.findElement(By.cssSelector("input[value='Post']")).click();
-        Assert.assertTrue(driver.getPageSource().contains("2021"));
+        Assert.assertTrue(driver.getPageSource().contains("moments ago"));
     }
 }

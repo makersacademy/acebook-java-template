@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.GenerationType;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -23,7 +25,8 @@ public class Post {
     private Long id;
     private String content;
     private String username;
-    private Timestamp created_at;
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Date created_at;
   
     @ManyToMany(mappedBy = "likedPosts") //links to bridge table
     Set<User> likes; // Creates a 'Set' of 'Users' called likes. 
@@ -56,14 +59,13 @@ public class Post {
         this.username = username;
     }
 
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return this.created_at;
     }
 
     public String getFormattedTimestamp() {
 		PrettyTime p = new PrettyTime();
-
-		// Traditional Date API:
 		return (p.format(getCreatedAt()));
     }
+
 }
