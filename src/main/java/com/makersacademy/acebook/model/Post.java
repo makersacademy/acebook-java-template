@@ -6,12 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.GenerationType;
 
 import java.util.List;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -31,10 +29,6 @@ public class Post {
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Date created_at;
-  
-    @ManyToMany(mappedBy = "likedPosts") //links to bridge table
-    Set<User> likes; // Creates a 'Set' of 'Users' called likes. 
-    //Each user associated with a post represents 1 like
 
     @ManyToMany(mappedBy = "likedPosts") // links to bridge table
     Set<User> likes; // Creates a 'Set' of 'Users' called likes.
@@ -49,7 +43,6 @@ public class Post {
     public Post(String content, String username) {
         this.content = content;
         this.username = username;
-
     }
 
     public String getContent() {
@@ -82,8 +75,8 @@ public class Post {
     }
 
     public String getFormattedTimestamp() {
-		PrettyTime p = new PrettyTime();
-		return (p.format(getCreatedAt()));
+        PrettyTime p = new PrettyTime();
+        return (p.format(getCreatedAt()));
     }
 
 }

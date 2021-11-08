@@ -1,7 +1,5 @@
 package com.makersacademy.acebook.repository;
 
-// import java.util.Optional;
-
 import com.makersacademy.acebook.model.Comment;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
     Page<Comment> findByPostId(Long postId, Pageable pageable);
-
-    // Optional<Comment> findByIdAndPostId(Long id, Long postId);
 }

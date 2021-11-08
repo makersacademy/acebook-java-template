@@ -39,10 +39,6 @@ public class Comment {
         return this.content;
     }
 
-    // public void setPostId(Long postId) {
-    // this.postId = postId;
-    // }
-
     public void setContent(String content) {
         this.content = content;
     }
