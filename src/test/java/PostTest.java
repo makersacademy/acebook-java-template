@@ -33,9 +33,24 @@ public class PostTest {
     driver.findElement(By.id("submit")).click();
   }
 
+  private void login(){
+    driver.get("http://localhost:8080/login.html");
+    driver.findElement(By.id("username")).sendKeys(name);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.cssSelector("input[type='submit'][value='Log in']")).click();
+
+  }
+
   @After
   public void teardown(){
     driver.close();
+  }
+
+  @Test
+  public void authenticatedUserSeesPosts(){
+    login();
+    driver.get("http://localhost:8080/posts");
+    Assert.assertEquals("Hey, " + name + '!', driver.findElement(By.className("greeting")).getText());
   }
 
   @Test
