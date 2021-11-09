@@ -24,13 +24,19 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/posts")
     public String index(Model model) {
+        // Object principal =
+        // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // String username = ((UserDetails) principal).getUsername();
+        // User thisUser = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "time"));
         // List<PostQuery> posts = repository.postsSortedByDate();
         // Iterable<Post> post = repository.findAll();
-
+        // model.addAttribute("thisUser", thisUser);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -38,11 +44,9 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        Object principal =
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         post.setUsername(username);
-
         repository.save(post);
         return new RedirectView("/posts");
     }
