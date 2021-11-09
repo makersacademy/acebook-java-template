@@ -67,10 +67,11 @@ public class PostTest {
   }
 
   @Test
-  // public void userCanPostText(){
-  //   //Test 7
-  //   driver.findElement(By.id("content")).sendKeys("I like bacon!");
-  //   Assert.assertEquals("I like bacon!", driver.findElement(By.cssSelector("p[th:text='${post.content}']")));
+  public void userCanPostText(){
+    //Test 7
+    driver.findElement(By.id("content")).sendKeys("I like bacon!");
+    Assert.assertEquals("I like bacon!", driver.findElement(By.cssSelector("p[th:text='${post.content}']")));
 
-  // }
+  }
+
 }
