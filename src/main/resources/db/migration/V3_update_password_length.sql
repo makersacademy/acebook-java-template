@@ -1,1 +1,0 @@
-ALTER TABLE users ALTER COLUMN password TYPE varchar(60) USING password::varchar(60);
