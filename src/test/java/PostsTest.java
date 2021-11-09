@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.openqa.selenium.support.pagefactory.ByAll;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.net.URL;
 import java.sql.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -142,7 +144,7 @@ public class PostsTest {
   }
 
   @Test
-  public void addsNameAgainstTwoPost() {
+  public void uploadAndShowPicture() {
     // post 1
     // signup
     driver.get("http://localhost:8080/users/new");
@@ -183,5 +185,17 @@ public class PostsTest {
     Assert.assertTrue("checks that the first name appears", bodyText.contains(name));
     Assert.assertTrue("checks that the second post appears", bodyText.contains("This is post 2"));
     Assert.assertTrue("checks that the second name appears", bodyText.contains(name1));
+  }
+
+  @Test
+  public void uploadAndShowContentPicture() {
+    // making post
+    driver.findElement(By.id("content")).sendKeys("This is an image");
+    URL url = getClass().getResource("static/images/BigDuck.jpg");
+    driver.findElement(By.id("file")).sendKeys(url.getPath());
+    driver.findElement(By.id("submit")).click();
+
+    WebElement text = driver.findElement(By.className("contentImage"));
+    Assert.assertNotNull(text);
   }
 }
