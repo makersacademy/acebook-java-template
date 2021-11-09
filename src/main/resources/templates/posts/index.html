@@ -38,10 +38,12 @@
         <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
 
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
-            <p><span th:text="${post.content}"></span></p><span th:text="${post.likes}"></span> likes
+            <h3><span th:text="${post.content}"></span></h3>
+            <span th:text="${post.likes}"></span> likes
             <input class="comment-button" type="submit" value="Like" id="submit" /></br>
         </form>
         <!--  this like button doesn't work yet. Will need to check the changes made by Joe -->
+        <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
 
         <hr class="new1">
         <!--outputs post.likes (integer). See line 44 in Post.java   -->

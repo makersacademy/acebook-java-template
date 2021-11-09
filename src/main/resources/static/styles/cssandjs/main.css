@@ -111,6 +111,10 @@ body {
     overflow: hidden;
 }
 
+.post_created_at {
+    text-align: right;
+}
+
 .comment-button {
     background-color: #6B5B95;
     border: none; 
