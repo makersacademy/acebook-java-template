@@ -3,6 +3,7 @@ package com.makersacademy.acebook.controller;
 import java.security.Principal;
 import java.util.List;
 
+import com.makersacademy.acebook.lib.ImageUtil;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class PostsController {
@@ -26,17 +30,16 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     UserRepository userRepository;
-
+    
     @GetMapping("/posts")
-    public String index(Model model) {
-        // Object principal =
-        // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        // String username = ((UserDetails) principal).getUsername();
-        // User thisUser = userRepository.findByUsername(username).get(0);
+    public String index(Model model) throws Exception{
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User thisUsers = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "time"));
-        // List<PostQuery> posts = repository.postsSortedByDate();
-        // Iterable<Post> post = repository.findAll();
-        // model.addAttribute("thisUser", thisUser);
+        
+        model.addAttribute("thisUser", thisUsers);
+        model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -44,9 +47,6 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) principal).getUsername();
-        post.setUsername(username);
         repository.save(post);
         return new RedirectView("/posts");
     }

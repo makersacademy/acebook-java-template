@@ -7,6 +7,8 @@
     <meta charset="UTF-8" />
     <title>Acebook</title>
     <link rel="stylesheet" href="/login.css" />
+    <link rel="stylesheet" href="/main.css" />
+
   </head>
 
   <body>
@@ -31,18 +33,35 @@
       Signed in as <span sec:authentication="name"></span>
     </div>
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" name="content" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
-        <ul th:each="post: ${posts}">
-            <li th:text="${post.content}" ></li>
-            <div th:text="${post.time}" ></div>
-            <div th:text="${post.username}" ></div>
-          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
-              <input type="hidden" th:id="${post.id}">Delete</input>
-              <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"/>
-          </form> 
-        </ul>
+        <div th:each="post: ${posts}">
+            <table>
+                <tr>
+                    <td rowspan="6">
+                        <!-- IF -->
+                        <div th:if="${post.user.profileimage.length != 0} ">
+                            <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+                        </div>
+                        <!-- ELSE -->
+                        <div th:if="${post.user.profileimage.length == 0} ">
+                            <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
+                        </div>
+                    </td>
+                    <td>
+                        <div th:text="${post.user.username}" ></div>
+                        <div th:text="${post.content}" ></div>
+                        <div th:text="${post.time}" ></div>
+                        <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+                          <input type="hidden" th:id="${post.id}">Delete</input>
+                          <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"/>
+                      </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

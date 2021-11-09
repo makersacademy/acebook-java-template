@@ -26,20 +26,17 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
-    public String username;
-
-    // @ManyToOne
-    // @JoinColumn(name = "username", insertable = false, updatable = false)
-    // public User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
 
     public Post() {
     }
 
-    public Post(String content, Timestamp time, Long id, String username) {
+    public Post(String content, Timestamp time, Long id) {
         this.content = content;
         this.time = time;
         this.id = id;
-        this.username = username;
     }
 
     public Long getId() {
@@ -50,15 +47,9 @@ public class Post {
         return this.content;
     }
 
+    public void setUser(User user) {this.user = user;} 
     public void setContent(String content) {
         this.content = content;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
+    
 }
