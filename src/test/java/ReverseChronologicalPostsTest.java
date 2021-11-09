@@ -1,6 +1,5 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-import com.makersacademy.acebook.model.Post;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,15 +9,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // @ContextConfiguration(classes = Application.class)
@@ -66,19 +63,15 @@ public class ReverseChronologicalPostsTest {
 
         List<WebElement> content = driver.findElements(By.className("text"));
         List<String> postsInDisplayedOrder = new ArrayList<String>();
+        int i = 0;
         for (WebElement contentElement : content) {
-            // for (int i = 0; i == 4; i++) {
-                String webElementString = contentElement.getText();
+            String webElementString = contentElement.getText();
+            if ( i <= 3) {
                 postsInDisplayedOrder.add(webElementString);
-            // }
+            }
+        i++;
         }
-        List<String> expectedList = new ArrayList<>();
-            expectedList.add("4");
-            expectedList.add("3");
-            expectedList.add("2");
-            expectedList.add("1");
-        System.out.println("Expected List " + expectedList);
-        System.out.println("Posts in displayed order " + postsInDisplayedOrder);
+        List<String> expectedList = Arrays.asList( "4", "3", "2", "1");
         Assert.assertEquals(expectedList, postsInDisplayedOrder);
     }
 }
