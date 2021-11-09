@@ -70,8 +70,22 @@ public class PostTest {
   public void userCanPostText(){
     //Test 7
     driver.findElement(By.id("content")).sendKeys("I like bacon!");
-    Assert.assertEquals("I like bacon!", driver.findElement(By.cssSelector("p[th:text='${post.content}']")));
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+    Assert.assertEquals("I like bacon!", driver.findElement(By.tagName("h3")).getText());
+    // Assert.assertTrue(driver.getPageSource().contains("I like bacon!"));
 
   }
 
+  @Test
+  public void cap250char(){
+    String char300 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. "+
+      "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "+
+      "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.";
+
+    driver.findElement(By.id("content")).sendKeys(char300);
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+    String page_content = driver.getPageSource();
+    // System.out.println(page_content);
+    Assert.assertEquals(char300.substring(0,249), driver.findElement(By.tagName("h3")).getText());
+  }
 }
