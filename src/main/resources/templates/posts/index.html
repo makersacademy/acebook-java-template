@@ -32,36 +32,44 @@
     <div sec:authorize="isAuthenticated()">
       Signed in as <span sec:authentication="name"></span>
     </div>
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
             <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
             <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
+            <p>Photos: <input id="file" type="file" accept="image/png, image/jpeg" name="file" /> </p> 
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
         <div th:each="post: ${posts}">
-            <table>
+            <table class="post">
                 <tr>
-                    <td rowspan="6">
-                        <!-- IF -->
-                        <div th:if="${post.user.profileimage.length != 0} ">
-                            <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
-                        </div>
-                        <!-- ELSE -->
-                        <div th:if="${post.user.profileimage.length == 0} ">
-                            <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div th:text="${post.user.username}" ></div>
-                        <div th:text="${post.content}" ></div>
-                        <div th:text="${post.time}" ></div>
-                        <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
-                          <input type="hidden" th:id="${post.id}">Delete</input>
-                          <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"/>
-                      </form>
-                    </td>
+                  <td rowspan="6">
+                    <!-- IF -->
+                    <div th:if="${post.user.profileimage.length != 0} ">
+                      <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+                    </div>
+                    <!-- ELSE -->
+                    <div th:if="${post.user.profileimage.length == 0} ">
+                      <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
+                    </div>
+                  </td>
+                  <td>
+                    <div th:text="${post.user.username}" ></div>
+                    <div th:text="${post.content}" ></div>
+                    <div th:text="${post.time}" ></div>
+                    <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+                      <input type="hidden" th:id="${post.id}">Delete</input>
+                      <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')" />
+                    </form>
+                  </td>
+                  <td rowspan="6">
+                    <!-- IF -->
+                    <div th:if="${post.contentimage.length != 0} ">
+                      <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
+                    </div>
+                  </td>
                 </tr>
             </table>
+            <br/>
         </div>
     </body>
 </html>
