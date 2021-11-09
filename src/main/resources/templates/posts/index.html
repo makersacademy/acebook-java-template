@@ -30,16 +30,30 @@
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
-        <ul th:each="post: ${posts}">
-            <div th:if="${post.user.profileimage != null} ">
-                <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
-            </div>
-            <div th:text="${post.user.username}" ></div>
-            <li th:text="${post.content}" ></li>
-            <div th:text="${post.time}" ></div>
-        </ul>
+        <div th:each="post: ${posts}">
+            <table>
+                <tr>
+                    <td rowspan="6">
+                        <!-- IF -->
+                        <div th:if="${post.user.profileimage.length != 0} ">
+                            <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+                        </div>
+                        <!-- ELSE -->
+                        <div th:if="${post.user.profileimage.length == 0} ">
+                            <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
+                        </div>
+                    </td>
+                    <td>
+                        <div th:text="${post.user.username}" ></div>
+                        <div th:text="${post.content}" ></div>
+                        <div th:text="${post.time}" ></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

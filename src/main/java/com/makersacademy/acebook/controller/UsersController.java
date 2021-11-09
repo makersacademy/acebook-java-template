@@ -33,8 +33,6 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user,  @RequestParam("file") MultipartFile file) throws IOException {
-
-        User.user = user;
         user.profileimage = file.getBytes();
         userRepository.save(user);        
 

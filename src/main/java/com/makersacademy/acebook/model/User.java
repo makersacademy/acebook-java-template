@@ -22,8 +22,6 @@ public class User {
     private String password;
     private boolean enabled;
     public byte[] profileimage;
-    @Transient
-    public static User user;
     //If filter by post made my user
     // @OneToMany(mappedBy = "id")
     // List<Post> postsMade = new ArrayList<>();
@@ -44,6 +42,7 @@ public class User {
         this.enabled = enabled;
     }
 
+    public Long getId() { return this.id; }
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }

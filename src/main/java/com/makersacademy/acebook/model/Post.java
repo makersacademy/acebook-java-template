@@ -30,7 +30,6 @@ public class Post {
     @JoinColumn(name = "user_id")
     public User user;
 
-
     public Post() {}
 
     public Post(String content) {
@@ -39,4 +38,5 @@ public class Post {
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 
+    public void setUser(User user) {this.user = user;} 
 }
