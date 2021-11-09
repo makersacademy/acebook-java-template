@@ -47,15 +47,15 @@ public class SignUpTest {
     }
 
     @Test
-    public void successfulSignInAfterSignUp(){
-        //signup
+    public void successfulSignInAfterSignUp() {
+        // signup
         driver.get("http://localhost:8080/users/new");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
 
-        //sign in
+        // sign in
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button")).click();
@@ -64,49 +64,49 @@ public class SignUpTest {
     }
 
     @Test
-    public void unsuccessfulSignInRedirectsToSignIn(){
-        //signin with unknown account
+    public void unsuccessfulSignInRedirectsToSignIn() {
+        // signin with unknown account
         driver.get("http://localhost:8080/");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("wordpass");
         driver.findElement(By.xpath("//button")).click();
-        
-        //check still on sign in page
+
+        // check still on sign in page
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
     }
 
     @Test
-    public void unsuccessfulSignInGivesWarningMessage(){
-        //signin with unknown account
+    public void unsuccessfulSignInGivesWarningMessage() {
+        // signin with unknown account
         driver.get("http://localhost:8080/");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("wordpass");
         driver.findElement(By.xpath("//button")).click();
 
-        //check message Bad credentials appears
+        // check message Bad credentials appears
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("checks it warns credentials are bad", bodyText.contains("Bad credentials"));
     }
 
     @Test
-    public void successfulSignInAfterUnsuccessfulSignIn(){
-        //signup
+    public void successfulSignInAfterUnsuccessfulSignIn() {
+        // signup
         driver.get("http://localhost:8080/users/new");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
 
-        //signin with wrong password
+        // signin with wrong password
         driver.get("http://localhost:8080/");
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("wordpass");
         driver.findElement(By.xpath("//button")).click();
 
-        //sign in
+        // sign in
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button")).click();
@@ -114,9 +114,10 @@ public class SignUpTest {
         Assert.assertEquals("Acebook", title);
 
     }
+
     @Test
     public void uploadPicture() {
-        //signup
+        // signup
         driver.get("http://localhost:8080/users/new");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
@@ -131,8 +132,8 @@ public class SignUpTest {
     }
 
     @Test
-    public void uploaAndShowdPicture() {
-        //signup
+    public void uploadAndShowPicture() {
+        // signup
         driver.get("http://localhost:8080/users/new");
         String name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
@@ -144,7 +145,7 @@ public class SignUpTest {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button")).click();
-        //uploadPicture()
+        // uploadPicture()
         String text = driver.findElement(By.tagName("img")).getAttribute("class");
         Assert.assertEquals(text, "profileImage");
     }
