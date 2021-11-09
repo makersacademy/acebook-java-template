@@ -2,6 +2,7 @@ package com.makersacademy.acebook.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import com.makersacademy.acebook.lib.ImageUtil;
 import com.makersacademy.acebook.model.Post;
@@ -58,8 +59,9 @@ public class PostsController {
     }
 
     @GetMapping("/post/{id}")
-    public String post(@PathVariable Long id) {
-        repository.findById(id);
+    public String post(@PathVariable Long id, Model model) {
+        Post post = repository.findById(id).get();
+        model.addAttribute("post", post);
         return "posts/post";
     }
     // public RedirectView create(@ModelAttribute Post post, Principal principal) {
