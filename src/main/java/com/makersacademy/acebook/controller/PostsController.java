@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,7 +48,9 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post,  @RequestParam("file") MultipartFile file) throws IOException {
+        post.contentimage = file.getBytes();
+
         repository.save(post);
         return new RedirectView("/posts");
     }

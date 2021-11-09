@@ -26,6 +26,7 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
+    public byte[] contentimage;
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
