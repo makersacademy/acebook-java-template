@@ -5,16 +5,48 @@
 <head lang="en">
     <meta charset="UTF-8" />
     <title>Beta</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link th:href="@{/styles/cssandjs/navbar.css}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">beta</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Friends</a></li>
+                        <li><a href="#">Settings</a></li>
+                    </ul>
+                </li>
+                <!-- <li><a href="#">Page 2</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+                <li><span class="sign-out-button">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out" />
+                        </form>
 
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- 
     <div class="sign-out-button">
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out" />
         </form>
-    </div>
+    </div> -->
 
     <img src="/images/beta_small.png" alt="Beta" width="80">
     <h1>Beta</h1>
@@ -36,14 +68,14 @@
     <ul class="post" th:each="post: ${posts}">
         <p class="post_username" th:text="${post.getUser()}"></p>
         <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
-
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
             <h3><span th:text="${post.content}"></span></h3>
+            <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
             <span th:text="${post.likes}"></span> likes
             <input class="comment-button" type="submit" value="Like" id="submit" /></br>
         </form>
         <!--  this like button doesn't work yet. Will need to check the changes made by Joe -->
-        <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
+
 
         <hr class="new1">
         <!--outputs post.likes (integer). See line 44 in Post.java   -->
