@@ -1,12 +1,19 @@
 package com.makersacademy.acebook.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
+
 //import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +38,11 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        Object principal =
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        post.setUsername(username);
+
         repository.save(post);
         return new RedirectView("/posts");
     }
@@ -40,4 +52,10 @@ public class PostsController {
         repository.deleteById(id);
         return new RedirectView("/posts");
     }
+
+    // public RedirectView create(@ModelAttribute Post post, Principal principal) {
+    // post.setUserName(principal.getUsername());
+    // repository.save(post);
+    // return new RedirectView("/posts");
+    // }
 }

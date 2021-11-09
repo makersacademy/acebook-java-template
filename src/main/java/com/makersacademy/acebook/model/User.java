@@ -1,7 +1,6 @@
 package com.makersacademy.acebook.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -12,8 +11,6 @@ import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -27,9 +24,9 @@ public class User {
     private String password;
     private boolean enabled;
 
-    // @OneToMany(mappedBy = "username")
-    // List<Post> postsMade = new ArrayList<>();
-    
+    // @OneToMany(mappedBy = "user")
+    // Set<Post> postsMade;
+
     public User() {
         this.enabled = TRUE;
     }
@@ -46,8 +43,19 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

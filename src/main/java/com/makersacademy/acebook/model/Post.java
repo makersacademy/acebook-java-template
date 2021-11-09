@@ -1,14 +1,11 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,24 +24,22 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String content;
-    public String usern;
     @CreationTimestamp
     public Timestamp time;
-    // public String user_id;
+    public String username;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    public User user;
-    // public String getUsername() { return username; }
+    // @ManyToOne
+    // @JoinColumn(name = "username", insertable = false, updatable = false)
+    // public User user;
 
     public Post() {
     }
 
-    public Post(String content, String usern, Timestamp time, Long id) {
+    public Post(String content, Timestamp time, Long id, String username) {
         this.content = content;
-        this.usern = usern;
         this.time = time;
         this.id = id;
+        this.username = username;
     }
 
     public Long getId() {
@@ -59,12 +54,11 @@ public class Post {
         this.content = content;
     }
 
-    public String getUsern() {
-        return this.usern;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUsern(String usern) {
-        this.usern = usern;
+    public String getUsername() {
+        return this.username;
     }
-
 }
