@@ -26,13 +26,8 @@
 
     <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>
-            <input
-                maxlength="250"
-                class="text-box"
-                type="text"
-                placeholder="What would you like to share?"
-                th:field="*{content}"
-                />
+            <input maxlength="250" class="text-box" type="text" placeholder="What would you like to share?"
+                th:field="*{content}" />
             <input class="button" type="submit" value="Post" />
         </p>
 
@@ -40,14 +35,31 @@
 
     <ul class="post" th:each="post: ${posts}">
         <p class="post_username" th:text="${post.getUser()}"></p>
-        <p th:text="${post.content}"></p>
-        <p th:text="${post.getFormattedTimestamp()}"></p>
-        <span th:text="${post.likes}"></span> likes</br>
-        <form class="comment" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p><input class="comment-text" type="text" /></p>
-            <p><input class="comment-button" type="submit" value="Like" id="submit" /><input class="comment-button"
-                    type="submit" value="Comment" id="submit" /></p>
+        <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
+
+        <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
+            <h3><span th:text="${post.content}"></span></h3>
+            <span th:text="${post.likes}"></span> likes
+            <input class="comment-button" type="submit" value="Like" id="submit" /></br>
         </form>
+        <!--  this like button doesn't work yet. Will need to check the changes made by Joe -->
+        <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
+
+        <hr class="new1">
+        <!--outputs post.likes (integer). See line 44 in Post.java   -->
+        <!-- class="comment"  -->
+        <form action="#" th:action="@{/posts/comments}" th:object="${comment}" method="post">
+            <p>
+                <input class="comment-input" type="text" name="content" placeholder="Write a comment..." />
+                <input type="hidden" th:value="${post.id}" name="post_id" />
+                <input class="comment-button" type="submit" value="Comment" id="submit" />
+            </p>
+        </form>
+        <ul class="comment-post" th:each="comment: ${post.comments}">
+            <p><span th:text="${comment.username}"></span> says: <span th:text="${comment.content}">
+                </span></p>
+        </ul>
     </ul>
 </body>
+
 </html>
