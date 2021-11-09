@@ -22,11 +22,13 @@ public class Post {
     private String content;
     private String timestamp;
     private String photo;
+    private String username;
 
     public Post() {}
     public Post(String content) { this.content = content; }
     public Post(String content, String timestamp) { this.content = content; this.timestamp = timestamp; }
     public Post(String content, String timestamp, String photo) { this.content = content; this.timestamp = timestamp; this.photo = photo; }
+    public Post(String content, String timestamp, String photo, String username) { this.content = content; this.timestamp = timestamp; this.photo = photo; this.username = username;}
 
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
@@ -41,5 +43,9 @@ public class Post {
     
     public String getPhoto() { return this.photo; }
     public void setPhoto(String photo) { this.photo = photo; }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 
 }
