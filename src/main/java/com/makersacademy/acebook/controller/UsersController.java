@@ -58,12 +58,12 @@ public class UsersController {
 
     @RequestMapping("/login.html")
     public String login() {
-        return "/users/login.html";
+        return "users/login.html";
     }
 
     @RequestMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "/users/login.html";
+        return "users/login.html";
     }
 }
