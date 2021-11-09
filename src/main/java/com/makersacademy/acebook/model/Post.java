@@ -30,13 +30,26 @@ public class Post {
     @JoinColumn(name = "user_id")
     public User user;
 
-    public Post() {}
-
-    public Post(String content) {
-        this.content = content;
+    public Post() {
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
+
+    public Post(String content, Timestamp time, Long id) {
+        this.content = content;
+        this.time = time;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
 
     public void setUser(User user) {this.user = user;} 
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
 }

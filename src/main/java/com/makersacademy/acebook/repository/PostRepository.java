@@ -1,11 +1,9 @@
 package com.makersacademy.acebook.repository;
+
 import com.makersacademy.acebook.model.Post;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface PostRepository extends CrudRepository<Post, Long> {
-
-  Iterable<Post> findAll(Sort by);
+public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
 }
