@@ -33,6 +33,7 @@ public class SignUpTest {
 
     @Test
     public void successfulSignUpRedirectsToSignIn() {
+        //Test 4
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
         driver.findElement(By.id("password")).sendKeys("password");

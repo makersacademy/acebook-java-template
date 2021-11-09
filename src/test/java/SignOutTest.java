@@ -53,7 +53,7 @@ public class SignOutTest {
 
     @Test
     public void successfulSignOutRedirectsToLogin() {
-
+        //Test 1
         // String name = faker.name().firstName();
 
         // // user sign up
