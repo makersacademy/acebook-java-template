@@ -31,7 +31,7 @@
       Signed in as <span sec:authentication="name"></span>
     </div>
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" name="content" th:value="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <p>Content: <input type="text" name="content" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
