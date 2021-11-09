@@ -10,7 +10,5 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<Post, Long> {
 
   List<Post> findAllByOrderByTimestampDesc();
-
-  List<Post> findUsernameByPostContaining(String post);
   
 }
