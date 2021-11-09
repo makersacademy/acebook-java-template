@@ -30,14 +30,14 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     UserRepository userRepository;
-    
+
     @GetMapping("/posts")
-    public String index(Model model) throws Exception{
+    public String index(Model model) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
+        String username = ((UserDetails) principal).getUsername();
         User thisUsers = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "time"));
-        
+
         model.addAttribute("thisUser", thisUsers);
         model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("posts", posts);
@@ -57,6 +57,11 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+    @GetMapping("/post/{id}")
+    public String post(@PathVariable Long id) {
+        repository.findById(id);
+        return "posts/post";
+    }
     // public RedirectView create(@ModelAttribute Post post, Principal principal) {
     // post.setUserName(principal.getUsername());
     // repository.save(post);
