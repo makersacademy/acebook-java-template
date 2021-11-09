@@ -31,15 +31,14 @@
       Signed in as <span sec:authentication="name"></span>
     </div>
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" name="content" th:value="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
-            <p>Usern: <input type="text" name="usern" th:value="*{usern}"  required/></p>
+            <p>Content: <input type="text" name="content" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
         <ul th:each="post: ${posts}">
             <li th:text="${post.content}" ></li>
             <div th:text="${post.time}" ></div>
-            <div th:text="${post.usern}" ></div>
+            <div th:text="${post.username}" ></div>
           <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
               <input type="hidden" th:id="${post.id}">Delete</input>
               <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"/>

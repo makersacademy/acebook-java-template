@@ -9,25 +9,25 @@ public class PostTest {
 
 	@Test
 	public void postHasContent() {
-		Post post = new Post("hello");
+		Post post = new Post("hello", null, null, null);
 		assertThat(post.getContent(), containsString("hello"));
 	}
 
 	@Test
 	public void postRemovesLeadingSpaces() {
-		Post post = new Post("    Leading");
+		Post post = new Post("    Leading", null, null, null);
 		assertThat(post.getContent(), containsString("Leading"));
 	}
 
 	@Test
 	public void postRemovesTrailingSpaces() {
-		Post post = new Post("Trailing     ");
+		Post post = new Post("Trailing     ", null, null, null);
 		assertThat(post.getContent(), containsString("Trailing"));
 	}
 
 	@Test
 	public void postAcceptsSentences() {
-		Post post = new Post("  Hello, This is a sentence.   ");
+		Post post = new Post("  Hello, This is a sentence.   ", null, null, null);
 		assertThat(post.getContent(), containsString("Hello, This is a sentence."));
 	}
 }

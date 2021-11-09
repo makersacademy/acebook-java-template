@@ -2,7 +2,6 @@ package com.makersacademy.acebook.repository;
 
 import java.util.List;
 
-import com.makersacademy.acebook.lib.PostQuery;
 import com.makersacademy.acebook.model.Post;
 
 // import org.springframework.data.jpa.repository.Query;
