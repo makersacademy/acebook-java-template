@@ -31,15 +31,14 @@ public class PostTest {
     driver.findElement(By.id("username")).sendKeys(name);
     driver.findElement(By.id("password")).sendKeys("password");
     driver.findElement(By.id("submit")).click();
-  }
 
-  private void login(){
+    //login
     driver.get("http://localhost:8080/login.html");
     driver.findElement(By.id("username")).sendKeys(name);
     driver.findElement(By.id("password")).sendKeys("password");
     driver.findElement(By.cssSelector("input[type='submit'][value='Log in']")).click();
-
   }
+
 
   @After
   public void teardown(){
@@ -48,16 +47,30 @@ public class PostTest {
 
   @Test
   public void authenticatedUserSeesPosts(){
-    login();
+    //Test 2
     driver.get("http://localhost:8080/posts");
     Assert.assertEquals("Hey, " + name + '!', driver.findElement(By.className("greeting")).getText());
   }
 
   @Test
   public void disallowInvalidUsersViewingPosts(){
+    //Test 3
+
+    //sign out
+    driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
+
+    //try to access posts
     driver.get("http://localhost:8080/posts");
 
     //we get redirected to the login page
     Assert.assertEquals("http://localhost:8080/login.html", driver.getCurrentUrl());
   }
+
+  @Test
+  // public void userCanPostText(){
+  //   //Test 7
+  //   driver.findElement(By.id("content")).sendKeys("I like bacon!");
+  //   Assert.assertEquals("I like bacon!", driver.findElement(By.cssSelector("p[th:text='${post.content}']")));
+
+  // }
 }
