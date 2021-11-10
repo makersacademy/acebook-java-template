@@ -8,17 +8,23 @@ import com.makersacademy.acebook.repository.UserRepository;
 public class UserService implements IUserService {
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private FileStore fileStore;
   
   @Override
   public Boolean save(User user){
     if(!usernameExists(user.getUsername())){
       repository.save(user);
       return true;
-
     }else{
       return false;
     }
+  }
 
+  @Override
+  public User findByUsername(String username){
+    return repository.findByUsername(username);
   }
   
   @Override

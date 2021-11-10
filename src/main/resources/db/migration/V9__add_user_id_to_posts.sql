@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD user_id bigint references users(id);

@@ -10,6 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.*;
+import java.net.URL;
+
+import com.makersacademy.acebook.service.*;
 
 import lombok.Data;
 
@@ -25,6 +28,8 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String imagePath;
+    private String imageFileName;
 
     @ManyToMany
     @JoinTable(name = "liked_posts", // links to bridge table
@@ -68,5 +73,26 @@ public class User {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
         String encodedPassword = encoder.encode(password);
         this.password = encodedPassword;
+    }
+
+    public void setImagePath(String path) {
+        this.imagePath = path;
+    }
+
+    public void setImageFileName(String fileName) {
+        this.imageFileName = fileName;
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public String getImageFileName() {
+        return this.imageFileName;
+    }
+
+    public URL getProfilePictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(this.imagePath, this.imageFileName);
     }
 }

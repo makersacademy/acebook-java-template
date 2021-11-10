@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS comments;
+
 CREATE TABLE comments (
     id bigserial PRIMARY KEY,
     username varchar(50) NOT NULL,

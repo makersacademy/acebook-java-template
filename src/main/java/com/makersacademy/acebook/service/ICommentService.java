@@ -1,6 +1,5 @@
 package com.makersacademy.acebook.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.makersacademy.acebook.model.Comment;

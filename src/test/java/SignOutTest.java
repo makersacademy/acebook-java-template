@@ -1,7 +1,3 @@
-
-
-
-
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import org.junit.After;
@@ -14,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -67,7 +62,7 @@ public class SignOutTest {
         // driver.findElement(By.id("password")).sendKeys("password");
         // driver.findElement(By.cssSelector("input[value='Log in']")).click();
 
-        driver.findElement(By.cssSelector("input[value='Sign Out']")).click();
+        driver.findElement(By.cssSelector("button[value='Sign Out']")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Login page", title);
     }

@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS liked_posts;
+
 CREATE TABLE liked_posts(
 id bigserial PRIMARY KEY,
 user_id bigint NOT NULL references users (id), 

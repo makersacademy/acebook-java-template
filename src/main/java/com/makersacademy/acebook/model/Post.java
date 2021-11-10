@@ -6,10 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
 
+import com.makersacademy.acebook.service.*;
+
 import java.util.List;
+import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -37,6 +42,10 @@ public class Post {
     @OneToMany(mappedBy = "post")
     List<Comment> comments;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
+
     public Post() {
     }
 
@@ -62,14 +71,18 @@ public class Post {
         return this.comments;
     }
 
-    public String getUser() {
-        return this.username;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUser(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     public long getID() {
         return this.id;
     }
@@ -81,6 +94,11 @@ public class Post {
     public String getFormattedTimestamp() {
         PrettyTime p = new PrettyTime();
         return (p.format(getCreatedAt()));
+    }
+
+    public URL getProfilePictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(user.getImagePath(), user.getImageFileName());
     }
 
 }
