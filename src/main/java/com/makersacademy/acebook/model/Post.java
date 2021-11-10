@@ -1,11 +1,14 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,6 +29,7 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
@@ -47,9 +51,12 @@ public class Post {
         return this.content;
     }
 
-    public void setUser(User user) {this.user = user;} 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
-    
+
 }

@@ -3,6 +3,9 @@ package com.makersacademy.acebook.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.GenerationType;
@@ -10,6 +13,8 @@ import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
 
+import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @Entity
@@ -39,7 +44,9 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getId() { return this.id; }    
+    public Long getId() {
+        return this.id;
+    }
 
     public String getUsername() {
         return this.username;
