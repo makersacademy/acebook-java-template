@@ -49,12 +49,60 @@
         <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
+    <!-- <ul th:each="post: ${posts}">
         <li class="text" th:text="${post.content}" />
         <li>
           <img class="photo" th:src="${post.photo}"/>
         </li>
-    </ul>
+    </ul> -->
+
+    <!-- Posts feed -->
+    <ul th:each="post: ${posts}">
+    <div class="container posts-content">
+      <!-- <div class="row">
+          <div class="col-lg-6"> -->
+            <div class="d-flex justify-content-center">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="media mb-3">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
+                    <li class="text username" th:text="${post.username}" />
+                    <div class="media-body ml-3">
+                     <!-- Username -->
+                     <!-- Timestamp -->
+                     <li class="text" th:text="${post.timestamp}" />
+                      <div class="text-muted small">
+                      </div> 
+                    </div>
+                  </div>
+              
+                  <!-- Post content -->
+                    <li class="text" th:text="${post.content}" />
+                    <li>
+                      <img class="photo" th:src="${post.photo}"/>
+                    </li>
+                  <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
+                </div>
+                <!-- <div class="card-footer">
+                  <a href="javascript:void(0)" class="d-inline-block text-muted">
+                      <strong>123</strong> Likes</small>
+                  </a>
+                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
+                      <strong>12</strong> Comments</small>
+                  </a>
+                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
+                    <small class="align-middle">Repost</small>
+                  </a>
+                </div> -->
+              </div>
+          </div>
+                  </a>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </ul>
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
