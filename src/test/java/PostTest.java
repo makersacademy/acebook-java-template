@@ -29,7 +29,7 @@ public class PostTest {
     name = faker.name().firstName();
 
     // user sign up
-    signup(name, "password")
+    signup(name, "password");
 
 
     //login
@@ -126,8 +126,18 @@ public class PostTest {
 
   @Test
   public void userSeesOtherUsersPosts(){
-    driver.findElement(By.id("content")).sendKeys("I like sleeping");
+    String post ="I like sleeping"; 
+    driver.findElement(By.id("content")).sendKeys(post);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+    logout();
+
+    //signing in as a different user
+    String newName = faker.name().firstName();
+    signup(newName , "pass");
+    login(newName, "pass");
+
+    Assert.assertEquals(post, driver.findElement(By.tagName("h3")).getText());
+
 
 
   }
