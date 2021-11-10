@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/login.css" />
+    <link rel="stylesheet" href="/main.css" />
+
+  </head>
+
+  <body>
+    <div align="center">
+      <h1>Edit Post</h1>
+      <form th:action="@{'/posts/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+        <table>
+          <tr>
+            <td>Content</td>
+            <td><input type="text" th:field="*{content}" name="content"/></td>
+          </tr>
+        </table>
+        <input type="submit" value="Edit" />
+      </form>
+    </div>
+  </body>

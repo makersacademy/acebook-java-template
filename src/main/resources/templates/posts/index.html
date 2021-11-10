@@ -68,7 +68,13 @@
                           <input type="hidden" th:id="${post.id}">See Comments</input>
                           <button type="submit" id="comment"></button>
                         </form>
+
+                        <form th:action="@{'/posts/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+                          <input type="hidden" th:id="${post.id}">Edit</input>
+                          <button type="submit" id="edit"></button>
+                        </form>
                     </td>
+
                     <td rowspan="6">
                         <!-- IF -->
                         <div th:if="${post.contentimage.length != 0} ">
