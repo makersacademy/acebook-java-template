@@ -62,7 +62,7 @@
 
                       <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
                         <input type="hidden" th:id="${post.id}">See Comments</input>
-                        <button type="submit"></button>
+                        <button type="submit" id="comment"></button>
                     </form>
                     </td>
                 </tr>
