@@ -32,14 +32,14 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     UserRepository userRepository;
-    
+
     @GetMapping("/posts")
-    public String index(Model model) throws Exception{
+    public String index(Model model) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
+        String username = ((UserDetails) principal).getUsername();
         User thisUsers = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "time"));
-        
+
         model.addAttribute("thisUser", thisUsers);
         model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("posts", posts);
@@ -48,7 +48,7 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post,  @RequestParam("file") MultipartFile file) throws IOException {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam("file") MultipartFile file) throws IOException {
         post.contentimage = file.getBytes();
 
         repository.save(post);
@@ -57,7 +57,13 @@ public class PostsController {
 
     @PostMapping("/deletePost/{id}")
     public RedirectView deletePost(@PathVariable Long id) {
-        repository.deleteById(id);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
+        Post thisPost = repository.findById(id).get();
+        if (thisPost.user.getId() == thisUser.getId()) {
+            repository.deleteById(thisPost.getId());
+        }
         return new RedirectView("/posts");
     }
 

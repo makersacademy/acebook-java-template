@@ -74,6 +74,60 @@ public class PostsTest {
   }
 
   @Test
+  public void deleteOnlyPostAssociatedToCurrentUser() {
+    // post 1
+    // signup
+    driver.get("http://localhost:8080/users/new");
+    String name1 = faker.name().firstName();
+    driver.findElement(By.id("username")).sendKeys(name1);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.id("submit")).click();
+
+    // sign in
+    driver.findElement(By.id("username")).sendKeys(name1);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.xpath("//button")).click();
+
+    // making posts
+    driver.findElement(By.id("content")).sendKeys("Hello, this is a test for the first user");
+    driver.findElement(By.id("submit")).click();
+
+    // post 2
+    // signup
+    driver.get("http://localhost:8080/users/new");
+    String name2 = faker.name().firstName();
+    driver.findElement(By.id("username")).sendKeys(name2);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.id("submit")).click();
+
+    // sign in
+    driver.findElement(By.id("username")).sendKeys(name2);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.xpath("//button")).click();
+
+    // making posts
+    driver.findElement(By.id("content")).sendKeys("Hello, this is a test for the second user");
+    driver.findElement(By.id("submit")).click();
+
+    // delete post
+    // List<WebElement> a = driver.findElements(By.id("delete"));
+    // a.get(0).click();
+    driver.findElement(By.id("delete")).click();
+    driver.switchTo().alert().accept(); // handle popup window
+
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    String name = driver.findElement(By.id("username")).getText();
+
+    Assert.assertFalse("checks that current user's post appears",
+        bodyText.contains("Hello, this is a test for the second user"));
+    Assert.assertFalse("checks that current username appears", name.contains(name2));
+    Assert.assertTrue("checks that the first post appears",
+        bodyText.contains("Hello, this is a test for the first user"));
+    Assert.assertTrue("checks that the first username appears", bodyText.contains(name1));
+
+  }
+
+  @Test
   public void DatabaseDateTest() {
 
     // making post
