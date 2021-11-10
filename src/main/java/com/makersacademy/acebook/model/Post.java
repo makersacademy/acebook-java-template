@@ -54,6 +54,14 @@ public class Post {
     public String getPhoto() { return this.photo; }
     public void setPhoto(String photo) { this.photo = photo; }
 
+    // Getter and Setter for comments
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
     // Below two blocks are needed for private Set<Comment> comments = new HashSet<>();
     @Override
     public boolean equals(Object o) {

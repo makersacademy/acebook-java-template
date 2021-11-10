@@ -58,6 +58,9 @@
           <p>Comment: <input id="comment-input" type="text" th:field="*{content}" /></p>
           <p><input id="submit-comment-btn" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
         </form>
+        <ul th:each="comment: ${post.comments}">
+          <li class="text" th:text="${comment.getContent()}" />
+        </ul>
     </ul>
 
     <!-- Bootstrap scripts -->

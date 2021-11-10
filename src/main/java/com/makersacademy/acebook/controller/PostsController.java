@@ -20,7 +20,7 @@ public class PostsController {
         Iterable<Post> posts = repository.findAllByOrderByTimestampDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post() );
-        model.addAttribute("comment", new Comment() );
+        model.addAttribute("comment", new Comment() ); // this is needed for CommentsController.java
         return "posts/index";
     }
 
