@@ -48,8 +48,9 @@
         </form>
     </div> -->
 
-    <img src="/images/beta_small.png" alt="Beta" width="80">
-    <h1>Beta</h1>
+    <div><img src="/images/beta_small.png" alt="Beta" width="80">
+        <h1>Beta</h1>
+    </div>
     <h2>like Meta, but Beta</h2>
 
     <div class="greeting" sec:authorize="isAuthenticated()">
@@ -72,9 +73,14 @@
             <h3><span th:text="${post.content}"></span></h3>
             <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
             <span th:text="${post.likes}"></span> likes
-            <input class="comment-button" type="submit" value="Like" id="submit" /></br>
+            <!-- <input class="comment-button" type="submit" value="Like" id="submit" /></br> -->
         </form>
         <!--  this like button doesn't work yet. Will need to check the changes made by Joe -->
+        <form class="posts" action="#" th:action="@{/posts/{id}/likes(id=${post.getID()})}" th:object="${post}"
+            method="post">
+            <!-- <p><input class="comment-text" type="text" /></p> -->
+            <p><input class="comment-button" type="submit" value="Like" id="submit" />
+        </form>
 
 
         <hr class="new1">

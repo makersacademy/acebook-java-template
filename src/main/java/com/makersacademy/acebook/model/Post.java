@@ -30,7 +30,7 @@ public class Post {
     @Column(name = "created_at", insertable = false, updatable = false)
     private Date created_at;
 
-    @ManyToMany(mappedBy = "likedPosts") // links to bridge table
+    public @ManyToMany(mappedBy = "likedPosts") // links to bridge table
     Set<User> likes; // Creates a 'Set' of 'Users' called likes.
     // Each user associated with a post represents 1 like
 
@@ -68,6 +68,10 @@ public class Post {
 
     public void setUser(String username) {
         this.username = username;
+    }
+
+    public long getID() {
+        return this.id;
     }
 
     public Date getCreatedAt() {
