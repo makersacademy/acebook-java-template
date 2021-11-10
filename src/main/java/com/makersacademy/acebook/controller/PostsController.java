@@ -28,10 +28,14 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        post.setUser(username);
-        postService.save(post);
+        System.out.println(post.getContent());
+        if (post.getContent() != ""){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = auth.getName();
+            post.setUser(username);
+            postService.save(post);
+        }
+
         return new RedirectView("/posts");
     }
 

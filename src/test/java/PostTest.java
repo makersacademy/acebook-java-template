@@ -53,7 +53,10 @@ public class PostTest {
   private void logout(){
     driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
   }
-  private void post(){}
+  private void post(String content){
+    driver.findElement(By.id("content")).sendKeys(content);
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+  }
 
 
   @After
@@ -137,8 +140,11 @@ public class PostTest {
     login(newName, "pass");
 
     Assert.assertEquals(post, driver.findElement(By.tagName("h3")).getText());
+  }
 
-
-
+  @Test
+  public void disallowEmptyPosts(){
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+    Assert.assertNotEquals("", driver.findElement(By.tagName("h3")).getText());
   }
 }
