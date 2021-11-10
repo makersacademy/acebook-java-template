@@ -29,17 +29,31 @@ public class PostTest {
     name = faker.name().firstName();
 
     // user sign up
-    driver.get("http://localhost:8080/users/new");
-    driver.findElement(By.id("username")).sendKeys(name);
-    driver.findElement(By.id("password")).sendKeys("password");
-    driver.findElement(By.id("submit")).click();
+    signup(name, "password")
+
 
     //login
+    login(name, "password"); 
+    
+  }
+  //defining some helper methods
+  private void signup(String username, String password){
+    driver.get("http://localhost:8080/users/new");
+    driver.findElement(By.id("username")).sendKeys(username);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.id("submit")).click();
+  }
+
+  private void login(String username, String password){
     driver.get("http://localhost:8080/login.html");
-    driver.findElement(By.id("username")).sendKeys(name);
+    driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).sendKeys("password");
     driver.findElement(By.cssSelector("input[type='submit'][value='Log in']")).click();
   }
+  private void logout(){
+    driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
+  }
+  private void post(){}
 
 
   @After
@@ -59,7 +73,7 @@ public class PostTest {
     //Test 3
 
     //sign out
-    driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
+    logout();
 
     //try to access posts
     driver.get("http://localhost:8080/posts");
@@ -107,10 +121,14 @@ public class PostTest {
 
     driver.findElement(By.id("content")).sendKeys(char300);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
-    String page_content = driver.getPageSource();
-    // System.out.println(page_content);
     Assert.assertEquals(char300.substring(0,249), driver.findElement(By.tagName("h3")).getText());
   }
 
   @Test
+  public void userSeesOtherUsersPosts(){
+    driver.findElement(By.id("content")).sendKeys("I like sleeping");
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+
+
+  }
 }
