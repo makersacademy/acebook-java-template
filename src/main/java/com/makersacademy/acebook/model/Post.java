@@ -26,6 +26,7 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
+    public byte[] contentimage;
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
@@ -47,9 +48,12 @@ public class Post {
         return this.content;
     }
 
-    public void setUser(User user) {this.user = user;} 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
-    
+
 }

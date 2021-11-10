@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.pagefactory.ByAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,8 +146,8 @@ public class SignUpTest {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button")).click();
-        // uploadPicture()
-        String text = driver.findElement(By.tagName("img")).getAttribute("class");
-        Assert.assertEquals(text, "profileImage");
+
+        WebElement text = driver.findElement(By.className("profileImage"));
+        Assert.assertNotNull(text);
     }
 }

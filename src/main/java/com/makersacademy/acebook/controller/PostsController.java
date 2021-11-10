@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +34,7 @@ public class PostsController {
     @Autowired
     PostRepository repository;
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepository
     @Autowired
     CommentRepository commentRepository;
 
@@ -51,14 +53,22 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam("file") MultipartFile file) throws IOException {
+        post.contentimage = file.getBytes();
+
         repository.save(post);
         return new RedirectView("/posts");
     }
 
     @PostMapping("/deletePost/{id}")
     public RedirectView deletePost(@PathVariable Long id) {
-        repository.deleteById(id);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
+        Post thisPost = repository.findById(id).get();
+        if (thisPost.user.getId() == thisUser.getId()) {
+            repository.deleteById(thisPost.getId());
+        }
         return new RedirectView("/posts");
     }
 
