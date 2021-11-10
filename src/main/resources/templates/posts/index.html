@@ -88,8 +88,11 @@
             </p>
         </form>
         <ul class="comment-post" th:each="comment: ${post.comments}">
-            <p><span th:text="${comment.username}"></span> says: <span th:text="${comment.content}">
-                </span></p>
+            <p><span class="username" th:text="${comment.username}"></span> • <span th:text="${comment.content}">
+                    <p class="post_created_at"> <span th:text="${comment.getFormattedTimestamp()}"></p>
+
+                </span>
+            </p>
         </ul>
     </ul>
 </body>
