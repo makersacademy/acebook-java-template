@@ -22,6 +22,7 @@ public class AmazonConfig {
                 .standard()
                 .withRegion("eu-west-2")
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .withPathStyleAccessEnabled(true)
                 .build();
     }
 }

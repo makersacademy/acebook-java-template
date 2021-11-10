@@ -2,6 +2,8 @@ package com.makersacademy.acebook.service;
 
 import lombok.AllArgsConstructor;
 import java.io.InputStream;
+import java.net.URL;
+
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.util.IOUtils;
 import com.amazonaws.AmazonServiceException;
@@ -37,6 +39,11 @@ public class FileStore {
         } catch (AmazonServiceException | IOException e) {
             throw new IllegalStateException("Failed to download the file", e);
         }
+    }
+
+    public URL getUrl(String path, String key) {
+        // System.out.println(amazonS3.getUrl(path, key));
+        return amazonS3.getUrl(path, key);
     }
 
 }

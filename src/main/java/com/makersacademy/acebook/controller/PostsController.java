@@ -1,5 +1,8 @@
 package com.makersacademy.acebook.controller;
 
+import java.net.URL;
+import java.util.Base64;
+
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.service.*;
@@ -30,10 +33,10 @@ public class PostsController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findByUsername(username);
-        byte[] profilePhoto = userService.downloadProfilePhoto(user.getId());
+        URL url = fileStore.getUrl(user.getImagePath(), user.getImageFileName());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("profilePhoto", profilePhoto);
+        model.addAttribute("profilePhoto", url);
         return "posts/index";
     }
 

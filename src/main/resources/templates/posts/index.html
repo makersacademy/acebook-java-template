@@ -32,7 +32,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-                <li><img th:src="@{profilePhoto}"/></li>
+                <li><img th:src="@{${profilePhoto}}" height="30" /></li>
                 <li><span class="sign-out-button">
                         <form th:action="@{/logout}" method="post">
                             <input type="submit" value="Sign Out" />
@@ -67,7 +67,8 @@
     </form>
 
     <ul class="post" th:each="post: ${posts}">
-        <p class="post_username" th:text="${post.getUser()}"></p>
+        <p class="post_username" th:text="${post.user.username}"></p>
+        <img th:src="@{${post.getProfilePictureUrl()}}" height="30" />
         <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
             <h3><span th:text="${post.content}"></span></h3>

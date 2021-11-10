@@ -11,7 +11,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
 
+import com.makersacademy.acebook.service.*;
+
 import java.util.List;
+import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -68,8 +71,8 @@ public class Post {
         return this.comments;
     }
 
-    public String getUser() {
-        return this.username;
+    public User getUser() {
+        return this.user;
     }
 
     public void setUsername(String username) {
@@ -87,6 +90,11 @@ public class Post {
     public String getFormattedTimestamp() {
         PrettyTime p = new PrettyTime();
         return (p.format(getCreatedAt()));
+    }
+
+    public URL getProfilePictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(user.getImagePath(), user.getImageFileName());
     }
 
 }
