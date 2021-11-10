@@ -17,6 +17,8 @@
       <div class="logout">
         <a href="#popup1">
           <button class="logoutbtn">Logout</button>
+        <a href="/posts">
+          <button class="logoutbtn">See posts</button>
         </a>
         <div id="popup1" class="overlay">
           <div class="popup">
@@ -27,21 +29,27 @@
         </div>
       </div>
     </nav>
-    <tr>
-      <td rowspan="6">
-        <!-- IF -->
-        <div th:if="${post.user.profileimage.length != 0} ">
-          <img
-            class="profileImage"
-            th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
-            alt=""
-          />
-        </div>
-        <!-- ELSE -->
-        <div th:if="${post.user.profileimage.length == 0} ">
-          <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
-        </div>
-      </td>
+
+    <br>
+
+    <table>
+      <tr>
+        
+        <td rowspan="6">
+          <!-- IF -->
+          <div th:if="${post.user.profileimage.length != 0} ">
+            <img
+              class="profileImage"
+              th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+              alt=""
+            />
+          </div>
+          <!-- ELSE -->
+          <div th:if="${post.user.profileimage.length == 0} ">
+            <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+          </div>
+        </td>
+       
       <td>
         <div th:text="${post.user.username}"></div>
         <div th:text="${post.content}"></div>
@@ -53,6 +61,32 @@
           ><br /><br />
         </div>
       </td>
+    </table>
+
+    <form
+      action="#"
+      th:action="@{'/post/{id}' (id=${post.id})}"
+      th:object="${comment}"
+      method="post"
+    >
+      <p>
+        Add a comment:
+        <input
+          type="text"
+          th:field="*{content}"
+          pattern=".*\S+.*"
+          title="This field is required"
+          required
+        />
+      </p>
+      <input type="hidden" th:value="${post.id}" id="post" name="post" />
+      <input type="hidden" th:value="${user.id}" id="user" name="user" />
+      <p>
+        <input id="submit" type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+
       <div th:each="comment: ${comments}">
         <table>
           <tr>
@@ -83,29 +117,6 @@
           </tr>
         </table>
       </div>
-      <form
-        action="#"
-        th:action="@{'/post/{id}' (id=${post.id})}"
-        th:object="${comment}"
-        method="post"
-      >
-        <p>
-          Add a comment:
-          <input
-            type="text"
-            th:field="*{content}"
-            pattern=".*\S+.*"
-            title="This field is required"
-            required
-          />
-        </p>
-        <input type="hidden" th:value="${post.id}" id="post" name="post" />
-        <input type="hidden" th:value="${user.id}" id="user" name="user" />
-        <p>
-          <input id="submit" type="submit" value="Submit" />
-          <input type="reset" value="Reset" />
-        </p>
-      </form>
     </tr>
   </body>
 </html>
