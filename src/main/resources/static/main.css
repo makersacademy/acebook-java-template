@@ -29,7 +29,7 @@
 }
 
 .photo {
-    width: 30%;
+    width: 75%;
 }
 
 
@@ -62,10 +62,10 @@ body {
   padding-top: 100% !important;
   width: 100% !important;
 }
-.d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {
+/* .d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {
   -ms-flex-negative: 1;
   flex-shrink: 1;
-}
+} */
 .bg-dark {
   background-color: rgba(24,28,33,0.9) !important;
 }
@@ -88,5 +88,17 @@ ul {
 }
 
 .username {
-  
+  float: right;
+  margin: 0 1.68%;
+  width: 87%;
 }
+
+.d-block {
+  float: left;
+  margin: 0 1.5%;
+  width: 60%;
+}
+
+  .post-body {
+    text-align: center;
+  }

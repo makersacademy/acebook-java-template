@@ -59,28 +59,36 @@
     <!-- Posts feed -->
     <ul th:each="post: ${posts}">
     <div class="container posts-content">
-      <!-- <div class="row">
-          <div class="col-lg-6"> -->
-            <div class="d-flex justify-content-center">
-              <div class="card mb-4">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
+              <div class="card mx-auto d-flex justify-content-center">
+                <!-- <div class="card"> -->
                 <div class="card-body">
                   <div class="media mb-3">
                     <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
-                    <li class="text username" th:text="${post.username}" />
                     <div class="media-body ml-3">
                      <!-- Username -->
-                     <!-- Timestamp -->
-                     <li class="text" th:text="${post.timestamp}" />
+                     <li class="text username" th:text="${post.username}" />
                       <div class="text-muted small">
                       </div> 
                     </div>
                   </div>
+                </div>
               
                   <!-- Post content -->
+                  <div class="post-body">
                     <li class="text" th:text="${post.content}" />
+                    <br>
+                    <br>
                     <li>
                       <img class="photo" th:src="${post.photo}"/>
                     </li>
+                  </div>
+                    <!-- Timestamp -->
+                    <br>
+                    <br>
+                    <li class="text" th:text="${post.timestamp}" />
                   <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
                 </div>
                 <!-- <div class="card-footer">
@@ -100,8 +108,8 @@
                 </div>
               </div>
           </div>
-      </div>
-  </div>
+      <!-- </div>
+  </div> -->
   </ul>
 
     <!-- Bootstrap scripts -->
