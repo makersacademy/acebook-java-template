@@ -144,6 +144,7 @@ public class PostTest {
 
   @Test
   public void disallowEmptyPosts(){
+    //Test 10
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
     Assert.assertNotEquals("", driver.findElement(By.tagName("h3")).getText());
   }
