@@ -1,4 +1,5 @@
 package com.makersacademy.acebook.model;
+import com.makersacademy.acebook.service.IPostService;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -15,6 +16,8 @@ public class PostTest {
 	public void postHasContent() {
 		assertThat(post.getContent(), containsString("hello"));
 	}
+
+
 
 	// @Test 
 	// public void likepost(){
