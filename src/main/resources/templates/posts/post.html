@@ -7,11 +7,26 @@
   <head lang="en">
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/login.css" />
 
     <title>Acebook</title>
   </head>
 
   <body>
+    <nav>
+      <div class="logout">
+        <a href="#popup1">
+          <button class="logoutbtn">Logout</button>
+        </a>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>Are you sure you want to log out?</h2>
+            <a class="close" href="/logout">Yes</a><br /><br />
+            <a class="close" href="#">No</a>
+          </div>
+        </div>
+      </div>
+    </nav>
     <tr>
       <td rowspan="6">
           <!-- IF -->
@@ -36,7 +51,7 @@
         <table> 
           <tr>
             <td rowspan="6">
-              <!-- <div th:text="${comment.post.user.username}" ></div> -->
+              <div th:text="${comment.user.username}" ></div>
               <div th:text="${comment.content}" ></div>
               <div th:text="${comment.time}" ></div>
             </td>
@@ -46,9 +61,9 @@
         </table>
       </div>  
           <form action="#" th:action="@{'/post/{id}' (id=${post.id})}" th:object="${comment}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+            <p>Add a comment: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
             <input type="hidden"  th:value="${post.id}"  id="post" name="post"/>
-            <input type="hidden"  th:value="${post.user.id}"  id="user" name="user"/>
+            <input type="hidden"  th:value="${user.id}"  id="user" name="user"/>
             <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 

@@ -64,9 +64,12 @@ public class PostsController {
 
     @GetMapping("/post/{id}")
     public String post(@PathVariable Long id, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(id).get();
-        Iterable<Comment> comments = commentRepository.findAll(Sort.by(Sort.Direction.DESC, "time"));
-
+        List<Comment> comments = commentRepository.findByPostId(id);
+        model.addAttribute("user", user);
         model.addAttribute("comments", comments);
         model.addAttribute("post", post);
         model.addAttribute("comment", new Comment());
@@ -78,5 +81,5 @@ public class PostsController {
         commentRepository.save(comment);
         return new RedirectView("/post/{id}");
     }
-    
+
 }

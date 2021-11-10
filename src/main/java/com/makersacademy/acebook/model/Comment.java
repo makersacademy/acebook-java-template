@@ -51,26 +51,12 @@ public class Comment {
         this.content = content;
     }
 
-    public Timestamp getTime() {
-        return this.time;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setPost(Post post) {
+        this.post = post;
     }
-
-    // public User getUser() {
-    //     return this.user;
-    // }
-
-    public void setUser(User user) {this.user = user;}
-
-    // public Post getPost() {
-    //     return this.post;
-    // }
-
-    public void setPost(Post post) {this.post = post;} 
-
-    // public void setUser(User user) {this.user = user;}
 
 }
