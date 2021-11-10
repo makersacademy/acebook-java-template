@@ -82,4 +82,11 @@ public class PostsController {
         return new RedirectView("/post/{id}");
     }
 
+    @PostMapping("/deleteComment/{id}")
+    public RedirectView deleteComment(@PathVariable Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        Long postId = comment.post.getId();
+        commentRepository.deleteById(id);
+        return new RedirectView("/post/" + postId.toString());
+    }
 }

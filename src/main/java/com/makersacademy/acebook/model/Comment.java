@@ -59,4 +59,7 @@ public class Comment {
         this.post = post;
     }
 
+    public Long getId() {
+        return this.id;
+    }
 }

@@ -113,6 +113,10 @@
                   th:text="${#dates.format(comment.time, 'dd-MMM-yyyy HH:mm')}"
                 ></span>
               </div>
+              <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
+                <input type="hidden" th:id="${comment.id}">Delete comment</input>
+                <button type="submit" id="deleteComment"></button>
+            </form>
             </td>
           </tr>
         </table>
