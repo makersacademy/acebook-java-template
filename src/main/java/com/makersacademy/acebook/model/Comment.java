@@ -51,6 +51,14 @@ public class Comment {
         this.content = content;
     }
 
+    public Timestamp getTime() {
+        return this.time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     // public User getUser() {
     //     return this.user;
     // }
