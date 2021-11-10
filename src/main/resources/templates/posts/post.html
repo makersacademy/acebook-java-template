@@ -41,8 +41,7 @@
       <td>
           <div th:text="${post.user.username}" ></div>
           <div th:text="${post.content}" ></div>
-          <div th:text="${post.time}" ></div>
-          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+          <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy HH:mm')}"></span></div>          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
             <input type="hidden" th:id="${post.id}">Delete</input>
             <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
         </form>
@@ -53,7 +52,7 @@
             <td rowspan="6">
               <div th:text="${comment.user.username}" ></div>
               <div th:text="${comment.content}" ></div>
-              <div th:text="${comment.time}" ></div>
+              <div>Created on: <span th:text="${#dates.format(comment.time, 'dd-MMM-yyyy HH:mm')}"></span></div>
             </td>
           </tr>
         
