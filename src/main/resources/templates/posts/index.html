@@ -55,7 +55,7 @@
                   <td>
                     <div id="username" th:text="${post.user.username}" ></div>
                     <div th:text="${post.content}" ></div>
-                    <div th:text="${post.time}" ></div>
+                    <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
                     <div th:if="${thisUser.username == post.user.username}">
                     <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
                       <input type="hidden" th:id="${post.id}">Delete</input>
