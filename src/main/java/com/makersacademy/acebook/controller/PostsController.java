@@ -2,8 +2,7 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.service.IPostService;
-import com.makersacademy.acebook.service.UserService;
+import com.makersacademy.acebook.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +21,19 @@ public class PostsController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    FileStore fileStore;
+
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postService.findAllOrderByDateDesc();
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = userService.findByUsername(username);
+        byte[] profilePhoto = userService.downloadProfilePhoto(user.getId());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("profilePhoto", profilePhoto);
         return "posts/index";
     }
 
