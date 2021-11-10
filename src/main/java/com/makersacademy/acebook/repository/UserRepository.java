@@ -9,11 +9,10 @@ import org.springframework.web.servlet.tags.Param;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
+
+  User findByUsername(String username);
     
   @Query(value="SELECT EXISTS(SELECT 1 FROM users WHERE username = ?1)  ", nativeQuery=true)
   boolean usernameExists(String username);
-
-
-
 
 }

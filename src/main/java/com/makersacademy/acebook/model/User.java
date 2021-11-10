@@ -25,6 +25,8 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String imagePath;
+    private String imageFileName;
 
     @ManyToMany
     @JoinTable(name = "liked_posts", // links to bridge table
@@ -68,5 +70,21 @@ public class User {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
         String encodedPassword = encoder.encode(password);
         this.password = encodedPassword;
+    }
+
+    public void setImagePath(String path) {
+        this.imagePath = path;
+    }
+
+    public void setImageFileName(String fileName) {
+        this.imageFileName = fileName;
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public String getImageFileName() {
+        return this.imageFileName;
     }
 }

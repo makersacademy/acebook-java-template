@@ -8,6 +8,9 @@ import com.makersacademy.acebook.repository.UserRepository;
 public class UserService implements IUserService {
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private FileStore fileStore;
   
   @Override
   public Boolean save(User user){
@@ -20,9 +23,20 @@ public class UserService implements IUserService {
     }
 
   }
+
+  @Override
+  public User findByUsername(String username){
+    return repository.findByUsername(username);
+  }
   
   @Override
   public Boolean usernameExists(String username){
     return repository.usernameExists(username);
   }
+
+  @Override
+    public byte[] downloadProfilePhoto(Long id) {
+        User user = repository.findById(id).get();
+        return fileStore.download(user.getImagePath(), user.getImageFileName());
+    }
 }

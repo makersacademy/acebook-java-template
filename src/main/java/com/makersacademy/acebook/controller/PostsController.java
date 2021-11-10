@@ -1,7 +1,9 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.service.IPostService;
+import com.makersacademy.acebook.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class PostsController {
     @Autowired
     private IPostService postService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postService.findAllOrderByDateDesc();
@@ -30,7 +35,9 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        post.setUser(username);
+        User user = userService.findByUsername(username);
+        post.setUsername(username);
+        post.setUser(user);
         postService.save(post);
         return new RedirectView("/posts");
     }

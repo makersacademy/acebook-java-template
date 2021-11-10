@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
 
 import java.util.List;
@@ -37,6 +39,10 @@ public class Post {
     @OneToMany(mappedBy = "post")
     List<Comment> comments;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
+
     public Post() {
     }
 
@@ -66,8 +72,12 @@ public class Post {
         return this.username;
     }
 
-    public void setUser(String username) {
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreatedAt() {
