@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS liked_posts;
 
 CREATE TABLE liked_posts(
 

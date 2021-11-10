@@ -24,19 +24,15 @@ public class PostsController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    FileStore fileStore;
-
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postService.findAllOrderByDateDesc();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findByUsername(username);
-        URL url = fileStore.getUrl(user.getImagePath(), user.getImageFileName());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("profilePhoto", url);
+        model.addAttribute("user", user);
         return "posts/index";
     }
 

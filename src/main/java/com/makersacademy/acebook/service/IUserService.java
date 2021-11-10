@@ -5,5 +5,4 @@ public interface IUserService {
   Boolean save(User user);
   Boolean usernameExists(String username);
   User findByUsername(String username);
-  byte[] downloadProfilePhoto(Long id);
 }

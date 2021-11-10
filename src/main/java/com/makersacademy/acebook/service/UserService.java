@@ -17,11 +17,9 @@ public class UserService implements IUserService {
     if(!usernameExists(user.getUsername())){
       repository.save(user);
       return true;
-
     }else{
       return false;
     }
-
   }
 
   @Override
@@ -33,10 +31,4 @@ public class UserService implements IUserService {
   public Boolean usernameExists(String username){
     return repository.usernameExists(username);
   }
-
-  @Override
-    public byte[] downloadProfilePhoto(Long id) {
-        User user = repository.findById(id).get();
-        return fileStore.download(user.getImagePath(), user.getImageFileName());
-    }
 }

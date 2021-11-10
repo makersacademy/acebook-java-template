@@ -31,31 +31,20 @@
                 <!-- <li><a href="#">Page 2</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-                <li><img th:src="@{${profilePhoto}}" height="30" /></li>
-                <li><span class="sign-out-button">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" />
-                        </form>
-
+                <li>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" style="padding: 8px 8px;">
+                        <span class="greeting" sec:authentication="name"></span>
+                        <img class="logged_in_user_profile_photo" id="profile_photo" th:src="@{${user.getProfilePictureUrl()}}" />
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out">Sign Out</button>
+                    </form>
                 </li>
             </ul>
         </div>
     </nav>
-    <!-- 
-    <div class="sign-out-button">
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out" />
-        </form>
-    </div> -->
 
     <img src="/images/beta_small.png" alt="Beta" width="80">
     <h1>Beta</h1>
     <h2>like Meta, but Beta</h2>
-
-    <div class="greeting" sec:authorize="isAuthenticated()">
-        Hey, <span sec:authentication="name"></span>!
-    </div>
 
     <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>
@@ -67,8 +56,10 @@
     </form>
 
     <ul class="post" th:each="post: ${posts}">
-        <p class="post_username" th:text="${post.user.username}"></p>
-        <img th:src="@{${post.getProfilePictureUrl()}}" height="30" />
+        <div class="post_username">
+        <img class="post_user_profile_photo" th:src="@{${post.getProfilePictureUrl()}}" height="30" />
+        <span th:text="${post.user.username}">
+        </div>
         <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
             <h3><span th:text="${post.content}"></span></h3>

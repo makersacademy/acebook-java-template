@@ -13,9 +13,7 @@ public class AmazonConfig {
     @Bean
     public AmazonS3 s3() {
       String awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
-      System.out.println(awsAccessKeyId);
       String awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");
-      System.out.println(awsSecretAccessKey);
         AWSCredentials awsCredentials =
                 new BasicAWSCredentials(awsAccessKeyId, awsSecretAccessKey);
         return AmazonS3ClientBuilder

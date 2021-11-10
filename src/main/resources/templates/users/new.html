@@ -19,7 +19,7 @@
         <p th:if="${userExists}">username already taken</p>
         <div>Username: <input class="credentials" type="text" th:field="*{username}" /></div>
         <div>Password: <input class="credentials" type="password" th:field="*{password}" /></div>
-        <div>Profile Photo: <input type="file" name="image" accept="image/png, image/jpeg" /></div>
+        <div>Profile Photo: <input type="file" name="image" id="photo" accept="image/png, image/jpeg" /></div>
         <div><input class="button" type="submit" value="Sign Up" id="submit" /> </div>
     </form>
 

@@ -10,6 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.*;
+import java.net.URL;
+
+import com.makersacademy.acebook.service.*;
 
 import lombok.Data;
 
@@ -86,5 +89,10 @@ public class User {
 
     public String getImageFileName() {
         return this.imageFileName;
+    }
+
+    public URL getProfilePictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(this.imagePath, this.imageFileName);
     }
 }

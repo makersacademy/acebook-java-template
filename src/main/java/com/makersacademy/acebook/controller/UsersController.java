@@ -43,11 +43,6 @@ public class UsersController {
         model.addAttribute("user", new User());
         return "users/new";
     }
-    // public String signup(Model model, @ModelAttribute boolean userExists){
-    // // model.addAttribute("userExists", userExists);
-    // model.addAttribute("user", new User());
-    // return "users/new";
-    // }
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user, @RequestParam("image") MultipartFile file) {
@@ -64,18 +59,11 @@ public class UsersController {
             System.out.println("user saved");
             Authority authority = new Authority(user.getUsername(), "ROLE_USER");
             authoritiesRepository.save(authority);
-
             return new RedirectView("/login.html");
         }
         System.out.println("user not saved");
         // redirectAttributes.addFlashAttribute("userExists", true);
         return new RedirectView("/users/new?userExists=true");
-
-    }
-
-    @GetMapping(value = "{id}/image/download")
-    public byte[] downloadProfilePhoto(@PathVariable("id") Long id) {
-        return userService.downloadProfilePhoto(id);
     }
 
     @RequestMapping("/login.html")
