@@ -34,6 +34,9 @@ public class Post {
     @JoinColumn(name = "user_id")
     public User user;
 
+    @ManyToMany(mappedBy = "likedPosts")
+    Set<User> likes;
+
     public Post() {
     }
 
