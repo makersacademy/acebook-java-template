@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import java.util.List;
+import org.openqa.selenium.WebElement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -77,6 +79,27 @@ public class PostTest {
   }
 
   @Test
+  public void postsDisplayedInOrder(){
+    //Test 8
+    String firstPost = "Bread is made from flour";
+    String secondPost = "Crisps are made from potatos";
+    driver.findElement(By.id("content")).sendKeys(firstPost);
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+    driver.findElement(By.id("content")).sendKeys(secondPost);
+    driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
+
+    //currently post content is the only thing using h3 tag, so we can use it to query
+    //If we add more h3 tags to the page this test will break, but we can just create
+    //a postcontent class and use By.className instead :)
+    List<WebElement> result = driver.findElements(By.tagName("h3"));
+      Assert.assertEquals(secondPost, result.get(0).getText());
+      Assert.assertEquals(firstPost,result.get(1).getText());
+
+
+
+  }
+
+  @Test
   public void cap250char(){
     String char300 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. "+
       "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "+
@@ -88,4 +111,6 @@ public class PostTest {
     // System.out.println(page_content);
     Assert.assertEquals(char300.substring(0,249), driver.findElement(By.tagName("h3")).getText());
   }
+
+  @Test
 }
