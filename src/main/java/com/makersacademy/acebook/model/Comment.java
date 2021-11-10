@@ -1,6 +1,5 @@
 package com.makersacademy.acebook.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -12,20 +11,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="comments")
+@Table(name="comments") // to link to psql table
 public class Comment {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // use IDENTITY to avoid hibernate sequence error and to be the same as other files
   private Long id;
 
   private String content;
-  private Timestamp created_at;
+  private Timestamp created_at; // Timestamp from java import. "create_at" is same as sql column name
   private Long user_id;
   private Long post_id;
 
   @ManyToOne // Many comments to one post
-  @JoinColumn(name="post_id", insertable=false, updatable=false)
+  @JoinColumn(name="post_id", insertable=false, updatable=false) // "post_id" is same as sql column name
   private Post post;
 
   // Constructors
@@ -35,7 +34,7 @@ public class Comment {
     this.content = content;
   }
 
-  // Getter & setter for ID
+  // Getter & setter for id, user_id, post_id
   public Long getId() {
     return id;
   }

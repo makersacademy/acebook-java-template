@@ -28,7 +28,7 @@ public class Post {
     private String timestamp;
     private String photo;
     
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post") // the value of mappedBy is the name of the association-mapping attribute on the owning side
     private Set<Comment> comments = new HashSet<>();
 
     public Post() {}
@@ -54,6 +54,7 @@ public class Post {
     public String getPhoto() { return this.photo; }
     public void setPhoto(String photo) { this.photo = photo; }
 
+    // Below two blocks are needed for private Set<Comment> comments = new HashSet<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

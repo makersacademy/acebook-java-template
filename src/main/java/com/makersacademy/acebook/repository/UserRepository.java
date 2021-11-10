@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-  public User findByUsername(String username);
+  public User findByUsername(String username); // this is used in CommentController.java to find User object by username
 }

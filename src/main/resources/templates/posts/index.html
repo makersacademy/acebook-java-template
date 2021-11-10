@@ -56,12 +56,8 @@
         </li>
         <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
           <p>Comment: <input id="comment-input" type="text" th:field="*{content}" /></p>
-          <p><input id="submit-comment-btn" type="submit" value="Submit" /> <input type="reset" value="Cancel" /></p>
-        </form>
-        <!-- <form method="post">
-          <p>Comment: <input id="comment-input" type="text" /></p>
           <p><input id="submit-comment-btn" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
-        </form> -->
+        </form>
     </ul>
 
     <!-- Bootstrap scripts -->
