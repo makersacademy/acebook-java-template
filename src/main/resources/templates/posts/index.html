@@ -18,7 +18,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav ms-auto">
               <a class="nav-link active" aria-current="page" th:href="@{/posts}">Posts</a>
               <form class="form-inline my-2 my-lg-0 logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
                 <button class="btn btn-primary my-2 my-sm-0 navbar-logout" type="submit">Log Out</button>
@@ -27,15 +27,6 @@
           </div>
         </div>
       </nav>
-
-    <!-- Logout button -->
-    <!-- <div class="logout_btn_wrapper">
-      <button class="logout_btn" type="button">Log Out</button>  
-    </div> -->
-
-    <form class="logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
-        <input class="logout_btn" type="submit" value="Log Out" />
-    </form>
     
     <h1>Posts</h1>
 
@@ -66,7 +57,7 @@
                 <!-- <div class="card"> -->
                 <div class="card-body">
                   <div class="media mb-3">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="d-block ui-w-40 rounded-circle" alt="">
                     <div class="media-body ml-3">
                      <!-- Username -->
                      <li class="text username" th:text="${post.username}" />
@@ -86,8 +77,6 @@
                     </li>
                   </div>
                     <!-- Timestamp -->
-                    <br>
-                    <br>
                     <li class="text" th:text="${post.timestamp}" />
                   <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
                 </div>

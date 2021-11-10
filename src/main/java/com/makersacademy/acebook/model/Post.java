@@ -59,7 +59,7 @@ public class Post {
 
   public String createTimestamp() {
     Date date = Calendar.getInstance().getTime();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String timestamp = dateFormat.format(date);
     return timestamp;
   }
