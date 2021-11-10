@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "COMMENTS")
-public class Comments {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +34,10 @@ public class Comments {
     @JoinColumn(name = "post_id")
     public Post post;
 
-    public Comments() {
+    public Comment() {
     }
 
-    public Comments(String content, Timestamp time, Long id) {
+    public Comment(String content, Timestamp time, Long id) {
         this.content = content;
         this.time = time;
         this.id = id;
@@ -50,6 +50,19 @@ public class Comments {
     public void setContent(String content) {
         this.content = content;
     }
+
+    // public User getUser() {
+    //     return this.user;
+    // }
+
+    public void setUser(User user) {this.user = user;}
+
+    // public Post getPost() {
+    //     return this.post;
+    // }
+
+    public void setPost(Post post) {this.post = post;} 
+
     // public void setUser(User user) {this.user = user;}
 
 }
