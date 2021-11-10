@@ -53,7 +53,7 @@
                     </div>
                   </td>
                   <td>
-                    <div th:text="${post.user.username}" ></div>
+                    <div id="username" th:text="${post.user.username}" ></div>
                     <div th:text="${post.content}" ></div>
                     <div th:text="${post.time}" ></div>
                     <div th:if="${thisUser.username == post.user.username}">
