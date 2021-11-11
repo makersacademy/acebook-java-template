@@ -13,17 +13,20 @@
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Acebook</a>
+          <a class="navbar-brand" href="#">
+            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F5208-256x256x8.png&f=1&nofb=1" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Acebook</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" aria-current="page" th:href="@{/posts}">Posts</a>
-              <a class="nav-link" th:href="@{/login}">Log In</a>
-              <a class="nav-link active" th:href="@{/users/new}">Sign Up</a>
             </div>
           </div>
+          <span class="navbar-text">
+              <a class="log-in-link" th:href="@{/login}">Log In</a>
+          </span>
         </div>
       </nav>
       
@@ -31,7 +34,7 @@
         <form action="#" th:action="@{/users}" th:object="${user}" method="post">
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+            <p><button type="button" class="btn btn-primary"><input type="submit" value="Submit" id="submit"/></button><button type="button" class="btn btn-primary"><input type="reset" value="Reset" /></button></p>
         </form>
       </div>
 

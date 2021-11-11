@@ -13,55 +13,88 @@
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Acebook</a>
+          <a class="navbar-brand" href="#">
+            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F5208-256x256x8.png&f=1&nofb=1" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Acebook</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" th:href="@{/posts}">Posts</a>
-              <form class="form-inline my-2 my-lg-0 logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
-                <button class="btn btn-primary my-2 my-sm-0 navbar-logout" type="submit">Log Out</button>
-              </form>
+              <a class="nav-link" aria-current="page" th:href="@{/posts}">Posts</a>
             </div>
           </div>
+          <form class="form-inline my-2 my-lg-0 logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
+            <button class="btn btn-primary my-2 my-sm-0 navbar-logout" type="submit">Log Out</button>
+          </form>
         </div>
       </nav>
 
-    <!-- Logout button -->
-    <!-- <div class="logout_btn_wrapper">
-      <button class="logout_btn" type="button">Log Out</button>  
-    </div> -->
+    <!-- Posts form -->
+      
+    <div align="center" sec:authorize="isAuthenticated()">
+      <h2> Welcome back <span sec:authentication="name"></span> </h2>
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <p>Content: <input id="content-input" type="text" th:field="*{content}" placeholder="What's on your mind?" /></p>
+      <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+      <p><input id="submit-post-btn" class="btn btn-primary" type="submit" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>
+  </form>
+</div>
 
-    <form class="logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
-        <input class="logout_btn" type="submit" value="Log Out" />
-    </form>
-    
-    <h1>Posts</h1>
+    <!-- Posts feed -->
+    <th:block th:each="post: ${posts}">
+    <div class="container posts-content">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+              <div class="card mx-auto d-flex justify-content-center">
+                <div class="card-body">
+                  <div class="media mb-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="d-block ui-w-40 rounded-circle" alt="">
+                    <div class="media-body ml-3">
+                     <!-- Username -->
+                     <p class="text username" th:text="${post.username}" />
+                      <div class="text-muted small">
+                      </div> 
+                    </div>
+                  </div>
+                </div>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+                  <!-- Content -->
+                  <div class="post-body">
+                    <p class="post-text" th:text="${post.content}" />
+                      <img class="photo" th:src="${post.photo}"/>
+                  </div>
+                    <!-- Timestamp -->
+                    <p class="post-timestamp" th:text="${post.timestamp}" />
+                  <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
+                </div>
+            
+                 <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
+                   <p>Comment: <input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
+                   <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
+                 </form>
+                <ul th:each="comment: ${post.comments}">
+                   <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
+                 </ul>
+                <!-- <div class="card-footer">
+                  <a href="javascript:void(0)" class="d-inline-block text-muted">
+                      <strong>123</strong> Likes</small>
+                  </a>
+                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
+                      <strong>12</strong> Comments</small>
+                  </a>
+                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
+                    <small class="align-middle">Repost</small>
+                  </a>
+                </div> -->
+              </div>
+          </div>
+                  </a>
+                </div>
+              </div>
+          </div>
+    </th:block>
 
-    <form th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
-        <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
-        <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
-    <ul th:each="post: ${posts}">
-        <li class="text" th:text="${post.content}" />
-        <li>
-          <img class="photo" th:src="${post.photo}"/>
-        </li>
-        <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
-          <p>Comment: <input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
-          <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
-        </form>
-        <ul th:each="comment: ${post.comments}">
-          <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
-        </ul>
-    </ul>
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

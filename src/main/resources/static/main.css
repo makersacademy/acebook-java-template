@@ -4,30 +4,111 @@
 
 .post-main {
     border: 1px solid #999;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
     text-align: left;
-    margin-bottom: 0.5rem;;
+    /* margin-bottom: 0.5rem;; */
 }
 
 .sign-up-form {
   margin-top: 0.8rem;
 }
 
-.logout_form {
+/* Bootstrap Posts Section */
+
+body {
+  background:#eee;
+}
+.posts-content{
+  margin-top:20px;
+}
+.ui-w-40 {
+  width: 40px !important;
+  height: auto;
+}
+.default-style .ui-bordered {
+  border: 1px solid rgba(24,28,33,0.06);
+}
+.ui-bg-cover {
+  background-color: transparent;
+  background-position: center center;
+  background-size: cover;
+}
+.ui-rect {
+  padding-top: 50% !important;
+}
+.ui-rect, .ui-rect-30, .ui-rect-60, .ui-rect-67, .ui-rect-75 {
+  position: relative !important;
+  display: block !important;
+  padding-top: 100% !important;
+  width: 100% !important;
+}
+.bg-dark {
+  background-color: rgba(24,28,33,0.9) !important;
+}
+.card-footer, .card hr {
+  border-color: rgba(24,28,33,0.06);
+}
+.ui-rect-content {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+}
+.default-style .ui-bordered {
+  border: 1px solid rgba(24,28,33,0.06);
+}
+
+
+/* Posts */
+
+.photo {
+  width: 75%;
+  padding-bottom: 1rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.username {
+  display: inline-block;
+  margin-top: 0.5rem;
+  width: 87%;
+}
+
+.d-block {
+  float: left;
+  margin: 0 1.5%;
+  width: 60%;
+}
+
+  .post-body {
+    text-align: center;
+  }
+
+  .post-text {
+    margin: 5%;
+  }
+  
+  .post-timestamp {
+    margin: 5%;
+  }
+
+
+  /* Navbar */
+
+  .logout_form {
     display: flex;
     justify-content: flex-end;
 }
 
-.logout_btn {
-    border-radius: 5px;
-    cursor: pointer;
-    height: 3rem;
-    width: 5rem;
-    background-color: rgb(50, 50, 50);
-    color: rgb(208, 255, 0);
-    font-weight: bold;
-}
+  .log-in-link {
+    text-decoration: none !important;
+    color: rgba(255,255,255,.55) !important;
+  }
 
-.photo {
-    width: 30%;
-}
+  .log-in-link:hover {
+    text-decoration: none !important;
+    color: rgb(255,255,255) !important;
+  }
