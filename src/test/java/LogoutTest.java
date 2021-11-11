@@ -16,41 +16,41 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 public class LogoutTest {
 
-    WebDriver driver;
-    Faker faker;
-    @Value("${spring.datasource.chromedriver}")
-    private String chromedriver;
+  WebDriver driver;
+  Faker faker;
+  @Value("${spring.datasource.chromedriver}")
+  private String chromedriver;
 
-    @Before
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", chromedriver);
-        driver = new ChromeDriver();
-        faker = new Faker();
-    }
+  @Before
+  public void setup() {
+    System.setProperty("webdriver.chrome.driver", chromedriver);
+    driver = new ChromeDriver();
+    faker = new Faker();
+  }
 
-    @After
-    public void tearDown() {
-        driver.close();
-    }
+  @After
+  public void tearDown() {
+    driver.close();
+  }
 
-    @Test
-    public void successfulLogoutDirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
-        String randomName = faker.name().firstName();
-        driver.findElement(By.id("username")).sendKeys(randomName);
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
-        
-        // TimeUnit.SECONDS.sleep(1);
-        // Thread.sleep(90000);
-        // driver.get("http://localhost:8080");
-        driver.findElement(By.id("username")).sendKeys(randomName);
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.className("btn")).click();
+  @Test
+  public void successfulLogoutDirectsToSignIn() {
+    driver.get("http://localhost:8080/users/new");
+    String randomName = faker.name().firstName();
+    driver.findElement(By.id("username")).sendKeys(randomName);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.id("submit")).click();
 
-        // driver.get("http://localhost:8080/posts");
-        driver.findElement(By.className("logout_btn")).click();
-        String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
-    }
+    // TimeUnit.SECONDS.sleep(1);
+    // Thread.sleep(90000);
+    // driver.get("http://localhost:8080");
+    driver.findElement(By.id("username")).sendKeys(randomName);
+    driver.findElement(By.id("password")).sendKeys("password");
+    driver.findElement(By.className("btn")).click();
+
+    // driver.get("http://localhost:8080/posts");
+    driver.findElement(By.className("navbar-logout")).click();
+    String title = driver.getTitle();
+    Assert.assertEquals("Please sign in", title);
+  }
 }
