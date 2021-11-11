@@ -80,6 +80,7 @@ public class PostsController {
         User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(id).get();
         List<Comment> comments = commentRepository.findByPostId(id);
+        model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("user", user);
         model.addAttribute("comments", comments);
         model.addAttribute("post", post);
@@ -96,13 +97,12 @@ public class PostsController {
     @PostMapping("/deleteComment/{id}")
     public RedirectView deleteComment(@PathVariable Long id) {
         Comment comment = commentRepository.findById(id).get();
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
         Long postId = comment.post.getId();
         if (comment.user.getId() == thisUser.getId()) {
-            commentRepository.deleteById(postId);
+            commentRepository.deleteById(id);
         }
         return new RedirectView("/post/" + postId.toString());
     }
