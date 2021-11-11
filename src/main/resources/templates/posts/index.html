@@ -43,8 +43,8 @@
       <input type="hidden" th:value="${thisUser.id}" id="user" name="user" />
       <h4>Add a photo: </h4><input id="file" type="file" accept="image/png, image/jpeg" name="file" />
       <p><input id='submit' type="submit" value="Submit"
-          style="background:#3e66d4;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
-          value="Reset" style="background:#3e66d4;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
+          style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
+          value="Reset" style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
     </form>
     <div class="grid-container" th:each="post: ${posts}">
       <!-- <table> -->
@@ -60,13 +60,14 @@
         <!-- ELSE -->
         <div th:if="${post.user.profileimage.length == 0} ">
           <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
-        </div>
+        </div><br>
+        <div id="username" th:text="${post.user.username}" style="font-weight: bold;"></div>
         <!-- </td> -->
       </div>
       <!-- <td> -->
-      <div class="grid-item">
-        <div id="username" th:text="${post.user.username}"></div>
-        <div th:text="${post.content}"></div>
+      <div class="grid-item bubble bubble-corner">
+
+        <div th:text="${post.content}"></div><br>
         <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
         <!-- </td>
             <td rowspan="6"> -->
