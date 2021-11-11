@@ -65,7 +65,7 @@
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
             <h3><span th:text="${post.content}"></span></h3>
             <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
-            <span th:text="${post.likes}"></span> likes
+            <span th:text="${post.getLikesCount()}"></span> likes
             <!-- <input class="comment-button" type="submit" value="Like" id="submit" /></br> -->
         </form>
         <!--  this like button doesn't work yet. Will need to check the changes made by Joe -->
