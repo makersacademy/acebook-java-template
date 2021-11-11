@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.makersacademy.acebook.lib.ImageUtil;
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.model.Comment;
@@ -49,6 +50,7 @@ public class PostsController {
         model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("like", new Like(0, 0));
         return "posts/index";
     }
 

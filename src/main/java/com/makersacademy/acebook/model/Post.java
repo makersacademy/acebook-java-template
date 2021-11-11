@@ -2,6 +2,9 @@ package com.makersacademy.acebook.model;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.Date;
 import java.util.List;
 
@@ -9,11 +12,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.GenerationType;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -36,6 +41,8 @@ public class Post {
     @JoinColumn(name = "user_id")
     public User user;
 
+    @ManyToMany(mappedBy = "likedPosts")
+    Set<User> likes;
     @OneToMany(mappedBy = "post")
     List<Comment> comments;
 
@@ -66,6 +73,10 @@ public class Post {
 
     public Integer getCommentsCount() {
         return this.comments.size();
+    }
+
+    public Integer getLikesCount() {
+        return this.likes.size();
     }
 
     public Date getDate() {
