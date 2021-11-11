@@ -43,7 +43,7 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <form th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
         <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
         <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
@@ -54,6 +54,13 @@
         <li>
           <img class="photo" th:src="${post.photo}"/>
         </li>
+        <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
+          <p>Comment: <input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
+          <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
+        </form>
+        <ul th:each="comment: ${post.comments}">
+          <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
+        </ul>
     </ul>
 
     <!-- Bootstrap scripts -->

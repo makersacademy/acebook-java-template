@@ -1,12 +1,16 @@
 package com.makersacademy.acebook.model;
 
 import java.util.Date;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import lombok.Data;
@@ -22,11 +26,18 @@ public class Post {
     private String content;
     private String timestamp;
     private String photo;
+    
+    @OneToMany(mappedBy = "post") // the value of mappedBy is the name of the association-mapping attribute on the owning side
+    private List<Comment> comments = new ArrayList<>();
 
     public Post() {}
     public Post(String content) { this.content = content; }
     public Post(String content, String timestamp) { this.content = content; this.timestamp = timestamp; }
     public Post(String content, String timestamp, String photo) { this.content = content; this.timestamp = timestamp; this.photo = photo; }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
@@ -42,4 +53,11 @@ public class Post {
     public String getPhoto() { return this.photo; }
     public void setPhoto(String photo) { this.photo = photo; }
 
+    // Getter and Setter for comments
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }

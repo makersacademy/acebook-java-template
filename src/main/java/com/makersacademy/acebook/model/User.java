@@ -50,5 +50,8 @@ public class User {
         this.password = encodedPassword;
     }
 
-
+    // Getter for id
+    public Long getId() {
+        return id;
+    }
 }
