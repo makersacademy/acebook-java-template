@@ -36,6 +36,8 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping("/posts")
     public String index(Model model) throws Exception {

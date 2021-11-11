@@ -30,11 +30,8 @@ public class Post {
     public String content;
     @CreationTimestamp
     public Timestamp time;
-<<<<<<< HEAD
-
-=======
     public byte[] contentimage;
->>>>>>> main
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
@@ -69,9 +66,5 @@ public class Post {
 
     // @Formula("SELECT COUNT(post_id) FROM likes l WHERE l.post_id = post_id")
     // public int likeCount;
-
-    // public int likeCount() {
-    // return likeCount;
-    // }
 
 }
