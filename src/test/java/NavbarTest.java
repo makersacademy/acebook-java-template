@@ -34,14 +34,6 @@ public class NavbarTest {
   }
 
   @Test
-  public void testWhenLoggedOutNavbarHasSignUpLink() {
-    driver.get("http://localhost:8080/users/new");
-    driver.findElement(By.linkText("Sign Up")).click();
-    String url = driver.getCurrentUrl();
-    Assert.assertEquals("http://localhost:8080/users/new", url);
-  }
-
-  @Test
   public void testWhenLoggedOutNavbarHasLogInLink() {
     driver.get("http://localhost:8080/users/new");
     driver.findElement(By.linkText("Log In")).click();
