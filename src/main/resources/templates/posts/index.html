@@ -35,8 +35,12 @@
     <div align="center" sec:authorize="isAuthenticated()">
       <h2> Welcome back <span sec:authentication="name"></span> </h2>
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-      <p>Content: <input id="content-input" type="text" th:field="*{content}" placeholder="What's on your mind?" /></p>
-      <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+      <p>Content:
+        <br> 
+        <input id="content-input" type="text" th:field="*{content}" placeholder="What's on your mind?" /></p>
+      <p>Photo URL:
+        <br> 
+        <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
       <p><input id="submit-post-btn" class="btn btn-primary" type="submit" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>
   </form>
 </div>
@@ -66,7 +70,6 @@
                   </div>
                     <!-- Timestamp -->
                     <p class="post-timestamp" th:text="${post.timestamp}" />
-                  <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
                 </div>
             
                  <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
@@ -76,17 +79,6 @@
                 <ul th:each="comment: ${post.comments}">
                    <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
                  </ul>
-                <!-- <div class="card-footer">
-                  <a href="javascript:void(0)" class="d-inline-block text-muted">
-                      <strong>123</strong> Likes</small>
-                  </a>
-                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
-                      <strong>12</strong> Comments</small>
-                  </a>
-                  <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
-                    <small class="align-middle">Repost</small>
-                  </a>
-                </div> -->
               </div>
           </div>
                   </a>
