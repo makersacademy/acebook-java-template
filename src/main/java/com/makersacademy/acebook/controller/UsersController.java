@@ -41,9 +41,9 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user,  @RequestParam("file") MultipartFile file) throws IOException {
+    public RedirectView signup(@ModelAttribute User user, @RequestParam("file") MultipartFile file) throws IOException {
         user.profileimage = file.getBytes();
-        userRepository.save(user);        
+        userRepository.save(user);
 
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);

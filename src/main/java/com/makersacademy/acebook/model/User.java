@@ -10,7 +10,6 @@ import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
 
-
 @Data
 @Entity
 @Table(name = "USERS")
@@ -39,7 +38,9 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getId() { return this.id; }    
+    public Long getId() {
+        return this.id;
+    }
 
     public String getUsername() {
         return this.username;
