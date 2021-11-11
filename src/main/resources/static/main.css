@@ -13,28 +13,7 @@
   margin-top: 0.8rem;
 }
 
-.logout_form {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.logout_btn {
-    border-radius: 5px;
-    cursor: pointer;
-    height: 3rem;
-    width: 5rem;
-    background-color: rgb(50, 50, 50);
-    color: rgb(208, 255, 0);
-    font-weight: bold;
-}
-
-.photo {
-    width: 75%;
-    padding-bottom: 1rem;
-}
-
-
-/* Bootstrap For Posts */
+/* Bootstrap Posts Section */
 
 body {
   background:#eee;
@@ -63,10 +42,6 @@ body {
   padding-top: 100% !important;
   width: 100% !important;
 }
-/* .d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-} */
 .bg-dark {
   background-color: rgba(24,28,33,0.9) !important;
 }
@@ -83,14 +58,22 @@ body {
 .default-style .ui-bordered {
   border: 1px solid rgba(24,28,33,0.06);
 }
-/* Customising posts */
+
+
+/* Posts */
+
+.photo {
+  width: 75%;
+  padding-bottom: 1rem;
+}
+
 ul {
   list-style-type: none;
 }
 
 .username {
-  float: right;
-  margin: 0 1.68%;
+  display: inline-block;
+  margin-top: 0.5rem;
   width: 87%;
 }
 
@@ -102,4 +85,30 @@ ul {
 
   .post-body {
     text-align: center;
+  }
+
+  .post-text {
+    margin: 5%;
+  }
+  
+  .post-timestamp {
+    margin: 5%;
+  }
+
+
+  /* Navbar */
+
+  .logout_form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+  .log-in-link {
+    text-decoration: none !important;
+    color: rgba(255,255,255,.55) !important;
+  }
+
+  .log-in-link:hover {
+    text-decoration: none !important;
+    color: rgb(255,255,255) !important;
   }
