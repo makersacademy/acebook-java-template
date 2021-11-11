@@ -62,6 +62,7 @@
 
       <div th:text="${post.content}"></div><br>
       <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
+
     </div>
   </div><br>
 
@@ -79,6 +80,9 @@
     </form>
   </div>
 
+  <p>
+  <h3 style="color: white; padding: 20px">Comments:</h3>
+  </p>
 
   <div class="grid-container3" th:each="comment: ${comments}">
     <div class="grid-item3">
