@@ -74,6 +74,10 @@ public class Post {
         return this.comments.size();
     }
 
+    public Integer getLikesCount() {
+        return this.likes.size();
+    }
+
     public Date getDate() {
         Date date = new Date(this.time.getTime());
         return date;

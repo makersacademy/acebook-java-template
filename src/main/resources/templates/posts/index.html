@@ -70,6 +70,7 @@
               </form>
             </span>
             <br><br>
+            <div>  <span th:text="${post.getLikesCount()}" ></span> likes</div>
             
             
             <div th:if="${thisUser.username == post.user.username}">
