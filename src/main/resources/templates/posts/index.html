@@ -1,89 +1,103 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head lang="en">
-    <meta charset="UTF-8" />
-    <title>Acebook</title>
-    <link rel="stylesheet" href="/login.css" />
-    <link rel="stylesheet" href="/main.css" />
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  </head>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/login.css" />
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-  <body>
-    <nav>
-      <div class="logout">
-        <a href="#popup1">
-          <button class="logoutbtn">Logout</button>
-        </a>
-        <div id="popup1" class="overlay">
-          <div class="popup">
-            <h2>Are you sure you want to log out?</h2>
-            <a class="close" href="/logout">Yes</a><br /><br />
-            <a class="close" href="#">No</a>
-          </div>
+</head>
+
+<body>
+  <nav>
+    <div class="logout">
+      <a href="#popup1">
+        <button class="logoutbtn">Logout</button>
+      </a>
+      <div id="popup1" class="overlay">
+        <div class="popup">
+          <h2>Are you sure you want to log out?</h2>
+          <a class="close" href="/logout">Yes</a><br /><br />
+          <a class="close" href="#">No</a>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <h1>Posts</h1>
+  <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">
       Signed in as <span sec:authentication="name"></span>
     </div>
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
-            <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
-            <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
-            <p>Photos: <input id="file" type="file" accept="image/png, image/jpeg" name="file" /> </p> 
-            <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+    
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
+        <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
+        <p>Photos: <input id="file" type="file" accept="image/png, image/jpeg" name="file" /> </p> 
+        <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 
-        <div th:each="post: ${posts}">
-            <table class="post">
-                <tr>
-                    <td rowspan="6">
-                        <!-- IF -->
-                        <div th:if="${post.user.profileimage.length != 0} ">
-                            <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
-                        </div>
-                        <!-- ELSE -->
-                        <div th:if="${post.user.profileimage.length == 0} ">
-                            <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div id="username" th:text="${post.user.username}" ></div>
-                        <div th:text="${post.content}" ></div>
-                        <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
-                      
-                        <div th:if="${thisUser.username == post.user.username}">
-                          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
-                            <input type="hidden" th:id="${post.id}">Delete post</input>
-                            <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
-                          </form>
-                        </div>
-
-                        <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
-                          <input type="hidden" th:id="${post.id}">See Comments</input>
-                          <button type="submit" id="comment"></button>
-                        </form>
-
-                        <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
-                          <input type="hidden" th:id="${post.id}">Edit</input>
-                          <button type="submit" id="edit"></button>
-                        </form>
-                    </td>
-
-                    <td rowspan="6">
-                        <!-- IF -->
-                        <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
-                              <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <br/>
-        </div>
-    </body>
+    <div th:each="post: ${posts}">
+      <table class="post">
+        <tr>
+          <td rowspan="6">
+            <!-- IF -->
+            <div th:if="${post.user.profileimage.length != 0} ">
+              <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+            </div>
+            <!-- ELSE -->
+            <div th:if="${post.user.profileimage.length == 0} ">
+              <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
+            </div>
+          </td>
+          <td>
+            <div id="username" th:text="${post.user.username}" ></div>
+            <div th:text="${post.content}" ></div>
+            <div>Posted: <span th:text="${post.timeFormat()}"></span></div>
+            <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy HH:mm')}"></span></div>
+            <div><span th:text="${post.getCommentsCount()}" ></span> comments</div>
+            
+              <!-- like button -->
+            <span style="float:left;">
+              <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
+                <button type="submit" class="btn btn-block btn-primary" id="like">
+                  <i class="fa fa-thumbs-up"></i>
+                </button>
+              </form>
+            </span>
+            <br><br>
+            <div>  <span th:text="${post.getLikesCount()}" ></span> likes</div>
+            
+            
+            <div th:if="${thisUser.username == post.user.username}">
+              <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+                <input type="hidden" th:id="${post.id}">Delete post</input>
+                <input type="hidden" name="from" value="/posts">
+                <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
+              </form>
+            </div>
+            <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
+              <input type="hidden" th:id="${post.id}">See Comments</input>
+              <button type="submit" id="comment"></button>
+            </form>
+            <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+              <input type="hidden" th:id="${post.id}">Edit</input>
+              <button type="submit" id="edit"></button>
+            </form>
+          </td>
+          <td rowspan="6">
+            <!-- IF -->
+            <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
+              <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
+            </div>
+          </td>
+        </tr>
+      </table>
+    <br/>
+    </div>
+  </body>
 </html>

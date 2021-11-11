@@ -1,18 +1,27 @@
 package com.makersacademy.acebook.model;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.GenerationType;
-
+import org.ocpsoft.prettytime.PrettyTime;
 import lombok.Data;
 
 @Data
@@ -27,9 +36,15 @@ public class Post {
     @CreationTimestamp
     public Timestamp time;
     public byte[] contentimage;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
+
+    @ManyToMany(mappedBy = "likedPosts")
+    Set<User> likes;
+    @OneToMany(mappedBy = "post")
+    List<Comment> comments;
 
     public Post() {
     }
@@ -60,6 +75,24 @@ public class Post {
         this.content = content;
     }
 
+    public Integer getCommentsCount() {
+        return this.comments.size();
+    }
+
+    public Integer getLikesCount() {
+        return this.likes.size();
+    }
+
+    public Date getDate() {
+        Date date = new Date(this.time.getTime());
+        return date;
+    }
+
+    public String timeFormat() {
+        PrettyTime format = new PrettyTime();
+        return format.format(getDate());
+    }
+
     public void setTime(Timestamp time){
         this.time = time;
     }
@@ -67,5 +100,4 @@ public class Post {
     public Timestamp getTime(){
         return this.time;
     }
-
 }
