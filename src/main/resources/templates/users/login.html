@@ -1,33 +1,63 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
 
 <head>
-  <title tiles:fragment="title">Please sign in</title>
+  <meta charset="UTF-8">
+  <title>Please sign in</title>
+  <link rel="stylesheet" href="/signup.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script
+    type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+  <!-- Custom Theme files -->
+  <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <!-- //Custom Theme files -->
+  <!-- web font -->
+  <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="/signup.css" />
 </head>
 
 <body>
-  <div tiles:fragment="content" style="text-align:center;">
-    <form name="f" th:action="@{/login}" method="post">
-      <fieldset>
-        <legend>
-          <h4>Please sign in</h4>
-        </legend>
-        <div th:if="${param.error}" class="alert alert-error" style="color:red">
-          Bad credentials
-        </div><br>
-        <div th:if="${param.logout}" class="alert alert-success" style="color:green">
-          You have been logged out.
-        </div><br>
-        <input type="text" id="username" name="username" placeholder="Username" required />
-        <input type="password" id="password" name="password" placeholder="Password" required /><br><br>
-        <div class="form-actions">
-          <button type="submit" class="btn"
-            style="background:#068bd8;color:white; border-radius: 14px; padding:10px;">Sign in</button>
-        </div>
-      </fieldset>
-    </form>
-    <h3>New to Acebook?</h3>
-    <a href="users/new">Create new account</a>
+  <div class="container">
+    <div class="main-w3layouts wrapper">
+      <div tiles:fragment="content" style="text-align:center;">
+        <form name="f" th:action="@{/login}" method="post">
+          <fieldset>
+            <legend>
+              <div class="white-font">
+                <h1>Please sign in</h1>
+              </div>
+            </legend>
+            <div th:if="${param.error}" class="alert alert-error" style="color:red">
+              Bad credentials
+            </div><br>
+            <div th:if="${param.logout}" class="alert alert-success" style="color:green">
+              You have been logged out.
+            </div><br>
+            <div class="main-agileinfo">
+              <div class="agileits-top">
+                <input class="text" type="text" id="username" name="username" placeholder="Username" required /><br>
+                <input class="text" type="password" id="password" name="password" placeholder="Password"
+                  required /><br><br>
+                <div class="form-actions">
+                  <button type="submit" class="btn"
+                    style="background:#3e66d4;color:white; border-radius: 14px; padding:10px; width: 100%">Sign
+                    in</button>
+                </div>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="white-font">
+      <h3>New to Acebook?</h3><br>
+      <a href="users/new">Create new account</a>
+    </div>
   </div>
+
 </body>
 
 </html>
