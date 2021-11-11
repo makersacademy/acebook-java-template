@@ -257,4 +257,21 @@ public class PostsTest {
     WebElement text = driver.findElement(By.className("contentImage"));
     Assert.assertNotNull(text);
   }
+
+  @Test
+  public void editPost(){
+    //makes a post
+    driver.findElement(By.id("content")).sendKeys("Hello world!");
+    driver.findElement(By.id("submit")).click();
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertTrue("checks that the initial post appears", bodyText.contains("Hello world!"));
+    //edits a post
+    driver.findElement(By.id("edit")).click();
+    driver.findElement(By.id("content")).sendKeys("Goodbye world!");
+    driver.findElement(By.id("edit")).click();
+
+    Assert.assertTrue("checks that the post has been edited", bodyText.contains("Goodbye world!"));
+
+
+  }
 }

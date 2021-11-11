@@ -39,6 +39,7 @@ public class PostsController {
     @Autowired
     CommentRepository commentRepository;
 
+
     @GetMapping("/posts")
     public String index(Model model) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -92,10 +93,30 @@ public class PostsController {
         return "posts/post";
     }
 
+
     @PostMapping("/post/{id}")
     public RedirectView create(@PathVariable Long id, @ModelAttribute Comment comment) {
         commentRepository.save(comment);
         return new RedirectView("/post/{id}");
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getEdit(@PathVariable Long id, Model model) {
+        Post post = repository.findById(id).get();
+        model.addAttribute("post", post);
+        return "posts/edit"; // if it's just /edit, it can't find it
+    }
+
+
+    @PostMapping("/edit")
+    public RedirectView post(@ModelAttribute Post post) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
+        if (post.user.getId() == thisUser.getId()) {
+            repository.save(post);
+        }
+        return new RedirectView("/posts");
     }
 
     @PostMapping("/deleteComment/{id}")

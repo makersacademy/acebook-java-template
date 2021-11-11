@@ -59,6 +59,10 @@ public class Post {
         return this.id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getContent() {
         return this.content;
     }
@@ -87,5 +91,13 @@ public class Post {
     public String timeFormat() {
         PrettyTime format = new PrettyTime();
         return format.format(getDate());
+    }
+
+    public void setTime(Timestamp time){
+        this.time = time;
+    }
+
+    public Timestamp getTime(){
+        return this.time;
     }
 }
