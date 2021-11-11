@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class Post {
     public User user;
 
     @ManyToMany(mappedBy = "likedPosts")
-    Set<User> likes;
+    List<Like> likes;
 
     public Post() {
     }
@@ -63,7 +64,9 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
-
+    public Integer getCount(){
+        
+    } 
     // @Formula("SELECT COUNT(post_id) FROM likes l WHERE l.post_id = post_id")
     // public int likeCount;
 
