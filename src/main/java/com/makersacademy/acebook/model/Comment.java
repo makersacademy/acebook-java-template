@@ -30,7 +30,8 @@ public class Comment {
   // Constructors
   public Comment() {
   }
-  public Comment(String content) {
+  public Comment(Long id, String content) {
+    this.id = id;
     this.content = content;
   }
 
@@ -38,9 +39,9 @@ public class Comment {
   public Long getId() {
     return id;
   }
-  public void setId(Long id) {
-    this.id = id;
-  }
+  // public void setId(Long id) {
+  //   this.id = id;
+  // }
   public Long getUserId() {
     return user_id;
   }
