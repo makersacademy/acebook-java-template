@@ -31,10 +31,10 @@
 
   <div class="agileits-top white-font">
     <div class="white-font" sec:authorize="isAuthenticated()">
-      <h3>Hi, <span sec:authentication="name"></span></h3>
+      <h3>Hi, <span sec:authentication="name"></span>!</h3>
     </div>
 
-    <h1>What's on your mind?</h1>
+    <h1 style="margin-bottom: 40px; font-weight: bold;">What's on your mind?</h1>
 
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">

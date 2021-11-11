@@ -28,7 +28,6 @@
     </div>
   </nav>
 
-
   <br>
 
   <div class="grid-container2">
@@ -54,13 +53,13 @@
 
   <div class="comment-form">
     <form action="#" th:action="@{'/post/{id}' (id=${post.id})}" th:object="${comment}" method="post">
-      <p>
+      <p class="white-font">
         Add a comment:
         <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required />
       </p>
       <input type="hidden" th:value="${post.id}" id="post" name="post" />
       <input type="hidden" th:value="${user.id}" id="user" name="user" />
-      <p><input id='submit' type="submit" value="Submit"
+      <p style="margin-bottom: 20px;"><input id='submit' type="submit" value="Submit"
           style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
           value="Reset" style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
     </form>

@@ -872,7 +872,7 @@ input.checkbox:checked:after {
   padding: 15px;
   text-align: center;
   color: #000;
-  background: #fff;
+  background: rgb(195, 213, 236);
 }
 
 .bubble-corner:before {
@@ -880,9 +880,9 @@ input.checkbox:checked:after {
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 12px solid #fff;
+  border-left: 12px solid rgb(195, 213, 236);
   border-right: 12px solid transparent;
-  border-top: 24px solid #fff;
+  border-top: 24px solid rgb(195, 213, 236);
   border-bottom: 15px solid transparent;
   left: 32px;
   bottom: -24px;
