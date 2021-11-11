@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
+  public User findByUsername(String username); // this is used in CommentController.java to find User object by username
 }

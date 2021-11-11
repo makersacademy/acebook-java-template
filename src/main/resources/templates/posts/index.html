@@ -31,25 +31,7 @@
       </nav>
 
     <!-- Posts form -->
-
-    
-      <!-- <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card mx-auto d-flex justify-content-center">
-              <div class="card-body">
-                <div sec:authorize="isAuthenticated()">
-                  <h2>Welcome back, <span sec:authentication="name"></span>.</h2>
-                </div>
-                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <p>Content: <input id="content-input" type="text" placeholder="What is on your mind?"/></p>
-                    <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
-                    <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-                </form>
-    </div>
-    </div>
-    </div>
-    </div> -->
-
+      
     <div align="center" sec:authorize="isAuthenticated()">
       <h2> Welcome back <span sec:authentication="name"></span> </h2>
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
@@ -86,6 +68,14 @@
                     <p class="post-timestamp" th:text="${post.timestamp}" />
                   <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
                 </div>
+            
+                 <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
+                   <p>Comment: <input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
+                   <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
+                 </form>
+                <ul th:each="comment: ${post.comments}">
+                   <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
+                 </ul>
                 <!-- <div class="card-footer">
                   <a href="javascript:void(0)" class="d-inline-block text-muted">
                       <strong>123</strong> Likes</small>
@@ -104,6 +94,7 @@
               </div>
           </div>
     </th:block>
+
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

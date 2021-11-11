@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -24,6 +25,7 @@ public class PostsController {
         Iterable<Post> posts = repository.findAllByOrderByTimestampDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post() );
+        model.addAttribute("comment", new Comment() ); // this is needed for CommentsController.java
         return "posts/index";
     }
 
