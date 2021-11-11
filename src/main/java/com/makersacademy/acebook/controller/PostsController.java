@@ -94,18 +94,16 @@ public class PostsController {
         return new RedirectView("/post/{id}");
     }
 
-    @GetMapping("/posts/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String getEdit(@PathVariable Long id, Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(id).get();
         model.addAttribute("user", user);
         model.addAttribute("post", post);;
-        return "posts/edit";
+        return "posts/edit"; // if it's just /edit, it can't find it
     }
-
-
 
 
     // @PostMapping("/posts/edit/{id}")
@@ -115,8 +113,9 @@ public class PostsController {
     //     return new RedirectView("/posts");
     // }
 
-    @PostMapping("/posts/edit/{id}")
-    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post) {
+    @PostMapping("/edit")
+    public RedirectView post(@ModelAttribute Post post, Model model) {
+        // model.addAttribute("post", post);
         repository.save(post);
         return new RedirectView("/posts");
     }

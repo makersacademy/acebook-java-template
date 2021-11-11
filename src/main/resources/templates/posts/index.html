@@ -69,7 +69,7 @@
                           <button type="submit" id="comment"></button>
                         </form>
 
-                        <form th:action="@{'/posts/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+                        <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
                           <input type="hidden" th:id="${post.id}">Edit</input>
                           <button type="submit" id="edit"></button>
                         </form>
