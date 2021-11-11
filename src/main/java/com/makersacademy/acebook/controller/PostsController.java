@@ -101,7 +101,7 @@ public class PostsController {
         User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(id).get();
         model.addAttribute("user", user);
-        model.addAttribute("post", post);;
+        model.addAttribute("post", post);
         return "posts/edit"; // if it's just /edit, it can't find it
     }
 
@@ -114,7 +114,7 @@ public class PostsController {
     // }
 
     @PostMapping("/edit")
-    public RedirectView post(@ModelAttribute Post post, Model model) {
+    public RedirectView post(@PathVariable Long id, @ModelAttribute Post post, Model model) {
         // model.addAttribute("post", post);
         repository.save(post);
         return new RedirectView("/posts");

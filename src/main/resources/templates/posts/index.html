@@ -77,7 +77,7 @@
 
                     <td rowspan="6">
                         <!-- IF -->
-                        <div th:if="${post.contentimage.length != 0} ">
+                        <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
                               <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
                         </div>
                     </td>
