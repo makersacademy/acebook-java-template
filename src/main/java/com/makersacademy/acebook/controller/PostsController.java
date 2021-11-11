@@ -56,15 +56,16 @@ public class PostsController {
     }
 
     @PostMapping("/deletePost/{id}")
-    public RedirectView deletePost(@PathVariable Long id) {
+    public RedirectView deletePost(@PathVariable Long id, @RequestParam("from") String from) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
         Post thisPost = repository.findById(id).get();
+
         if (thisPost.user.getId() == thisUser.getId()) {
             repository.deleteById(thisPost.getId());
         }
-        return new RedirectView("/posts");
+        return new RedirectView(from);
     }
 
     // public RedirectView create(@ModelAttribute Post post, Principal principal) {
