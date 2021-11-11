@@ -63,11 +63,13 @@
             
               <!-- like button -->
             <span style="float:left;">
+              <div th:if="${thisUser.username != post.user.username}">
               <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
                 <button type="submit" class="btn btn-block btn-primary" id="like">
                   <i class="fa fa-thumbs-up"></i>
                 </button>
               </form>
+            </div>
             </span>
             <br><br>
             <div>  <span th:text="${post.getLikesCount()}" ></span> likes</div>
