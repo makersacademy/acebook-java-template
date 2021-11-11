@@ -34,7 +34,7 @@ public class PostsController {
     @Autowired
     PostRepository repository;
     @Autowired
-    UserRepository userRepository
+    UserRepository userRepository;
     @Autowired
     CommentRepository commentRepository;
 
@@ -61,15 +61,16 @@ public class PostsController {
     }
 
     @PostMapping("/deletePost/{id}")
-    public RedirectView deletePost(@PathVariable Long id) {
+    public RedirectView deletePost(@PathVariable Long id, @RequestParam("from") String from) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
         Post thisPost = repository.findById(id).get();
+
         if (thisPost.user.getId() == thisUser.getId()) {
             repository.deleteById(thisPost.getId());
         }
-        return new RedirectView("/posts");
+        return new RedirectView(from);
     }
 
     @GetMapping("/post/{id}")
@@ -95,8 +96,14 @@ public class PostsController {
     @PostMapping("/deleteComment/{id}")
     public RedirectView deleteComment(@PathVariable Long id) {
         Comment comment = commentRepository.findById(id).get();
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
         Long postId = comment.post.getId();
-        commentRepository.deleteById(id);
+        if (comment.user.getId() == thisUser.getId()) {
+            commentRepository.deleteById(postId);
+        }
         return new RedirectView("/post/" + postId.toString());
     }
 }

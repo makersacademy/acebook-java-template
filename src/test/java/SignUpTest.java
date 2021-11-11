@@ -147,6 +147,9 @@ public class SignUpTest {
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button")).click();
 
+        driver.findElement(By.id("content")).sendKeys("Test profile pic shows");
+        driver.findElement(By.id("submit")).click();
+
         WebElement text = driver.findElement(By.className("profileImage"));
         Assert.assertNotNull(text);
     }
