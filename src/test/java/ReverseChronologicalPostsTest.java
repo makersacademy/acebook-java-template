@@ -11,17 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-// @ContextConfiguration(classes = Application.class)
 @SpringBootTest(classes = Application.class)
-// @DataJpaTest
 public class ReverseChronologicalPostsTest {
 
     WebDriver driver;
@@ -42,7 +38,7 @@ public class ReverseChronologicalPostsTest {
     }
 
     @Test
-    public void successfulPostsDisplayInReverseChronologicalOrder() throws InterruptedException {
+    public void successfulPostsDisplayInReverseChronologicalOrder() {
         driver.get("http://localhost:8080/users/new");
         String randomName = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(randomName);
