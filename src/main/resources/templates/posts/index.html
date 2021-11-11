@@ -14,14 +14,14 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F5208-256x256x8.png&f=1&nofb=1" alt="" width="30" height="24" class="d-inline-block align-text-top">
             Acebook</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" th:href="@{/posts}">Posts</a>
+              <a class="nav-link" aria-current="page" th:href="@{/posts}">Posts</a>
             </div>
           </div>
           <form class="form-inline my-2 my-lg-0 logout_form" name="logoutForm" th:action="@{/logout}" method="POST">
@@ -29,55 +29,61 @@
           </form>
         </div>
       </nav>
+
+    <!-- Posts form -->
+
     
-    <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
+      <!-- <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mx-auto d-flex justify-content-center">
+              <div class="card-body">
+                <div sec:authorize="isAuthenticated()">
+                  <h2>Welcome back, <span sec:authentication="name"></span>.</h2>
+                </div>
+                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                    <p>Content: <input id="content-input" type="text" placeholder="What is on your mind?"/></p>
+                    <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+                    <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                </form>
     </div>
+    </div>
+    </div>
+    </div> -->
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
+    <div align="center" sec:authorize="isAuthenticated()">
+      <h2> Welcome back <span sec:authentication="name"></span> </h2>
+      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <p>Content: <input id="content-input" type="text" placeholder="What is on your mind?"/></p>
         <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
         <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+    </div>
 
-    <!-- <ul th:each="post: ${posts}">
-        <li class="text" th:text="${post.content}" />
-        <li>
-          <img class="photo" th:src="${post.photo}"/>
-        </li>
-    </ul> -->
 
     <!-- Posts feed -->
-    <ul th:each="post: ${posts}">
+    <th:block th:each="post: ${posts}">
     <div class="container posts-content">
         <div class="row justify-content-center">
           <div class="col-lg-6">
-            <!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
               <div class="card mx-auto d-flex justify-content-center">
-                <!-- <div class="card"> -->
                 <div class="card-body">
                   <div class="media mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="d-block ui-w-40 rounded-circle" alt="">
                     <div class="media-body ml-3">
                      <!-- Username -->
-                     <li class="text username" th:text="${post.username}" />
+                     <p class="text username" th:text="${post.username}" />
                       <div class="text-muted small">
                       </div> 
                     </div>
                   </div>
                 </div>
-              
-                  <!-- Post content -->
+                  <!-- Content -->
                   <div class="post-body">
-                    <li class="post-text" th:text="${post.content}" />
-                    <li>
+                    <p class="post-text" th:text="${post.content}" />
                       <img class="photo" th:src="${post.photo}"/>
-                    </li>
                   </div>
                     <!-- Timestamp -->
-                    <li class="post-timestamp" th:text="${post.timestamp}" />
+                    <p class="post-timestamp" th:text="${post.timestamp}" />
                   <!-- <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a> -->
                 </div>
                 <!-- <div class="card-footer">
@@ -97,9 +103,7 @@
                 </div>
               </div>
           </div>
-      <!-- </div>
-  </div> -->
-  </ul>
+    </th:block>
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
