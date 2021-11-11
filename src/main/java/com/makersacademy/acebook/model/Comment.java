@@ -27,6 +27,10 @@ public class Comment {
   @JoinColumn(name="post_id", insertable=false, updatable=false) // "post_id" is same as sql column name
   private Post post;
 
+  @ManyToOne
+  @JoinColumn(name="user_id", insertable=false, updatable=false)
+  private User user;
+
   // Constructors
   public Comment() {
   }
@@ -69,5 +73,13 @@ public class Comment {
   }
   public void setCreatedAt(Timestamp created_at) {
     this.created_at = created_at;
+  }
+
+  // Getter & setter for User
+  public User getUser() {
+    return this.user;
+  }
+  public void setUser(User user) {
+    this.user = user;
   }
 }
