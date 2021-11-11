@@ -46,67 +46,69 @@
           style="background:#3e66d4;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
           value="Reset" style="background:#3e66d4;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
     </form>
-    <div>
-      <div class="grid-container" th:each="post: ${posts}">
-        <table class="post">
-          <tr>
-            <div clas="grid-item">
-              <td rowspan="6">
-                <!-- IF -->
-                <div class="each_space_description" th:if="${post.user.profileimage.length != 0} ">
-                  <img class="profileImage"
-                    th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
-                </div>
-                <!-- ELSE -->
-                <div class="each_space_description" th:if="${post.user.profileimage.length == 0} ">
-                  <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
-                </div>
-              </td>
-            </div>
-            <td>
-              <div clas="grid-item">
-                <div class="each_space_description" id="username" th:text="${post.user.username}"></div>
-                <div class="each_space_description" th:text="${post.content}"></div>
-                <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
-            </td>
-            <td rowspan="6">
-              <!-- IF -->
-              <div th:if="${post.contentimage.length != 0} ">
-                <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}"
-                  alt="" />
-              </div>
-            </td>
+    <div class="grid-container" th:each="post: ${posts}">
+      <!-- <table> -->
+      <!-- <tr> -->
 
-            <div class="grid-item">
-              <!-- like button -->
-              <span style="float:left;">
-                <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
-                  <button type="submit" class="btn btn-block btn-primary" id="like">
-                    <i class="fa fa-thumbs-up"></i>
-                  </button>
-                </form>
-              </span>
-              <br><br>
-
-              <!-- form to delete posts-->
-              <div th:if="${thisUser.username == post.user.username}">
-                <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
-                  <input type="hidden" th:id="${post.id}">Delete post</input>
-                  <button type="submit" id="delete"
-                    onClick="return confirm('Are you sure you want to delete this post?')"></button>
-                </form>
-              </div>
-
-              <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
-                <input type="hidden" th:id="${post.id}">See Comments</input>
-                <button type="submit" id="comment"></button>
-              </form>
-            </div>
-            </td>
-          </tr>
-        </table>
+      <div class="grid-item">
+        <!-- <td  rowspan="6"> -->
+        <!-- IF -->
+        <div th:if="${post.user.profileimage.length != 0} ">
+          <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+            alt="" />
+        </div>
+        <!-- ELSE -->
+        <div th:if="${post.user.profileimage.length == 0} ">
+          <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+        </div>
+        <!-- </td> -->
       </div>
+      <!-- <td> -->
+      <div class="grid-item">
+        <div id="username" th:text="${post.user.username}"></div>
+        <div th:text="${post.content}"></div>
+        <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
+        <!-- </td>
+            <td rowspan="6"> -->
+        <!-- IF -->
+        <div th:if="${post.contentimage.length != 0} ">
+          <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}"
+            alt="" />
+        </div>
+      </div>
+      <!-- </td> -->
+
+      <div class="grid-item right">
+        <!-- like button -->
+        <span>
+          <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
+            <button type="submit" class="btn btn-block btn-primary" id="like">
+              <i class="fa fa-thumbs-up"></i>
+            </button>
+          </form>
+        </span>
+        <br><br>
+
+        <!-- form to delete posts-->
+        <div th:if="${thisUser.username == post.user.username}">
+          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+            <input type="hidden" th:id="${post.id}">Delete post</input>
+            <button type="submit" id="delete"
+              onClick="return confirm('Are you sure you want to delete this post?')"></button>
+          </form>
+        </div>
+
+        <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
+          <input type="hidden" th:id="${post.id}">See Comments</input>
+          <button type="submit" id="comment"></button>
+        </form>
+      </div>
+      <!-- </td>
+          </tr>
+        </table> -->
     </div>
+  </div>
+  </div>
 </body>
 
 </html>
