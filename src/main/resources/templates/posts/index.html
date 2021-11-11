@@ -52,13 +52,12 @@
 
     <div align="center" sec:authorize="isAuthenticated()">
       <h2> Welcome back <span sec:authentication="name"></span> </h2>
-      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input id="content-input" type="text" placeholder="What is on your mind?"/></p>
-        <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
-        <p><input id="submit-post-btn" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-    </div>
-
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <p>Content: <input id="content-input" type="text" th:field="*{content}" placeholder="What's on your mind?" /></p>
+      <p>Photo URL: <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
+      <p><input id="submit-post-btn" class="btn btn-primary" type="submit" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>
+  </form>
+</div>
 
     <!-- Posts feed -->
     <th:block th:each="post: ${posts}">
@@ -77,6 +76,7 @@
                     </div>
                   </div>
                 </div>
+
                   <!-- Content -->
                   <div class="post-body">
                     <p class="post-text" th:text="${post.content}" />
