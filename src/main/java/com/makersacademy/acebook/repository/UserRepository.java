@@ -11,9 +11,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value="SELECT EXISTS(SELECT 1 FROM users WHERE username = ?1)  ", nativeQuery=true)
   boolean usernameExists(String username);
 
-  @Query(value = "SELECT EXISTS(SELECT 1 FROM users WHERE username = ?1)  ", nativeQuery = true)
-  boolean usernameExists(String username);
-
   public User findByUsername(String username);
 
 }
