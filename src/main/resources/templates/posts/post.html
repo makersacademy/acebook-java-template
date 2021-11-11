@@ -92,15 +92,15 @@
           <tr>
             <td rowspan="6">
               <!-- IF -->
-              <div th:if="${post.user.profileimage.length != 0} ">
+              <div th:if="${comment.user.profileimage.length != 0} ">
                 <img
                   class="profileImage"
-                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(comment.user.profileimage)}"
                   alt=""
                 />
               </div>
               <!-- ELSE -->
-              <div th:if="${post.user.profileimage.length == 0} ">
+              <div th:if="${comment.user.profileimage.length == 0} ">
                 <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
               </div>
             </td>
@@ -113,7 +113,7 @@
                   th:text="${#dates.format(comment.time, 'dd-MMM-yyyy HH:mm')}"
                 ></span>
               </div>
-              <div th:if="${comment.user.username == post.user.username}">
+              <div th:if="${comment.user.username == user.username}">
                 <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
                   <input type="hidden" th:id="${comment.id}">Delete comment</input>
                   <button type="submit" id="deleteComment"></button>
