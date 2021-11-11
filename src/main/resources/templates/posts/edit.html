@@ -15,8 +15,9 @@
     <div align="center">
       <h1>Edit Post</h1>
       <form action="#" th:action="@{/edit}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <input type="hidden"  th:field="*{id}" />
-        <input type="hidden"  th:value="${user.id}"  id="user" name="user"/>
+        <input type="hidden"  th:value="${post.id}" id="id" name="id"/>
+        <input type="hidden"  th:value="${post.user.id}"  id="user" name="user"/>
+        <input type="hidden"  th:value="${post.time}"  id="time" name="time"/>
         <input type="hidden"  th:value="${post.contentimage}"  id="contentimage" name="contentimage"/>
         <table>
           <tr>

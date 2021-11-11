@@ -44,6 +44,10 @@ public class Post {
         return this.id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getContent() {
         return this.content;
     }
@@ -54,6 +58,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setTime(Timestamp time){
+        this.time = time;
+    }
+
+    public Timestamp getTime(){
+        return this.time;
     }
 
 }

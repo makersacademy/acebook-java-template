@@ -114,7 +114,7 @@ public class PostsController {
     // }
 
     @PostMapping("/edit")
-    public RedirectView post(@PathVariable Long id, @ModelAttribute Post post, Model model) {
+    public RedirectView post(@ModelAttribute Post post) {
         // model.addAttribute("post", post);
         repository.save(post);
         return new RedirectView("/posts");
