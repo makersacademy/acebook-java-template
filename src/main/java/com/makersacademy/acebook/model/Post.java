@@ -1,12 +1,14 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,9 +29,13 @@ public class Post {
     @CreationTimestamp
     public Timestamp time;
     public byte[] contentimage;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
+
+    @OneToMany(mappedBy = "post")
+    List<Comment> comments;
 
     public Post() {
     }
@@ -54,6 +60,10 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getCommentsCount() {
+        return this.comments.size();
     }
 
 }
