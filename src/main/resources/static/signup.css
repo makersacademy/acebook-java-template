@@ -121,10 +121,10 @@ img {
 body {
   background: #76b852;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #4a86f5, #afc5ee);
-  background: -moz-linear-gradient(to top, #4a86f5, #afc5ee);
-  background: -o-linear-gradient(to top, #4a86f5, #afc5ee);
-  background: linear-gradient(to top, #4a86f5, #afc5ee);
+  background: -webkit-linear-gradient(to top, #4a5bf5, #b0afee);
+  background: -moz-linear-gradient(to top, #4a5bf5, #b0afee);
+  background: -o-linear-gradient(to top, #4a86f5, #b0afee);
+  background: linear-gradient(to top, #4a86f5, #afb5ee);
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
@@ -828,7 +828,6 @@ input.checkbox:checked:after {
 }
 
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.144);
   padding: 20px;
   font-size: 15px;
   color: black;

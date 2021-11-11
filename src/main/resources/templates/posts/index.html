@@ -10,26 +10,41 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <nav>
-    <div class="logout">
-      <a href="#popup1">
-        <button class="logoutbtn">Logout</button>
-      </a>
-      <div id="popup1" class="overlay">
-        <div class="popup">
-          <h2>Are you sure you want to log out?</h2>
-          <a class="close" href="/logout">Yes</a><br /><br />
-          <a class="close" href="#">No</a>
-        </div>
+  <nav class="navbar navbar-inverse navbar-fixed-top"
+    style="background-color: rgba(70, 152, 223, 0.521); border-color: rgba(70, 152, 223, 0.521);">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a style="color: white" class="navbar-brand" href="#">JavaCakes Acebook</a>
       </div>
+
+      <ul class="nav navbar-nav">
+        <li><a style="color: white" href="#">Home</a></li>
+        <li><a style="color: white" href="/posts">Posts</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a style="color: white" href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li>
+          <a style="color: white" href="#popup1"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          <div id="popup1" class="overlay">
+            <div class="popup">
+              <h2>Are you sure you want to log out?</h2>
+              <a class="close" href="/logout">Yes</a><br /><br />
+              <a class="close" href="#">No</a>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <div class="agileits-top white-font">
+  <div class="agileits-top white-font" style="padding: 50px;">
     <div class="white-font" sec:authorize="isAuthenticated()">
       <h3>Hi, <span sec:authentication="name"></span>!</h3>
     </div>
@@ -68,7 +83,7 @@
       <div class="grid-item bubble bubble-corner">
 
         <div th:text="${post.content}"></div><br>
-        <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
+        <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div><br>
         <!-- </td>
             <td rowspan="6"> -->
         <!-- IF -->

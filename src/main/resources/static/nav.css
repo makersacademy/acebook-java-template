@@ -9,7 +9,7 @@
   margin-bottom: 0.5rem;;
 }
 
-.logoutbtn {
+/* .logoutbtn {
   font-size: 12px;
   padding: 7px;
   color: #fff;
@@ -21,7 +21,7 @@
 
 .logoutbtn:hover {
   background: #0470af;
-}
+} */
 
 .overlay {
   position: fixed;
@@ -46,7 +46,7 @@
   background: #fff;
   border-radius: 5px;
   width: 30%;
-  position: relative;
+  position: absolute;
   transition: all 5s ease-in-out;
 }
 
