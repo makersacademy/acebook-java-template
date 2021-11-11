@@ -2,13 +2,16 @@ package com.makersacademy.acebook.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import com.makersacademy.acebook.model.Like;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

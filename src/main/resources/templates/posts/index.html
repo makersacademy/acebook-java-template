@@ -64,9 +64,9 @@
               <button type="submit" class="btn btn-block btn-primary" id="like">
                 <i class="fa fa-thumbs-up"></i>
               </button>
-              <!-- <p></p> -->
             </form>
           </span>
+          <br><br>
 
           <!-- form to delete posts-->
           <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.GenerationType;
 
@@ -61,5 +62,12 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
+    // @Formula("SELECT COUNT(post_id) FROM likes l WHERE l.post_id = post_id")
+    // public int likeCount;
+
+    // public int likeCount() {
+    // return likeCount;
+    // }
 
 }

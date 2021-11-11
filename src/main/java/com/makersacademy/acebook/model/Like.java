@@ -5,11 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import lombok.Data;
 
 import javax.persistence.ManyToMany;
 import javax.persistence.GenerationType;
 import java.util.Set;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @Data
 @Table(name = "LIKES")
@@ -29,5 +36,12 @@ public class Like {
   public void like() {
 
   }
+
+  // @Formula("SELECT COUNT(post_id) FROM likes l WHERE l.post_id = post_id")
+  // public int likeCount;
+
+  // public int likeCount() {
+  // return likeCount;
+  // }
 
 }
