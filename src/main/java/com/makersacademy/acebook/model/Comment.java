@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.GenerationType;
 
@@ -61,5 +63,15 @@ public class Comment {
 
     public Long getId() {
         return this.id;
+    }
+
+    public Date getDate() {
+        Date date = new Date(this.time.getTime());
+        return date;
+    }
+
+    public String timeFormat() {
+        PrettyTime format = new PrettyTime();
+        return format.format(getDate());
     }
 }
