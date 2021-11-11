@@ -1,13 +1,12 @@
 package com.makersacademy.acebook.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Post {
     private String photo;
     
     @OneToMany(mappedBy = "post") // the value of mappedBy is the name of the association-mapping attribute on the owning side
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public Post() {}
     public Post(String content) { this.content = content; }
@@ -55,26 +54,10 @@ public class Post {
     public void setPhoto(String photo) { this.photo = photo; }
 
     // Getter and Setter for comments
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    // Below two blocks are needed for private Set<Comment> comments = new HashSet<>();
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null | getClass() != o.getClass()) return false;
-
-        Post post = (Post) o;
-
-        return id != null ? id.equals(post.id) : post.id == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
     }
 }
