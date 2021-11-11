@@ -1,14 +1,18 @@
 package com.makersacademy.acebook.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import com.makersacademy.acebook.lib.ImageUtil;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.CommentRepository;
 
 //import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,20 +53,50 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam("file") MultipartFile file) throws IOException {
+        post.contentimage = file.getBytes();
+
         repository.save(post);
         return new RedirectView("/posts");
     }
 
     @PostMapping("/deletePost/{id}")
     public RedirectView deletePost(@PathVariable Long id) {
-        repository.deleteById(id);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
+        Post thisPost = repository.findById(id).get();
+        if (thisPost.user.getId() == thisUser.getId()) {
+            repository.deleteById(thisPost.getId());
+        }
         return new RedirectView("/posts");
     }
 
-    // public RedirectView create(@ModelAttribute Post post, Principal principal) {
-    // post.setUserName(principal.getUsername());
-    // repository.save(post);
-    // return new RedirectView("/posts");
-    // }
+    @GetMapping("/post/{id}")
+    public String post(@PathVariable Long id, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
+        Post post = repository.findById(id).get();
+        List<Comment> comments = commentRepository.findByPostId(id);
+        model.addAttribute("user", user);
+        model.addAttribute("comments", comments);
+        model.addAttribute("post", post);
+        model.addAttribute("comment", new Comment());
+        return "posts/post";
+    }
+
+    @PostMapping("/post/{id}")
+    public RedirectView create(@PathVariable Long id, @ModelAttribute Comment comment) {
+        commentRepository.save(comment);
+        return new RedirectView("/post/{id}");
+    }
+
+    @PostMapping("/deleteComment/{id}")
+    public RedirectView deleteComment(@PathVariable Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        Long postId = comment.post.getId();
+        commentRepository.deleteById(id);
+        return new RedirectView("/post/" + postId.toString());
+    }
 }

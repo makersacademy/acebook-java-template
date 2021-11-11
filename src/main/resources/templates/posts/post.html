@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/login.css" />
+
+    <title>Acebook</title>
+  </head>
+
+  <body>
+    <nav>
+      <div class="logout">
+        <a href="#popup1">
+          <button class="logoutbtn">Logout</button>
+        <a href="/posts">
+          <button class="logoutbtn">See posts</button>
+        </a>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>Are you sure you want to log out?</h2>
+            <a class="close" href="/logout">Yes</a><br /><br />
+            <a class="close" href="#">No</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+
+    <table>
+      <tr>
+        
+        <td rowspan="6">
+          <!-- IF -->
+          <div th:if="${post.user.profileimage.length != 0} ">
+            <img
+              class="profileImage"
+              th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+              alt=""
+            />
+          </div>
+          <!-- ELSE -->
+          <div th:if="${post.user.profileimage.length == 0} ">
+            <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+          </div>
+        </td>
+       
+      <td>
+        <div th:text="${post.user.username}"></div>
+        <div th:text="${post.content}"></div>
+        <div>
+          Created on:
+          <span
+            th:text="${#dates.format(post.time, 'dd-MMM-yyyy HH:mm')}"
+          ></span
+          ><br /><br />
+        </div>
+      </td>
+    </table>
+
+    <form
+      action="#"
+      th:action="@{'/post/{id}' (id=${post.id})}"
+      th:object="${comment}"
+      method="post"
+    >
+      <p>
+        Add a comment:
+        <input
+          type="text"
+          th:field="*{content}"
+          pattern=".*\S+.*"
+          title="This field is required"
+          required
+        />
+      </p>
+      <input type="hidden" th:value="${post.id}" id="post" name="post" />
+      <input type="hidden" th:value="${user.id}" id="user" name="user" />
+      <p>
+        <input id="submit" type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </p>
+    </form>
+
+      <div th:each="comment: ${comments}">
+        <table>
+          <tr>
+            <td rowspan="6">
+              <!-- IF -->
+              <div th:if="${post.user.profileimage.length != 0} ">
+                <img
+                  class="profileImage"
+                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+                  alt=""
+                />
+              </div>
+              <!-- ELSE -->
+              <div th:if="${post.user.profileimage.length == 0} ">
+                <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+              </div>
+            </td>
+            <td>
+              <div th:text="${comment.user.username}"></div>
+              <div th:text="${comment.content}"></div>
+              <div>
+                Created on:
+                <span
+                  th:text="${#dates.format(comment.time, 'dd-MMM-yyyy HH:mm')}"
+                ></span>
+              </div>
+              <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
+                <input type="hidden" th:id="${comment.id}">Delete comment</input>
+                <button type="submit" id="deleteComment"></button>
+            </form>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </tr>
+  </body>
+</html>
