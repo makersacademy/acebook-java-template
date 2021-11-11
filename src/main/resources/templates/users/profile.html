@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/login.css" />
+    <link rel="stylesheet" href="/main.css" />
+
+  </head>
+
+  <body>
+    <nav>
+      <div class="logout">
+        <a href="#popup1">
+          <button class="logoutbtn">Logout</button>
+        </a>
+        <div id="popup1" class="overlay">
+          <div class="popup">
+            <h2>Are you sure you want to log out?</h2>
+            <a class="close" href="/logout">Yes</a><br /><br />
+            <a class="close" href="#">No</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div sec:authorize="isAuthenticated()">
+      <h1> <span sec:authentication="name"></span>'s Profile </h1>
+    </div>
+    <div th:if="${thisUser.profileimage.length != 0} ">
+      <img th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(thisUser.profileimage)}" alt="" />
+    </div>
+
+    <div th:each="post: ${myPosts}">
+      <table class="post">
+        <tr>
+          <td rowspan="6">
+            <!-- IF -->
+            <div th:if="${post.user.profileimage.length != 0} ">
+              <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
+            </div>
+            <!-- ELSE -->
+            <div th:if="${post.user.profileimage.length == 0} ">
+              <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
+            </div>
+          </td>
+          <td>
+            <div id="username" th:text="${post.user.username}" ></div>
+            <div th:text="${post.content}" ></div>
+            <div th:text="${post.time}" ></div>
+            <div th:if="${thisUser.username == post.user.username}">
+              <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+                <input type="hidden" th:id="${post.id}">Delete</input>
+                <input type="hidden" name="from" value="/users/profile">
+                <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
+              </form>
+            </div>
+          </td>
+          <td rowspan="6">
+            <!-- IF -->
+            <div th:if="${post.contentimage.length != 0} ">
+              <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
+            </div>
+          </td>
+        </tr>
+      </table>
+      <br/>
+    </div>
+  </body>
+</html>

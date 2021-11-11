@@ -13,6 +13,7 @@ import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.repository.CommentRepository;
+import com.makersacademy.acebook.repository.LikeRepository;
 
 //import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class PostsController {
     UserRepository userRepository;
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    LikeRepository likeRepository;
+
 
     @GetMapping("/posts")
     public String index(Model model) throws Exception {
@@ -50,7 +54,7 @@ public class PostsController {
         model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("like", new Like(0, 0));
+        model.addAttribute("like", new Like(0));
         return "posts/index";
     }
 
@@ -68,9 +72,17 @@ public class PostsController {
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
         Post thisPost = repository.findById(id).get();
+        List<Comment> comments = commentRepository.findAllByPostId(id);
+        List<Like> likes = likeRepository.findAllByPostId(id);
+
         if (thisPost.user.getId() == thisUser.getId()) {
+            commentRepository.deleteAll(comments);
+            likeRepository.deleteAll(likes);
             repository.deleteById(thisPost.getId());
+            
         }
+
+
         return new RedirectView("/posts");
     }
 
@@ -81,6 +93,7 @@ public class PostsController {
         User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(id).get();
         List<Comment> comments = commentRepository.findByPostId(id);
+        model.addAttribute("imgUtil", new ImageUtil());
         model.addAttribute("user", user);
         model.addAttribute("comments", comments);
         model.addAttribute("post", post);
@@ -88,17 +101,42 @@ public class PostsController {
         return "posts/post";
     }
 
+
     @PostMapping("/post/{id}")
     public RedirectView create(@PathVariable Long id, @ModelAttribute Comment comment) {
         commentRepository.save(comment);
         return new RedirectView("/post/{id}");
     }
 
+    @GetMapping("/edit/{id}")
+    public String getEdit(@PathVariable Long id, Model model) {
+        Post post = repository.findById(id).get();
+        model.addAttribute("post", post);
+        return "posts/edit"; // if it's just /edit, it can't find it
+    }
+
+
+    @PostMapping("/edit")
+    public RedirectView post(@ModelAttribute Post post) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
+        if (post.user.getId() == thisUser.getId()) {
+            repository.save(post);
+        }
+        return new RedirectView("/posts");
+    }
+
     @PostMapping("/deleteComment/{id}")
     public RedirectView deleteComment(@PathVariable Long id) {
         Comment comment = commentRepository.findById(id).get();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User thisUser = userRepository.findByUsername(username).get(0);
         Long postId = comment.post.getId();
-        commentRepository.deleteById(id);
+        if (comment.user.getId() == thisUser.getId()) {
+            commentRepository.deleteById(id);
+        }
         return new RedirectView("/post/" + postId.toString());
     }
 }

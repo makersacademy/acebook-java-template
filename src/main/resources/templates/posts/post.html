@@ -95,10 +95,13 @@
     </div>
 
     <div class="grid-item3 bubble bubble-corner">
-      <div th:text="${comment.content}"></div>
-      <div><br>
-        Created on:
-        <span th:text="${#dates.format(comment.time, 'dd-MMM-yyyy HH:mm')}"></span>
+      <div th:text="${comment.content}"></div><br>
+      <div>Posted: <span th:text="${comment.timeFormat()}"></span></div>
+      <div th:if="${comment.user.username == user.username}">
+        <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
+          <input type="hidden" th:id="${comment.id}">Delete comment</input>
+          <button type="submit" id="deleteComment"></button>
+        </form>
       </div>
     </div>
 

@@ -20,7 +20,11 @@ import org.openqa.selenium.support.pagefactory.ByAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -128,15 +132,16 @@ public class PostsTest {
   }
 
   @Test
-  public void DatabaseDateTest() {
-
-    // making post
-    Date time = new Date(System.currentTimeMillis());
+  public void DatabaseDateTest(){
+    LocalDateTime now = LocalDateTime.now();  
     driver.findElement(By.id("content")).sendKeys("What is the time?");
     driver.findElement(By.id("submit")).click();
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");  
+    String time = dtf.format(now).toString();  
+
     String bodyText = driver.findElement(By.tagName("body")).getText();
-    Assert.assertTrue("Date is added to database", bodyText.contains(time.toString()));
+    Assert.assertTrue("Date is added to database", bodyText.contains(time));
   }
 
   @Test
@@ -251,5 +256,22 @@ public class PostsTest {
 
     WebElement text = driver.findElement(By.className("contentImage"));
     Assert.assertNotNull(text);
+  }
+
+  @Test
+  public void editPost(){
+    //makes a post
+    driver.findElement(By.id("content")).sendKeys("Hello world!");
+    driver.findElement(By.id("submit")).click();
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertTrue("checks that the initial post appears", bodyText.contains("Hello world!"));
+    //edits a post
+    driver.findElement(By.id("edit")).click();
+    driver.findElement(By.id("content")).sendKeys("Goodbye world!");
+    driver.findElement(By.id("edit")).click();
+
+    Assert.assertTrue("checks that the post has been edited", bodyText.contains("Goodbye world!"));
+
+
   }
 }
