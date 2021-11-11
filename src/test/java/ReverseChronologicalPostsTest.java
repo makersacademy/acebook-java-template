@@ -11,9 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.List;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -41,7 +42,7 @@ public class ReverseChronologicalPostsTest {
     }
 
     @Test
-    public void successfulPostsDisplayInReverseChronologicalOrder() {
+    public void successfulPostsDisplayInReverseChronologicalOrder() throws InterruptedException {
         driver.get("http://localhost:8080/users/new");
         String randomName = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(randomName);
@@ -61,7 +62,7 @@ public class ReverseChronologicalPostsTest {
         driver.findElement(By.id("content-input")).sendKeys("4");
         driver.findElement(By.id("submit-post-btn")).click();
 
-        List<WebElement> content = driver.findElements(By.className("text"));
+        List<WebElement> content = driver.findElements(By.className("post-text"));
         List<String> postsInDisplayedOrder = new ArrayList<String>();
         int i = 0;
         for (WebElement contentElement : content) {
