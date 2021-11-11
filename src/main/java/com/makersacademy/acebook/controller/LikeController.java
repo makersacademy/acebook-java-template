@@ -42,7 +42,9 @@ public class LikeController {
   @PostMapping("/posts/{id}/likes")
   public RedirectView like(@PathVariable("id") Long id, Principal principal) {
     User thisUsers = userRepository.findByUsername(principal.getName()).get(0);
-    Like like = new Like(thisUsers.getId(), id);
+    Post thisPost = postRepository.findById(id).get();
+    Like like = new Like(thisUsers.getId());
+    like.setPost(thisPost);
     likeRepository.save(like);
     return new RedirectView("/posts");
   }

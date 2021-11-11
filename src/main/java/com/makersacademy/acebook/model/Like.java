@@ -3,6 +3,7 @@ package com.makersacademy.acebook.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
@@ -17,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.persistence.ManyToOne;
 
 @Data
 @Table(name = "LIKES")
@@ -25,17 +27,34 @@ public class Like {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private long post_id;
   private long user_id;
+  @ManyToOne
+  @JoinColumn(name = "post_id")
+  public Post post;
 
-  public Like(long user_id, long post_id) {
+  public Like(long user_id) {
     this.user_id = user_id;
-    this.post_id = post_id;
+    
   }
 
-  public void like() {
-
+  public Like(){
   }
+
+  public Post getPost() {
+    return this.post;
+}
+
+public void setPost(Post post) {
+  this.post = post;
+}
+
+
+
+// public void setPostId() {
+//   this.post_id;
+// }
+
+
 
   // @Formula("SELECT COUNT(post_id) FROM likes l WHERE l.post_id = post_id")
   // public int likeCount;
