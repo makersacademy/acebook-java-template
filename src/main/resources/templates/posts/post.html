@@ -92,15 +92,15 @@
           <tr>
             <td rowspan="6">
               <!-- IF -->
-              <div th:if="${post.user.profileimage.length != 0} ">
+              <div th:if="${comment.user.profileimage.length != 0} ">
                 <img
                   class="profileImage"
-                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(comment.user.profileimage)}"
                   alt=""
                 />
               </div>
               <!-- ELSE -->
-              <div th:if="${post.user.profileimage.length == 0} ">
+              <div th:if="${comment.user.profileimage.length == 0} ">
                 <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
               </div>
             </td>
