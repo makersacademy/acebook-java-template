@@ -79,15 +79,15 @@
                 <input type="hidden" name="from" value="/posts">
                 <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
               </form>
+              <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+                <input type="hidden" th:id="${post.id}">Edit</input>
+                <button type="submit" id="edit"></button>
+              </form>
             </div>
             <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
               <input type="hidden" th:id="${post.id}">See Comments</input>
               <button type="submit" id="comment"></button>
-            </form>
-            <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
-              <input type="hidden" th:id="${post.id}">Edit</input>
-              <button type="submit" id="edit"></button>
-            </form>
+            </form> 
           </td>
           <td rowspan="6">
             <!-- IF -->
