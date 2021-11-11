@@ -66,8 +66,10 @@ public class PostsController {
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
         Post thisPost = repository.findById(id).get();
+        List<Comment> comments = commentRepository.findAllByPostId(id);
 
         if (thisPost.user.getId() == thisUser.getId()) {
+            commentRepository.deleteAll(comments);
             repository.deleteById(thisPost.getId());
         }
         return new RedirectView("/posts");
