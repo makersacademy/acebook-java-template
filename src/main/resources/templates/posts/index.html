@@ -60,7 +60,7 @@
           <div th:text="${post.time}"></div>
           <!-- like button -->
           <span style="float:left;">
-            <form action="#" th:action="@{/posts/{id}/likes(id=${post.getID()})}" th:object="${post}" method="post">
+            <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
               <button type="submit" class="btn btn-block btn-primary" id="like">
                 <i class="fa fa-thumbs-up"></i>
               </button>

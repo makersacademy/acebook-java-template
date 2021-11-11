@@ -29,7 +29,7 @@ public class User {
     public byte[] profileimage;
 
     @ManyToMany
-    @JoinTable(name = "liked_posts", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
+    @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
     Set<Post> likedPosts;
 
     public User() {

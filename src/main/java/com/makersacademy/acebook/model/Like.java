@@ -12,23 +12,21 @@ import javax.persistence.GenerationType;
 import java.util.Set;
 
 @Data
-@Table(name = "LIKED_POSTS")
+@Table(name = "LIKES")
 @Entity
 public class Like {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private long post_id;
   private long user_id;
-  // private String username;
 
-  public Like(long userid, long postid) {
-    this.user_id = userid;
-    this.post_id = postid;
+  public Like(long user_id, long post_id) {
+    this.user_id = user_id;
+    this.post_id = post_id;
   }
 
-  public void likepost() {
+  public void like() {
 
   }
 
