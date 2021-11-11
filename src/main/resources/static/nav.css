@@ -23,6 +23,7 @@
   background: #0470af;
 } */
 
+
 .overlay {
   position: fixed;
   top: 0;
@@ -45,7 +46,7 @@
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 35%;
   position: absolute;
   transition: all 5s ease-in-out;
 }
