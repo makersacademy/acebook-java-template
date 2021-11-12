@@ -71,7 +71,7 @@ public void setContent(String content) {
 
 public String createTimestamp() {
   Date date = Calendar.getInstance().getTime();
-  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
   String timestamp = dateFormat.format(date);
   return timestamp;
 }
