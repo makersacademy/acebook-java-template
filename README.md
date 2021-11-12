@@ -1,4 +1,4 @@
-# Acebook
+# Acebook - JavaCakes
 
 This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
 
@@ -13,7 +13,7 @@ The application uses:
   
 Below, you'll find specific learning objectives for each tool.
 
-## QuickStart Instructions
+## QuickStart Instructions 
 
 - Fork and clone this repository to your machine
 - Open the codebase in an IDE like InteliJ or VSCode
@@ -22,6 +22,63 @@ Below, you'll find specific learning objectives for each tool.
 - Build the app and start the server, using the Maven command `mvn spring-boot:run`
 > The database migrations will run automatically at this point
 - Visit `http://localhost:8080/users/new` to sign up
+
+## User Stories
+```
+As a user, 
+So that I can log in and post on Acebook, 
+I would like to be able to sign up.
+```
+```
+As a user, 
+So that I can post on Acebook, 
+I would like to be able to sign in.
+```
+```
+As a user, 
+So that I can share what I want, 
+I would like to be able to make a post.
+```
+```
+As a user, 
+So that I can leave acebook, 
+I would like to sign out.
+```
+```
+As a user, 
+So that I can show who I am,  
+I would like to add a profile picture to my account.
+```
+```
+As a user, 
+So that I can share images, 
+I would like to be able to post a picture. 
+```
+```
+As a user, 
+So that I can share my opinions on the posts, 
+I would like to be able to make a comment.
+```
+```
+As a user, 
+So that I can remove a post I don’t want, 
+I would like to be able to delete a post.
+```
+```
+As a user, 
+So that I can remove a comment I don’t want, 
+I would like to be able to delete a comment.
+```
+```
+As a user, 
+So that I can see all my posts, 
+I would like to have a profile page.
+```
+```
+As a user, 
+So that I can show what posts I like, 
+I would like to be able to like posts.
+```
 
 ## Running the tests
 
