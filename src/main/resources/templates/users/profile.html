@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Beta</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link th:href="@{/styles/cssandjs/navbar.css}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Beta</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Friends</a></li>
+                        <li><a href="#">Settings</a></li>
+                    </ul>
+                </li>
+                <!-- <li><a href="#">Page 2</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post"
+                        style="padding: 8px 8px;">
+                        <span class="greeting" sec:authentication="name"></span>
+                        <img class="logged_in_user_profile_photo" id="profile_photo"
+                            th:src="@{${user.getProfilePictureUrl()}}" />
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out">Sign
+                            Out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div><img src="/images/beta_small.png" alt="Beta" width="80">
+        <h1>Beta</h1>
+    </div>
+    <h2>like Meta, but Beta</h2>
+
+    <h3> This is my profile page! </h3>
+    <img class="profile-photo" th:src="@{${user.getProfilePictureUrl()}}" height="150" />
+
+</body>
+
+</html>

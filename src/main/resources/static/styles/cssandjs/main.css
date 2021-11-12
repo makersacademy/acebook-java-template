@@ -203,6 +203,12 @@ hr.new1 {
     font-size: 12px;
     font-weight: bold;
 }
+
+.profile-photo {
+    align-self: center;
+}
+
+
 /* colour alternatives
 blue - #002db3
 orange - #ff8c66
