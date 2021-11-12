@@ -19,7 +19,7 @@
                 <a class="navbar-brand" href="/">Beta</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
+                <!-- <li class="active"><a href="/">Home</a></li> -->
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -28,7 +28,6 @@
                         <li><a href="#">Settings</a></li>
                     </ul>
                 </li>
-                <!-- <li><a href="#">Page 2</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -45,13 +44,23 @@
         </div>
     </nav>
 
-    <div><img src="/images/beta_small.png" alt="Beta" width="80">
-        <h1>Beta</h1>
+    <div><img class="logo" src="/images/beta_purple_text.png" alt="Beta" width="300"></div></br>
+    <!-- <h1>Beta</h1>
     </div>
-    <h2>like Meta, but Beta</h2>
+    <h2>like Meta, but Beta</h2> -->
 
-    <h3> This is my profile page! </h3>
-    <img class="profile-photo" th:src="@{${user.getProfilePictureUrl()}}" height="150" />
+    <h3> Hey, this is my profile page! </h3></br></br>
+
+    <img class="profile-photo" th:src="@{${user.getProfilePictureUrl()}}" height="150" /></br></br></br>
+    <div class="profile-text">I am <span sec:authentication="name"></span>.<div></br>
+            <div class="profile-text"> I am a nice guy, I like being cool and
+                hanging around with
+                friends.</div>
+            <div class="profile-text">
+                So Beta is where I hang out!</div>
+            <div class="profile-text"> Nice photo, right?</div>
+        </div>
+        </br>
 
 </body>
 
