@@ -1,5 +1,8 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,7 +30,7 @@ public class SignInTest {
         driver = new ChromeDriver();
         faker = new Faker();
         
-        name = faker.name().firstName();
+        name = faker.pokemon().name();
 
         // user sign up
         driver.get("http://localhost:8080/users/new");
@@ -34,13 +38,6 @@ public class SignInTest {
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
     }
-
-    @After
-    public void tearDown() {
-        driver.close();
-    }
-
-
 
     @Test
     public void successfulSignInRedirectsToPosts() {
@@ -61,6 +58,11 @@ public class SignInTest {
         driver.findElement(By.cssSelector("input[value='Log in']")).click();
         String text = driver.findElement(By.className("error")).getText();
         Assert.assertEquals("Wrong user or password", text);
+    }
+
+    @After
+    public void tearDown() {
+        driver.close();
     }
 
     
