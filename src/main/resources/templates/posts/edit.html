@@ -1,32 +1,64 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head lang="en">
-    <meta charset="UTF-8" />
-    <title>Acebook</title>
-    <link rel="stylesheet" href="/login.css" />
-    <link rel="stylesheet" href="/main.css" />
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  </head>
-  <!-- <div th:text="${user.id}"></div> -->
-  <body>
-    <div align="center">
-      <h1>Edit Post</h1>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/nav.css" />
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="stylesheet" href="/signup.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<!-- <div th:text="${user.id}"></div> -->
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top"
+    style="background-color: rgba(70, 152, 223, 0.521); border-color: rgba(70, 152, 223, 0.521);">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a style="color: white" class="navbar-brand" href="#">JavaCakes Acebook</a>
+      </div>
+
+      <ul class="nav navbar-nav">
+        <li><a style="color: white" href="#">Home</a></li>
+        <li><a style="color: white" href="/users/profile">Profile</a></li>
+        <li><a style="color: white" href="/posts">Posts</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a style="color: white" href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li>
+          <a style="color: white" href="#popup1"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          <div id="popup1" class="overlay">
+            <div class="popup">
+              <h2>Are you sure you want to log out?</h2>
+              <a class="close" href="/logout">Yes</a><br /><br />
+              <a class="close" href="#">No</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="agileits-top white-font" style="padding: 70px;">
+    <h1>Edit Post</h1>
+    <div class="agileits-top">
       <form action="#" th:action="@{/edit}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <input type="hidden"  th:value="${post.id}" id="id" name="id"/>
-        <input type="hidden"  th:value="${post.user.id}"  id="user" name="user"/>
-        <input type="hidden"  th:value="${post.time}"  id="time" name="time"/>
-        <input type="hidden"  th:value="${post.contentimage}"  id="contentimage" name="contentimage"/>
-        <table>
-          <tr>
-            <td>Content</td>
-            <td><input type="text" th:field="*{content}" name="content"/></td>
-          </tr>
-        </table>
-        <input  id="edit" type="submit" value="Edit" />
+        <input type="hidden" th:value="${post.id}" id="id" name="id" />
+        <input type="hidden" th:value="${post.user.id}" id="user" name="user" />
+        <input type="hidden" th:value="${post.time}" id="time" name="time" />
+        <input type="hidden" th:value="${post.contentimage}" id="contentimage" name="contentimage" />
+        <h4>Content: </h4><br>
+        <div class="edit-content"><input type="text" th:field="*{content}" name="content" /></div>
+        <p><input id='edit' type="submit" value="Edit"
+            style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
+            value="Reset" style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
       </form>
     </div>
-  </body>
-  </html>
+  </div>
+</body>
+
+</html>

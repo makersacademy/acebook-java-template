@@ -4,102 +4,136 @@
 <head lang="en">
   <meta charset="UTF-8" />
   <title>Acebook</title>
-  <link rel="stylesheet" href="/login.css" />
+  <link rel="stylesheet" href="/nav.css" />
   <link rel="stylesheet" href="/main.css" />
+  <link rel="stylesheet" href="/signup.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <nav>
-    <div class="logout">
-      <a href="#popup1">
-        <button class="logoutbtn">Logout</button>
-      </a>
-      <div id="popup1" class="overlay">
-        <div class="popup">
-          <h2>Are you sure you want to log out?</h2>
-          <a class="close" href="/logout">Yes</a><br /><br />
-          <a class="close" href="#">No</a>
-        </div>
+  <nav class="navbar navbar-inverse navbar-fixed-top"
+    style="background-color: rgba(70, 152, 223, 0.521); border-color: rgba(70, 152, 223, 0.521);">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a style="color: white" class="navbar-brand" href="#">JavaCakes Acebook</a>
       </div>
+
+      <ul class="nav navbar-nav">
+        <li><a style="color: white" href="#">Home</a></li>
+        <li><a style="color: white" href="/users/profile">Profile</a></li>
+        <li><a style="color: white" href="/posts">Posts</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a style="color: white" href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li>
+          <a style="color: white" href="#popup1"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          <div id="popup1" class="overlay">
+            <div class="popup">
+              <h2>Are you sure you want to log out?</h2>
+              <a class="close" href="/logout">Yes</a><br /><br />
+              <a class="close" href="#">No</a>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
-      Signed in as <span sec:authentication="name"></span>
+  <div class="agileits-top white-font" style="padding: 50px;">
+    <div class="white-font" sec:authorize="isAuthenticated()">
+      <h3>Hi, <span sec:authentication="name"></span>!</h3>
     </div>
-    
+
+    <h1 style="margin-bottom: 40px; font-weight: bold;">What's on your mind?</h1>
+
+
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <p>Content: <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required/></p>
-        <input type="hidden"  th:value="${thisUser.id}"  id="user" name="user"/>
-        <p>Photos: <input id="file" type="file" accept="image/png, image/jpeg" name="file" /> </p> 
-        <p><input id='submit' type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+      <h4>Content: </h4> <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required"
+        required />
+      <input type="hidden" th:value="${thisUser.id}" id="user" name="user" />
+      <h4>Add a photo: </h4><input id="file" type="file" accept="image/png, image/jpeg" name="file" />
+      <p><input id='submit' type="submit" value="Submit"
+          style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
+          value="Reset" style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
     </form>
+    <div class="grid-container" th:each="post: ${posts}">
+      <!-- <table> -->
+      <!-- <tr> -->
 
-    <div th:each="post: ${posts}">
-      <table class="post">
-        <tr>
-          <td rowspan="6">
-            <!-- IF -->
-            <div th:if="${post.user.profileimage.length != 0} ">
-              <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}" alt="" />
-            </div>
-            <!-- ELSE -->
-            <div th:if="${post.user.profileimage.length == 0} ">
-              <img class="profileImage" th:src="@{/images/cat.jpg}"  alt="" />
-            </div>
-          </td>
-          <td>
-            <div id="username" th:text="${post.user.username}" ></div>
-            <div th:text="${post.content}" ></div>
-            <div>Posted: <span th:text="${post.timeFormat()}"></span></div>
-            <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy HH:mm')}"></span></div>
-            <div><span th:text="${post.getCommentsCount()}" ></span> comments</div>
-            
-              <!-- like button -->
-            <span style="float:left;">
-              <div th:if="${thisUser.username != post.user.username}">
-              <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
-                <button type="submit" class="btn btn-block btn-primary" id="like">
-                  <i class="fa fa-thumbs-up"></i>
-                </button>
-              </form>
-            </div>
-            </span>
-            <br><br>
-            <div>  <span th:text="${post.getLikesCount()}" ></span> likes</div>
-            
-            
-            <div th:if="${thisUser.username == post.user.username}">
-              <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
-                <input type="hidden" th:id="${post.id}">Delete post</input>
-                <input type="hidden" name="from" value="/posts">
-                <button type="submit" id="delete" onClick="return confirm('Are you sure you want to delete this post?')"></button>
-              </form>
-              <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
-                <input type="hidden" th:id="${post.id}">Edit</input>
-                <button type="submit" id="edit"></button>
-              </form>
-            </div>
-            <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
-              <input type="hidden" th:id="${post.id}">See Comments</input>
-              <button type="submit" id="comment"></button>
-            </form> 
-          </td>
-          <td rowspan="6">
-            <!-- IF -->
-            <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
-              <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}" alt="" />
-            </div>
-          </td>
-        </tr>
-      </table>
-    <br/>
+      <div class="grid-item">
+        <!-- <td  rowspan="6"> -->
+        <!-- IF -->
+        <div th:if="${post.user.profileimage.length != 0} ">
+          <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+            alt="" />
+        </div>
+        <!-- ELSE -->
+        <div th:if="${post.user.profileimage.length == 0} ">
+          <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+        </div><br>
+        <div id="username" th:text="${post.user.username}" style="font-weight: bold;"></div>
+        <!-- </td> -->
+      </div>
+      <!-- <td> -->
+      <div class="grid-item bubble bubble-corner">
+
+        <div th:text="${post.content}"></div><br>
+        <div>Posted: <span th:text="${post.timeFormat()}"></span></div>
+        <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div><br>
+        <!-- </td>
+            <td rowspan="6"> -->
+        <!-- IF -->
+        <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
+          <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}"
+            alt="" />
+        </div>
+      </div>
+
+      <div class="grid-item right">
+
+        <!-- like button -->
+        <span>
+          <!-- <div th:if="${thisUser.username != post.user.username}"> -->
+          <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
+            <button type="submit" class="btn btn-block btn-primary" id="like">
+              <i class="fa fa-thumbs-up"></i>
+            </button>
+          </form>
+          <!-- </div> -->
+        </span>
+        <br><br>
+        <div> <span th:text="${post.getLikesCount()}"></span> likes</div>
+        <div><span th:text="${post.getCommentsCount()}"></span> comments</div>
+
+        <!-- form to delete posts-->
+        <div th:if="${thisUser.username == post.user.username}">
+          <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+            <input type="hidden" th:id="${post.id}">Delete post</input>
+            <input type="hidden" name="from" value="/posts">
+            <button type="submit" id="delete"
+              onClick="return confirm('Are you sure you want to delete this post?')"></button>
+          </form>
+        </div>
+
+        <!-- editing posts -->
+        <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+          <input type="hidden" th:id="${post.id}">Edit</input>
+          <button type="submit" id="edit"></button>
+        </form>
+
+        <!-- see comments -->
+        <form th:action="@{'/post/{id}'(id=${post.id})}" th:object="${post}" method="get">
+          <input type="hidden" th:id="${post.id}">See Comments</input>
+          <button type="submit" id="comment"></button>
+        </form>
+      </div>
     </div>
-  </body>
+</body>
+
 </html>

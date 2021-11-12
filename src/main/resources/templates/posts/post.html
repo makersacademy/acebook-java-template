@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
->
-  <head lang="en">
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/main.css" />
-    <link rel="stylesheet" href="/login.css" />
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-    <title>Acebook</title>
-  </head>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="stylesheet" href="/nav.css" />
+  <link rel="stylesheet" href="/signup.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Acebook</title>
+</head>
 
-  <body>
-    <nav>
-      <div class="logout">
-        <a href="#popup1">
-          <button class="logoutbtn">Logout</button>
-        <a href="/posts">
-          <button class="logoutbtn">See posts</button>
-        </a>
-        <div id="popup1" class="overlay">
-          <div class="popup">
-            <h2>Are you sure you want to log out?</h2>
-            <a class="close" href="/logout">Yes</a><br /><br />
-            <a class="close" href="#">No</a>
-          </div>
-        </div>
+<body>
+  <nav class="navbar navbar-inverse"
+    style="background-color: rgba(70, 152, 223, 0.521); border-color: rgba(70, 152, 223, 0.521);">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a style="color: white" class="navbar-brand" href="#">JavaCakes Acebook</a>
       </div>
-    </nav>
 
-    <br>
+      <ul class="nav navbar-nav">
+        <li><a style="color: white" href="#">Home</a></li>
+        <li><a style="color: white" href="/users/profile">Profile</a></li>
+        <li><a style="color: white" href="/posts">Posts</a></li>
+      </ul>
 
-    <table>
-      <tr>
-        
-        <td rowspan="6">
-          <!-- IF -->
-          <div th:if="${post.user.profileimage.length != 0} ">
-            <img
-              class="profileImage"
-              th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
-              alt=""
-            />
+      <ul class="nav navbar-nav navbar-right">
+        <li><a style="color: white" href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li>
+          <a style="color: white" href="#popup1"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          <div id="popup1" class="overlay">
+            <div class="popup">
+              <h2>Are you sure you want to log out?</h2>
+              <a class="close" href="/logout">Yes</a><br /><br />
+              <a class="close" href="#">No</a>
+            </div>
           </div>
-          <!-- ELSE -->
-          <div th:if="${post.user.profileimage.length == 0} ">
-            <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
-          </div>
-        </td>
-       
-      <td>
-        <div th:text="${post.user.username}"></div>
-        <div th:text="${post.content}"></div>
-        <div>
-          Created on:
-          <span
-            th:text="${#dates.format(post.time, 'dd-MMM-yyyy HH:mm')}"
-          ></span
-          ><br /><br />
-        </div>
-      </td>
-    </table>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <form
-      action="#"
-      th:action="@{'/post/{id}' (id=${post.id})}"
-      th:object="${comment}"
-      method="post"
-    >
-      <p>
+  <br>
+
+  <div class="grid-container2">
+
+    <div class="grid-item2">
+      <!-- IF -->
+      <div th:if="${post.user.profileimage.length != 0} ">
+        <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+          alt="" />
+      </div>
+      <!-- ELSE -->
+      <div th:if="${post.user.profileimage.length == 0} ">
+        <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+      </div><br>
+      <div id="username" th:text="${post.user.username}" style="font-weight: bold;"></div>
+    </div>
+    <div class="grid-item2 bubble bubble-corner">
+
+      <div th:text="${post.content}"></div><br>
+      <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
+
+    </div>
+  </div><br>
+
+  <div class="comment-form">
+    <form action="#" th:action="@{'/post/{id}' (id=${post.id})}" th:object="${comment}" method="post">
+      <p class="white-font">
         Add a comment:
-        <input
-          type="text"
-          th:field="*{content}"
-          pattern=".*\S+.*"
-          title="This field is required"
-          required
-        />
+        <input type="text" th:field="*{content}" pattern=".*\S+.*" title="This field is required" required />
       </p>
       <input type="hidden" th:value="${post.id}" id="post" name="post" />
       <input type="hidden" th:value="${user.id}" id="user" name="user" />
-      <p>
-        <input id="submit" type="submit" value="Submit" />
-        <input type="reset" value="Reset" />
-      </p>
+      <p style="margin-bottom: 20px;"><input id='submit' type="submit" value="Submit"
+          style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /> <input type="reset"
+          value="Reset" style="background:#337ab7;color:white; border-radius: 14px; padding:10px; width: 30%" /></p>
     </form>
+  </div>
 
-      <div th:each="comment: ${comments}">
-        <table>
-          <tr>
-            <td rowspan="6">
-              <!-- IF -->
-              <div th:if="${comment.user.profileimage.length != 0} ">
-                <img
-                  class="profileImage"
-                  th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(comment.user.profileimage)}"
-                  alt=""
-                />
-              </div>
-              <!-- ELSE -->
-              <div th:if="${comment.user.profileimage.length == 0} ">
-                <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
-              </div>
-            </td>
-            <td>
-              <div th:text="${comment.user.username}"></div>
-              <div th:text="${comment.content}"></div>
-              <div>Posted: <span th:text="${comment.timeFormat()}"></span></div>
-              <div th:if="${comment.user.username == user.username}">
-                <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
-                  <input type="hidden" th:id="${comment.id}">Delete comment</input>
-                  <button type="submit" id="deleteComment"></button>
-                </form>
-              </div>
-            </td>
-          </tr>
-        </table>
+  <p>
+  <h3 style="color: white; padding: 20px">Comments:</h3>
+  </p>
+
+  <div class="grid-container3" th:each="comment: ${comments}">
+    <div class="grid-item3">
+      <!-- IF -->
+      <div th:if="${post.user.profileimage.length != 0} ">
+        <img class="profileImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.user.profileimage)}"
+          alt="" />
       </div>
-    </tr>
-  </body>
+      <!-- ELSE -->
+      <div th:if="${post.user.profileimage.length == 0} ">
+        <img class="profileImage" th:src="@{/images/cat.jpg}" alt="" />
+      </div><br>
+      <div th:text="${comment.user.username}"></div>
+    </div>
+
+    <div class="grid-item3 bubble bubble-corner">
+      <div th:text="${comment.content}"></div><br>
+      <div>Posted: <span th:text="${comment.timeFormat()}"></span></div>
+      <div th:if="${comment.user.username == user.username}">
+        <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
+          <input type="hidden" th:id="${comment.id}">Delete comment</input>
+          <button type="submit" id="deleteComment"></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="grid-item3">
+      <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
+        <input type="hidden" th:id="${comment.id}">Delete comment</input>
+        <button type="submit" id="deleteComment"></button>
+      </form>
+    </div>
+  </div>
+  </tr>
+</body>
+
 </html>
