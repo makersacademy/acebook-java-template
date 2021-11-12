@@ -1,19 +1,23 @@
 package com.makersacademy.acebook.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 
 @Controller
-public class PostsController {
+public class ProfilePageController {
+
+    // @Autowired
+    // private IProfileService profileService;
 
     @Autowired
     private IPostService postService;
@@ -21,7 +25,7 @@ public class PostsController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/posts")
+    @GetMapping("users/profile")
     public String index(Model model) {
         Iterable<Post> posts = postService.findAllOrderByDateDesc();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -30,10 +34,10 @@ public class PostsController {
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("user", user);
-        return "posts/index";
+        return "users/profile";
     }
 
-    @PostMapping("/posts")
+    @PostMapping("users/profile")
     public RedirectView create(@ModelAttribute Post post) {
         System.out.println(post.getContent());
         if (post.getContent() != "") {
@@ -44,7 +48,8 @@ public class PostsController {
             post.setUser(user);
             postService.save(post);
         }
-        return new RedirectView("/posts");
+        return new RedirectView("users/profile");
+
     }
 
 }

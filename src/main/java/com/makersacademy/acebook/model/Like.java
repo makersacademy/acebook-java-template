@@ -7,9 +7,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-import javax.persistence.ManyToMany;
 import javax.persistence.GenerationType;
-import java.util.Set;
 
 @Data
 @Table(name = "LIKED_POSTS")
