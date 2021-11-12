@@ -16,10 +16,10 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">beta</a>
+                <a class="navbar-brand" href="#">Beta</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <!-- <li class="active"><a href="#">Home</a></li> -->
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -28,7 +28,6 @@
                         <li><a href="#">Settings</a></li>
                     </ul>
                 </li>
-                <!-- <li><a href="#">Page 2</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -45,57 +44,60 @@
         </div>
     </nav>
 
-    <div><img src="/images/beta_small.png" alt="Beta" width="80">
-        <h1>Beta</h1>
+    <!-- <div><img class="logo" src="/images/beta_small.png" alt="Beta" width="80"> -->
+    <div><img class="logo" src="/images/beta_purple_text.png" alt="Beta" width="300">
+
+        <!-- <h1>Beta</h1>
     </div>
-    <h2>like Meta, but Beta</h2>
+    <h2>like Meta, but Beta</h2> -->
 
-    <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post", enctype="multipart/form-data">
-        <div>
-            <input maxlength="250" class="text-box" type="text" placeholder="What would you like to share?"
-
-                th:field="*{content}"/>
-                <input class="button" type="submit" value="Post"/><br>
-                <input class="photo_post_upload" type="file" name="image" id="photo" accept="image/png, image/jpeg" />
-        </div>
-
-    </form>
-
-    <ul class="post" th:each="post: ${posts}">
-        <div class="post_username">
-            <img class="post_user_profile_photo" th:src="@{${post.getProfilePictureUrl()}}" height="30" />
-            <span th:text="${post.user.username}">
-        </div>
-        <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
-            <h3 class="post_content"><span th:text="${post.content}"></span></h3>
-            <div th:if="${post.getImageFileName().length() > 1}">
-            <img class="photo_post" th:if="${post.getImageFileName()}" th:src="@{${post.getPostPictureUrl()}}" height="30" />
+        <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post" ,
+            enctype="multipart/form-data">
+            <div>
+                <input maxlength="250" class="text-box" type="text" placeholder="What would you like to share?"
+                    th:field="*{content}" />
+                <input class="button" type="submit" value="Post" /><br>
+                <input class="photo-post-upload" type="file" name="image" id="photo" accept="image/png, image/jpeg" />
             </div>
-            <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
-            <span th:text="${post.getLikesCount()}"></span> likes
-        </form>
-        <form class="posts" action="#" th:action="@{/posts/{id}/likes(id=${post.getID()})}" th:object="${post}"
-            method="post">
-            <p><input class="comment-button" type="submit" value="Like" id="submit" />
+
         </form>
 
+        <ul class="post" th:each="post: ${posts}">
+            <div class="post_username">
+                <img class="post_user_profile_photo" th:src="@{${post.getProfilePictureUrl()}}" height="30" />
+                <span th:text="${post.user.username}">
+            </div>
+            <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
+                <h3 class="post_content"><span th:text="${post.content}"></span></h3>
+                <div th:if="${post.getImageFileName().length() > 1}">
+                    <img class="photo_post" th:if="${post.getImageFileName()}" th:src="@{${post.getPostPictureUrl()}}"
+                        height="30" />
+                </div>
+                <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
+                <span th:text="${post.getLikesCount()}"></span> likes
+            </form>
+            <form class="posts" action="#" th:action="@{/posts/{id}/likes(id=${post.getID()})}" th:object="${post}"
+                method="post">
+                <p><input class="comment-button" type="submit" value="Like" id="submit" />
+            </form>
 
-        <hr class="new1">
-        <form action="#" th:action="@{/posts/comments}" th:object="${comment}" method="post">
-            <p>
-                <input class="comment-input" type="text" name="content" placeholder="Write a comment..." />
-                <input type="hidden" th:value="${post.id}" name="post_id" />
-                <input class="comment-button" type="submit" value="Comment" id="submit" />
-            </p>
-        </form>
-        <ul class="comment-post" th:each="comment: ${post.comments}">
-            <p><span class="username" th:text="${comment.username}"></span> • <span th:text="${comment.content}">
-                    <p class="post_created_at"> <span th:text="${comment.getFormattedTimestamp()}"></p>
 
-                </span>
-            </p>
+            <hr class="new1">
+            <form action="#" th:action="@{/posts/comments}" th:object="${comment}" method="post">
+                <p>
+                    <input class="comment-input" type="text" name="content" placeholder="Write a comment..." />
+                    <input type="hidden" th:value="${post.id}" name="post_id" />
+                    <input class="comment-button" type="submit" value="Comment" id="submit" />
+                </p>
+            </form>
+            <ul class="comment-post" th:each="comment: ${post.comments}">
+                <p><span class="username" th:text="${comment.username}"></span> • <span th:text="${comment.content}">
+                        <p class="post_created_at"> <span th:text="${comment.getFormattedTimestamp()}"></p>
+
+                    </span>
+                </p>
+            </ul>
         </ul>
-    </ul>
 </body>
 
 </html>
