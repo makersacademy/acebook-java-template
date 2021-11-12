@@ -134,14 +134,14 @@ body {
     border-radius:8px 0px 8px 0px;
     padding: 10px;
     width: 20%;
-    height: 38px;
+    height: 20%;
     overflow: hidden;
     
 }
 
 .post_user_profile_photo {
-    width: 20px;
-    height: 20px;
+    width: 30%;
+    /* height: 20px; */
     border-radius: 50%;
     float: left;
     object-fit: contain;
@@ -150,7 +150,7 @@ body {
 }
 
 .photo_post {
-    width: 500px;
+    width: 40%;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -200,7 +200,7 @@ body {
     padding: 10px 5px 0px 5px; ; 
     font-size: 12px;
     border-radius: 10px;
-    width: 300px; 
+    width: 50%; 
     margin: 4px;
 }
 
@@ -216,7 +216,6 @@ hr.new1 {
 .profile-photo {
     align-self: center;
     object-fit: contain;
-
 }
 
 .photo-post-upload {
