@@ -52,15 +52,13 @@
     <h3> Hey, this is my profile page! </h3></br></br>
 
     <img class="profile-photo" th:src="@{${user.getProfilePictureUrl()}}" height="150" /></br></br></br>
-    <div class="profile-text">I am <span sec:authentication="name"></span>.<div></br>
-            <div class="profile-text"> I am a nice guy, I like being cool and
-                hanging around with
-                friends.</div>
-            <div class="profile-text">
-                So Beta is where I hang out!</div>
-            <div class="profile-text"> Nice photo, right?</div>
-        </div>
-        </br>
+    <div class="profile-text">
+        <p style="font-weight: bold">I am <span sec:authentication="name"></span>!</p><br>
+        <p>I am a nice guy, I like being cool and hanging around with friends.</p>
+        <p>So Beta is where I hang out!</p>
+        <p> Nice photo, right?</p>
+    </div>
+    </br>
 
 </body>
 
