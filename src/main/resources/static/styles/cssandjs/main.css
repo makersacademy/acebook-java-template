@@ -44,6 +44,19 @@ body {
     margin-top: 15px;
 }
 
+.photo_post_upload {
+    background-color: #6B5B95;
+    /* display: inline; */
+    border: none; 
+    color: white;
+    padding: 12px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
 .logged_in_user_profile_photo {
     width: 30px;
     height: 30px;
@@ -127,6 +140,14 @@ body {
     height: 20px;
     border-radius: 50%;
     float: left;
+}
+
+.photo_post {
+    width: 500px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
 .post_created_at {
