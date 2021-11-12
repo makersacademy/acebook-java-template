@@ -67,7 +67,7 @@ public class PostsController {
     }
 
     @PostMapping("/deletePost/{id}")
-    public RedirectView deletePost(@PathVariable Long id) {
+    public RedirectView deletePost(@PathVariable Long id, @RequestParam("from") String from) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User thisUser = userRepository.findByUsername(username).get(0);
@@ -83,7 +83,7 @@ public class PostsController {
         }
 
 
-        return new RedirectView("/posts");
+        return new RedirectView(from);
     }
 
     @GetMapping("/post/{id}")
