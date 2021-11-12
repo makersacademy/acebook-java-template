@@ -33,12 +33,12 @@
     <!-- Posts form -->
       
     <div align="center" sec:authorize="isAuthenticated()">
-      <h2> Welcome back <span sec:authentication="name"></span> </h2>
+      <h2> Welcome back, <span sec:authentication="name"></span>. </h2>
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-      <p>Content:
+      <p class="post-form-labels">Content:
         <br> 
         <input id="content-input" type="text" th:field="*{content}" placeholder="What's on your mind?" /></p>
-      <p>Photo URL:
+      <p class="post-form-labels">Photo URL:
         <br> 
         <input id="photo-input" type="text" placeholder="Enter photo url" th:field="*{photo}" /></p>
       <p><input id="submit-post-btn" class="btn btn-primary" type="submit" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>
@@ -56,13 +56,10 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="d-block ui-w-40 rounded-circle" alt="">
                     <div class="media-body ml-3">
                      <!-- Username -->
-                     <p class="text username" th:text="${post.username}" />
-                      <div class="text-muted small">
-                      </div> 
+                     <p class="text username username-poster" th:text="${post.username}" />
                     </div>
                   </div>
                 </div>
-
                   <!-- Content -->
                   <div class="post-body">
                     <p class="post-text" th:text="${post.content}" />
@@ -70,22 +67,36 @@
                   </div>
                     <!-- Timestamp -->
                     <p class="post-timestamp" th:text="${post.timestamp}" />
+                    <!-- Comment section -->
+                    <div align="center">
+                      <hr>
+                      <!-- Comment form -->
+                    <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
+                      <p class="comment-heading">Add a comment</p>
+                      <p><input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
+                      <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" class="btn btn-primary" type="submit" value="Submit" /> <input type="reset" class="btn btn-primary" value="Clear" /></p>
+                    </form>
+                    <hr>
+                    <!-- Posted comments -->
+                    <p>
+                      <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        View comments
+                      </a>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                      <div class="card card-body">  
+                        <ul th:each="comment: ${post.comments}" class="comments">
+                          <li class="text username-comment" th:text="${comment.getUser().getUsername()}"/>
+                            <li  class="text comment-body" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
+                          </ul>
+                        </div>
+                      </div>
+                  </div>
                 </div>
             
-                 <form th:action="@{/posts/{id}/comments(id=${post.getId()})}" th:object="${comment}" method="post">
-                   <p>Comment: <input th:id="'comment-input-for-post' + ${post.getId()}" type="text" th:field="*{content}" /></p>
-                   <p><input th:id="'submit-comment-btn-for-post' + ${post.getId()}" type="submit" value="Submit" /> <input type="reset" value="Clear" /></p>
-                 </form>
-                <ul th:each="comment: ${post.comments}">
-                  <li class="text" th:text="${comment.getUser().getUsername()}"/>
-                   <li  class="text" th:class="'comment-for-post' + ${post.getId()}" th:text="${comment.getContent()}" />
-                 </ul>
               </div>
           </div>
-                  </a>
                 </div>
-              </div>
-          </div>
     </th:block>
 
 
