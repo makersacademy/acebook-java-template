@@ -31,6 +31,8 @@ public class Post {
     public Long id;
     private String content;
     private String username;
+    private String imagePath;
+    private String imageFileName;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Date created_at;
@@ -99,6 +101,27 @@ public class Post {
     public URL getProfilePictureUrl() {
         FileStore fileStore = new FileStore();
         return fileStore.getUrl(user.getImagePath(), user.getImageFileName());
+    }
+
+    public void setImagePath(String path) {
+        this.imagePath = path;
+    }
+
+    public void setImageFileName(String fileName) {
+        this.imageFileName = fileName;
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public String getImageFileName() {
+        return this.imageFileName;
+    }
+
+    public URL getPostPictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(this.imagePath, this.imageFileName);
     }
 
 }

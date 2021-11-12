@@ -105,7 +105,7 @@ public class PostTest {
     //currently post content is the only thing using h3 tag, so we can use it to query
     //If we add more h3 tags to the page this test will break, but we can just create
     //a postcontent class and use By.className instead :)
-    List<WebElement> result = driver.findElements(By.tagName("h3"));
+    List<WebElement> result = driver.findElements(By.className("post_content"));
     Assert.assertEquals(secondPost, result.get(0).getText());
     Assert.assertEquals(firstPost, result.get(1).getText());
     
@@ -143,7 +143,7 @@ public class PostTest {
   public void disallowEmptyPosts(){
     //Test 10
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
-    Assert.assertNotEquals("", driver.findElement(By.tagName("h3")).getText());
+    Assert.assertNotEquals("", driver.findElement(By.className("post_content")).getText());
   }
 
   @After

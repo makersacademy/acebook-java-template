@@ -47,12 +47,13 @@
     </div>
     <h2>like Meta, but Beta</h2>
 
-    <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>
+    <form class="post" action="#" th:action="@{/posts}" th:object="${post}" method="post", enctype="multipart/form-data">
+        <div>
             <input maxlength="250" class="text-box" type="text" placeholder="What would you like to share?"
                 th:field="*{content}"/>
-            <input class="button" type="submit" value="Post"/>
-        </p>
+                <input class="button" type="submit" value="Post"/><br>
+                <input class="photo_post_upload" type="file" name="image" id="photo" accept="image/png, image/jpeg" />
+        </div>
 
     </form>
 
@@ -63,7 +64,10 @@
         </div>
         <!-- <p><span th:text="${post.content}"></span> • <span th:text="${post.likes}"></span> likes</br> -->
         <form action="#" th:action="@{/posts/likes}" th:object="${like}" method="post">
-            <h3><span th:text="${post.content}"></span></h3>
+            <h3 class="post_content"><span th:text="${post.content}"></span></h3>
+            <div th:if="${post.getImageFileName().length() > 1}">
+            <img class="photo_post" th:if="${post.getImageFileName()}" th:src="@{${post.getPostPictureUrl()}}" height="30" />
+            </div>
             <p class="post_created_at">Posted <span th:text="${post.getFormattedTimestamp()}"></p>
             <span th:text="${post.getLikesCount()}"></span> likes
             <!-- <input class="comment-button" type="submit" value="Like" id="submit" /></br> -->
