@@ -21,6 +21,17 @@ img.contentImage {
   /* width: 60px; */
 }
 
+.profile-image {
+  height: 40%;
+  width: 40%;
+  border-radius: 20%;
+  padding: 30px;
+}
+
+.profile-image-div {
+  text-align: center;
+}
+
 /* table.post {
     background-color:  ;
 } */

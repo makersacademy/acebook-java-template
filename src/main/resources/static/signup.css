@@ -119,12 +119,12 @@ img {
 
 /*-- end reset --*/
 body {
-  background: #76b852;
+  background: #afb5ee;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #4a5bf5, #b0afee);
-  background: -moz-linear-gradient(to top, #4a5bf5, #b0afee);
-  background: -o-linear-gradient(to top, #4a86f5, #b0afee);
-  background: linear-gradient(to top, #4a86f5, #afb5ee);
+  background: -webkit-linear-gradient(to top, #4a86f5,#afb5ee);
+  background: -moz-linear-gradient(to top, #4a86f5, #afb5ee);
+  background: -o-linear-gradient(to top, #4a86f5, #afb5ee);
+  background: linear-gradient(to top, #4a86f5, #a9c1ec);
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
@@ -240,6 +240,8 @@ input[type="submit"]:hover {
   transition: .5s all;
   background: #337ab7;
 }
+
+
 
 input[type="reset"] {
   font-size: .9em;
@@ -913,4 +915,18 @@ input.checkbox:checked:after {
   width: 80%;
   height: 80%;
   justify-content: center;
+}
+
+.grid-item4 {
+  padding: 20px;
+  font-size: 15px;
+  color: black;
+  text-align: center;
+  width: 90%;
+  height: 100%;
+  justify-content: center;
+}
+
+.edit-content {
+  width: 90%;
 }
