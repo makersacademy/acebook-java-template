@@ -3122,7 +3122,7 @@ input[type=radio][disabled] {
 }
 
 input[type=file] {
-	display: block
+	display: inline;
 }
 
 input[type=range] {

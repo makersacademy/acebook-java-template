@@ -1,5 +1,6 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebElement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -24,7 +29,8 @@ public class CommentTest {
     driver = new ChromeDriver();
     faker = new Faker();
 
-    name = faker.name().firstName();
+
+    name = faker.pokemon().name();
 
     // user sign up
     signup(name, "password");
@@ -48,8 +54,9 @@ public class CommentTest {
     driver.findElement(By.cssSelector("input[type='submit'][value='Log in']")).click();
   }
 
-  private void logout() {
-    driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
+
+  private void logout(){
+    driver.findElement(By.cssSelector("button[type='submit'][value='Sign Out']")).click();
   }
 
   private void post(String content) {
@@ -57,28 +64,28 @@ public class CommentTest {
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
   }
 
-  @After
-  public void teardown() {
-    driver.close();
-  }
-
   @Test
-  public void userCommentOnOtherUserPost() {
-    // Test 11
-    post("Fruit doesn't taste nice");
+  public void userCommentOnOtherUserPost(){
+    //Test 11
+    post(faker.yoda().quote());
     logout();
 
-    String new_name = faker.name().firstName();
+    String new_name = faker.pokemon().name();
     String new_password = "magicword";
     signup(new_name, new_password);
     login(new_name, new_password);
 
-    String comment = "I agree";
+    String comment = faker.yoda().quote();
     driver.findElement(By.cssSelector("input[placeholder='Write a comment...']")).sendKeys(comment);
     driver.findElement(By.cssSelector("input[class='comment-button'][value='Comment']")).click();
 
-    // selects the 2nd span in the 1st p of the 1st ul of class comment-post
-    Assert.assertEquals(comment,
-        driver.findElement(By.cssSelector("ul[class='comment-post']>p>span:nth-of-type(2)")).getText());
+    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    //selects the 2nd span in the 1st p of the 1st ul of class comment-post
+    Assert.assertEquals(comment, driver.findElement(By.cssSelector("ul[class='comment-post']>p>span:nth-of-type(2)")).getText());
+  }
+
+  @After
+  public void teardown(){
+    driver.close();
   }
 }

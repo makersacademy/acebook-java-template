@@ -17,6 +17,7 @@ import java.util.List;
 import java.net.URL;
 import java.util.Date;
 import java.util.Set;
+import java.util.HashSet;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import lombok.Data;
@@ -31,13 +32,18 @@ public class Post {
     public Long id;
     private String content;
     private String username;
+    private String imagePath;
+    private String imageFileName;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Date created_at;
 
-    public @ManyToMany(mappedBy = "likedPosts") // links to bridge table
-    Set<User> likes; // Creates a 'Set' of 'Users' called likes.
+    // @ManyToMany(mappedBy="likedPosts") // links to bridge table
+    // Set<User> likes = new HashSet<User>(); // Creates a 'Set' of 'Users' called likes.
     // Each user associated with a post represents 1 like
+    
+   @OneToMany(mappedBy="post_id")
+   Set<Like> likes = new HashSet<Like>(); 
 
     @OneToMany(mappedBy = "post")
     List<Comment> comments;
@@ -62,8 +68,8 @@ public class Post {
         this.content = content;
     }
 
-    public Integer getLikesCount() {
-        return this.likes.size();
+    public String getLikesCount() {
+        return String.valueOf(this.likes.size());
     }
     // returns number of users in set. I.e number of likes.
 
@@ -99,6 +105,27 @@ public class Post {
     public URL getProfilePictureUrl() {
         FileStore fileStore = new FileStore();
         return fileStore.getUrl(user.getImagePath(), user.getImageFileName());
+    }
+
+    public void setImagePath(String path) {
+        this.imagePath = path;
+    }
+
+    public void setImageFileName(String fileName) {
+        this.imageFileName = fileName;
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public String getImageFileName() {
+        return this.imageFileName;
+    }
+
+    public URL getPostPictureUrl() {
+        FileStore fileStore = new FileStore();
+        return fileStore.getUrl(this.imagePath, this.imageFileName);
     }
 
 }

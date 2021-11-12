@@ -31,11 +31,11 @@ public class User {
     private String imagePath;
     private String imageFileName;
 
-    @ManyToMany
-    @JoinTable(name = "liked_posts", // links to bridge table
-            joinColumns = @JoinColumn(name = "user_id"), // FK
-            inverseJoinColumns = @JoinColumn(name = "post_id")) // FK
-    Set<Post> likedPosts;
+    // @ManyToMany
+    // @JoinTable(name = "liked_posts", // links to bridge table
+    //         joinColumns = @JoinColumn(name = "user_id"), // FK
+    //         inverseJoinColumns = @JoinColumn(name = "post_id")) // FK
+    // Set<Post> likedPosts;
 
     public User() {
         this.enabled = TRUE;

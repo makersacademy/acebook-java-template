@@ -1,5 +1,6 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class PostTest {
     driver = new ChromeDriver();
     faker = new Faker();
 
-    name = faker.name().firstName();
+    name = faker.pokemon().name();
 
     // user sign up
     signup(name, "password");
@@ -51,7 +52,7 @@ public class PostTest {
     driver.findElement(By.cssSelector("input[type='submit'][value='Log in']")).click();
   }
   private void logout(){
-    driver.findElement(By.cssSelector("input[type='submit'][value='Sign Out']")).click();
+    driver.findElement(By.cssSelector("button[type='submit'][value='Sign Out']")).click();
   }
   private void post(String content){
     driver.findElement(By.id("content")).sendKeys(content);
@@ -59,93 +60,94 @@ public class PostTest {
   }
 
 
-  @After
-  public void teardown(){
-    driver.close();
-  }
-
+  
   @Test
   public void authenticatedUserSeesPosts(){
     //Test 2
     driver.get("http://localhost:8080/posts");
-    Assert.assertEquals("Hey, " + name + '!', driver.findElement(By.className("greeting")).getText());
+    Assert.assertEquals(name, driver.findElement(By.className("greeting")).getText());
   }
-
+  
   @Test
   public void disallowInvalidUsersViewingPosts(){
     //Test 3
-
+    
     //sign out
     logout();
-
+    
     //try to access posts
     driver.get("http://localhost:8080/posts");
 
     //we get redirected to the login page
     Assert.assertEquals("http://localhost:8080/login.html", driver.getCurrentUrl());
   }
-
+  
   @Test
   public void userCanPostText(){
     //Test 7
-    driver.findElement(By.id("content")).sendKeys("I like bacon!");
+    String post = faker.yoda().quote();
+    driver.findElement(By.id("content")).sendKeys(post);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
-    Assert.assertEquals("I like bacon!", driver.findElement(By.tagName("h3")).getText());
-    // Assert.assertTrue(driver.getPageSource().contains("I like bacon!"));
-
+    Assert.assertEquals(post, driver.findElement(By.tagName("h3")).getText());
+    
   }
-
+  
   @Test
   public void postsDisplayedInOrder(){
     //Test 8
-    String firstPost = "Bread is made from flour";
-    String secondPost = "Crisps are made from potatos";
+    String firstPost = faker.yoda().quote();
+    String secondPost = faker.yoda().quote();
     driver.findElement(By.id("content")).sendKeys(firstPost);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
     driver.findElement(By.id("content")).sendKeys(secondPost);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
-
+    
     //currently post content is the only thing using h3 tag, so we can use it to query
     //If we add more h3 tags to the page this test will break, but we can just create
     //a postcontent class and use By.className instead :)
-    List<WebElement> result = driver.findElements(By.tagName("h3"));
-      Assert.assertEquals(secondPost, result.get(0).getText());
-      Assert.assertEquals(firstPost,result.get(1).getText());
-
-
-
+    List<WebElement> result = driver.findElements(By.className("post_content"));
+    Assert.assertEquals(secondPost, result.get(0).getText());
+    Assert.assertEquals(firstPost, result.get(1).getText());
+    
+    
+    
   }
-
+  
   @Test
   public void cap250char(){
     String char300 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. "+
-      "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "+
-      "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.";
-
+    "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "+
+    "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.";
+    
     driver.findElement(By.id("content")).sendKeys(char300);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
     Assert.assertEquals(char300.substring(0,249), driver.findElement(By.tagName("h3")).getText());
   }
-
+  
   @Test
   public void userSeesOtherUsersPosts(){
-    String post ="I like sleeping"; 
+    String post = faker.yoda().quote();
     driver.findElement(By.id("content")).sendKeys(post);
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
     logout();
-
+    
     //signing in as a different user
-    String newName = faker.name().firstName();
+    String newName = faker.pokemon().name();
     signup(newName , "pass");
     login(newName, "pass");
-
+    
     Assert.assertEquals(post, driver.findElement(By.tagName("h3")).getText());
   }
-
+  
   @Test
   public void disallowEmptyPosts(){
     //Test 10
     driver.findElement(By.cssSelector("input[type='submit'][value='Post']")).click();
-    Assert.assertNotEquals("", driver.findElement(By.tagName("h3")).getText());
+    Assert.assertNotEquals("", driver.findElement(By.className("post_content")).getText());
+  }
+
+  @After
+  public void teardown(){
+    driver.close();
   }
 }
