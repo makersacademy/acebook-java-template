@@ -62,8 +62,49 @@
     <div class="grid-item2 bubble bubble-corner">
 
       <div th:text="${post.content}"></div><br>
+      <div>Posted: <span th:text="${post.timeFormat()}"></span></div>
       <div>Created on: <span th:text="${#dates.format(post.time, 'dd-MMM-yyyy')}"></span></div>
 
+      <!-- IF -->
+      <div th:if="${post.contentimage != null && post.contentimage.length != 0} ">
+        <img class="contentImage" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(post.contentimage)}"
+          alt="" />
+      </div>
+    
+    </div>
+  </div>  
+  <div class="grid-item3">
+
+    <!-- like button -->
+    <span>
+      <div th:if="${user.username != post.user.username}">
+        <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" th:object="${post}" method="post">
+          <button type="submit" class="btn btn-block btn-primary" id="like">
+            <i class="fa fa-thumbs-up"></i>
+          </button>
+        </form>
+      </div>
+    </span>
+    <br><br>
+    <div> <span th:text="${post.getLikesCount()}"></span> likes</div>
+    <div><span th:text="${post.getCommentsCount()}"></span> comments</div>
+
+    <!-- form to delete posts-->
+    <div th:if="${user.username == post.user.username}">
+      <form th:action="@{'/deletePost/{id}'(id=${post.id})}" th:object="${post}" method="post">
+        <input type="hidden" th:id="${post.id}">Delete post</input>
+        <input type="hidden" name="from" value="/posts">
+        <button type="submit" id="delete"
+          onClick="return confirm('Are you sure you want to delete this post?')"></button>
+      </form>
+    
+
+      <!-- editing posts -->
+      <form th:action="@{'/edit/{id}'(id=${post.id})}" th:object="${post}" method="get">
+        <input type="hidden" th:id="${post.id}">Edit</input>
+        <input type="hidden" name="from" value="/posts">
+        <button type="submit" id="edit"></button>
+      </form>
     </div>
   </div><br>
 
@@ -102,19 +143,15 @@
     <div class="grid-item3 bubble bubble-corner">
       <div th:text="${comment.content}"></div><br>
       <div>Posted: <span th:text="${comment.timeFormat()}"></span></div>
+    </div>
+
+    <div class="grid-item3">
       <div th:if="${comment.user.username == user.username}">
         <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
           <input type="hidden" th:id="${comment.id}">Delete comment</input>
           <button type="submit" id="deleteComment"></button>
         </form>
       </div>
-    </div>
-
-    <div class="grid-item3">
-      <form th:action="@{'/deleteComment/{id}'(id=${comment.id})}" th:object="${comment}" method="post">
-        <input type="hidden" th:id="${comment.id}">Delete comment</input>
-        <button type="submit" id="deleteComment"></button>
-      </form>
     </div>
   </div>
   </tr>
