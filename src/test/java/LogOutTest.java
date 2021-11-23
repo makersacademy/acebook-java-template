@@ -11,27 +11,18 @@ public class LogOutTest {
     Faker faker;
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        driver = new ChromeDriver();
-        faker = new Faker();
+        TestHelper helper = new TestHelper();
+        helper.signUpAndIn();
+        driver = helper.driver;
+        faker = helper.faker;
 
     }
 
     @Test
     public void testLogOutButton(){
-        driver.get("http://localhost:8080/users/new");
-        final String name = faker.name().firstName();
-        driver.findElement(By.id("username")).sendKeys(name);
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
-        driver.findElement(By.id("username")).sendKeys(name);
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.xpath("//button[contains(text(), 'Sign in')]")).click();
         driver.findElement(By.id("logout")).click();
         driver.findElement(By.xpath("//button[contains(text(), 'Log Out')]")).click();
-        String title = driver.getTitle();
         String expectedUrl = driver.getCurrentUrl();
-        Assert.assertEquals("Please sign in", title);
         Assert.assertEquals("http://localhost:8080/login?logout", expectedUrl);
 
     }
