@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.lang.Boolean.TRUE;
 
@@ -24,6 +25,9 @@ public class User {
     public User() {
         this.enabled = TRUE;
     }
+
+//    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    String hashedPassword = passwordEncoder.encode(password);
 
     public User(String username, String password) {
         this.username = username;
