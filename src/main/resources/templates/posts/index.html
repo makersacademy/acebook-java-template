@@ -23,5 +23,11 @@
         <li th:text="${post.content}" />
     </ul>
 
+    <div class="container">
+        <form class="form-signin" method="get" th:action="@{/logout}">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+
     </body>
 </html>
