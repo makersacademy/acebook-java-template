@@ -23,17 +23,30 @@ public class Post {
     private String content;
     private LocalDateTime postTime;
 
-    public Post() {}
+    public Post() {
+    }
 
-    public Post(String content, LocalDateTime timeIn) {
-        this.content = content; this.postTime = timeIn;
+    public Post(String content) {
+        this.content = content;
     }
 
 //    this.postTime = LocalDateTime.now();
 
-    public String getContent() { return this.content; }
-    public void addTime(LocalDateTime timeIn) { this.postTime = timeIn; }
-    public LocalDateTime getDate() { return this.postTime; }
-    public void setContent(String content) { this.content = content; }
+    public String getContent() {
+        return this.content;
+    }
+
+    public void addTime() {
+        LocalDateTime timeIn = LocalDateTime.now();
+        this.postTime = timeIn;
+    }
+
+    public LocalDateTime getDate() {
+        return this.postTime;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }

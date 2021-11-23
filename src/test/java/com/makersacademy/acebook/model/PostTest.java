@@ -16,13 +16,13 @@ import java.time.format.DateTimeFormatter;
 
 public class PostTest {
     private LocalDateTime testDate = LocalDateTime.now();
-	private Post post = new Post("hello", testDate);
+	private Post post = new Post("hello");
 
 	@Test
 	public void postHasContent() {
 		assertThat(post.getContent(), containsString("hello"));
 	}
 	@Test
-	public void postHasDate() { assertThat(post.getDate(), instanceOf(LocalDateTime.class)); }
-//post.addTime(LocalDateTime.now());
+	public void postHasDate() { post.addTime(); assertThat(post.getDate(), instanceOf(LocalDateTime.class)); }
+//
 }
