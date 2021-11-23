@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 
 import lombok.Data;
 
+import java.io.Console;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -24,10 +25,14 @@ public class Post {
 
     public Post() {}
 
-    public Post(String content, LocalDateTime postTime) {
-        this.content = content; this.postTime = postTime;
+    public Post(String content, LocalDateTime timeIn) {
+        this.content = content; this.postTime = timeIn;
     }
+
+//    this.postTime = LocalDateTime.now();
+
     public String getContent() { return this.content; }
+    public void addTime(LocalDateTime timeIn) { this.postTime = timeIn; }
     public LocalDateTime getDate() { return this.postTime; }
     public void setContent(String content) { this.content = content; }
 

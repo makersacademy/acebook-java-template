@@ -1,3 +1,3 @@
 
-ALTER TABLE posts ADD post_time date;
+ALTER TABLE posts ADD post_time timestamp;
 
