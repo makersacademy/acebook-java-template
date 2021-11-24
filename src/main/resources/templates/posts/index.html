@@ -21,6 +21,8 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <p th:text="${post.tests}" />
+<!--        <p th:text="${post.stamp}" />-->
     </ul>
 
     </body>
