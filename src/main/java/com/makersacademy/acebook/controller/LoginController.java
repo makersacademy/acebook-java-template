@@ -16,10 +16,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
-    public String login() {
-      return  "login";
-    }
+  @GetMapping("/login")
+  public String signup(Model model) {
+      model.addAttribute("user", new User());
+      return "login/login";
+  }
 
 
     
