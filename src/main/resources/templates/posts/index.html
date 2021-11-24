@@ -5,6 +5,7 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
 
@@ -21,9 +22,10 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
-        <p th:text="${post.tests}" />
-<!--        <p th:text="${post.stamp}" />-->
+         Posted  <i th:text="${post.stamp}" />
+        <i th:text="${post.likes}" onclick="myFunction(this)" class="fa fa-thumbs-up"></i> Likes
     </ul>
+    <script src="script.js"></script>
 
     </body>
 </html>
