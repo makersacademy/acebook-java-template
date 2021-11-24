@@ -26,5 +26,10 @@
         </p>
         <input name="_csrf" type="hidden" value="4c6d603d-93b5-4159-acc1-22b1f0eccdc3">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <br>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid Login Attempt
+        </div>
+
     </form>
 </div></body></html>

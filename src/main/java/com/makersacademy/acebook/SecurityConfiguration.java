@@ -32,7 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // .and().formLogin();
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll(); // down the line we need to make sure users can't access the login page twice
+                .loginPage("/login").permitAll()
+                .and()
+                .logout().permitAll(); // down the line we need to make sure users can't access the login page twice
 
 
 
