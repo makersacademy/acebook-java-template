@@ -16,7 +16,7 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" id="Submit_button" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">

@@ -44,10 +44,10 @@ public class ViewTest {
 //    }
     @Test
     public void testPostContent() {
-        driver.get("http://localhost:8080/");
+        driver.get("http://localhost:8080/posts");
 
         driver.findElement(By.id("content")).sendKeys("first post");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("Submit_button")).click();
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("first post"));
     }
