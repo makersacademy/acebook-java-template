@@ -11,6 +11,7 @@ import lombok.Data;
 import java.io.Console;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -43,6 +44,20 @@ public class Post {
 
     public LocalDateTime getDate() {
         return this.postTime;
+    }
+
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
+        String formattedDateTime;
+
+        if (postTime != null) {
+        formattedDateTime = postTime.format(formatter);
+        }
+        else {
+            formattedDateTime = "Not available";
+        }
+
+        return formattedDateTime;
     }
 
     public void setContent(String content) {

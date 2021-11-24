@@ -19,9 +19,17 @@
         <p><input type="submit" id="Submit_button" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-    </ul>
+<!--    <ul th:each="post: ${posts}">-->
+<!--        <li th:text="${post.content}" />-->
+<!--    </ul>-->
+
+    <table th:each="post: ${posts}" >
+       <tr>
+           <td th:text="${post.content}" >
+           <td> Posted :  </td>
+           <td th:text="${post.getFormattedDate()}" >
+       </tr>
+    </table>
 
     <div class="container">
         <form class="form-signin" method="get" th:action="@{/logout}">

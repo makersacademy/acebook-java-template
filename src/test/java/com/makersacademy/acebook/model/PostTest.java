@@ -24,5 +24,6 @@ public class PostTest {
 	}
 	@Test
 	public void postHasDate() { post.addTime(); assertThat(post.getDate(), instanceOf(LocalDateTime.class)); }
-//
+	@Test
+	public void postHasFormattedDate() { post.addTime(); assertThat(post.getFormattedDate(), instanceOf(String.class)); }
 }
