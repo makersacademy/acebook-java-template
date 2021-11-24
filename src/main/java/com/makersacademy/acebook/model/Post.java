@@ -37,8 +37,8 @@ public class Post {
         return this.content;
     }
 
-    public void addTime() {
-        LocalDateTime timeIn = LocalDateTime.now();
+    public void addTime(LocalDateTime current_time) {
+        LocalDateTime timeIn = current_time;
         this.postTime = timeIn;
     }
 

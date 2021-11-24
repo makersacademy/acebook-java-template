@@ -23,7 +23,7 @@ public class PostTest {
 		assertThat(post.getContent(), containsString("hello"));
 	}
 	@Test
-	public void postHasDate() { post.addTime(); assertThat(post.getDate(), instanceOf(LocalDateTime.class)); }
+	public void postHasDate() { post.addTime(LocalDateTime.now()); assertThat(post.getDate(), instanceOf(LocalDateTime.class)); }
 	@Test
-	public void postHasFormattedDate() { post.addTime(); assertThat(post.getFormattedDate(), instanceOf(String.class)); }
+	public void postHasFormattedDate() { post.addTime(LocalDateTime.now()); assertThat(post.getFormattedDate(), instanceOf(String.class)); }
 }

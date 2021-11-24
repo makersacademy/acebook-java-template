@@ -27,7 +27,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        post.addTime();
+        post.addTime(LocalDateTime.now());
         repository.save(post);
         return new RedirectView("/posts");
     }
