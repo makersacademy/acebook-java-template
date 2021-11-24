@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class ViewTest {
@@ -40,6 +43,7 @@ public class ViewTest {
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("first post"));
     }
+
     @Test
     public void testPostDate() {
         driver.get("http://localhost:8080/posts");
@@ -49,5 +53,19 @@ public class ViewTest {
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("Posted :"));
     }
+
+    @Test
+    public void testFullyPostDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
+        LocalDateTime myTime = LocalDateTime.now();
+
+        driver.get("http://localhost:8080/posts");
+
+        driver.findElement(By.id("content")).sendKeys("first post");
+        driver.findElement(By.id("Submit_button")).click();
+        String bodyText = driver.findElement(By.tagName("body")).getText();
+        Assert.assertTrue("Text not found!", bodyText.contains(myTime.format(formatter)));
+    }
+
 }
 
