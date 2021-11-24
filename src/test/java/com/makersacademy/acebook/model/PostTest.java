@@ -1,18 +1,12 @@
 package com.makersacademy.acebook.model;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.*;
-
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 public class PostTest {
     private LocalDateTime testDate = LocalDateTime.now();

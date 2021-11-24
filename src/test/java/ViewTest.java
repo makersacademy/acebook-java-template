@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,16 +42,6 @@ public class ViewTest {
         driver.findElement(By.id("Submit_button")).click();
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("first post"));
-    }
-
-    @Test
-    public void testPostDate() {
-        driver.get("http://localhost:8080/posts");
-
-        driver.findElement(By.id("content")).sendKeys("first post");
-        driver.findElement(By.id("Submit_button")).click();
-        String bodyText = driver.findElement(By.tagName("body")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("Posted :"));
     }
 
     @Test
