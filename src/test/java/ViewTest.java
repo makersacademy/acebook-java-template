@@ -33,15 +33,6 @@ public class ViewTest {
         driver.close();
     }
 
-    //    @Test
-//    public void successfulSignUpRedirectsToSignIn() {
-//        driver.get("http://localhost:8080/users/new");
-//        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-//        driver.findElement(By.id("password")).sendKeys("password");
-//        driver.findElement(By.id("submit")).click();
-//        String title = driver.getTitle();
-//        Assert.assertEquals("Please sign in", title);
-//    }
     @Test
     public void testPostContent() {
         driver.get("http://localhost:8080/posts");
@@ -50,6 +41,15 @@ public class ViewTest {
         driver.findElement(By.id("Submit_button")).click();
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains("first post"));
+    }
+    @Test
+    public void testPostDate() {
+        driver.get("http://localhost:8080/posts");
+
+        driver.findElement(By.id("content")).sendKeys("first post");
+        driver.findElement(By.id("Submit_button")).click();
+        String bodyText = driver.findElement(By.tagName("body")).getText();
+        Assert.assertTrue("Text not found!", bodyText.contains('lala'));
     }
 }
 
