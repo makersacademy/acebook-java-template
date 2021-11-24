@@ -36,7 +36,7 @@ public class SignUpTest {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'Sign in')]")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
     }
