@@ -16,10 +16,19 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class LoginController {
 
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AuthoritiesRepository authoritiesRepository;
+
   @GetMapping("/login")
-  public String signup(Model model) {
-      model.addAttribute("user", new User());
+  public String login(Model model) {
       return "login/login";
+  }
+
+  @PostMapping("/login")
+  public String post(Model model){
+      return "posts";
   }
 
 
