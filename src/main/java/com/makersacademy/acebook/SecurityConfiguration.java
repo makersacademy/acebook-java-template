@@ -27,9 +27,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/posts").hasRole("USER")
-                .antMatchers("/users").permitAll()
-                .and().formLogin();
+                // .antMatchers("/posts").hasRole("USER")
+                // .antMatchers("/users").permitAll()
+                // .and().formLogin();
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll(); // down the line we need to make sure users can't access the login page twice
+
+
 
     }
 
