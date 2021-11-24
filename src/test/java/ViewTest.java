@@ -49,7 +49,7 @@ public class ViewTest {
         driver.findElement(By.id("content")).sendKeys("first post");
         driver.findElement(By.id("Submit_button")).click();
         String bodyText = driver.findElement(By.tagName("body")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("Posted:"));
+        Assert.assertTrue("Text not found!", bodyText.contains("Posted :"));
     }
 }
 
