@@ -45,16 +45,6 @@ public class ViewTest {
     }
 
     @Test
-    public void testPostDate() {
-        driver.get("http://localhost:8080/posts");
-
-        driver.findElement(By.id("content")).sendKeys("first post");
-        driver.findElement(By.id("Submit_button")).click();
-        String bodyText = driver.findElement(By.tagName("body")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("Posted :"));
-    }
-
-    @Test
     public void testFullyPostDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
         LocalDateTime myTime = LocalDateTime.now();
