@@ -25,6 +25,7 @@ public class User {
     public User() {
         this.enabled = TRUE;
     }
+    
 
     public User(String username, String password) {
         this.username = username;
