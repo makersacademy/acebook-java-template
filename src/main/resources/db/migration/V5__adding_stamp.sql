@@ -1,0 +1,2 @@
+ALTER TABLE posts ADD COLUMN stamp timestamp;
+ALTER TABLE posts ADD COLUMN likes INTEGER;
