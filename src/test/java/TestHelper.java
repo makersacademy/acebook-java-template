@@ -22,6 +22,6 @@ public class TestHelper {
         driver.findElement(By.id("submit")).click();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.xpath("//button[contains(text(), 'Sign in')]")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'Log In')]")).click();
     }
 }
