@@ -19,6 +19,19 @@
         <p><input type="submit" id="Submit_button" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
+    <div class="row" th:fragment="postCard" xmlns:th="http://www.thymeleaf.org">
+        <div th:each="post: ${posts}" class="col-sm-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${post.content}">Post</h5>
+                    <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
+                    <a href="#" class="btn btn-primary">Edit Post</a>
+<!--                    Edit Post Button has no link-->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <table th:each="post: ${posts}" >
        <tr>
            <td th:text="${post.content}" >
