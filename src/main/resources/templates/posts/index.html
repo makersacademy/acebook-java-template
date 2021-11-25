@@ -46,8 +46,10 @@
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <a href="#" class="anchor-username"><h4 class="media-heading">John Daw</h4></a>
-                                        Posted: <a href="#" class="anchor-time" th:text="${post.stamp}"></a>
+                                        <div sec:authorize="isAuthenticated()">
+                                            <a href="#" class="anchor-username"><h4 class="media-heading"><span sec:authentication="name"></span></h4></a>
+                                        </div >
+                                        <p class="anchor-time"> Posted:  <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -57,6 +59,7 @@
                         </div>
                     </section>
                     <section class="post-body">
+                        <hr>
 <!--                        Posts Content here-->
                         <p th:text="${post.content}"/>
                     </section>
@@ -65,10 +68,16 @@
                        Likes: <i th:text="${post.likes}"/>
                         <div class="post-footer-option container">
                             <ul class="list-unstyled">
-                                <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-thumbs-down"></i> Dislike</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
+
+                                    <div>
+                                        <button class="like">Like  <p class="likeNum">0</p></button>
+                                        <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
+                                    </div>
+                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
+
+                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-down"></i> Dislike</a></li>
+                                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
+                                    <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
                             </ul>
                         </div>
                         <div class="post-footer-comment-wrapper">
