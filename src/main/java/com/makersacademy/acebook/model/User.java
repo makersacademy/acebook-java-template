@@ -25,9 +25,7 @@ public class User {
     public User() {
         this.enabled = TRUE;
     }
-
-//    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//    String hashedPassword = passwordEncoder.encode(password);
+    
 
     public User(String username, String password) {
         this.username = username;

@@ -1,10 +1,13 @@
 package com.makersacademy.acebook.model;
 
 import lombok.Data;
-import org.hibernate.type.descriptor.sql.NumericTypeDescriptor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -15,8 +18,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private Date stamp;
     private Integer likes;
+
+    @CreationTimestamp
+    private Timestamp stamp;
+
 
     public Post() {}
 
@@ -24,7 +30,8 @@ public class Post {
         this.content = content;
     }
 
-    public Date getStamp() {return this.stamp;}
+    public Timestamp getStamp() {return this.stamp;}
+
     public Integer getLikes(){return this.likes;}
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
