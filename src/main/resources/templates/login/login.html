@@ -15,6 +15,9 @@
         <div th:if="${param.logout}" class="alert alert-success">
             You have been logged out
         </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid Login Attempt
+        </div>
         <h2 class="form-signin-heading">Please sign in</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
@@ -25,11 +28,12 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
         </p>
         <input name="_csrf" type="hidden" value="4c6d603d-93b5-4159-acc1-22b1f0eccdc3">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <br>
-        <div th:if="${param.error}" class="alert alert-danger">
-            Invalid Login Attempt
-        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
 
     </form>
+    <form class="form-signin" method="get" th:action="@{/users/new}">
+        <input name="signup" type="hidden" value="Signup">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+    </form>
+
 </div></body></html>
