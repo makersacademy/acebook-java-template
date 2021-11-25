@@ -5,6 +5,8 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+        <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
     </head>
     <body>
 
@@ -32,13 +34,13 @@
         </div>
     </div>
 
-    <table th:each="post: ${posts}" >
-       <tr>
-           <td th:text="${post.content}" >
-           <td> Posted :  </td>
-           <td th:text="${post.getFormattedDate()}" >
-       </tr>
-    </table>
+<!--    <table th:each="post: ${posts}" >-->
+<!--       <tr>-->
+<!--           <td th:text="${post.content}" >-->
+<!--           <td> Posted :  </td>-->
+<!--           <td th:text="${post.getFormattedDate()}" >-->
+<!--       </tr>-->
+<!--    </table>-->
 
     <div class="container">
         <form method="get" th:action="@{/logout}">
