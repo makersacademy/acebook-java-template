@@ -1,16 +1,10 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-
 import lombok.Data;
 
-import java.io.Console;
-import java.sql.Date;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -30,19 +24,22 @@ public class Post {
         this.content = content;
     }
 
-//    this.postTime = LocalDateTime.now();
-
     public String getContent() {
         return this.content;
     }
 
-    public void addTime() {
-        LocalDateTime timeIn = LocalDateTime.now();
+    public void addTime(LocalDateTime current_time) {
+        LocalDateTime timeIn = current_time;
         this.postTime = timeIn;
     }
 
     public LocalDateTime getDate() {
         return this.postTime;
+    }
+
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
+        return (postTime != null) ? postTime.format(formatter) : "Not available";
     }
 
     public void setContent(String content) {
