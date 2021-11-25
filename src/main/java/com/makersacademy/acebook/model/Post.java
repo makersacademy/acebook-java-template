@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -22,8 +23,11 @@ public class Post {
         this.content = content;
     }
 
-    public LocalDateTime getStamp() {return this.stamp;}
-
+    public String getStamp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' HH:mm");
+        String formatDateTime = this.stamp.format(formatter);
+        return formatDateTime;
+    }
 
     public void setStamp(LocalDateTime my_Time) {
         this.stamp = my_Time;
