@@ -16,6 +16,16 @@ public class Post {
     private Long id;
     private String content;
     private LocalDateTime postTime;
+    private String username;
+    private int likes;
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int number){
+        likes = number;
+    }
 
     public Post() {
     }
@@ -44,6 +54,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
 }
