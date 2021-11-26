@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
+import org.springframework.web.servlet.view.RedirectView;
 
 import static java.lang.Boolean.TRUE;
 

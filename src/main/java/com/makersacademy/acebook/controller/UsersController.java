@@ -11,7 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.sql.ResultSet;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class UsersController {
@@ -30,16 +34,25 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
-        if (user.getPassword().length()>0) {
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-            authoritiesRepository.save(authority);
-            return new RedirectView("/login");
-        }
-        else{
-            return new RedirectView("/users/new");
+    public RedirectView signup(@ModelAttribute User user, RedirectAttributes redirect) {
+        try {
+            if (user.getPassword().length() > 0) {
+                user.setPassword(encoder.encode(user.getPassword()));
+                userRepository.save(user);
+                Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+                authoritiesRepository.save(authority);
+                return new RedirectView("/login");
+            } else {
+                return new RedirectView("/users/new");
+            }
+        } catch (Exception e) {
+            Iterable<User> usernames = userRepository.findAll();
+            for (User users: usernames ){
+                if(users.getUsername().contains(user.getUsername())) {redirect.addFlashAttribute("error", "User already exists");
+                return new RedirectView("/users/new/");} }
+            redirect.addFlashAttribute("error", "Error During Signup");
+            return new RedirectView("/users/new/");
         }
     }
+
 }

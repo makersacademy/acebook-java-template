@@ -1,5 +1,6 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+import com.makersacademy.acebook.model.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,12 +12,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class SignUpTest {
 
     WebDriver driver;
     Faker faker;
+    User user = mock(User.class);
 
     @Before
     public void setup() {
@@ -38,5 +43,15 @@ public class SignUpTest {
         driver.findElement(By.id("submit")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
+    }
+
+    @Test
+    public void redirectOnNoPassword(){
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+        driver.findElement(By.id("password")).sendKeys("");
+        driver.findElement(By.id("submit")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Sign Up", title);
     }
 }
