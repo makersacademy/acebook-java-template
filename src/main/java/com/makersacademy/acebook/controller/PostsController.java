@@ -32,12 +32,12 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post) {
         String username ;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails){
+        /*if (principal instanceof UserDetails){
             username = ((UserDetails)principal).getUsername();
         }
         else{
             username = principal.toString();
-        }
+        }*/
         post.populate("content",LocalDateTime.now(),username,0);
         System.out.printf(username);
         repository.save(post);
