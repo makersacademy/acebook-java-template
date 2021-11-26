@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Controller
 public class PostsController {
@@ -28,17 +29,22 @@ public class PostsController {
         Iterable<Post> posts = repository.findAll();
         PostList postArrayList = new PostList();
         postArrayList.setList(posts);
-        model.addAttribute("posts", posts);
+        ArrayList<Post> test;
+        test = postArrayList.getList();
+
+        System.out.println("-------------->>>>>");
+        System.out.println(test);
+        model.addAttribute("posts", test);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        String username ;
+        String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        username = principal instanceof UserDetails? ((UserDetails)principal).getUsername() : principal.toString();
-        post.populate(post.getContent(),LocalDateTime.now(),username,0);
+        username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+        post.populate(post.getContent(), LocalDateTime.now(), username, 0);
         System.out.printf(username);
         repository.save(post);
         return new RedirectView("/posts");
