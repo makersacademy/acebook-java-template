@@ -30,6 +30,7 @@ public class PostsController {
         postArrayList.setList(posts);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("showLogout", true);
         return "posts/index";
     }
 

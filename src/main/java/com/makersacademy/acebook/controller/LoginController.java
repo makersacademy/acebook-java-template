@@ -4,6 +4,7 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import org.hibernate.type.TrueFalseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,12 @@ public class LoginController {
 
   @GetMapping("/login")
   public String login(Model model) {
+      model.addAttribute("showLogout", false);
       return "login/login";
   }
 
   @PostMapping("/login")
-  public String post(Model model){
-      return "posts";
-  }
+  public String post(Model model){return "posts"; }
 
 
     

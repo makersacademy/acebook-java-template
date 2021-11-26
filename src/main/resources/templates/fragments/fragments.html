@@ -32,8 +32,13 @@
                     </li>
                     <div th:unless="${posts}">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">SignUp</a>
+                        <a class="nav-link" href="/users/new">SignUp</a>
                     </li>
+                    </div>
+                    <div th:if="${showLogout}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Log Out</a>
+                        </li>
                     </div>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
