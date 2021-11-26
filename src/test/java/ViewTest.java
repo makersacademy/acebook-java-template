@@ -63,6 +63,20 @@ public class ViewTest {
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains(myTime.format(formatter)));
     }
+@Test
+    public void testWholePost(){
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
+    LocalDateTime myTime = LocalDateTime.now();
+
+    driver.get("http://localhost:8080/posts");
+
+    driver.findElement(By.id("content")).sendKeys("first post");
+    driver.findElement(By.id("Submit_button")).click();
+    String bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertTrue("Text not found!", bodyText.contains(myTime.format(formatter)));
+    Assert.assertTrue("Text not found!", bodyText.contains("jg"));
+    Assert.assertTrue("Text not found!", bodyText.contains("0"));
+}
 
 
 }
