@@ -4,6 +4,8 @@ import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.PostList;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,16 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        post.populate("content",LocalDateTime.now(),"jg",0);
-        post.setUsername("jamie");
-        post.setLikes(0);
+        String username ;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails){
+            username = ((UserDetails)principal).getUsername();
+        }
+        else{
+            username = principal.toString();
+        }
+        post.populate("content",LocalDateTime.now(),username,0);
+        System.out.printf(username);
         repository.save(post);
         return new RedirectView("/posts");
     }
