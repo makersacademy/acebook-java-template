@@ -1,7 +1,9 @@
 package com.makersacademy.acebook.controller;
 
-import com.google.common.collect.Lists;
+
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.PostList;
 import com.makersacademy.acebook.model.PostList;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
-//    ArrayList<Post> postArrayList = new ArrayList<>();
+    ArrayList<Post> postArrayList = new ArrayList<>();
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -37,12 +39,7 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post) {
         String username ;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        /*if (principal instanceof UserDetails){
-            username = ((UserDetails)principal).getUsername();
-        }
-        else{
-            username = principal.toString();
-        }*/
+        username = principal instanceof UserDetails? ((UserDetails)principal).getUsername() : principal.toString();
         post.populate("content",LocalDateTime.now(),username,0);
         System.out.printf(username);
         repository.save(post);
