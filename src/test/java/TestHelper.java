@@ -7,6 +7,12 @@ public class TestHelper {
 
     WebDriver driver;
     Faker faker;
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
@@ -16,7 +22,7 @@ public class TestHelper {
     public void signUpAndIn(){
         setup();
         driver.get("http://localhost:8080/users/new");
-        final String name = faker.name().firstName();
+        name = faker.name().firstName();
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();

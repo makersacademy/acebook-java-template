@@ -11,10 +11,7 @@ public class HomeController {
 		return new RedirectView("/posts");
 	}
 
-//	public @GetMapping("/")
-//	String index(Principal principal) {
-//	return principal != null ? "posts" : "login/login";
-//	}
+
 }
 
 
