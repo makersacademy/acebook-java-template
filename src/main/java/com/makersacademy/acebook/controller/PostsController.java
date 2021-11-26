@@ -22,19 +22,12 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
-    ArrayList<Post> postArrayList = new ArrayList<>();
+    PostList postArrayList = new PostList();
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
-        PostList postArrayList = new PostList();
-        postArrayList.setList(posts);
-        ArrayList<Post> test;
-        test = postArrayList.getList();
-
-        System.out.println("-------------->>>>>");
-        System.out.println(test);
-        model.addAttribute("posts", test);
+        postArrayList.setList(repository.findAll());
+        model.addAttribute("posts", postArrayList.postArrayList);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
