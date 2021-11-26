@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
     <head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
         <meta charset="UTF-8">
         <title>Signup</title>
     </head>
@@ -10,6 +11,7 @@
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+            <div class="alert alert-danger" th:text="${error}" th:if="${error}"> </div>
         </form>
     </body>
 </html>

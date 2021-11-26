@@ -1,10 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
-import com.makersacademy.acebook.model.ErrorMessages;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.ResultSet;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class UsersController {
@@ -33,7 +35,7 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
+    public RedirectView signup(@ModelAttribute User user, RedirectAttributes redirect) {
         try {
             if (user.getPassword().length() > 0) {
                 user.setPassword(encoder.encode(user.getPassword()));
@@ -45,9 +47,15 @@ public class UsersController {
                 return new RedirectView("/users/new");
             }
         } catch (Exception e) {
-            ErrorMessages error = new ErrorMessages();
-            error.setErrorMessage();
-            return new RedirectView("/users/new");
+            Iterable<User> usernames = userRepository.findAll();
+            for (User users: usernames ){
+                System.out.printf(user.getUsername());
+                System.out.printf(users.getUsername());
+                if(users.getUsername().contains(user.getUsername())) {redirect.addFlashAttribute("error", "User already exists");
+                return new RedirectView("/users/new/");} }
+            redirect.addFlashAttribute("error", "Error During Signup");
+            return new RedirectView("/users/new/");
         }
     }
+
 }
