@@ -34,7 +34,7 @@ public class PostsController {
         String username ;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         username = principal instanceof UserDetails? ((UserDetails)principal).getUsername() : principal.toString();
-        post.populate("content",LocalDateTime.now(),username,0);
+        post.populate(post.getContent(),LocalDateTime.now(),username,0);
         System.out.printf(username);
         repository.save(post);
         return new RedirectView("/posts");
