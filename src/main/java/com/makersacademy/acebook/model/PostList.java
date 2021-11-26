@@ -1,15 +1,11 @@
 package com.makersacademy.acebook.model;
 
-
 import java.util.ArrayList;
-import java.util.Collections;
-
+import java.util.Collections
 
 public class PostList {
 
     public ArrayList<Post> postArrayList = new ArrayList<>();
-
-
     public ArrayList<Post> getList() {
         return postArrayList;
     }

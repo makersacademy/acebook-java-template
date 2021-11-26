@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 @Controller
 public class PostsController {
 
@@ -29,6 +30,7 @@ public class PostsController {
         postArrayList.setList(repository.findAll());
         model.addAttribute("posts", postArrayList.postArrayList);
         model.addAttribute("post", new Post());
+        model.addAttribute("showLogout", true);
         return "posts/index";
     }
 

@@ -23,6 +23,7 @@ public class LogoutController {
 
     @PostMapping("/logout")
     public String post(Model model){
+//        model.addAttribute("loggedIn", false );
         return "/";
     }
 

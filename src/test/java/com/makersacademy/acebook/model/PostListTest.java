@@ -13,7 +13,6 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class PostListTest {
-//    private LocalDateTime testDate = LocalDateTime.now();
 	private Post post = new Post("Old Entry");
 	private Post post2 = new Post("Latest Entry");
 	private ArrayList<Post> iterables = new ArrayList<Post>(Arrays.asList(post, post2));
