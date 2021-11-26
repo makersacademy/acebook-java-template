@@ -16,6 +16,21 @@ public class Post {
     private Long id;
     private String content;
     private LocalDateTime postTime;
+    private String username;
+    private int likes;
+
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 
     public Post() {
     }
@@ -28,7 +43,7 @@ public class Post {
         return this.content;
     }
 
-    public void addTime(LocalDateTime current_time) {
+    public void setTime(LocalDateTime current_time) {
         LocalDateTime timeIn = current_time;
         this.postTime = timeIn;
     }
@@ -46,4 +61,10 @@ public class Post {
         this.content = content;
     }
 
+    public void populate(String content, LocalDateTime time, String username, int likes) {
+        setContent(content);
+        setTime(time);
+        setUsername(username);
+        setLikes(likes);
+    }
 }

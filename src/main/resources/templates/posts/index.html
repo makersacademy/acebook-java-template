@@ -27,6 +27,8 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${post.content}">Post</h5>
                     <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
+                    <p class="card-text" th:text="${post.getUsername()}">Username</p>
+                    <p class="card-text" th:text="${post.getLikes()}">Likes</p>
                     <a href="#" class="btn btn-primary">Edit Post</a>
 <!--                    Edit Post Button has no link-->
                 </div>
