@@ -5,6 +5,8 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+        <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
     </head>
     <body>
 
@@ -19,13 +21,18 @@
         <p><input type="submit" id="Submit_button" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <table th:each="post: ${posts}" >
-       <tr>
-           <td th:text="${post.content}" >
-           <td> Posted :  </td>
-           <td th:text="${post.getFormattedDate()}" >
-       </tr>
-    </table>
+    <div class="row" th:fragment="postCard" xmlns:th="http://www.thymeleaf.org">
+        <div th:each="post: ${posts}" class="col-sm-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${post.content}">Post</h5>
+                    <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
+                    <a href="#" class="btn btn-primary">Edit Post</a>
+<!--                    Edit Post Button has no link-->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <form method="get" th:action="@{/logout}">
