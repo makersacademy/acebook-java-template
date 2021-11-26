@@ -8,6 +8,9 @@
         <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
         <link rel="stylesheet" href="/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <body>
 
@@ -28,11 +31,83 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-         Posted  <i th:text="${post.stamp}" />
-        <i th:text="${post.likes}" onclick="myFunction(this)" class="fa fa-thumbs-up"></i> Likes
-    </ul>
-    <script src="script.js"></script>
 
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="panel panel-default ">
+                <div class="panel-body">
+                    <section class="post-heading">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object photo-profile" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" width="40" height="40" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div sec:authorize="isAuthenticated()">
+                                            <a href="#" class="anchor-username"><h4 class="media-heading"><span sec:authentication="name"></span></h4></a>
+                                        </div >
+                                        <p class="anchor-time"> Posted:  <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="post-body">
+                        <hr>
+<!--                        Posts Content here-->
+                        <p th:text="${post.content}"/>
+                    </section>
+                    <section class="post-footer">
+                        <hr>
+                       Likes: <i th:text="${post.likes}"/>
+                        <div class="post-footer-option container">
+                            <ul class="list-unstyled">
+
+                                    <div>
+                                        <button class="like">Like  <p class="likeNum">0</p></button>
+                                        <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
+                                    </div>
+                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
+
+                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-down"></i> Dislike</a></li>
+                                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
+                                    <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
+                            </ul>
+                        </div>
+                        <div class="post-footer-comment-wrapper">
+                            <div class="comment-form">
+
+                            </div>
+                            <div class="comment">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width="32" height="32" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="#" class="anchor-username"><h4 class="media-heading">Media heading</h4></a>
+                                        <a href="#" class="anchor-time">51 mins</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </ul>
+
+
+    <script src="script.js"></script>
     </body>
 </html>
