@@ -1,5 +1,7 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.PostList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -56,6 +63,7 @@ public class ViewTest {
         String bodyText = driver.findElement(By.tagName("body")).getText();
         Assert.assertTrue("Text not found!", bodyText.contains(myTime.format(formatter)));
     }
+
 
 }
 
