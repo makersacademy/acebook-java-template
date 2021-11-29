@@ -11,6 +11,9 @@
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
 <body>
+<div th:if="${param.error}" class="alert alert-danger">
+    Invalid username and password.
+</div>
 <div class="container">
     <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading">Welcome to Acebook</h2>
@@ -30,6 +33,9 @@
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+    <form th:action="@{/users/new}" method="get" class="form-signup">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
     </form>
 </div>
 </body></html>

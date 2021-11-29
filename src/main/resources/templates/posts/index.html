@@ -3,7 +3,7 @@
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
-        <title>Acebook</title>
+        <title>aceBook</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
         <link rel="stylesheet" href="/main.css" />
@@ -32,7 +32,6 @@
 
     <ul th:each="post: ${posts}">
 
-
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="panel panel-default ">
@@ -47,8 +46,7 @@
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <div sec:authorize="isAuthenticated()">
-                                            <a href="#" class="anchor-username"><h4 class="media-heading"><span sec:authentication="name"></span></h4></a>
+                                            <a href="#" class="anchor-username"><h4 class="media-heading"><span th:text="${post.getUsername()}"></span></h4></a>
                                         </div >
                                         <p class="anchor-time"> Posted:  <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
                                     </div>
@@ -57,12 +55,11 @@
                             <div class="col-md-1">
 
                             </div>
-                        </div>
                     </section>
                     <section class="post-body">
                         <hr>
 <!--                        Posts Content here-->
-                        <p th:text="${post.content}"/>
+                        <p th:href="@{/posts/{id} (id=${post.id})}" th:text="${post.content}"></p>
                     </section>
                     <section class="post-footer">
                         <hr>
@@ -74,10 +71,18 @@
                                         <button class="like">Like  <p class="likeNum">0</p></button>
                                         <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
                                     </div>
+                                <span th:if="${#authentication.getName()} == ${post.username}">
+                                <li><a th:href="@{/posts/{id} (id=${post.id})}"><i class="glyphicon glyphicon-edit"></i> Edit</a></li></span>
                                     <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
-
                                     <li><a href="#"><i class="glyphicon glyphicon-thumbs-down"></i> Dislike</a></li>
-                                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
+                                    <form action="#" th:action="@{/posts/comment}" th:object="${post}" method="post">
+                                    <li><a href="${post.id}"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
+                                    </form>
+                                    <span th:if="${post.comment}">
+                                    <form th:action="@{/comment}" th:object="${comment}" method="post">
+                                        <p>Content: <input type="text" th:field="*{content}" /></p>
+                                        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                                    </form> </span>
                                     <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
                             </ul>
                         </div>
@@ -93,7 +98,7 @@
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <a href="#" class="anchor-username"><h4 class="media-heading">Media heading</h4></a>
+                                        <a href="#" class="anchor-username"><h4 class="media-heading"></h4></a>
                                         <a href="#" class="anchor-time">51 mins</a>
                                     </div>
                                 </div>

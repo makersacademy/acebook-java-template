@@ -1,12 +1,17 @@
 package com.makersacademy.acebook.model;
 
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "POSTS")
 public class Post {
@@ -17,8 +22,10 @@ public class Post {
     private String content;
     private Integer likes;
     private LocalDateTime stamp;
+    private Long userID;
+    private String username;
+    private Boolean comment;
 
-    public Post() {}
     public Post(String content) {
         this.content = content;
     }
@@ -39,5 +46,19 @@ public class Post {
     }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
+    public void setUsername(String username){ this.username = username; }
+    public String getUsername() { return this.username; }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Post post = (Post) o;
+        return id != null && Objects.equals(id, post.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

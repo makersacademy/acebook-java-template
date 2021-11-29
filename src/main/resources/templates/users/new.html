@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>Signup</title>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-            <p>Username: <input type="text" th:field="*{username}" /></p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
-        </form>
+    <div class="container">
+        <div class="row centered-form">
+            <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please sign up for Acebook <small>It's free!</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="#" th:action="@{/users}" th:object="${user}" method="post" role="form">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" th:field="*{username}" name="username" id="username" class="form-control input-sm" placeholder="username">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" th:field="*{password}" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>

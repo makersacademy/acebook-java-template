@@ -1,17 +1,18 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.persistence.*;
+
+import java.util.Objects;
 
 import static java.lang.Boolean.TRUE;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -39,6 +40,7 @@ public class User {
         this.enabled = enabled;
     }
 
+    public Long getID() { return this.id; }
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }
@@ -46,5 +48,18 @@ public class User {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(15);
         String encodedPassword = encoder.encode(password);
         this.password = encodedPassword;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
