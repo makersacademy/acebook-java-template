@@ -66,7 +66,7 @@ public class PostsController {
     @GetMapping("/posts/{id}")
     public String post(@PathVariable long id, Model model) {
         Post post = repository.findById(id).get();
-        model.addAttribute("post", new Post());
+        model.addAttribute("post", post);
         return "/posts/post";
     }
 

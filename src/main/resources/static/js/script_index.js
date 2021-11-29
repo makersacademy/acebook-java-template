@@ -28,3 +28,9 @@ dislikeClick = () => {
 getLike.addEventListener(('click'), likeClick);
 getdisLike.addEventListener(('click'), dislikeClick);
 
+const getPost = document.querySelector('.post');
+function postClick(value) {
+    location.href = "/posts/" + value;
+}
+
+getPost.addEventListener(('click'), postClick);
