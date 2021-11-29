@@ -249,8 +249,8 @@
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
-                            <div sec:authorize="isAuthenticated()">
-                                <span sec:authentication="name"></span>
+                            <div>
+                                <span th:text="${post.getUsername()}"></span>
                             </div>
                         </h3>
                         <!-- time of post-->
@@ -264,7 +264,8 @@
                         <!--                        Posts Content here-->
                         <p th:text="${post.content}"/>
                     </section>
-
+                        <span th:if="${#authentication.getName()} == ${post.username}">
+                            <li><a th:href="@{/posts/{id} (id=${post.id})}">Edit</a></li></span>
                 </div>
 
                 <div class="post__image">
