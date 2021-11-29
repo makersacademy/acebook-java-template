@@ -1,0 +1,96 @@
+/* These styles will be applied on devices with a width of at least 500px */
+@media screen and (min-width: 500px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10rem;
+  }
+
+  .title-container {
+    display: initial;
+    width: 40rem;
+  }
+
+  .title-logo {
+    height: 10.6rem;
+  }
+
+  .title-paragraph {
+    font-size: 2.4rem;
+    width: auto;
+  }
+
+  .form-container {
+    max-width: initial;
+    margin: 0;
+    padding: 0;
+  }
+
+  .form {
+    width: 39.6rem;
+  }
+
+  .input-container {
+    height: 5.2rem;
+  }
+
+  .form-input {
+    font-size: 1.7rem;
+  }
+
+  .form-log-in-btn {
+    height: 4.8rem;
+    font-size: 2rem;
+  }
+
+  .form-forgot-password {
+    font-size: 1.4rem;
+  }
+
+  .form-create-account-btn {
+    height: 4.8rem;
+    line-height: 4.8rem;
+    font-size: 1.7rem;
+  }
+
+  .create-page-paragraph {
+    font-size: 1.4rem;
+  }
+}
+
+/* These styles will be applied on devices with a width of at least 900px */
+
+@media screen and (min-width: 900px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .title-container {
+    padding-bottom: 12rem;
+    margin-right: 5rem;
+    text-align: initial;
+    margin-bottom: 0;
+  }
+
+  .title-logo {
+    left: -30px;
+  }
+}
+
+/* These styles will be applied on devices with a width of at least 1075px */
+@media screen and (min-width: 1075px) {
+  .title-container {
+    width: 58rem;
+    padding-bottom: 12rem;
+    padding-right: 15rem;
+    text-align: initial;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+
+  .title-paragraph {
+    font-size: 2.8rem;
+  }
+}

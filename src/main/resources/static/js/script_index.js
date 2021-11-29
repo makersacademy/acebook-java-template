@@ -1,3 +1,5 @@
+//Temp BUTTONS
+
 const getLike = document.querySelector('.like');
 const getLikeNum = document.querySelector('.likeNum');
 

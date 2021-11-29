@@ -1,41 +1,55 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Please sign in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acebook - Log In or Sign Up</title>
+    <link rel="stylesheet" href="/css/log_in.css" />
+    <link rel="stylesheet" href="/css/media-queries.css" />
 </head>
+
 <body>
-<div th:if="${param.error}" class="alert alert-danger">
-    Invalid username and password.
-</div>
-<div class="container">
-    <form th:action="@{/login}" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Welcome to Acebook</h2>
-        <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+<main class="container">
+    <!-- TITLE -->
+    <div class="title-container">
+        <img src="/img/logo.svg" class="title-logo" />
+        <p class="title-paragraph">
+            Acebook helps you connect and share with the people in your life.
         </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+    </div>
+    <!-- FORM -->
+    <div class="form-container">
+        <form class="form" th:action="@{/login}" method="post">
+            <div class="input-container">
+                <input type="text" name="username" placeholder="Email address or Phone Number"
+                       class="form-input form-input--email" />
+            </div>
+            <div class="input-container input-container--password">
+                <input type="password" name="password" placeholder="Password" class="form-input form-input--password" />
+                <div class="password-eye-container hidden">
+                    <img src="/img/eye-off.png" class="password-eye eye-off" />
+                </div>
+            </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <button class="form-log-in-btn" type="submit">Log In</button>
+            <a href="#" class="form-forgot-password">Forgot Password?</a>
+            <div class="divider"></div>
+            <a href="/users/new" class="form-create-account-btn">Create New Account</a>
+        </form>
+        <p class="create-page-paragraph">
+            <a href="#" class="create-page-link">Create a Page</a> for a
+            celebrity, brand or business.
         </p>
-        <p>
-            Remember me?
-             <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
-        </p>
-        <input type="hidden"
-               name="${_csrf.parameterName}"
-               value="${_csrf.token}"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-    <form th:action="@{/users/new}" method="get" class="form-signup">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-    </form>
-</div>
-</body></html>
+    </div>
+</main>
+
+<footer>
+    <p class="names">Made with lots of ❤️ and ☕️ by Jack, Max, Raul ＆ Rumen </p>
+</footer>
+
+<script src="/js/script_log_in.js"></script>
+</body>
+
+</html>

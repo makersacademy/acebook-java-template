@@ -1,0 +1,296 @@
+/***************
+ * BASE STYLES * 
+ ***************/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --white: #ffffff;
+  --gray1: #f5f6f7;
+  --gray2: #f0f2f5;
+  --gray3: #dddfe2;
+  --gray4: #8a8d91;
+  --gray5: #737373;
+  --black: #1c1e21;
+  --light-blue: #e7f3ff;
+  --blue1: #842ef4;
+  --blue2: #842ef4d8;
+  --green1: #42b72a;
+  --green2: #36a420;
+}
+
+html {
+  font-size: 62.5%;
+}
+html,
+body {
+  height: 100%;
+  font-family: Helvetica, Arial, sans-serif;
+  background: var(--gray2);
+}
+
+input {
+  border: none;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  height: 90vh;
+}
+
+/* footer */
+footer {
+  background: white;
+  padding: 2rem 0;
+  position: sticky;
+  top: 100vh;
+}
+
+.names {
+  color: rgba(0, 0, 0, 0.656);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.4em;
+}
+/* footer end */
+
+/*********
+ * TITLE * 
+ *********/
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.title-logo {
+  height: 8.6rem;
+  position: relative;
+  top: 1rem;
+  margin-left: -2rem;
+}
+
+.title-paragraph {
+  font-size: 1.6rem;
+  width: 25rem;
+  color: var(--black);
+}
+
+.title-account {
+  font-size: 2.4rem;
+  color: var(--black);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/********
+ * FORM * 
+ ********/
+
+.form-container,
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container {
+  max-width: 39.6rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.form {
+  background: var(--white);
+  padding: 1.6rem 1.6rem 2.4rem 1.6rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.5rem;
+  border: 1px solid var(--gray3);
+  border-radius: 6px;
+}
+
+.input-container:focus-within {
+  border-color: var(--blue1);
+  box-shadow: 0 0 0 2px var(--light-blue);
+}
+
+.input-container--password {
+  margin: 1rem 0;
+}
+
+.password-eye-container {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  position: relative;
+  right: 10px;
+  cursor: pointer;
+}
+
+.password-eye-container:hover {
+  background: rbga(0, 0, 0, 0.05);
+}
+
+/* Eye icon */
+.password-eye {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0 1.6rem;
+  color: var(--black);
+  font-size: 1.2rem;
+}
+
+.form-input:focus {
+  outline: none;
+}
+
+.form-input:focus::placeholder {
+  opacity: 0.5;
+}
+
+.form-input::placeholder {
+  opacity: 0.9;
+}
+
+.form-log-in-btn {
+  height: 4.5rem;
+  margin-bottom: 2rem;
+  background: var(--blue1);
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 200ms ease-in;
+  cursor: pointer;
+}
+
+.form-log-in-btn:hover {
+  background: var(--blue2);
+}
+
+.form-forgot-password {
+  font-size: 1.3rem;
+  color: var(--blue1);
+  align-self: center;
+}
+
+.form-forgot-password:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  margin: 2rem 0;
+  border-bottom: 1px solid var(--gray3);
+}
+
+.form-create-account-btn {
+  font-size: 1.4rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  background: var(--green1);
+  color: var(--white);
+  border-radius: 6px;
+  font-weight: bold;
+  align-self: center;
+  padding: 0 1.6rem;
+  transition: background-color 200ms ease-in;
+}
+
+.form-create-account-btn:hover {
+  background: var(--green2);
+}
+
+.form-go-to-login-btn {
+  font-size: 1.4rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  background: var(--blue1);
+  color: var(--white);
+  border-radius: 6px;
+  font-weight: bold;
+  align-self: center;
+  padding: 0 1.6rem;
+  transition: background-color 200ms ease-in;
+}
+
+.form-go-to-login-btn:hover {
+  background: var(--blue2);
+}
+
+.avatar {
+  font-size: 1.7rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  color: var(--gray4);
+  margin-right: 0.7rem;
+}
+.upload{
+  margin: 0rem 0rem 2rem 6rem;
+}
+
+::-webkit-file-upload-button {
+  border: 1px solid var(--blue1);
+  border-radius: 6px;
+  color: var(--gray5);
+  background: var(--white);
+  padding: 1em;
+}
+::-webkit-file-upload-button:hover{
+    cursor: pointer;
+}
+
+/* Create a page for a celebrity, band or business */
+.create-page-paragraph {
+  position: relative;
+  top: 3rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.create-page-link {
+  font-weight: bold;
+  color: var(--black);
+}
+
+.create-page-link:hover {
+  text-decoration: underline;
+}
