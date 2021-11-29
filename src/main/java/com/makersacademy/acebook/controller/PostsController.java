@@ -1,16 +1,28 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 @Controller
 public class PostsController {
@@ -18,18 +30,44 @@ public class PostsController {
     @Autowired
     PostRepository repository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
     @GetMapping("/posts")
-    public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
+    public String posts(Model model) {
+        Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("comment", new Comment());
         return "posts/index";
     }
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         post.setStamp( LocalDateTime.now());
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
+        Long id = user.getID();
+        post.setUserID(id);
+        post.setUsername(username);
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    @PostMapping("/posts/{id}/comment")
+    public RedirectView create(@PathVariable Long id, @ModelAttribute Comment comment) {
+        commentRepository.save(comment);
+        return new RedirectView("/posts");
+    }
+    @GetMapping("/posts/{id}")
+    public String post(@PathVariable long id, Model model) {
+        Post post = repository.findById(id).get();
+        model.addAttribute("post", new Post());
+        return "/posts/post";
+    }
+
 }
