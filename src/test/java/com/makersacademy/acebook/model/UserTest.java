@@ -2,8 +2,7 @@ package com.makersacademy.acebook.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class UserTest {
     String username = "TestUsername";
@@ -25,5 +24,20 @@ public class UserTest {
         String setUser = "setUsername";
         user.setUsername(setUser);
         assertEquals(user.getUsername(), setUser);
+    }
+
+    @Test
+    public void setPassword(){
+        String setPass = "setPassword";
+        user.setPassword(setPass);
+        assertEquals(user.getPassword(), setPass);
+    }
+
+    @Test
+    public void userTest(){
+        User userWithBoolean = new User(username,password,true);
+        User userWithNothing = new User();
+        assertTrue(userWithBoolean instanceof User);
+        assertTrue(userWithNothing instanceof User);
     }
 }
