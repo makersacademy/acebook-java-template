@@ -4,13 +4,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.sql.SQLException;
 
 public class LogOutTest {
+
     WebDriver driver;
     Faker faker;
     @Before
     public void setup() {
         TestHelper helper = new TestHelper();
+        try {
+            helper.setup();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         helper.signUpAndIn();
         driver = helper.driver;
         faker = helper.faker;
