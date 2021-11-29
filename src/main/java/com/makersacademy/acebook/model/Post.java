@@ -11,12 +11,25 @@ import java.time.format.DateTimeFormatter;
 @Table(name = "POSTS")
 public class Post {
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private LocalDateTime postTime;
     private String username;
+
+    public int getLikes() {
+        return likes;
+    }
+
     private int likes;
 
 

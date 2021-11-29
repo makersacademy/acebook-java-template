@@ -31,6 +31,7 @@
                     <p class="card-text" th:text="${post.getUsername()}">Username</p>
                     <p id ="likes" class="card-text" th:text="${post.getLikes()}">Likes</p>
                     <a href="#" id ="like_button" class="btn btn-primary">Like</a>
+                    <p class="card-text" th:text="${post.getId()}" hidden >Id</p>
 
                 </div>
             </div>
