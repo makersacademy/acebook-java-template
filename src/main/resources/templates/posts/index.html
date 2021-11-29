@@ -6,19 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acebook</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 
 <body>
 <!-- header starts -->
 <div class="header">
     <div class="header__left">
-        <img alt="" src="logo3.png"/>
+       <a href="/login"> <img alt="" src="img/logo3.png"/></a>
         <div class="header__input">
             <span class="material-icons"> search </span>
             <input type="text" placeholder="Search Acebook" />
@@ -59,6 +56,7 @@
         <span class="material-icons"> forum </span>
         <span class="material-icons"> notifications_active </span>
         <span class="material-icons"> expand_more </span>
+
     </div>
 </div>
 <!-- header ends -->
@@ -80,18 +78,23 @@
         </div>
 
         <div class="sidebarRow">
-            <span class="material-icons"> local_hospital </span>
-            <h4>Covid - 19 Information Center</h4>
-        </div>
-
-        <div class="sidebarRow">
             <span class="material-icons"> emoji_flags </span>
             <h4>Pages</h4>
         </div>
 
         <div class="sidebarRow">
             <span class="material-icons"> people </span>
-            <h4>People</h4>
+            <h4>Friends</h4>
+        </div>
+
+        <div class="sidebarRow">
+            <span class="material-icons"> group </span>
+            <h4>Groups</h4>
+        </div>
+
+        <div class="sidebarRow">
+            <span class="material-icons"> access_time </span>
+            <h4>Memories</h4>
         </div>
 
         <div class="sidebarRow">
@@ -100,13 +103,26 @@
         </div>
 
         <div class="sidebarRow">
+            <span class="material-icons"> library_books </span>
+            <h4>News</h4>
+        </div>
+
+
+        <div class="sidebarRow">
             <span class="material-icons"> storefront </span>
             <h4>Marketplace</h4>
         </div>
 
         <div class="sidebarRow">
             <span class="material-icons"> video_library </span>
-            <h4>Videos</h4>
+            <h4>Watch</h4>
+        </div>
+        <div class="sidebarRow">
+            <a href="login">
+            <span class="material-icons"> exit_to_app </span>
+            </a>
+            <h4><a style="text-decoration:none; color:black;" href="/login">Log Out</a> </h4>
+
         </div>
 
 
@@ -115,7 +131,7 @@
 
     <!-- feed starts -->
     <div class="feed">
-        <h3>Suggested Friends</h3>
+        <h4 class="fri_title">People you may know</h4>
         <div class="storyReel">
             <!-- story starts -->
             <div style="
@@ -129,7 +145,7 @@
 
             <!-- story starts -->
             <div style="
-              background-image: url('https://i.pinimg.com/originals/1c/cb/24/1ccb2489899ae4255043dc10557fc7da.jpg');
+              background-image: url('https://toppng.com/uploads/preview/beige-solid-background-115700857125hfvjfpmir.jpg');
             " class="story">
                 <img class="user__avatar story__avatar"
                      src="img/max.png" alt="" />
@@ -190,13 +206,19 @@
         </div>
 
         <!-- message sender starts -->
+<!--        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">-->
+<!--            <p>Content: <input type="text" th:field="*{content}" /></p>-->
+<!--            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--        </form>-->
+
         <div class="messageSender">
             <div class="messageSender__top">
                 <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
                      alt="" />
-                <form>
-                    <input class="messageSender__input" placeholder="What's on your mind?" type="text" />
+                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                    <input class="messageSender__input" placeholder="What's on your mind?" type="text" th:field="*{content}" />
                 </form>
+
             </div>
 
             <div class="messageSender__bottom">
@@ -246,12 +268,17 @@
                 </div>
 
                 <div class="post__image">
-                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
+                    <img src="https://www.carscoops.com/wp-content/uploads/2020/10/Herrod-Ford-Mustang-2.jpg"
                          alt="" />
                 </div>
                         <!-- likes-->
                     <section class="post-footer">
                         Likes: <i th:text="${post.likes}"/>
+<!--                        test buttons-->
+                        <div>
+                            <button class="like">Like  <p class="likeNum">0</p></button>
+                            <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
+                        </div>
                     </section>
 
                 <div class="post__options">
@@ -275,24 +302,21 @@
                     </div>
                 </div>
 
-
-                    <div class="comment">
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="user__avatar post__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="...">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h5 >John Daw</h5>
-                                <a href="#" class="anchor-time">add time here</a>
-<!--                                comment form-->
-                                <form>
-
-                                </form>
-                            </div>
-                        </div>
+<!--                commet section -->
+                <div class="post__top">
+                    <img class="user__avatar post__avatar"
+                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                    <div class="post__topInfo">
+                        <!-- post name -->
+                        <h5> John Daw
+<!--                            <div sec:authorize="isAuthenticated()">-->
+<!--                                <span sec:authentication="name"></span>-->
+<!--                            </div>-->
+                        </h5>
+                        <!-- time of post-->
+                        <p class="anchor-time"> Posted: <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
                     </div>
+                </div>
 
             </div>
 
@@ -315,103 +339,12 @@
 </div>
 <!-- main body ends -->
 
+
+
+<!-- script settings do not amend-->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0"
         nonce="zUxEq08J"></script>
-
-
-    <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
-
-
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
-
-
-    <ul th:each="post: ${posts}">
-
-
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="panel panel-default ">
-                <div class="panel-body">
-                    <section class="post-heading">
-                        <div class="row">
-                            <div class="col-md-11">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object photo-profile" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" width="40" height="40" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <div sec:authorize="isAuthenticated()">
-                                            <a href="#" class="anchor-username"><h4 class="media-heading"><span sec:authentication="name"></span></h4></a>
-                                        </div >
-                                        <p class="anchor-time"> Posted:  <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-
-                            </div>
-                        </div>
-                    </section>
-                    <section class="post-body">
-                        <hr>
-<!--                        Posts Content here-->
-                        <p th:text="${post.content}"/>
-                    </section>
-                    <section class="post-footer">
-                        <hr>
-                       Likes: <i th:text="${post.likes}"/>
-                        <div class="post-footer-option container">
-                            <ul class="list-unstyled">
-
-                                    <div>
-                                        <button class="like">Like  <p class="likeNum">0</p></button>
-                                        <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
-                                    </div>
-                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
-
-                                    <li><a href="#"><i class="glyphicon glyphicon-thumbs-down"></i> Dislike</a></li>
-                                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Comment</a></li>
-                                    <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
-                            </ul>
-                        </div>
-                        <div class="post-footer-comment-wrapper">
-                            <div class="comment-form">
-
-                            </div>
-                            <div class="comment">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width="32" height="32" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="anchor-username"><h4 class="media-heading">Media heading</h4></a>
-                                        <a href="#" class="anchor-time">51 mins</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    </ul>
-
-
-    <script src="script.js"></script>
+    <script src="/js/script_index.js"></script>
     </body>
 </html>

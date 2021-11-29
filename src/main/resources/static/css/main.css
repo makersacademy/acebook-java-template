@@ -1,3 +1,7 @@
+body {
+  background-color: #f1f2f5;
+  font-family: Helvetica, Arial, sans-serif;
+}
 * {
   margin: 0;
   box-sizing: border-box;
@@ -5,6 +9,21 @@
 
 .header__left img {
   height: 40px;
+}
+
+:root {
+  --white: #ffffff;
+  --gray1: #f5f6f7;
+  --gray2: #f0f2f5;
+  --gray3: #dddfe2;
+  --gray4: #8a8d91;
+  --gray5: #737373;
+  --black: #1c1e21;
+  --light-blue: #e7f3ff;
+  --blue1: #842ef4;
+  --blue2: #842ef4d8;
+  --green1: #42b72a;
+  --green2: #36a420;
 }
 
 .user__avatar {
@@ -169,10 +188,6 @@
   display: flex;
 }
 
-body {
-  background-color: #f1f2f5;
-  font-family: Helvetica, Arial, sans-serif;
-}
 
 .feed {
   flex: 1;
@@ -181,6 +196,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.fri_title{
+	color:gray;
 }
 
 .sidebar {
@@ -316,7 +335,11 @@ body {
 
 .anchor-time{
   color: grey;
+  text-decoration: none;
 }
+
+
+
 
 @media (max-width: 768px) {
   .sidebar {
@@ -353,6 +376,8 @@ body {
     width: 40px;
   }
 }
+
+
 
 @media (min-width: 320px) {
   .storyReel {

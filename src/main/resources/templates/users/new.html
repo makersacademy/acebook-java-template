@@ -1,15 +1,68 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Signup</title>
-    </head>
-    <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-            <p>Username: <input type="text" th:field="*{username}" /></p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acebook - Log In or Sign Up</title>
+    <link rel="stylesheet" href="/css/log_in.css" />
+    <link rel="stylesheet" href="/css/media-queries.css" />
+</head>
+
+<body>
+<main class="container">
+    <!-- TITLE -->
+    <div class="title-container">
+        <img src="/img/logo.svg" class="title-logo" />
+        <p class="title-paragraph">
+            Acebook helps you connect and share with the people in your life.
+        </p>
+    </div>
+    <!-- FORM -->
+    <div class="form-container">
+        <p class="title-account">
+            Create Account
+        </p>
+        <form class="form"  th:action="@{/users}" th:object="${user}" method="post">
+            <div class="input-container">
+                <input type="text" th:field="*{username}" placeholder="Enter Username"
+                       class="form-input form-input--email" />
+            </div>
+            <div class="input-container input-container--password">
+                <input type="password" th:field="*{password}" placeholder="Enter Password" class="form-input form-input--password" />
+                <div class="password-eye-container hidden">
+                    <img src="/img/eye-off.png" class="password-eye eye-off" />
+                </div>
+            </div>
+            <div class="input-container input-container--password" style="margin-top:0;">
+                <input type="password" th:field="*{password}" placeholder="Confirm Password!!!" class="form-input form-input--password" />
+                <div class="password-eye-container hidden">
+                    <img src="/img/eye-off.png" class="password-eye eye-off" />
+                </div>
+            </div>
+            <div>
+                <label for="img" class="avatar">Select Avatar</label>
+                <input class="upload" type="file" id="img" name="img" accept="image/*">
+            </div>
+            <button class="form-log-in-btn" type="submit">Create </button>
+
+            <div class="divider"></div>
+            <a href="/login" class="form-go-to-login-btn">Go To Log In</a>
         </form>
-    </body>
+        <p class="create-page-paragraph">
+            <a href="#" class="create-page-link">Create a Page</a> for a
+            celebrity, brand or business.
+        </p>
+    </div>
+</main>
+
+<footer>
+    <p class="names">Made with lots of ❤️ and ☕️ by Jack, Max, Raul ＆ Rumen </p>
+</footer>
+
+<script src="/js/script_log_in.js"></script>
+</body>
+
 </html>
