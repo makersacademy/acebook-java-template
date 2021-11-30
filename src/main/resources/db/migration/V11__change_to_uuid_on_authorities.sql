@@ -1,0 +1,2 @@
+ALTER TABLE authorities DROP COLUMN id CASCADE;
+ALTER TABLE authorities ADD COLUMN authorityID uuid PRIMARY KEY;

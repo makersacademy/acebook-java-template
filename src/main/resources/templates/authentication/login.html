@@ -8,6 +8,7 @@
     <title>Acebook - Log In or Sign Up</title>
     <link rel="stylesheet" href="/css/log_in.css" />
     <link rel="stylesheet" href="/css/media-queries.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -31,6 +32,9 @@
                 <div class="password-eye-container hidden">
                     <img src="/img/eye-off.png" class="password-eye eye-off" />
                 </div>
+            </div>
+            <div th:if="${param.error}" class="alert alert-danger">
+                Invalid username and password.
             </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <button class="form-log-in-btn" type="submit">Log In</button>

@@ -264,7 +264,7 @@
                         <p th:text="${post.content}"/>
                     </section>
                     <span th:if="${#authentication.getName()} == ${post.username}">
-                            <li><a th:href="@{/posts/{id} (id=${post.id})}">Edit</a></li></span>
+                            <li><a th:href="@{/posts/{id} (id=${post.postID})}">Edit</a></li></span>
                 </div>
 
                 <div class="post__image">

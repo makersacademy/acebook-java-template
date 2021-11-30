@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -16,15 +17,14 @@ import java.util.Objects;
 @Table(name = "POSTS")
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String content;
     private Integer likes;
     private LocalDateTime stamp;
-    private Long userID;
+    private UUID userID;
     private String username;
     private Boolean comment;
+    @Id
+    private UUID postID = UUID.randomUUID();
 
     public Post(String content) {
         this.content = content;
@@ -54,7 +54,7 @@ public class Post {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Post post = (Post) o;
-        return id != null && Objects.equals(id, post.id);
+        return postID != null && Objects.equals(postID, post.postID);
     }
 
     @Override

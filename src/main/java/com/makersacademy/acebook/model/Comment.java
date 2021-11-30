@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -14,15 +15,15 @@ import java.time.format.DateTimeFormatter;
 @Table(name = "COMMENTS")
 
 public class Comment {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID commentID = UUID.randomUUID();
     private String content;
     private Integer likes;
     private LocalDateTime stamp;
-    private Long userID;
+    private UUID userID;
     private String username;
-    private Long postID;
+    private UUID postID;
 
     public String getStamp() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' HH:mm");
