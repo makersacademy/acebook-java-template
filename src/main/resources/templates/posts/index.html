@@ -38,7 +38,12 @@
                             <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
                             <p class="card-text" th:text="${post.getUsername()}">Username</p>
                             <p class="card-text" th:text="${post.getLikes()}">Likes</p>
-                            <a href="#" class="btn btn-primary">Like Post</a>
+                            <form action="#" th:action="@{/posts/likes}" th:object="${post}" method="post">
+<!--                            <a type="S" href="#" class="btn btn-primary">Like Post</a>-->
+                                <input  id="test" th:text="888" />
+                                <button type="submit"  id ="like_button" class="btn btn-primary">Like</a></button>
+
+                            </form>
                         </div>
                     </div>
                 </div>

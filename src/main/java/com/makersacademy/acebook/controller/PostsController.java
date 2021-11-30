@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 @Controller
@@ -44,4 +41,16 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+    @PostMapping("/posts/likes")
+    public RedirectView likes(@ModelAttribute Post post) {
+        System.out.println("------------>");
+        System.out.println(post);
+
+        return new RedirectView("/posts");
+    }
+
+
+
+
+
 }
