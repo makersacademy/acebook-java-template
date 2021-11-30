@@ -241,8 +241,8 @@
         <!-- message sender ends -->
 
         <!-- post starts -->
-        <ul th:each="post: ${posts}" style="padding-left:0;"
-            th:onclick="'javascript:postClick(\'' + ${post.id} + '\');'">
+        <ul th:each="post: ${posts}" style="padding-left:0;">
+<!--           th:onclick="'javascript:postClick(\'' + ${post.getPostID()} + '\');'">-->
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
@@ -266,7 +266,7 @@
                         <p th:text="${post.content}"/>
                     </section>
                         <span th:if="${#authentication.getName()} == ${post.username}">
-                            <form th:action="@{/posts/{id} (id=${post.id})}" th:object="${post}">
+                            <form th:action="@{/posts/{id} (id=${post.getPostID()})}" th:object="${post}">
                                 <button type="submit" value="Submit">edit</button>
                             </form></span>
                 </div>

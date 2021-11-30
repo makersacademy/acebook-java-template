@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .failureUrl("/login?error")
        .and()
+                .csrf().disable()
                 .logout()
                     .logoutUrl("/logout")
                     .clearAuthentication(true)
@@ -43,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/login")
        .and()
                 .rememberMe();
+
     }
 
     @Bean

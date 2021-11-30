@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import static java.lang.Boolean.TRUE;
 
@@ -16,12 +17,12 @@ import static java.lang.Boolean.TRUE;
 @Entity
 @Table(name = "USERS")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String username;
     private String password;
     private boolean enabled;
+    @Id
+    private UUID userID = UUID.randomUUID();
 
     public User() {
         this.enabled = TRUE;
@@ -40,7 +41,7 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getID() { return this.id; }
+    public UUID getUserID() { return this.userID; }
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }
@@ -55,7 +56,7 @@ public class User {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+        return userID != null && Objects.equals(userID, user.userID);
     }
 
     @Override

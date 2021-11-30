@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -51,21 +52,21 @@ public class PostsController {
         Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
         String username = ((UserDetails)principal).getUsername();
         User user = userRepository.findByUsername(username).get(0);
-        Long id = user.getID();
+        UUID id = user.getUserID();
         post.setUserID(id);
         post.setUsername(username);
         repository.save(post);
         return new RedirectView("/posts");
     }
 
-    @PostMapping("/posts/{id}/comment")
-    public RedirectView create(@PathVariable Long id, @ModelAttribute Comment comment) {
+    @PostMapping("/posts/{postID}/comment")
+    public RedirectView create(@PathVariable UUID postID, @ModelAttribute Comment comment) {
         commentRepository.save(comment);
         return new RedirectView("/posts");
     }
-    @GetMapping("/posts/{id}")
-    public String post(@PathVariable long id, Model model) {
-        Post post = repository.findById(id).get();
+    @GetMapping("/posts/{postID}")
+    public String post(@PathVariable UUID postID, Model model) {
+        Post post = repository.findById(postID).get();
         model.addAttribute("post", post);
         return "/posts/post";
     }
