@@ -71,4 +71,8 @@ public class Post {
         setUsername(username);
         setLikes(likes);
     }
+
+    public void incrementLikes() {
+        likes++;
+    }
 }

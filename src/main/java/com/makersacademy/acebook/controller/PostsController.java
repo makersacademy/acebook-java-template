@@ -50,8 +50,12 @@ public class PostsController {
         GetPostId postid = new GetPostId();
         model.addAttribute("getUser", postid);
         System.out.println("------------>");
+        String postID = request.getParameter("postId");
         System.out.println(request.getParameter("postId"));
-
+        System.out.println(repository.findById(Long.parseLong(postID)).get());
+        Post post = repository.findById(Long.parseLong(postID)).get();
+        post.incrementLikes();
+        repository.save(post);
         return new RedirectView("/posts");
     }
 
