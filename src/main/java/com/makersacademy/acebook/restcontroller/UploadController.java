@@ -4,6 +4,7 @@ package com.makersacademy.acebook.restcontroller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
         private String bucketName;
 
 
-        @PostMapping("/uploadFile")
+        @PostMapping("/uploadfile")
         public String uploadFile(@RequestPart(value = "file") MultipartFile multipartFile) {
 
             String fileUrl = "";
@@ -57,8 +58,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
                 return "UploadController().uploadFile().Exception : " + e.getMessage();
 
             }
-
-            return status + " " +  fileUrl;
+            return fileUrl;
         }
 
         private File convertMultiPartToFile(MultipartFile file) throws IOException {
@@ -72,11 +72,11 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
         private String uploadFileTos3bucket(String fileName, File file) {
             try {
-                s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
+              s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
             }catch(AmazonServiceException e) {
                 return "uploadFileTos3bucket().Uploading failed :" + e.getMessage();
             }
-            return "Uploading Successful -> ";
+            return "";
         }
 
     }

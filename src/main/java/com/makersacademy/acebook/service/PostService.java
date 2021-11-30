@@ -17,7 +17,7 @@ public class PostService {
     PostRepository postRepository;
 
     public List<Post> submitPostToDB(Post postData){
-        postData.setLikes(0);
+        postData.setLikes(10);
         postData.setStamp(LocalDateTime.now());
         postRepository.save(postData);
         List<Post> result=retrievePostFromDB();

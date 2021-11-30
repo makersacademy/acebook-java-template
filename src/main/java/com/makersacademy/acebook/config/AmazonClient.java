@@ -14,61 +14,43 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 
 @Configuration
-
 public class AmazonClient {
-
-//@Autowired
-//private Environment env;
-//
-//    @Value"AKIAQFEJAPBAJQIEBPM3")
-//    private String accessKey;
-//    @Value("${secretKey}")
-//    private String secretKey;
-//    @Value("${region}")
-//    private String region;
-
 
     @Bean
     public AmazonS3 s3client() {
 
-
         AWSCredentials awsCredentials = new BasicAWSCredentials(
-                "AKIAQFEJAPBAJQIEBPM3",
-                "dgwd/iIJif62hqgdtMd9n3hxf6Ld7UOAYa8tUZFg"
+                "AKIAZOY4N5MB32LBTEDO",
+                "3UHkPVpFUwpld2lmYkH8xN8skNfl14hfEOscUVKJ"
         );
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(Regions.fromName("eu-west-2"))
+        AmazonS3 s3Client = AmazonS3ClientBuilder
+                .standard()
+                .withRegion("eu-west-2")
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .withPathStyleAccessEnabled(true)
                 .build();
 
         return s3Client;
     }
 }
-//
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-//        return new PropertySourcesPlaceholderConfigurer();
-//    }
-
-//    @Bean
-//    public static En propertyConfigInDev() {
-//        return new PropertySourcesPlaceholderConfigurer();
-//}
-
-//    @Bean
-//public AmazonS3 s3() {
-//    AWSCredentials awsCredentials = new BasicAWSCredentials(
-//            "AKIAQFEJAPBAJQIEBPM3",
-//            "dgwd/iIJif62hqgdtMd9n3hxf6Ld7UOAYa8tUZFg"
-//    );
-//    return AmazonS3ClientBuilder
-//            .standard()
-//            .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-//            .build();
-//}
 
 
 
