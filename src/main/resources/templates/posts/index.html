@@ -32,15 +32,13 @@
                 <div class = "col-8">
                     <div class="card m-2">
                         <div class = "card-body">
-                            <h5 class="card-title" th:text="${post.content}">Post</h5>
-                            <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
-                            <p class="card-text" th:text="${post.getUsername()}">Username</p>
-                            <p class="card-text" th:text="${post.getLikes()}">Likes</p>
                             <form action="#" th:action="@{/posts/likes}" th:object="${post}" method="post">
-<!--                            <a type="S" href="#" class="btn btn-primary">Like Post</a>-->
-                                <input  id="test" th:text="888" />
+                                <input type="hidden" th:value="${post.getId()}" name="postId">
+                                <h5 class="card-title" th:text="${post.content}">Post</h5>
+                                <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
+                                <p class="card-text" th:text="${post.getUsername()}">Username</p>
+                                <p class="card-text" th:text="${post.getLikes()}">Likes</p>
                                 <button type="submit"  id ="like_button" class="btn btn-primary">Like</a></button>
-
                             </form>
                         </div>
                     </div>

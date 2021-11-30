@@ -32,6 +32,10 @@ public class Post {
         this.likes = likes;
     }
 
+    public Long getId(){
+        return this.id;
+    }
+
     public Post() {
     }
 
