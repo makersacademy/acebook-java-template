@@ -21,6 +21,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String userimage;
     @Id
     private UUID userID = UUID.randomUUID();
 
@@ -29,16 +30,19 @@ public class User {
     }
 
 
-    public User(String username, String password) {
+    public User(String username, String password, String userimage) {
         this.username = username;
         this.password = password;
         this.enabled = TRUE;
+        this.userimage = userimage;
+
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, String password, boolean enabled, String userimage) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+        this.userimage = userimage;
     }
 
     public UUID getUserID() { return this.userID; }
@@ -62,5 +66,9 @@ public class User {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public String getuserimage() {
+        return userimage;
     }
 }

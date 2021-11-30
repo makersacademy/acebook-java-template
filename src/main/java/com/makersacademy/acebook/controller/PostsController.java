@@ -10,11 +10,13 @@ import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+
 
 @Controller
 public class PostsController {
@@ -70,5 +73,16 @@ public class PostsController {
         model.addAttribute("post", post);
         return "/posts/post";
     }
+//@ResponseBody
+//    @PostMapping(
+//            path = "{username}/image/upload",
+//    consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+//    produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public void uploadUserImage(@PathVariable("username") String username),
+//        @RequestParam("file") MultipartFile file) {
+//    userRepository.uploadUserImage(username, file);
+//    }
+
 
 }
