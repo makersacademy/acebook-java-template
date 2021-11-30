@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,10 +30,10 @@ public class ViewTest {
     TestHelper helper;
 
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         helper = new TestHelper();
-        helper.signUpAndIn();
+        helper.signIn();
         driver = helper.driver;
         faker = helper.faker;
     }

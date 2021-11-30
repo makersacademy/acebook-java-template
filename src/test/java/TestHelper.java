@@ -16,39 +16,45 @@ public class TestHelper {
     Faker faker;
     String name;
 
-   // @Autowired
-   // PasswordEncoder encoder;
 
     public String getName() {
         return name;
     }
 
-    public void setup() throws SQLException {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
+    public void setup(){
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
-        DriverManager.registerDriver(new Driver());
-        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/acebook_springboot_test");
-        String password = "Password";
-        String passwordEncoded = encoder.encode(password);
-        String query = "INSERT INTO users(username,password,enabled) VALUES('Testuser','"+passwordEncoded+"',true)";
-        Statement result = con.createStatement();
-        ResultSet rs = result.executeQuery(query);
-        con.close();
-
     }
-    public void signUpAndIn(){
-        // setup();
-        driver = new ChromeDriver();
-        faker = new Faker();
-        driver.get("http://localhost:8080/users/new");
-        name = faker.name().firstName();
-        driver.findElement(By.id("username")).sendKeys(name);
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+    public void signIn() throws SQLException {
+        runSqlSetUp();
+        setup();
+        name = "TestUser";
+        driver.get("http://localhost:8080/");
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.xpath("//button[contains(text(), 'Log In')]")).click();
+    }
+
+    public void runSqlSetUp() throws SQLException {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        DriverManager.registerDriver(new Driver());
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/acebook_springboot_test");
+        runSqlUsers(encoder, con);
+        runSqlAuthorities(encoder, con);
+        con.close();
+    }
+    public void runSqlUsers(PasswordEncoder encoder,Connection con) throws SQLException {
+        String password = "password";
+        String passwordEncoded = encoder.encode(password);
+        String query = "INSERT INTO users(username,password,enabled) VALUES('TestUser','"+passwordEncoded+"',true)";
+        Statement result = con.createStatement();
+        result.executeUpdate(query);
+    }
+
+    public void runSqlAuthorities(PasswordEncoder encoder, Connection con) throws SQLException {
+        Statement result = con.createStatement();
+        String query = "INSERT INTO authorities (authority,username) VALUES('ROLE_USER','TestUser')";
+        result.executeUpdate(query);
     }
 }

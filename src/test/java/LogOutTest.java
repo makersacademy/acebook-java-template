@@ -14,14 +14,9 @@ public class LogOutTest {
     WebDriver driver;
     Faker faker;
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
         TestHelper helper = new TestHelper();
-        try {
-            helper.setup();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        helper.signUpAndIn();
+        helper.signIn();
         driver = helper.driver;
         faker = helper.faker;
 
