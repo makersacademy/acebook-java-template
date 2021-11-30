@@ -39,7 +39,7 @@
                                 <h5 class="card-title" th:text="${post.content}">Post</h5>
                                 <p class="card-text" th:text="${post.getFormattedDate()}">Date</p>
                                 <p class="card-text" th:text="${post.getUsername()}">Username</p>
-                                <p class="card-text" th:text="${post.getLikes()}">Likes</p>
+                                <p class="card-text" name="likes" id="likes" th:text="${post.getLikes()}">Likes</p>
                                 <button type="submit"  id ="like_button" class="btn btn-primary">Like</a></button>
                             </form>
                         </div>
