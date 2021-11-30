@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Acebook-Profile</title>
+        <link rel="stylesheet" href="/main.css" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+        <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap4-toggle/bootstrap4-toggle.min.css}"/>
+    </head>
+    <body>
+    <div th:insert="fragments/fragments :: NavBar"></div>
+
+    <div class="container">
+        <div class = "col-8">
+            <div class = "card-body">
+                <h1>Update your profile.</h1>
+                <div sec:authorize="isAuthenticated()">
+                    Signed in as <span sec:authentication="name"></span>
+                </div>
+                <form method="POST" action="upload" enctype="multipart/form-data" >
+                    File:
+                    <input type="file" name="file" id="file" /> <br/>
+<!--                    Destination:-->
+<!--                    <input type="text" value="/tmp" name="destination"/>-->
+                    </br>
+                    <input type="submit" value="Upload" name="upload" id="upload" />
+                </form>
+<!--                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">-->
+<!--                    <p>Content: <input type="text" th:field="*{content}" /></p>-->
+<!--                    <p><input type="submit" id="Submit_button" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--                 </form>-->
+            </div>
+        </div>
+    </div>
+
+    </body>
+</html>

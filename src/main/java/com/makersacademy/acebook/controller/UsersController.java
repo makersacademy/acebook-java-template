@@ -55,4 +55,11 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/users/profile")
+    public String addProfilePic(Model model) {
+        System.out.println("-------In profile route-------");
+
+        return "/profile/index";
+    }
+
 }
