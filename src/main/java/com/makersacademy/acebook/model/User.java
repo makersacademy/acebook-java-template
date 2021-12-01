@@ -71,4 +71,8 @@ public class User {
     public String getuserimage() {
         return userimage;
     }
+
+    public void setuserimage(String userimage) {
+        this.userimage = userimage;
+    }
 }
