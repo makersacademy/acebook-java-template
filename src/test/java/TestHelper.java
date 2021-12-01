@@ -26,8 +26,9 @@ public class TestHelper {
         driver = new ChromeDriver();
         faker = new Faker();
     }
+
     public void signIn() throws SQLException {
-        runSqlSetUp();
+        runSqlSetUp() ;
         setup();
         name = "TestUser";
         driver.get("http://localhost:8080/");

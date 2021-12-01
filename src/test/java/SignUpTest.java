@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +46,7 @@ public class SignUpTest {
     }
 
     @Test
-    public void redirectOnNoPassword(){
+    public void redirectOnNoPassword() {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
         driver.findElement(By.id("password")).sendKeys("");

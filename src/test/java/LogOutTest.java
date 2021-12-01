@@ -13,6 +13,7 @@ public class LogOutTest {
 
     WebDriver driver;
     Faker faker;
+
     @Before
     public void setup() throws SQLException {
         TestHelper helper = new TestHelper();
@@ -23,7 +24,7 @@ public class LogOutTest {
     }
 
     @Test
-    public void testLogOutButton(){
+    public void testLogOutButton() {
         driver.findElement(By.id("logout")).click();
         driver.findElement(By.xpath("//button[contains(text(), 'Log Out')]")).click();
         String expectedUrl = driver.getCurrentUrl();

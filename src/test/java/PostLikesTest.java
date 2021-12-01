@@ -28,9 +28,6 @@ public class PostLikesTest {
     }
 
 
-
-
-
     @Test
     public void OneLikesTest() {
         driver.get("http://localhost:8080/posts");

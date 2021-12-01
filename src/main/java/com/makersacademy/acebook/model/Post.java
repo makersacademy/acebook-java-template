@@ -20,6 +20,10 @@ public class Post {
     private int likes;
 
 
+    public int getLikes() {
+        return likes;
+    }
+
     public String getUsername() {
         return this.username;
     }
