@@ -45,15 +45,22 @@
                             <div th:unless="${post.getCommentsCondition()}">
                                 <form action="#" th:action="@{/posts/comment}" th:object="${post}" method="post">
                                     <input type="hidden" th:value="${post.getId()}" name="commentsCondition">
-                                    <input type ="submit" id="Comment" value="Comment" class="btn btn-primary">
+                                    <input type ="submit" id="CommentCond" value="Comment" class="btn btn-primary">
                                 </form>
                             </div>
                             <div th:if="${post.getCommentsCondition()}">
-                                <form action="#" th:action="@{/posts/comment}" th:object="${post}" method="post">
-                                    <input type="hidden" th:value="${post.getId()}" name="commentsCondition">
-                                    <input type="text" th:field="*{content}">
-                                    <input type ="submit" id="Submit" value="Submit" class="btn btn-primary">
+                                <form action="#" th:action="@{/posts/comment/submit}" th:object="${post}" method="post">
+                                    <input type="hidden" th:value="${post.getId()}" name="commentsConditionSubmit">
+                                    <input type="text" field="" name="commentSubmit">
+                                    <input type="submit" id="Submit" value="Submit Comment" class="btn btn-primary" >
                                 </form>
+                            </div>
+                            <div  th:each="comment :${commentList}">
+                                <div class="card m-2" style="background-color: #eee;" th:if="${comment.getPostid()} == ${post.getId()}">
+                                    <p style="display: inline" th:text="${comment.getComment()}" >Comment</p>
+                                    <p style="display: inline" >- Submitted By:     </p>
+                                    <p style="display: inline" th:text="${comment.getCommenter()}">Commenter</p>
+                                </div>
                             </div>
                         </div>
                     </div>
