@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 
 import javax.servlet.http.Part;
-import java.sql.ResultSet;
-import java.util.stream.StreamSupport;
 
 @Controller
 public class UsersController {
@@ -72,10 +66,27 @@ public class UsersController {
         return "/users/profilePicture";
     }
 
-    @PostMapping("/users/profilePicture")
-    public void uploadProfilePic() {
-    }
 
+    @PostMapping("/users/profilePicture")
+
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+                                         RedirectAttributes redirectAttributes) {
+        System.out.println("-------In POST profile route-------");
+//        storageService.store(file);
+//
+//       /* Receive file uploaded to the Servlet from the HTML5 form */
+        Part filePart = request.getPart("file");
+        String fileName = filePart.getSubmittedFileName();
+        for (Part part : request.getParts()) {
+            part.write("C:\\upload\\" + fileName);
+        }
+
+
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        return "redirect:profilePicture";
+    }
 
 
 }
