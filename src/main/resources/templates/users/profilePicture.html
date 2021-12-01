@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css" />
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap4-toggle/bootstrap4-toggle.min.css}"/>
+</head>
+<body>
+<div th:insert="fragments/fragments :: NavBar"></div>
+
+    <div class="container">
+        <div class = "col-8">
+            <div class = "card-body">
+                <h1>Update your profile.</h1>
+                <div sec:authorize="isAuthenticated()">
+                    Signed in as <span sec:authentication="name"></span>
+                </div>
+                <br>
+                <form method="POST" action="fileuploadservlet" enctype="multipart/form-data" >
+                    File:
+                    <input type="file" name="file" id="file" />
+                    <br>
+                    <input type="submit" value="Upload" name="upload" id="upload" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

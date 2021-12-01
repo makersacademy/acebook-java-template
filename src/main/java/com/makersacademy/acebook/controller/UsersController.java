@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 
+import javax.servlet.http.Part;
 import java.sql.ResultSet;
 import java.util.stream.StreamSupport;
 
@@ -48,28 +54,28 @@ public class UsersController {
             }
         } catch (Exception e) {
             Iterable<User> usernames = userRepository.findAll();
-            for (User users: usernames ){
-                if(users.getUsername().contains(user.getUsername())) {redirect.addFlashAttribute("error", "User already exists");
-                return new RedirectView("/users/new/");} }
+            for (User users : usernames) {
+                if (users.getUsername().contains(user.getUsername())) {
+                    redirect.addFlashAttribute("error", "User already exists");
+                    return new RedirectView("/users/new/");
+                }
+            }
             redirect.addFlashAttribute("error", "Error During Signup");
             return new RedirectView("/users/new/");
         }
     }
 
-    @GetMapping("/users/profile")
+    @GetMapping("/users/profilePicture")
     public String addProfilePic(Model model) {
         System.out.println("-------In profile route-------");
-
-        return "/profile/index";
+        model.addAttribute("showLogout", true);
+        return "/users/profilePicture";
     }
 
-//    @PostMapping("/users/profile") {
-//        public String handleFileUpload(@RequestParam("file") MulipartFile file, RedirectAttributes redirectAttributes) {
-//            System.out.println("-------In profile POST route-------");
-////            redirectAttributes.addFlashAttribute("message", "You successfully uploaded" + file.getOriginalFilename() + "!");
-////            return "redirect:/users/profile";
-//        }
-//
-//    }
+    @PostMapping("/users/profilePicture")
+    public void uploadProfilePic() {
+    }
+
+
 
 }

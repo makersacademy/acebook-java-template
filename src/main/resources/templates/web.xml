@@ -1,0 +1,13 @@
+<web-app>
+
+</web-app><servlet>
+    <servlet-name>MyUploadServlet</servlet-name>
+    <servlet-class>FileUploadServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>MyUploadServlet</servlet-name>
+<url-pattern>/users/profilePicture</url-pattern>
+</servlet-mapping>
+
+</web-app>
