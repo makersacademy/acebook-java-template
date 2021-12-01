@@ -15,14 +15,14 @@ public class LikesHandlerTest {
     private PostRepository repository = mock(PostRepository.class);
     LikesHandler likesHandler = new LikesHandler(repository);
 
-    @Test
-    public void hasLikes() {
-        Post testPost = new Post();
-        testPost.populate_mock((long) 1, "a", testDate, "yoyo", 0);
-        when(request.getParameter(any())).thenReturn("1");
-
-
-        likesHandler.handleLike(request);
-
-    }
+//    @Test
+//    public void hasLikes() {
+//        Post testPost = new Post();
+//        testPost.populate_mock((long) 1, "a", testDate, "yoyo", 0);
+//        when(request.getParameter(any())).thenReturn("1");
+//
+//
+//        likesHandler.handleLike(request);
+//
+//    }
 }
