@@ -1,7 +1,5 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.model.PostList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,14 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -29,10 +22,10 @@ public class ViewTest {
     TestHelper helper;
 
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         helper = new TestHelper();
-        helper.signUpAndIn();
+        helper.signIn();
         driver = helper.driver;
         faker = helper.faker;
     }
