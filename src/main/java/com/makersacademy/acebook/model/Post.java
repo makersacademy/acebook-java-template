@@ -19,6 +19,9 @@ public class Post {
     private String username;
     private int likes;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getLikes() {
         return likes;
@@ -36,7 +39,7 @@ public class Post {
         this.likes = likes;
     }
 
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
 
@@ -75,6 +78,15 @@ public class Post {
         setUsername(username);
         setLikes(likes);
     }
+
+    public void populate_mock(Long id, String content, LocalDateTime time, String username, int likes) {
+        setId(id);
+        setContent(content);
+        setTime(time);
+        setUsername(username);
+        setLikes(likes);
+    }
+
 
     public void incrementLikes() {
         likes++;
