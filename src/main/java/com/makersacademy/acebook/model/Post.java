@@ -42,9 +42,7 @@ public class Post {
     }
 
     public Integer getLikes(){return this.likes;}
-    public Integer setLikes(){
-        return this.likes;
-    }
+    public Integer setLikes(){return this.likes;}
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public void setUsername(String username){ this.username = username; }
