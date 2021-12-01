@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.LikesHandler;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.PostList;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -44,11 +45,8 @@ public class PostsController {
 
     @PostMapping("/posts/likes")
     public RedirectView likes(Model model, HttpServletRequest request) throws Exception {
-        Post post = repository.findById(Long.parseLong(request.getParameter("postId"))).get();
-        post.incrementLikes();
-        repository.save(post);
+        LikesHandler likesHandler = new LikesHandler(repository);
+        likesHandler.handleLike(request);
         return new RedirectView("/posts");
     }
-
-
 }
