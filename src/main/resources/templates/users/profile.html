@@ -1,4 +1,11 @@
-<form method="POST" action="/api/upload/uploadfile" enctype="multipart/form-data">
+<span th:if="${#authentication.getName()} == ${user.getUsername()}">
+
+<form method="POST" th:action="@{/users/{username}/upload(username=${user.getUsername()})}" enctype="multipart/form-data">
     <input type="file" name="file" /><br/><br/>
     <input type="submit" value="Submit" />
 </form>
+
+
+
+</span>
+
