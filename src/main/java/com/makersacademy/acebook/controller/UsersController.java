@@ -75,10 +75,10 @@ public class UsersController {
 //        storageService.store(file);
 //
 //       /* Receive file uploaded to the Servlet from the HTML5 form */
-        Part filePart = request.getPart("file");
-        String fileName = filePart.getSubmittedFileName();
-        for (Part part : request.getParts()) {
-            part.write("C:\\upload\\" + fileName);
+//        Part filePart = request.getPart("file");
+//        String fileName = filePart.getSubmittedFileName();
+//        for (Part part : request.getParts()) {
+//            part.write("C:\\upload\\" + fileName);
         }
 
 
