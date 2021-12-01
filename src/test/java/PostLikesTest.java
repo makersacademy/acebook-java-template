@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.SQLException;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class PostLikesTest {
@@ -19,10 +21,10 @@ public class PostLikesTest {
     TestHelper helper;
 
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         helper = new TestHelper();
-        helper.signUpAndIn();
+        helper.signIn();
         driver = helper.driver;
         faker = helper.faker;
     }
