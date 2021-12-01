@@ -50,4 +50,12 @@ public class PostsController {
         likesHandler.handleLike(request);
         return new RedirectView("/posts");
     }
+
+    @PostMapping("/posts/comment")
+    public RedirectView comment(Post post, HttpServletRequest request){
+        post = repository.findById(Long.parseLong(request.getParameter("commentsCondition"))).get();
+        post.showOrHideComments();
+        repository.save(post);
+        return new RedirectView("/posts");
+    }
 }

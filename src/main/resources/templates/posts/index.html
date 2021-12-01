@@ -42,6 +42,19 @@
                                 <p class="card-text" name="likes" id="likes" th:text="${post.getLikes()}">Likes</p>
                                 <button type="submit"  id ="like_button" class="btn btn-primary">Like</a></button>
                             </form>
+                            <div th:unless="${post.getCommentsCondition()}">
+                                <form action="#" th:action="@{/posts/comment}" th:object="${post}" method="post">
+                                    <input type="hidden" th:value="${post.getId()}" name="commentsCondition">
+                                    <input type ="submit" id="Comment" value="Comment" class="btn btn-primary">
+                                </form>
+                            </div>
+                            <div th:if="${post.getCommentsCondition()}">
+                                <form action="#" th:action="@{/posts/comment}" th:object="${post}" method="post">
+                                    <input type="hidden" th:value="${post.getId()}" name="commentsCondition">
+                                    <input type="text" th:field="*{content}">
+                                    <input type ="submit" id="Submit" value="Submit" class="btn btn-primary">
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
