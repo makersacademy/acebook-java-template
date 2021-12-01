@@ -1,6 +1,5 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.GetPostId;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.PostList;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -36,31 +35,20 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
         post.populate(post.getContent(), LocalDateTime.now(), username, 0);
-        System.out.printf(username);
         repository.save(post);
         return new RedirectView("/posts");
     }
 
     @PostMapping("/posts/likes")
     public RedirectView likes(Model model, HttpServletRequest request) throws Exception {
-        GetPostId postid = new GetPostId();
-        model.addAttribute("getUser", postid);
-        System.out.println("------------>");
-        String postID = request.getParameter("postId");
-        System.out.println(request.getParameter("postId"));
-        System.out.println(repository.findById(Long.parseLong(postID)).get());
-        Post post = repository.findById(Long.parseLong(postID)).get();
+        Post post = repository.findById(Long.parseLong(request.getParameter("postId"))).get();
         post.incrementLikes();
         repository.save(post);
         return new RedirectView("/posts");
     }
-
-
-
 
 
 }
