@@ -19,6 +19,9 @@ public class Post {
     private String username;
     private int likes;
 
+    public int getLikes() {
+        return likes;
+    }
 
     public String getUsername() {
         return this.username;
