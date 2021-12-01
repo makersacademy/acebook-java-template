@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-@Setter
-@Getter
 @ToString
 @RequiredArgsConstructor
 @Entity
@@ -35,4 +33,51 @@ public class Comment {
         this.stamp = my_Time;
     }
 
+    public void setCommentID(UUID commentID) {
+        this.commentID = commentID;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public void setUserID(UUID userID) {
+        this.userID = userID;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPostID(UUID postID) {
+        this.postID = postID;
+    }
+
+    public UUID getCommentID() {
+        return commentID;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public UUID getUserID() {
+        return userID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UUID getPostID() {
+        return postID;
+    }
 }

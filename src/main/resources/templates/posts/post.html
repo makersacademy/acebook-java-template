@@ -46,9 +46,10 @@
                  alt="" />
             <!--                    Nav-bar USERNAME start-->
             <h4>
+                <a th:href="@{/users/{username}(username=${post.getUsername()})}" style=" color: #000000; text-decoration:none;">
                 <div sec:authorize="isAuthenticated()">
                     <span sec:authentication="name"></span>
-                </div>
+                </div></a>
             </h4>
             <!--                    Nav-bar USERNAME ends-->
         </div>
@@ -210,34 +211,6 @@
         <!--            <p>Content: <input type="text" th:field="*{content}" /></p>-->
         <!--            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
         <!--        </form>-->
-
-        <div class="messageSender">
-            <div class="messageSender__top">
-                <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-                     alt="" />
-                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <input class="messageSender__input" placeholder="What's on your mind?" type="text" th:field="*{content}" />
-                </form>
-
-            </div>
-
-            <div class="messageSender__bottom">
-                <div class="messageSender__option">
-                    <span style="color: red" class="material-icons"> videocam </span>
-                    <h3>Live</h3>
-                </div>
-
-                <div class="messageSender__option">
-                    <span style="color: green" class="material-icons"> photo_library </span>
-                    <h3>Photo</h3>
-                </div>
-
-                <div class="messageSender__option">
-                    <span style="color: orange" class="material-icons"> insert_emoticon </span>
-                    <h3>Feeling</h3>
-                </div>
-            </div>
-        </div>
         <!-- message sender ends -->
 
         <!-- post starts -->
@@ -249,7 +222,8 @@
                         <!-- post name -->
                         <h3>
                             <div>
-                                <span th:text="${post.getUsername()}"></span>
+                                <a th:href="@{/users/{username}(username=${post.getUsername()})}" style=" color: #000000; text-decoration:none;">
+                                    <span th:text="${post.getUsername()}"></span></a>
                             </div>
                         </h3>
                         <!-- time of post-->
@@ -301,23 +275,40 @@
                         <p>Share</p>
                     </div>
                 </div>
+                <div class="messageSender">
+                    <div class="messageSender__top">
+                        <form th:action="@{/posts/{id}/comment(id=${post.getPostID()})}" th:object="${comment}" method="post">
+                            <input class="messageSender__input" placeholder="What are you thinking?" type="text" th:field="*{content}" />
+                        </form>
 
-                <!--                commet section -->
+                    </div>
+                </div>
+
+                <!--                comment section -->
+                <ul th:each="comment: ${comments}" style="padding-left:0;">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
                          src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
-                        <h5> John Daw
-                            <!--                            <div sec:authorize="isAuthenticated()">-->
-                            <!--                                <span sec:authentication="name"></span>-->
-                            <!--                            </div>-->
+                        <h5>
+                            <div>
+                                <span th:text="${comment.getUsername()}"></span>
+                            </div>
                         </h5>
+
+                        <div class="post__bottom">
+                            <!-- message-->
+                            <section class="post-body">
+                                <!--                        Posts Content here-->
+                                    <p th:text="${comment.getContent()}"/>
+                            </section>
+                        </div>
                         <!-- time of post-->
-                        <p class="anchor-time"> Posted: <a href="#" class="anchor-time" th:text="${post.stamp}"></a></p>
+                        <p class="anchor-time"> Posted: <a href="#" class="anchor-time" th:text="${comment.getStamp()}"></a></p>
                     </div>
                 </div>
-
+                </ul>
             </div>
 
     </div>

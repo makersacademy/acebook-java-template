@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -40,4 +42,18 @@ public class UsersController {
     public String getLoginView() {
         return "authentication/login";
     }
+
+    @GetMapping("/users/{username}")
+    public String user(@PathVariable String username, Model model) {
+        User user = userRepository.findByUsername(username).get(0);
+        model.addAttribute("user", user);
+        return "/users/profile";
+    }
+
+    @PostMapping("/users/{username}/upload")
+    public RedirectView upload(@PathVariable String username) {
+        return new RedirectView("/users/{username}");
+    }
+
+
 }
