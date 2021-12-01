@@ -38,8 +38,8 @@ public class AmazonClient {
     public AmazonS3 s3client() {
 
         AWSCredentials awsCredentials = new BasicAWSCredentials(
-                "AKIAZOY4N5MB32LBTEDO",
-                "3UHkPVpFUwpld2lmYkH8xN8skNfl14hfEOscUVKJ"
+                "",
+                ""
         );
         AmazonS3 s3Client = AmazonS3ClientBuilder
                 .standard()
