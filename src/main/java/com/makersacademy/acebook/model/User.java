@@ -1,13 +1,8 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-
 import lombok.Data;
-import org.springframework.web.servlet.view.RedirectView;
+
+import javax.persistence.*;
 
 import static java.lang.Boolean.TRUE;
 

@@ -20,13 +20,6 @@ public class Post {
     private int likes;
     private Boolean commentCondition;
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -34,10 +27,6 @@ public class Post {
 
     public void setLikes(int likes) {
         this.likes = likes;
-    }
-
-    public Long getId(){
-        return this.id;
     }
 
     public void showOrHideComments(){
@@ -60,6 +49,26 @@ public class Post {
         this.content = content;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public int getLikes() {
+        return this.likes;
+    }
+
+     public String getUsername() {
+        return this.username;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getContent() {
         return this.content;
     }
@@ -76,10 +85,6 @@ public class Post {
     public String getFormattedDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yy kk:mm");
         return (postTime != null) ? postTime.format(formatter) : "Not available";
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public void populate(String content, LocalDateTime time, String username, int likes) {

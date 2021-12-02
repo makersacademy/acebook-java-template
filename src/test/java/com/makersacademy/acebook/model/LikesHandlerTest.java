@@ -1,24 +1,30 @@
 package com.makersacademy.acebook.model;
 
+import com.makersacademy.acebook.repository.LikesRepository;
 import com.makersacademy.acebook.repository.PostRepository;
-import org.junit.Test;
-import javax.servlet.http.HttpServletRequest;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.mock;
 
 public class LikesHandlerTest {
-    private PostRepository repository= mock(PostRepository.class);
-    LikesHandler likesHandler= new LikesHandler(repository);
+    private LocalDateTime testDate = LocalDateTime.now();
+    CurrentUser currentUser = new CurrentUser();
 
-    @Test
-    public void hasLikes(){
-        HttpServletRequest request=mock(HttpServletRequest.class);
-        //when(repository.findAllById(any())).thenReturn();
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    PostRepository repository = mock(PostRepository.class);
+    LikesRepository likesRepository = mock(LikesRepository.class);
+    LikesHandler likesHandler = new LikesHandler(repository, likesRepository, currentUser);
 
-
-        likesHandler.handleLike(request);
-
-    }
+//    @Test
+//    public void hasLikes() {
+//        Post testPost = new Post();
+//        testPost.populate_mock((long) 1, "a", testDate, "yoyo", 0);
+//        when(request.getParameter(any())).thenReturn("1");
+//
+//
+//        likesHandler.handleLike(request);
+//
+//    }
 }

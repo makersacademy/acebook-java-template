@@ -33,11 +33,13 @@ public class PostLikesTest {
     @Test
     public void OneLikesTest() {
         driver.get("http://localhost:8080/posts");
+        driver.findElement(By.id("content")).sendKeys("post.getContent()");
         driver.findElement(By.id("content")).sendKeys("first post");
         driver.findElement(By.id("Submit_button")).click();
         driver.findElement(By.id("likes"));
         driver.findElement(By.id("like_button")).click();
         WebElement item = driver.findElement(By.id("likes"));
+//        Assert.assertEquals(item.getText(), "1");
         Assert.assertEquals(item.getText(), "1");
     }
 
