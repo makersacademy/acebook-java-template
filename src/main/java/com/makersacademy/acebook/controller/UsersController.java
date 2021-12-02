@@ -4,6 +4,7 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import org.postgresql.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.*;
 import java.util.Optional;
 
 @Controller
@@ -68,7 +65,7 @@ public class UsersController {
 
     @GetMapping("/users/profilePicture")
     public String addProfilePic(Model model) {
-        System.out.println("-------In profile route-------");
+//        System.out.println("-------In profile route-------");
         model.addAttribute("showLogout", true);
         return "/users/profilePicture";
     }
@@ -77,20 +74,19 @@ public class UsersController {
     @PostMapping("/users/profilePicture")
 
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                         RedirectAttributes redirectAttributes) throws IOException {
-        System.out.println("-------In POST profile route-------");
-//        System.out.println(file);
-//        System.out.println(file.getName());
-//        System.out.println(file.getOriginalFilename());
+                                         RedirectAttributes redirectAttributes) throws IOException, SQLException {
+
         File newFile = multipartToFile(file, file.getOriginalFilename());
-//        System.out.println(newFile);
+
         //Add the picture to the user profile DB as a url
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println();
         String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
-        // Use the username to find the userID
-        // Convert username to userID
-        Long userID = new Long(1);
+        Connection con = sqlSetup();
+        Statement queryStatement = con.createStatement();
+        String query = "SELECT id FROM users WHERE username='" +username+ "'" ;
+        ResultSet resultSet = queryStatement.executeQuery(query);
+        resultSet.next();
+        Long userID = resultSet.getLong (1);
         User currentUser = userRepository.findById(userID).get();
         currentUser.setProfilePicture(newFile.toString());
         userRepository.save(currentUser);
@@ -103,4 +99,11 @@ public class UsersController {
         multipart.transferTo(convFile);
         return convFile;
     }
+
+    public Connection sqlSetup() throws SQLException {
+    DriverManager.registerDriver(new Driver());
+    Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/acebook_springboot_development");
+    return con;
+}
+
 }
