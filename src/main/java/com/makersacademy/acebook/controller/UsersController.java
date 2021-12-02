@@ -23,6 +23,7 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Controller
 public class UsersController {
@@ -86,9 +87,11 @@ public class UsersController {
         //Add the picture to the user profile DB as a url
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println();
-        String userID = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
         // Use the username to find the userID
-        User currentUser = userRepository.findByID(userID);
+        // Convert username to userID
+        Long userID = new Long(1);
+        User currentUser = userRepository.findById(userID).get();
         currentUser.setProfilePicture(newFile.toString());
         userRepository.save(currentUser);
 
