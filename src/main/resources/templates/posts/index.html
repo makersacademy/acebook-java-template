@@ -279,18 +279,14 @@
                 </div>
                 <!-- likes-->
                 <section class="post-footer">
-                    Likes: <i th:text="${post.likes}"/>
-                    <!--                        test buttons-->
-                    <div>
-                        <button class="like">Like  <p class="likeNum">0</p></button>
-                        <button class="dislike">Dislike  <p class="dislikeNum">0</p></button>
-                    </div>
+                        <a th:text="${post.getLike_count()}"></a>
                 </section>
 
                 <div class="post__options">
                     <div class="post__option">
-                        <span class="material-icons"> thumb_up </span>
-                        <p>Yess</p>
+                        <form id="likepost" onclick="likeFunction()" th:action="@{/posts/{id}/like(id=${post.getPostID()})}" method="post">
+                            <span class="material-icons"> thumb_up </span>
+                            <p>Yess</p><input type="submit"></form>
                     </div>
                     <div class="post__option">
                         <span class="material-icons"> thumb_down </span>

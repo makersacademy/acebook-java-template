@@ -11,13 +11,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "COMMENTS")
-
 public class Comment {
 
     @Id
     private UUID commentID = UUID.randomUUID();
     private String content;
-    private Integer likes;
     private LocalDateTime stamp;
     private UUID userID;
     private String username;
@@ -41,10 +39,6 @@ public class Comment {
         this.content = content;
     }
 
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
-
     public void setUserID(UUID userID) {
         this.userID = userID;
     }
@@ -63,10 +57,6 @@ public class Comment {
 
     public String getContent() {
         return content;
-    }
-
-    public Integer getLikes() {
-        return likes;
     }
 
     public UUID getUserID() {

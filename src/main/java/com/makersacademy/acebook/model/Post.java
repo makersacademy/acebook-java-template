@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,10 +20,10 @@ import java.util.UUID;
 public class Post {
 
     private String content;
-    private Integer likes;
     private LocalDateTime stamp;
     private UUID userID;
     private String username;
+    private Long like_count;
     private Boolean comment;
     @Id
     private UUID postID = UUID.randomUUID();
@@ -40,16 +41,11 @@ public class Post {
     public void setStamp(LocalDateTime my_Time) {
         this.stamp = my_Time;
     }
-
-    public Integer getLikes(){return this.likes;}
-    public Integer setLikes(){
-        return this.likes;
-    }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public void setUsername(String username){ this.username = username; }
     public String getUsername() { return this.username; }
-
+    public void setLikeCount(Long likeCount) { this.like_count = likeCount; }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
