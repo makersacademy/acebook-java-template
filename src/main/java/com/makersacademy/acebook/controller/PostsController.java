@@ -6,6 +6,7 @@ import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikesRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +64,7 @@ public class PostsController {
     }
 
       @PostMapping("/posts/comment")
-    public RedirectView comment(Post post, HttpServletRequest request){
+    public RedirectView comment(Post post, @NotNull HttpServletRequest request){
         post = repository.findById(Long.parseLong(request.getParameter("commentsCondition"))).get();
         post.showOrHideComments();
         repository.save(post);
