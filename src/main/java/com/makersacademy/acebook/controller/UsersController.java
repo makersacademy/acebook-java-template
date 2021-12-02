@@ -5,6 +5,8 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class UsersController {
@@ -70,23 +76,28 @@ public class UsersController {
     @PostMapping("/users/profilePicture")
 
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                         RedirectAttributes redirectAttributes) {
+                                         RedirectAttributes redirectAttributes) throws IOException {
         System.out.println("-------In POST profile route-------");
-//        storageService.store(file);
-//
-//       /* Receive file uploaded to the Servlet from the HTML5 form */
-//        Part filePart = request.getPart("file");
-//        String fileName = filePart.getSubmittedFileName();
-//        for (Part part : request.getParts()) {
-//            part.write("C:\\upload\\" + fileName);
-        }
-
-
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+//        System.out.println(file);
+//        System.out.println(file.getName());
+//        System.out.println(file.getOriginalFilename());
+        File newFile = multipartToFile(file, file.getOriginalFilename());
+//        System.out.println(newFile);
+        //Add the picture to the user profile DB as a url
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println();
+        String userID = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+        // Use the username to find the userID
+        User currentUser = userRepository.findByID(userID);
+        currentUser.setProfilePicture(newFile.toString());
+        userRepository.save(currentUser);
 
         return "redirect:profilePicture";
     }
 
-
+    public  static File multipartToFile(MultipartFile multipart, String fileName) throws IllegalStateException, IOException {
+        File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
+        multipart.transferTo(convFile);
+        return convFile;
+    }
 }

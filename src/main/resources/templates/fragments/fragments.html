@@ -40,9 +40,12 @@
                             <a id= "logout" class="nav-link" href="/logout">Log Out</a>
                         </li>
                     </div>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
+                    <div th:if="${posts}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users/profilePicture">Profile</a>
+                        </li>
+                    </div>
+
                 </ul>
             </div>
         </div>

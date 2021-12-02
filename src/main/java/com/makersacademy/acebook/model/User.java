@@ -21,6 +21,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String profilePicture;
 
     public User() {
         this.enabled = TRUE;
@@ -39,7 +40,10 @@ public class User {
     }
 
     public String getUsername() { return this.username; }
+    public Long getUserID() { return this.id; }
     public String getPassword() { return this.password; }
+    public String getProfilePicture() { return this.profilePicture; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 }
