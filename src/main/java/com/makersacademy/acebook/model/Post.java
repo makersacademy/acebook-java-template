@@ -41,6 +41,7 @@ public class Post {
     public void setStamp(LocalDateTime my_Time) {
         this.stamp = my_Time;
     }
+
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public void setUsername(String username){ this.username = username; }
