@@ -28,7 +28,7 @@ public class TestHelper {
     }
 
     public void signIn() throws SQLException {
-        runSqlSetUp() ;
+        runSqlSetUp();
         setup();
         name = "TestUser";
         driver.get("http://localhost:8080/");

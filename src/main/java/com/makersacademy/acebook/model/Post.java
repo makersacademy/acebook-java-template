@@ -20,6 +20,9 @@ public class Post {
     private int likes;
     private Boolean commentCondition;
 
+    public int getLikes() {
+        return likes;
+    }
 
     public int getLikes() {
         return likes;
