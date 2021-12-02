@@ -5,13 +5,17 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.service.UploadService;
+import org.flywaydb.core.internal.resource.classpath.ClassPathResource;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
@@ -76,10 +80,19 @@ public class UsersController {
         userRepository.save(user);
         return new RedirectView("/users/{username}");
 
-
     }
-
 }
+
+//    // Return the image from the classpath location using HttpServletResponse
+//    @GetMapping(value = "classpath1", produces = MediaType.IMAGE_JPEG_VALUE)
+//    public void fromClasspathAsHttpServResp(HttpServletResponse response) throws IOException {
+//
+//        ClassPathResource imageFile = new ClassPathResource("");
+//
+//        StreamUtils.copy(imageFile.getInputStream(), response.getOutputStream());
+//    }
+
+
 //
 //    @PostMapping("/photos/add")
 //    public String addPhoto(@RequestPart("title") String title,
