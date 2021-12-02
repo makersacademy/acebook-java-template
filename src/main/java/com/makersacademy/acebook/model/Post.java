@@ -24,10 +24,6 @@ public class Post {
         return likes;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
     public String getUsername() {
         return this.username;
     }
