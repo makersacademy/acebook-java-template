@@ -13,7 +13,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String content;
     private LocalDateTime postTime;
     private String username;
@@ -26,11 +26,11 @@ public class Post {
         this.content = content;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -79,7 +79,7 @@ public class Post {
         setLikes(likes);
     }
 
-    public void populate_mock(int id, String content, LocalDateTime time, String username, int likes) {
+    public void populate_mock(Long id, String content, LocalDateTime time, String username, int likes) {
         setId(id);
         setContent(content);
         setTime(time);

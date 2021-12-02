@@ -5,7 +5,9 @@ import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class LikesHandler {
@@ -52,7 +54,7 @@ public class LikesHandler {
 
     private LikesList collectIdLikes(Post post) {
         LikesList likeList = new LikesList();
-        likeList.setList(likesRepository.findAllById(Collections.singleton((long) post.getId())));
+        likeList.setList(likesRepository.findAllById(Collections.singleton(post.getId())));
         return likeList;
     }
 }

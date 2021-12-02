@@ -1,6 +1,5 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

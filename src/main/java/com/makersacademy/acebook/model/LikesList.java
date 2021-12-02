@@ -1,7 +1,6 @@
 package com.makersacademy.acebook.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class LikesList {
 

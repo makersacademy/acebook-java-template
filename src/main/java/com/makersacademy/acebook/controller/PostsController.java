@@ -41,8 +41,7 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         currentUser.setUsername();
-        post.populate("post.getContent()", LocalDateTime.now(), "currentUser.getUsername()", 0);
-//        post.populate(post.getContent(), LocalDateTime.now(), currentUser.getUsername(), 0);
+        post.populate(post.getContent(), LocalDateTime.now(), currentUser.getUsername(), 0);
         repository.save(post);
         return new RedirectView("/posts");
     }
@@ -50,7 +49,7 @@ public class PostsController {
     @PostMapping("/posts/likes")
     public RedirectView likes(HttpServletRequest request, RedirectAttributes redirect) throws Exception {
         LikesHandler likesHandler = new LikesHandler(repository, likesRepository, new CurrentUser());
-        if (!likesHandler.liked(request,redirect)) {
+        if (!likesHandler.liked(request, redirect)) {
             redirect.addFlashAttribute("User is Unable to like this Post");
         }
         return new RedirectView("/posts");
