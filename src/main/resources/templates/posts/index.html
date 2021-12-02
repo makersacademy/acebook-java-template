@@ -56,10 +56,10 @@
                                 </form>
                             </div>
                             <div  th:each="comment :${commentList}">
-                                <div class="card m-2" style="background-color: #eee;" th:if="${comment.getPostid()} == ${post.getId()}">
-                                    <p style="display: inline" th:text="${comment.getComment()}" >Comment</p>
-                                    <p style="display: inline" >- Submitted By:     </p>
-                                    <p style="display: inline" th:text="${comment.getCommenter()}">Commenter</p>
+                                <div class="card m-1" style="background-color: #eee;" th:if="${comment.getPostid()} == ${post.getId()}">
+                                    <p th:text="${comment.getComment()}" >Comment</p>
+                                    <p>- Submitted by: </p>
+                                    <p th:text="${comment.getCommenter()}">Commenter</p>
                                 </div>
                             </div>
                         </div>

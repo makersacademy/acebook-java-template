@@ -65,15 +65,10 @@ public class PostsController {
 
     @PostMapping("/posts/comment/submit")
     public RedirectView commentSubmit(Model model, Post post, Comment comment, HttpServletRequest request){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        post = repository.findById(Long.parseLong(request.getParameter("commentsConditionSubmit"))).get();
-        post.showOrHideComments();
-        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
-        String commentFromPost = request.getParameter("commentSubmit");
-        Comment submitComment = new Comment(post.getId(),commentFromPost,username);
+        CommentHandler commentHandler = new CommentHandler();
+        commentHandler.newComment(request, repository);
+        Comment submitComment = new Comment(commentHandler.getId(),commentHandler.getComment(),commentHandler.getUsername());
         commentRepository.save(submitComment);
-        System.out.printf(commentFromPost);
-        repository.save(post);
         return new RedirectView("/posts");
     }
 }
