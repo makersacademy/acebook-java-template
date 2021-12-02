@@ -47,9 +47,12 @@ public class UsersController {
             }
         } catch (Exception e) {
             Iterable<User> usernames = userRepository.findAll();
-            for (User users: usernames ){
-                if(users.getUsername().contains(user.getUsername())) {redirect.addFlashAttribute("error", "User already exists");
-                return new RedirectView("/users/new/");} }
+            for (User users : usernames) {
+                if (users.getUsername().contains(user.getUsername())) {
+                    redirect.addFlashAttribute("error", "User already exists");
+                    return new RedirectView("/users/new/");
+                }
+            }
             redirect.addFlashAttribute("error", "Error During Signup");
             return new RedirectView("/users/new/");
         }
