@@ -26,11 +26,11 @@
         </div>
         <form class="form" th:action="@{/login}" method="post">
             <div class="input-container">
-                <input type="text" name="username" placeholder="Email address or Phone Number"
+                <input type="text" name="username" id="username" placeholder="Email address or Phone Number"
                        class="form-input form-input--email" />
             </div>
             <div class="input-container input-container--password">
-                <input type="password" name="password" placeholder="Password" class="form-input form-input--password" />
+                <input type="password" name="password" id="password" placeholder="Password" class="form-input form-input--password" />
                 <div class="password-eye-container hidden">
                     <img src="/img/eye-off.png" class="password-eye eye-off" />
                 </div>
@@ -39,7 +39,7 @@
                 Invalid username and password.
             </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <button class="form-log-in-btn" type="submit">Log In</button>
+            <button class="form-log-in-btn" id="log_in_test" type="submit">Log In</button>
             <a href="#" class="form-forgot-password">Forgot Password?</a>
             <div class="divider"></div>
             <a href="/users/new" class="form-create-account-btn">Create New Account</a>

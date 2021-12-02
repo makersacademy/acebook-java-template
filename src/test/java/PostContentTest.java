@@ -34,7 +34,16 @@ public class PostContentTest {
 
     @Test
     public void successfulPost() {
-        driver.get("http://localhost:8080/posts");
+        driver.get("http://localhost:8080/users/new");
+        String test = faker.name().firstName();
+        driver.findElement(By.id("username")).sendKeys(test);
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("create_tag")).click();
+
+        driver.findElement(By.id("username")).sendKeys(test);
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("log_in_test")).click();
+
         driver.findElement(By.id("messageSender_test")).sendKeys("This is a test" + Keys.ENTER);
         String post = driver.findElement(By.id("post_id_test")).getText();
         Assert.assertEquals("This is a test", post);
