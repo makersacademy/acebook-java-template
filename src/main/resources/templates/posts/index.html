@@ -43,7 +43,7 @@
 
     <div class="header__right">
         <div class="header__info">
-            <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                  alt="" />
             <!--                    Nav-bar USERNAME start-->
             <h4>
@@ -67,7 +67,7 @@
     <!-- sidebar starts -->
     <div class="sidebar">
         <div class="sidebarRow">
-            <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                  alt="" />
             <!--                    Side-bar USERNAME start-->
             <h4>
@@ -214,7 +214,7 @@
 
         <div class="messageSender">
             <div class="messageSender__top">
-                <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+                <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                      alt="" />
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
                     <input class="messageSender__input" placeholder="What's on your mind?" type="text" th:field="*{content}" />
@@ -246,7 +246,8 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                         <ul th:each="user: ${users}">
+                         th:src="${user.getuserimage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -314,7 +315,7 @@
                     <span th:if="${comment.getPostID()} == ${post.getPostID()}">
                     <div class="post__top">
                         <img class="user__avatar post__avatar"
-                             src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                             th:src="${user.getuserimage()}" alt="" />
                         <div class="post__topInfo">
                             <!-- post name -->
                             <h5>

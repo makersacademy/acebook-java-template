@@ -41,10 +41,18 @@ public class PostsController {
     public String posts(Model model) {
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         Iterable<Comment> comments = commentRepository.findAll();
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User userloggedin = userRepository.findByUsername(username).get(0);
+        Iterable<User> users = userRepository.findAll();
+
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("users", users);
+        model.addAttribute("user", new User());
+        model.addAttribute("userloggedin", userloggedin);
         return "posts/index";
     }
 
