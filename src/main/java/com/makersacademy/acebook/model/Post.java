@@ -18,6 +18,11 @@ public class Post {
     private LocalDateTime postTime;
     private String username;
     private int likes;
+    private Boolean commentCondition;
+
+    public int getLikes() {
+        return likes;
+    }
 
     public int getLikes() {
         return likes;
@@ -35,7 +40,24 @@ public class Post {
         this.likes = likes;
     }
 
+    public Long getId(){
+        return this.id;
+    }
+
+    public void showOrHideComments(){
+        if(this.commentCondition){
+            this.commentCondition = false;
+        }
+        else {this.commentCondition = true;
+        }
+    }
+
+    public Boolean getCommentsCondition(){
+        return this.commentCondition;
+    }
+
     public Post() {
+        commentCondition = false;
     }
 
     public Post(String content) {
@@ -69,5 +91,9 @@ public class Post {
         setTime(time);
         setUsername(username);
         setLikes(likes);
+    }
+
+    public void incrementLikes() {
+        likes++;
     }
 }

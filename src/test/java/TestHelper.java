@@ -26,6 +26,7 @@ public class TestHelper {
         driver = new ChromeDriver();
         faker = new Faker();
     }
+
     public void signIn() throws SQLException {
         runSqlSetUp();
         setup();
