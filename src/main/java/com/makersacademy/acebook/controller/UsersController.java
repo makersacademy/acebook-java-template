@@ -33,10 +33,14 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
-        userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
-        return new RedirectView("/login");
+        try {
+            userRepository.save(user);
+            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+            authoritiesRepository.save(authority);
+            return new RedirectView("/login");
+        } catch (Exception e) {
+            return new RedirectView("/users/new?exists");
+        }
     }
 
     @GetMapping("login")

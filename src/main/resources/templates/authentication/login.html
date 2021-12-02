@@ -22,6 +22,9 @@
     </div>
     <!-- FORM -->
     <div class="form-container">
+        <div th:if="${param.exists}" class="alert alert-danger">
+            Username is taken.
+        </div>
         <form class="form" th:action="@{/login}" method="post">
             <div class="input-container">
                 <input type="text" name="username" placeholder="Email address or Phone Number"
