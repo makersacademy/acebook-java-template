@@ -52,7 +52,7 @@ public class LikesHandler {
 
     private LikesList collectIdLikes(Post post) {
         LikesList likeList = new LikesList();
-        likeList.setList(likesRepository.findAllById(Collections.singleton(post.getId())));
+        likeList.setList(likesRepository.findAllById(Collections.singleton((long) post.getId())));
         return likeList;
     }
 }

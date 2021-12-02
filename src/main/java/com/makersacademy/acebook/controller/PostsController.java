@@ -41,7 +41,8 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         currentUser.setUsername();
-        post.populate(post.getContent(), LocalDateTime.now(), currentUser.getUsername(), 0);
+        post.populate("post.getContent()", LocalDateTime.now(), "currentUser.getUsername()", 0);
+//        post.populate(post.getContent(), LocalDateTime.now(), currentUser.getUsername(), 0);
         repository.save(post);
         return new RedirectView("/posts");
     }

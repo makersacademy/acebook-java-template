@@ -13,40 +13,44 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String content;
     private LocalDateTime postTime;
     private String username;
     private int likes;
 
-    public void setId(Long id) {
+    public Post() {
+    }
+
+    public Post(String content) {
+        this.content = content;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public int getId() {
+        return this.id;
     }
 
     public void setLikes(int likes) {
         this.likes = likes;
     }
 
-    public Long getId() {
-        return this.id;
+    public int getLikes() {
+        return this.likes;
     }
 
-    public Post() {
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Post(String content) {
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -68,10 +72,6 @@ public class Post {
         return (postTime != null) ? postTime.format(formatter) : "Not available";
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public void populate(String content, LocalDateTime time, String username, int likes) {
         setContent(content);
         setTime(time);
@@ -79,7 +79,7 @@ public class Post {
         setLikes(likes);
     }
 
-    public void populate_mock(Long id, String content, LocalDateTime time, String username, int likes) {
+    public void populate_mock(int id, String content, LocalDateTime time, String username, int likes) {
         setId(id);
         setContent(content);
         setTime(time);

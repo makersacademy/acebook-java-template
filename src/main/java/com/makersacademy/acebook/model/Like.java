@@ -10,23 +10,8 @@ import javax.persistence.*;
     public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long like_id;
     private int id;
     private String username;
-
-    public void setLike(int postId,String username){
-        setId(postId);
-        setUsername(username);
-    }
-
-
-    public Long getLike_id() {
-        return like_id;
-    }
-
-    public void setLike_id(Long like_id) {
-        this.like_id = like_id;
-    }
 
     public int getId() {
         return id;
