@@ -23,9 +23,7 @@ public class AmazonClient {
     public AmazonS3 s3client() {
 
 
-        AWSCredentials awsCredentials = new BasicAWSCredentials(
-                "AKIAQFEJAPBAJQIEBPM3",
-                "dgwd/iIJif62hqgdtMd9n3hxf6Ld7UOAYa8tUZFg"
+        AWSCredentials awsCredentials = new BasicAWSCredentials("", ""
         );
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion("eu-west-2")
