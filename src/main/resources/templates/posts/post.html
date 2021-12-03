@@ -120,10 +120,10 @@
             <h4>Watch</h4>
         </div>
         <div class="sidebarRow">
-            <a href="login">
+            <a href="/logout">
                 <span class="material-icons"> exit_to_app </span>
             </a>
-            <h4><a style="text-decoration:none; color:black;" href="/login">Log Out</a> </h4>
+            <h4><a style="text-decoration:none; color:black;" href="/logout">Log Out</a> </h4>
 
         </div>
 
@@ -224,7 +224,7 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         th:src="${user.getuserimage()}" alt="" />
+                         th:src="${post.getProfileImage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -244,8 +244,8 @@
                         <!--                        Posts Content here-->
                         <p th:text="${post.content}"/>
                     </section>
-                    <span th:if="${#authentication.getName()} == ${post.username}">
-                            <li><a th:href="@{/posts/{id} (id=${post.postID})}">Edit</a></li></span>
+<!--                    <span th:if="${#authentication.getName()} == ${post.username}">-->
+<!--                            <li><a th:href="@{/posts/{id} (id=${post.postID})}">Edit</a></li></span>-->
                 </div>
 
                 <div class="post__image">
@@ -260,8 +260,9 @@
                 <div class="post__options">
                     <div class="post__option">
                         <form id="likepost" onclick="likeFunction()" th:action="@{/posts/{id}/like(id=${post.getPostID()})}" method="post">
-                        <span class="material-icons"> thumb_up </span>
-                            <p>Yess</p><input type="submit"></form>
+                            <span class="material-icons" style="margin-right:10px;"> thumb_up </span>
+                            <input class="remove_style" type="submit" value="Yess">
+                        </form>
                     </div>
                     <div class="post__option">
                         <span class="material-icons"> chat_bubble_outline </span>
@@ -286,7 +287,7 @@
                 <ul th:each="comment: ${comments}" style="padding-left:0;">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                         th:src="${comment.getProfile_image()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h5>

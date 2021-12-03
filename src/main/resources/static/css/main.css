@@ -11,6 +11,16 @@ body {
   height: 40px;
 }
 
+.remove_style{
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 :root {
   --white: #ffffff;
   --gray1: #f5f6f7;

@@ -68,11 +68,8 @@ public class User {
         return getClass().hashCode();
     }
 
-    public String getuserimage() {
-        return userimage;
-    }
-
     public void setuserimage(String userimage) {
         this.userimage = userimage;
     }
+    public String getuserimage() { return this.userimage; }
 }

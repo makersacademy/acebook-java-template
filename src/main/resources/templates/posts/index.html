@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:text-decoration="http://www.w3.org/1999/xhtml">
+      xmlns:text-decoration="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <head lang="en">
     <meta charset="UTF-8" />
@@ -119,10 +119,10 @@
             <h4>Watch</h4>
         </div>
         <div class="sidebarRow">
-            <a href="login">
+            <a href="/logout">
                 <span class="material-icons"> exit_to_app </span>
             </a>
-            <h4><a style="text-decoration:none; color:black;" href="/login">Log Out</a> </h4>
+            <h4><a style="text-decoration:none; color:black;" href="/logout">Log Out</a> </h4>
 
         </div>
 
@@ -253,8 +253,7 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         <ul th:each="user: ${users}"
-                         th:src="${user.getuserimage()}" alt="" />
+                         th:src="${post.getProfileImage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -275,10 +274,10 @@
                         <a th:href="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}" style=" color: #000000; text-decoration:none;">
                         <p th:text="${post.getContent()}" id="post_id_test"/></a>
                     </section>
-                    <span th:if="${#authentication.getName()} == ${post.username}">
-                            <form th:action="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}">
-                                <button type="submit" value="Submit">edit</button>
-                            </form></span>
+<!--                    <span th:if="${#authentication.getName()} == ${post.username}">-->
+<!--                            <form th:action="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}">-->
+<!--                                <button type="submit" value="Submit">edit</button>-->
+<!--                            </form></span>-->
                 </div>
 
                 <div class="post__image">
@@ -293,18 +292,15 @@
                 <div class="post__options">
                     <div class="post__option">
                         <form id="likepost" onclick="likeFunction()" th:action="@{/posts/{id}/like(id=${post.getPostID()})}" method="post">
-                            <span class="material-icons"> thumb_up </span>
-                            <p>Yess</p><input type="submit"></form>
-                    </div>
-                    <div class="post__option">
-                        <span class="material-icons"> thumb_down </span>
-                        <p>Naah</p>
+                            <span class="material-icons" style="margin-right:10px;"> thumb_up </span>
+                            <input class="remove_style" type="submit" value="Yess">
+                        </form>
                     </div>
 
                     <div class="post__option" id="commentDIV">
-                        <a th:href="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}" style=" color: #000000; text-decoration:none;">
-                        <span class="material-icons"> chat_bubble_outline </span>
-                            <p>Comment</p></a>
+                        <a th:href="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}" style="color: gray; text-decoration:none;">
+                            <p > <span class="material-icons" style="margin-bottom:-1px;"> chat_bubble_outline </span> Comment </p>
+                        </a>
                     </div>
 
                     <div class="post__option">
@@ -318,7 +314,7 @@
                     <span th:if="${comment.getPostID()} == ${post.getPostID()}">
                     <div class="post__top">
                         <img class="user__avatar post__avatar"
-                             th:src="${user.getuserimage()}" alt="" />
+                             th:src="${comment.getProfile_image()}" alt="" />
                         <div class="post__topInfo">
                             <!-- post name -->
                             <h5>

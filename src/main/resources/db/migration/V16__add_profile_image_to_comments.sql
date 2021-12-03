@@ -1,0 +1,1 @@
+ALTER TABLE comments ADD COLUMN profile_image VARCHAR(200);

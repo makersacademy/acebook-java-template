@@ -28,6 +28,7 @@ public class Post {
     private String post_image;
     @Id
     private UUID postID = UUID.randomUUID();
+    private String profile_image;
 
     public Post(String content) {
         this.content = content;
@@ -50,6 +51,8 @@ public class Post {
     public void setLikeCount(Long likeCount) { this.like_count = likeCount; }
     public void setPostImage(String imgURL) { this.post_image = imgURL; }
     public String getPostImage() { return this.post_image; }
+    public void setProfileImage(String imgURL) { this.profile_image = imgURL; }
+    public String getProfileImage() { return this.profile_image;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

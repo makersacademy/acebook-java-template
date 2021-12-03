@@ -20,6 +20,7 @@ public class Comment {
     private UUID userID;
     private String username;
     private UUID postID;
+    private String profile_image;
 
     public String getStamp() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' HH:mm");
@@ -69,5 +70,13 @@ public class Comment {
 
     public UUID getPostID() {
         return postID;
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 }

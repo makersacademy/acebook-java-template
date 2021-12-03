@@ -89,9 +89,9 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, MultipartFile file) {
-        post.setStamp( LocalDateTime.now());
-        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
+        post.setStamp(LocalDateTime.now());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
         User user = userRepository.findByUsername(username).get(0);
         if (!file.isEmpty()) {
             Map<String, String> metadata = new HashMap<>();
@@ -107,16 +107,18 @@ public class PostsController {
             String filePath = String.format("https://%s.s3.eu-west-2.amazonaws.com/%s", path, fileName);
             post.setPostImage(filePath);
             UUID id = user.getUserID();
+            post.setProfileImage(user.getuserimage());
             post.setUserID(id);
             post.setUsername(username);
             repository.save(post);
             return new RedirectView("/posts");
         }
         UUID id = user.getUserID();
-        post.setUserID(id);
-        post.setUsername(username);
-        repository.save(post);
-        return new RedirectView("/posts");
+        post.setProfileImage(user.getuserimage());
+            post.setUserID(id);
+            post.setUsername(username);
+            repository.save(post);
+            return new RedirectView("/posts");
     }
 
     @PostMapping("/posts/{postID}/comment")
@@ -127,6 +129,7 @@ public class PostsController {
         comment.setUsername(username);
         User user = userRepository.findByUsername(username).get(0);
         UUID id = user.getUserID();
+        comment.setProfile_image(user.getuserimage());
         comment.setUserID(id);
         commentRepository.save(comment);
         return new RedirectView("/posts/{postID}");

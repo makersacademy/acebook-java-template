@@ -119,10 +119,10 @@
             <h4>Watch</h4>
         </div>
         <div class="sidebarRow">
-            <a href="login">
+            <a href="/logout">
                 <span class="material-icons"> exit_to_app </span>
             </a>
-            <h4><a style="text-decoration:none; color:black;" href="/login">Log Out</a> </h4>
+            <h4><a style="text-decoration:none; color:black;" href="/logout">Log Out </a></h4>
 
         </div>
 
@@ -217,10 +217,9 @@
         <!--            <p>Content: <input type="text" th:field="*{content}" /></p>-->
         <!--            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
         <!--        </form>-->
-
         <div class="messageSender">
             <div class="messageSender__top">
-                <img class="user__avatar" th:style="user__avatar" th:src="${user.getuserimage()}"
+                <img class="user__avatar" th:style="user__avatar" th:src="${profile.getuserimage()}"
                      alt="" />
                 <span th:if="${#authentication.getName()} == ${user.getUsername()}">
 
@@ -232,7 +231,6 @@
 
 
             </div>
-
             <div class="messageSender__bottom">
                 <div class="messageSender__option">
                     <span style="color: red" class="material-icons"> videocam </span>
@@ -257,7 +255,7 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                         th:src="${post.getProfileImage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -278,10 +276,10 @@
                         <a th:href="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}" style=" color: #000000; text-decoration:none;">
                             <p th:text="${post.getContent()}"/></a>
                     </section>
-                    <span th:if="${#authentication.getName()} == ${post.username}">
-                            <form th:action="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}">
-                                <button type="submit" value="Submit">edit</button>
-                            </form></span>
+<!--                    <span th:if="${#authentication.getName()} == ${post.username}">-->
+<!--                            <form th:action="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}">-->
+<!--                                <button type="submit" value="Submit">edit</button>-->
+<!--                            </form></span>-->
                 </div>
 
                 <div class="post__image">
@@ -296,12 +294,9 @@
                 <div class="post__options">
                     <div class="post__option">
                         <form id="likepost" onclick="likeFunction()" th:action="@{/posts/{id}/like(id=${post.getPostID()})}" method="post">
-                            <span class="material-icons"> thumb_up </span>
-                            <p>Yess</p><input type="submit"></form>
-                    </div>
-                    <div class="post__option">
-                        <span class="material-icons"> thumb_down </span>
-                        <p>Naah</p>
+                            <span class="material-icons" style="margin-right:10px;"> thumb_up </span>
+                            <input class="remove_style" type="submit" value="Yess">
+                        </form>
                     </div>
 
                     <div class="post__option" id="commentDIV">
@@ -321,7 +316,7 @@
                     <span th:if="${comment.getPostID()} == ${post.getPostID()}">
                     <div class="post__top">
                         <img class="user__avatar post__avatar"
-                             src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                             th:src="${comment.getProfile_image()}" alt="" />
                         <div class="post__topInfo">
                             <!-- post name -->
                             <h5>
