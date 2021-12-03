@@ -34,6 +34,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
+        currentUser.setUsername();
         PostList postArrayList = new PostList();
         postArrayList.setList(repository.findAll());
         CommentList commentsList = new CommentList();
@@ -48,7 +49,6 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        currentUser.setUsername();
         post.populate(post.getContent(), LocalDateTime.now(), currentUser.getUsername(), 0);
         repository.save(post);
         return new RedirectView("/posts");
@@ -56,15 +56,15 @@ public class PostsController {
 
     @PostMapping("/posts/likes")
     public RedirectView likes(HttpServletRequest request, RedirectAttributes redirect) throws Exception {
-        LikesHandler likesHandler = new LikesHandler(repository, likesRepository, new CurrentUser());
-        if (!likesHandler.liked(request, redirect)) {
+        LikesHandler likesHandler = new LikesHandler(repository, likesRepository);
+        if (!likesHandler.liked(request, redirect, currentUser.getUsername())) {
             redirect.addFlashAttribute("User is Unable to like this Post");
         }
         return new RedirectView("/posts");
     }
 
-      @PostMapping("/posts/comment")
-    public RedirectView comment(Post post, @NotNull HttpServletRequest request){
+    @PostMapping("/posts/comment")
+    public RedirectView comment(Post post, @NotNull HttpServletRequest request) {
         post = repository.findById(Long.parseLong(request.getParameter("commentsCondition"))).get();
         post.showOrHideComments();
         repository.save(post);
@@ -72,10 +72,10 @@ public class PostsController {
     }
 
     @PostMapping("/posts/comment/submit")
-    public RedirectView commentSubmit(Model model, Post post, Comment comment, HttpServletRequest request){
+    public RedirectView commentSubmit(Model model, Post post, Comment comment, HttpServletRequest request) {
         CommentHandler commentHandler = new CommentHandler();
         commentHandler.newComment(request, repository);
-        Comment submitComment = new Comment(commentHandler.getId(),commentHandler.getComment(),commentHandler.getUsername());
+        Comment submitComment = new Comment(commentHandler.getId(), commentHandler.getComment(), commentHandler.getUsername());
         commentRepository.save(submitComment);
         return new RedirectView("/posts");
     }

@@ -94,6 +94,14 @@ public class Post {
         setLikes(likes);
     }
 
+    public void populateMock(Long id,String content, LocalDateTime time, String username, int likes) {
+        setId(id);
+        setContent(content);
+        setTime(time);
+        setUsername(username);
+        setLikes(likes);
+    }
+
     public void incrementLikes() {
         likes++;
     }
