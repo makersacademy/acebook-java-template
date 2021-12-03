@@ -11,8 +11,4 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findByUsername(String username);
-
-//    public void uploadUserImage(String username, MultipartFile file) {
-//
-//    }
 }

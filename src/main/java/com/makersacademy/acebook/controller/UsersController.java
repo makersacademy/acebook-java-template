@@ -1,11 +1,12 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Authority;
-import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.AuthoritiesRepository;
-import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.repository.*;
 import com.makersacademy.acebook.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,12 @@ public class UsersController {
     AuthoritiesRepository authoritiesRepository;
     @Autowired
     UploadService uploadService;
+    @Autowired
+    PostRepository repository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    LikeRepository likeRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -32,15 +39,35 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
+    public RedirectView signup(@ModelAttribute User user, MultipartFile file) {
         try {
-            userRepository.save(user);
-            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-            authoritiesRepository.save(authority);
-            return new RedirectView("/login");
+            try {
+                Map<String, String> metadata = new HashMap<>();
+                metadata.put("Content-Type", file.getContentType());
+                metadata.put("Content-Length", String.valueOf(file.getSize()));
+                String path = String.format("%s", "acebook-images-javacadabra");
+                String fileName = String.format("%s", file.getOriginalFilename());
+                try {
+                    uploadService.upload(path, fileName, Optional.of(metadata), file.getInputStream());
+                } catch (IOException e) {
+                    throw new IllegalStateException("Failed to upload file", e);
+                }
+                String filePath = String.format("https://%s.s3.eu-west-2.amazonaws.com/%s", path, fileName);
+                user.setuserimage(filePath);
+                userRepository.save(user);
+                Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+                authoritiesRepository.save(authority);
+                return new RedirectView("/login");
+            } catch (Exception e) {
+                userRepository.save(user);
+                Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+                authoritiesRepository.save(authority);
+                return new RedirectView("/login");
+            }
         } catch (Exception e) {
             return new RedirectView("/users/new?exists");
         }
+
     }
 
     @GetMapping("login")
@@ -50,15 +77,30 @@ public class UsersController {
 
     @GetMapping("/users/{username}")
     public String user(@PathVariable String username, Model model) {
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String profilepic = ((UserDetails)principal).getUsername();
+        User profile = userRepository.findByUsername(profilepic).get(0);
         User user = userRepository.findByUsername(username).get(0);
+        Iterable<Post> posts = repository.findByUsername(username);
+        Iterable<Comment> comments = commentRepository.findAll();
+        Iterable<Like> likes = likeRepository.findAll();
+        List<User> users = userRepository.findAll();
+        model.addAttribute("profile", profile);
+        model.addAttribute("users", users);
         model.addAttribute("user", user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("post", new Post());
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+        model.addAttribute("likes", likes);
+        model.addAttribute("like", new Like());
         return "/users/profile";
     }
 
     @PostMapping("/users/{username}/upload")
     public RedirectView upload(@PathVariable String username, MultipartFile file) {
         if (file.isEmpty()) {
-            throw new IllegalStateException("Cannot upload empty file");
+            return new RedirectView("/users/{username}?emptyfileerror");
         }
         Map<String, String> metadata = new HashMap<>();
         metadata.put("Content-Type", file.getContentType());
@@ -74,17 +116,7 @@ public class UsersController {
         User user = userRepository.findByUsername(username).get(0);
         user.setuserimage(filePath);
         userRepository.save(user);
-        return new RedirectView("/users/{username}");
-
-
+        return new RedirectView("/login");
     }
 
 }
-//
-//    @PostMapping("/photos/add")
-//    public String addPhoto(@RequestPart("title") String title,
-//                           @RequestPart("image") MultipartFile image, Model model)
-//            throws IOException {
-//        String id = photoService.addPhoto(title, image);
-//        return "redirect:/photos/" + id;
-//    }

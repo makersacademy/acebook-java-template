@@ -8,6 +8,7 @@ import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.service.UploadService;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.LongStream;
@@ -42,38 +45,72 @@ public class PostsController {
     @Autowired
     LikeRepository likeRepository;
 
+    @Autowired
+    UploadService uploadService;
+
     @GetMapping("/posts")
     public String posts(Model model) {
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         Iterable<Comment> comments = commentRepository.findAll();
         Iterable<Like> likes = likeRepository.findAll();
+        List<User> users = userRepository.findAll();
+        model.addAttribute("user", user);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Like());
+        model.addAttribute("users", users);
         return "posts/index";
     }
 
     @GetMapping("/posts/{postID}")
     public String post(@PathVariable UUID postID, Model model) {
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
         Post post = repository.findById(postID).get();
         Iterable<Comment> comments = commentRepository.findByPostID(postID);
+        List<User> users = userRepository.findAll();
         List<Like> likes = likeRepository.findByPostID(postID);
+        model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
         model.addAttribute("likes", likes);
+        model.addAttribute("users", users);
         return "/posts/post";
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, MultipartFile file) {
         post.setStamp( LocalDateTime.now());
         Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
         String username = ((UserDetails)principal).getUsername();
         User user = userRepository.findByUsername(username).get(0);
+        if (!file.isEmpty()) {
+            Map<String, String> metadata = new HashMap<>();
+            metadata.put("Content-Type", file.getContentType());
+            metadata.put("Content-Length", String.valueOf(file.getSize()));
+            String path = String.format("%s", "acebook-images-javacadabra");
+            String fileName = String.format("%s", file.getOriginalFilename());
+            try {
+                uploadService.upload(path, fileName, Optional.of(metadata), file.getInputStream());
+            } catch (IOException e) {
+                throw new IllegalStateException("Failed to upload file", e);
+            }
+            String filePath = String.format("https://%s.s3.eu-west-2.amazonaws.com/%s", path, fileName);
+            post.setPostImage(filePath);
+            UUID id = user.getUserID();
+            post.setUserID(id);
+            post.setUsername(username);
+            repository.save(post);
+            return new RedirectView("/posts");
+        }
         UUID id = user.getUserID();
         post.setUserID(id);
         post.setUsername(username);
