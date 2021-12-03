@@ -59,7 +59,7 @@
                                 <div class="card m-1" style="background-color: #eee;" th:if="${comment.getPostid()} == ${post.getId()}">
                                     <p th:text="${comment.getComment()}" >Comment</p>
                                     <p>- Submitted by: </p>
-                                    <p th:text="${comment.getCommenter()}">Commenter</p>
+                                    <p th:text="${comment.getCommenter()}">Commenter<p>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,8 @@
                 <div class = "col-2">
                     <div class="card m-2">
                         <img class="card-top-img" src="#" alt="Card image holder">
-                    </div>                </div>
+                    </div>
+                </div>
             </div>
         </div>
 
