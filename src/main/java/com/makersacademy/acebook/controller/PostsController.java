@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Controller
@@ -27,14 +28,16 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     LikesRepository likesRepository;
-    PostList postArrayList = new PostList();
-    CurrentUser currentUser = new CurrentUser();
     @Autowired
     CommentRepository commentRepository;
+
+    CurrentUser currentUser = new CurrentUser();
+    LikesHandler likesHandler;
 
     @GetMapping("/posts")
     public String index(Model model) {
         currentUser.setUsername();
+        likesHandler = new LikesHandler();
         PostList postArrayList = new PostList();
         postArrayList.setList(repository.findAll());
         CommentList commentsList = new CommentList();
@@ -44,6 +47,7 @@ public class PostsController {
         model.addAttribute("post", new Post());
         model.addAttribute("comment", new Comment());
         model.addAttribute("showLogout", true);
+        model.addAttribute("like",new Like());
         return "posts/index";
     }
 
@@ -56,10 +60,24 @@ public class PostsController {
 
     @PostMapping("/posts/likes")
     public RedirectView likes(HttpServletRequest request, RedirectAttributes redirect) throws Exception {
-        LikesHandler likesHandler = new LikesHandler(repository, likesRepository);
-        if (!likesHandler.liked(request, redirect, currentUser.getUsername())) {
+        String parameter = request.getParameter("postId");
+        long postId = Long.parseLong(parameter);
+        Optional<Post> query = repository.findById(postId);
+        Post post = query.get();
+        LikesList test= new LikesList();
+        test.setList(likesRepository.findAll());
+
+        Iterable<Like> likesList = likesRepository.findAll();
+        if (!likesHandler.liked(likesList,redirect, currentUser.getUsername(),post)) {
             redirect.addFlashAttribute("User is Unable to like this Post");
+        } else {
+            post.incrementLikes();
+            repository.save(post);
+            Like like = new Like(post.getUsername(), post.getId());
+            likesRepository.save(like);
         }
+
+
         return new RedirectView("/posts");
     }
 
