@@ -18,6 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+import com.makersacademy.acebook.model.Like;
+import com.makersacademy.acebook.repository.LikeRepository;
+
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,6 +30,9 @@ import java.util.stream.Stream;
 
 @Controller
 public class PostsController {
+    
+    @Autowired
+    LikeRepository likeRepository;
 
     @Autowired
     PostRepository repository;
@@ -52,6 +58,8 @@ public class PostsController {
         model.addAttribute("comment", new Comment());
         model.addAttribute("users", users);
         model.addAttribute("user", new User());
+        model.addAttribute("likes", likes);
+        model.addAttribute("like", new Like());
         model.addAttribute("userloggedin", userloggedin);
         return "posts/index";
     }
@@ -60,9 +68,11 @@ public class PostsController {
     public String post(@PathVariable UUID postID, Model model) {
         Post post = repository.findById(postID).get();
         Iterable<Comment> comments = commentRepository.findByPostID(postID);
+        List<Like> likes = likeRepository.findByPostID(postID);
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("likes", likes);
         return "/posts/post";
     }
 
@@ -102,4 +112,31 @@ public class PostsController {
         return new RedirectView("/posts/{postID}");
     }
 
+        @PostMapping("/posts/{postID}/like")
+    public RedirectView like(@PathVariable UUID postID, @ModelAttribute Like like) {
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User user = userRepository.findByUsername(username).get(0);
+        UUID id = user.getUserID();
+        //check whether like exists
+        try {
+            Like del = likeRepository.exists(postID, username).get(0);
+            likeRepository.deleteById(del.getLikeID());
+            Long variable = likeRepository.findLikeCount(postID);
+            Post post = repository.findById(postID).get();
+            post.setLikeCount(variable);
+            repository.save(post);
+            return new RedirectView("/posts/{postID}");
+        } catch (Exception e) {
+            like.setPostID(postID);
+            like.setUserID(id);
+            like.setUsername(username);
+            likeRepository.save(like);
+            Long variable = likeRepository.findLikeCount(postID);
+            Post post = repository.findById(postID).get();
+            post.setLikeCount(variable);
+            repository.save(post);
+            return new RedirectView("/posts/{postID}");
+        }
+    }
 }
