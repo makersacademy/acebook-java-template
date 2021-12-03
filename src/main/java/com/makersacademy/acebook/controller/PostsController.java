@@ -60,24 +60,19 @@ public class PostsController {
 
     @PostMapping("/posts/likes")
     public RedirectView likes(HttpServletRequest request, RedirectAttributes redirect) throws Exception {
-        String parameter = request.getParameter("postId");
-        long postId = Long.parseLong(parameter);
-        Optional<Post> query = repository.findById(postId);
+        Optional<Post> query = repository.findById(Long.parseLong(request.getParameter("postId")));
         Post post = query.get();
         LikesList test= new LikesList();
         test.setList(likesRepository.findAll());
-
         Iterable<Like> likesList = likesRepository.findAll();
         if (!likesHandler.liked(likesList,redirect, currentUser.getUsername(),post)) {
             redirect.addFlashAttribute("User is Unable to like this Post");
         } else {
             post.incrementLikes();
             repository.save(post);
-            Like like = new Like(post.getUsername(), post.getId());
+            Like like = new Like(currentUser.getUsername(), post.getId());
             likesRepository.save(like);
         }
-
-
         return new RedirectView("/posts");
     }
 
