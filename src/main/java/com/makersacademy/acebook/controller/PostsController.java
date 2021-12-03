@@ -1,11 +1,9 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Comment;
-import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.CommentRepository;
-import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.omg.CORBA.Request;
@@ -20,6 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+import com.makersacademy.acebook.model.Like;
+import com.makersacademy.acebook.repository.LikeRepository;
+
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -29,6 +30,9 @@ import java.util.stream.Stream;
 
 @Controller
 public class PostsController {
+    
+    @Autowired
+    LikeRepository likeRepository;
 
     @Autowired
     PostRepository repository;
@@ -39,20 +43,24 @@ public class PostsController {
     @Autowired
     CommentRepository commentRepository;
 
-    @Autowired
-    LikeRepository likeRepository;
-
     @GetMapping("/posts")
     public String posts(Model model) {
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         Iterable<Comment> comments = commentRepository.findAll();
-        Iterable<Like> likes = likeRepository.findAll();
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User userloggedin = userRepository.findByUsername(username).get(0);
+        Iterable<User> users = userRepository.findAll();
+
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("users", users);
+        model.addAttribute("user", new User());
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Like());
+        model.addAttribute("userloggedin", userloggedin);
         return "posts/index";
     }
 
@@ -81,6 +89,16 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+//    @GetMapping("/posts/postID/comment")
+//    public String comment(@PathVariable UUID postID, Model model){
+//        Post post = repository.findById(postID).get();
+//        Optional<Comment> comments = commentRepository.findById(postID);
+//        model.addAttribute("post", post);
+//        model.addAttribute("comments", comments);
+//        model.addAttribute("comment", new Comment());
+//        return "/posts/comment";
+//    }
+
     @PostMapping("/posts/{postID}/comment")
     public RedirectView create(@PathVariable UUID postID, @ModelAttribute Comment comment) {
         comment.setStamp( LocalDateTime.now());
@@ -94,7 +112,7 @@ public class PostsController {
         return new RedirectView("/posts/{postID}");
     }
 
-    @PostMapping("/posts/{postID}/like")
+        @PostMapping("/posts/{postID}/like")
     public RedirectView like(@PathVariable UUID postID, @ModelAttribute Like like) {
         Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
         String username = ((UserDetails)principal).getUsername();
@@ -121,5 +139,4 @@ public class PostsController {
             return new RedirectView("/posts/{postID}");
         }
     }
-
 }

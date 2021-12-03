@@ -7,20 +7,22 @@ import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.Date;
 
+import org.flywaydb.core.internal.resource.classpath.ClassPathResource;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import javax.servlet.http.HttpServletResponse;
 
-    @RestController
+
+@RestController
     @RequestMapping("/api/upload")
     public class UploadController {
 
