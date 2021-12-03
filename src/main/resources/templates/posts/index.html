@@ -25,8 +25,7 @@
 
     <div class="header__middle">
         <div class="header__option active">
-            <a href="/posts">
-            <span class="material-icons"> home </span></a>
+            <span class="material-icons"> home </span>
         </div>
         <div class="header__option">
             <span class="material-icons"> flag </span>
@@ -44,7 +43,7 @@
 
     <div class="header__right">
         <div class="header__info">
-            <img class="user__avatar" th:src="${user.getuserimage()}"
+            <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                  alt="" />
             <!--                    Nav-bar USERNAME start-->
             <h4>
@@ -68,7 +67,7 @@
     <!-- sidebar starts -->
     <div class="sidebar">
         <div class="sidebarRow">
-            <img class="user__avatar" th:src="${user.getuserimage()}"
+            <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                  alt="" />
             <!--                    Side-bar USERNAME start-->
             <h4>
@@ -221,7 +220,7 @@
 
         <div class="messageSender">
             <div class="messageSender__top">
-                <img class="user__avatar" th:src="${user.getuserimage()}"
+                <img class="user__avatar" th:src="${userloggedin.getuserimage()}"
                      alt="" />
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
                     <input class="messageSender__input" placeholder="What's on your mind?" type="text" th:field="*{content}" />
@@ -254,7 +253,8 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                         <ul th:each="user: ${users}"
+                         th:src="${user.getuserimage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -273,7 +273,7 @@
                     <section class="post-body">
                         <!--                        Posts Content here-->
                         <a th:href="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}" style=" color: #000000; text-decoration:none;">
-                        <p th:text="${post.getContent()}"/></a>
+                        <p th:text="${post.getContent()}" id="post_id_test"/></a>
                     </section>
                     <span th:if="${#authentication.getName()} == ${post.username}">
                             <form th:action="@{/posts/{id}(id=${post.getPostID()})}" th:object="${post}">
@@ -318,7 +318,7 @@
                     <span th:if="${comment.getPostID()} == ${post.getPostID()}">
                     <div class="post__top">
                         <img class="user__avatar post__avatar"
-                             src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                             th:src="${user.getuserimage()}" alt="" />
                         <div class="post__topInfo">
                             <!-- post name -->
                             <h5>

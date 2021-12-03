@@ -3,10 +3,13 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.*;
 import com.makersacademy.acebook.service.UploadService;
+import org.flywaydb.core.internal.resource.classpath.ClassPathResource;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -116,7 +119,9 @@ public class UsersController {
         User user = userRepository.findByUsername(username).get(0);
         user.setuserimage(filePath);
         userRepository.save(user);
-        return new RedirectView("/login");
+        return new RedirectView("/users/{username}");
+
+
     }
 
 }

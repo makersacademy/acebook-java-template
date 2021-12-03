@@ -50,21 +50,22 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
-        User user = userRepository.findByUsername(username).get(0);
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         Iterable<Comment> comments = commentRepository.findAll();
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User userloggedin = userRepository.findByUsername(username).get(0);
+        Iterable<User> users = userRepository.findAll();
         Iterable<Like> likes = likeRepository.findAll();
-        List<User> users = userRepository.findAll();
-        model.addAttribute("user", user);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("users", users);
+        model.addAttribute("user", new User());
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Like());
-        model.addAttribute("users", users);
+        model.addAttribute("userloggedin", userloggedin);
         return "posts/index";
     }
 
@@ -157,6 +158,12 @@ public class PostsController {
             repository.save(post);
             return new RedirectView("/posts/{postID}");
         }
+    }
+
+    @PostMapping("/posts/{postID}/delete")
+    public RedirectView delete(@PathVariable UUID postID) {
+        repository.deleteById(postID);
+        return new RedirectView("/posts");
     }
 
 }
