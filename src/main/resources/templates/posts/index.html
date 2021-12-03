@@ -14,7 +14,7 @@
 
     <div class="container">
         <div class = "col-8">
-            <div class="card m-1 bg-light text-dark">
+            <div class="card bg-light text-dark"> <!--m-1 ????-->
             <div class = "card-body" >
                  <h1>Posts</h1>
                  <div sec:authorize="isAuthenticated()">
@@ -31,7 +31,12 @@
 
         <div class="container" th:fragment="postCard" xmlns:th="http://www.thymeleaf.org">
             <div th:each="post: ${posts}" class="row" >
-                <div class = "col-8">
+                <div class = "col-2">
+                    <div class="card m-3">
+                        <img class="card-img" src="#" alt="Card image holder">
+                    </div>
+                </div>
+                <div class = "col-6">
                     <div class="card m-2" style="background-color: #eee;" >
                         <div class = "card-body">
                             <form action="#" th:action="@{/posts/likes}" th:object="${post}" method="post">
@@ -63,11 +68,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class = "col-2">
-                    <div class="card m-2">
-                        <img class="card-top-img" src="#" alt="Card image holder">
                     </div>
                 </div>
             </div>
