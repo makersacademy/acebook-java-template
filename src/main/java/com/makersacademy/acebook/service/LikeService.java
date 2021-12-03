@@ -16,4 +16,6 @@ public class LikeService {
         List<Like> result = likeRepository.findAll();
         return result;
     }
+
+
 }

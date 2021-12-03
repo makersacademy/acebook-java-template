@@ -25,7 +25,7 @@
         <p class="title-account">
             Create Account
         </p>
-        <form class="form"  th:action="@{/users}" th:object="${user}" method="post">
+        <form class="form"  th:action="@{/users}" th:object="${user}"  enctype="multipart/form-data" method="post">
             <div class="input-container">
                 <input type="text" th:field="*{username}" placeholder="Enter Username"
                        class="form-input form-input--email" />
@@ -36,7 +36,7 @@
                     <img src="/img/eye-off.png" class="password-eye eye-off" />
                 </div>
             </div>
-
+                <input type="file" name="file"/><br/><br/>
             <button class="form-log-in-btn" type="submit" id="create_tag">Create </button>
 
             <div class="divider"></div>

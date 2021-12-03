@@ -14,4 +14,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     ArrayList<Post> findAll();
     Post save(Post post);
     void deleteById(UUID postID);
+    List<Post> findByUsername(String username);
 }

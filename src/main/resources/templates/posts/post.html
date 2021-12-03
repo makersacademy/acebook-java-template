@@ -24,7 +24,8 @@
 
     <div class="header__middle">
         <div class="header__option active">
-            <a href="/posts"><span class="material-icons"> home </span></a>
+            <a href="/posts">
+            <span class="material-icons"> home </span></a>
         </div>
         <div class="header__option">
             <span class="material-icons"> flag </span>
@@ -42,7 +43,7 @@
 
     <div class="header__right">
         <div class="header__info">
-            <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            <img class="user__avatar" th:src="${user.getuserimage()}"
                  alt="" />
             <!--                    Nav-bar USERNAME start-->
             <h4>
@@ -67,7 +68,7 @@
     <!-- sidebar starts -->
     <div class="sidebar">
         <div class="sidebarRow">
-            <img class="user__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            <img class="user__avatar" th:src="${user.getuserimage()}"
                  alt="" />
             <!--                    Side-bar USERNAME start-->
             <h4>
@@ -138,9 +139,10 @@
             <div style="
               background-image: url('https://i.pinimg.com/originals/ce/b2/30/ceb2308fdd55f9bbee211e2820eb198b.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="/img/jack.png" alt="" />
-                <h4>Jack  Storror</h4>
+                <a th:href="@{/users/{username}(username=${users.get(0).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(0).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(0).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -148,9 +150,10 @@
             <div style="
               background-image: url('https://toppng.com/uploads/preview/beige-solid-background-115700857125hfvjfpmir.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="/img/max.png" alt="" />
-                <h4>Max Khan</h4>
+                <a th:href="@{/users/{username}(username=${users.get(1).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(1).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(1).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -158,9 +161,10 @@
             <div style="
               background-image: url('https://cdn.wallpapersafari.com/25/35/08QE74.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="/img/raul.png" alt="" />
-                <h4>Raul de la Hera</h4>
+                <a th:href="@{/users/{username}(username=${users.get(2).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(2).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(2).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -168,9 +172,10 @@
             <div style="
               background-image: url('https://www.pngmagic.com/product_images/marigold-color-solid-color-background.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="/img/rumen.png" alt="" />
-                <h4>Rumen Kanev</h4>
+                <a th:href="@{/users/{username}(username=${users.get(3).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(3).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(3).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -178,10 +183,10 @@
             <div style="
               background-image: url('https://www.solidbackgrounds.com/images/1920x1080/1920x1080-red-solid-color-background.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="https://b.thumbs.redditmedia.com/1lFMWtb92sVzwqX9eUngVIzBQ-xIzBBgNV2-9ATjTSw.png"
-                     alt="" />
-                <h4>Jane Daw</h4>
+                <a th:href="@{/users/{username}(username=${users.get(4).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(4).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(4).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -189,18 +194,20 @@
             <div style="
               background-image: url('https://pmkitchens.com/wp-content/uploads/2018/04/p_Solid_Grey_PSOLGRYM24.jpg');
             " class="story">
-                <img class="user__avatar story__avatar"
-                     src="https://i.pinimg.com/originals/33/ce/92/33ce922d25f59b22ab325513df7c2675.jpg" alt="" />
-                <h4>Medi Djan</h4>
+                <a th:href="@{/users/{username}(username=${users.get(5).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(5).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(5).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
             <!-- story starts -->
             <div style="
                 background-image: url('https://wallpaperaccess.com/full/1756496.jpg');
                 " class="story">
-                <img class="user__avatar story__avatar"
-                     src="https://pbs.twimg.com/media/EI9SKzKWkAETl2h.png" alt="" />
-                <h4>Galena Smith</h4>
+                <a th:href="@{/users/{username}(username=${users.get(6).getUsername()})}">
+                    <img class="user__avatar story__avatar"
+                         th:src="${users.get(6).getuserimage()}" alt="" />
+                    <h4 th:text="${users.get(6).getUsername()}"></h4></a>
             </div>
             <!-- story ends -->
 
@@ -217,7 +224,7 @@
             <div class="post">
                 <div class="post__top">
                     <img class="user__avatar post__avatar"
-                         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+                         th:src="${user.getuserimage()}" alt="" />
                     <div class="post__topInfo">
                         <!-- post name -->
                         <h3>
@@ -242,7 +249,7 @@
                 </div>
 
                 <div class="post__image">
-                    <img src="https://www.carscoops.com/wp-content/uploads/2020/10/Herrod-Ford-Mustang-2.jpg"
+                    <img th:src="${post.getPostImage()}"
                          alt="" />
                 </div>
                 <!-- likes-->
