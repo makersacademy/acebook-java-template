@@ -1,11 +1,9 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Comment;
-import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.CommentRepository;
-import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.omg.CORBA.Request;
@@ -39,20 +37,22 @@ public class PostsController {
     @Autowired
     CommentRepository commentRepository;
 
-    @Autowired
-    LikeRepository likeRepository;
-
     @GetMapping("/posts")
     public String posts(Model model) {
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC,"stamp"));
         Iterable<Comment> comments = commentRepository.findAll();
-        Iterable<Like> likes = likeRepository.findAll();
+        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        User userloggedin = userRepository.findByUsername(username).get(0);
+        Iterable<User> users = userRepository.findAll();
+
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
-        model.addAttribute("likes", likes);
-        model.addAttribute("like", new Like());
+        model.addAttribute("users", users);
+        model.addAttribute("user", new User());
+        model.addAttribute("userloggedin", userloggedin);
         return "posts/index";
     }
 
@@ -60,11 +60,9 @@ public class PostsController {
     public String post(@PathVariable UUID postID, Model model) {
         Post post = repository.findById(postID).get();
         Iterable<Comment> comments = commentRepository.findByPostID(postID);
-        List<Like> likes = likeRepository.findByPostID(postID);
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
-        model.addAttribute("likes", likes);
         return "/posts/post";
     }
 
@@ -81,6 +79,16 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+//    @GetMapping("/posts/postID/comment")
+//    public String comment(@PathVariable UUID postID, Model model){
+//        Post post = repository.findById(postID).get();
+//        Optional<Comment> comments = commentRepository.findById(postID);
+//        model.addAttribute("post", post);
+//        model.addAttribute("comments", comments);
+//        model.addAttribute("comment", new Comment());
+//        return "/posts/comment";
+//    }
+
     @PostMapping("/posts/{postID}/comment")
     public RedirectView create(@PathVariable UUID postID, @ModelAttribute Comment comment) {
         comment.setStamp( LocalDateTime.now());
@@ -92,34 +100,6 @@ public class PostsController {
         comment.setUserID(id);
         commentRepository.save(comment);
         return new RedirectView("/posts/{postID}");
-    }
-
-    @PostMapping("/posts/{postID}/like")
-    public RedirectView like(@PathVariable UUID postID, @ModelAttribute Like like) {
-        Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
-        User user = userRepository.findByUsername(username).get(0);
-        UUID id = user.getUserID();
-        //check whether like exists
-        try {
-            Like del = likeRepository.exists(postID, username).get(0);
-            likeRepository.deleteById(del.getLikeID());
-            Long variable = likeRepository.findLikeCount(postID);
-            Post post = repository.findById(postID).get();
-            post.setLikeCount(variable);
-            repository.save(post);
-            return new RedirectView("/posts/{postID}");
-        } catch (Exception e) {
-            like.setPostID(postID);
-            like.setUserID(id);
-            like.setUsername(username);
-            likeRepository.save(like);
-            Long variable = likeRepository.findLikeCount(postID);
-            Post post = repository.findById(postID).get();
-            post.setLikeCount(variable);
-            repository.save(post);
-            return new RedirectView("/posts/{postID}");
-        }
     }
 
 }
