@@ -16,13 +16,11 @@ public class LikesHandler {
     }
 
     private boolean isLikable(RedirectAttributes redirect, Post post, Iterable<Like> iLikeList) {
-
-
-//        boolean isSameUser = post.getUsername().equals(username);
-//        if (isSameUser) {
-//            redirect.addFlashAttribute("User cannot like its own posts");
-//            return false;
-//        }
+        boolean isSameUser = post.getUsername().equals(username);
+        if (isSameUser) {
+            redirect.addFlashAttribute("User cannot like its own posts");
+            return false;
+        }
         boolean userHasAlreadyLikedPost = postHasUser(post, iLikeList);
         if (userHasAlreadyLikedPost) {
             redirect.addFlashAttribute("User has already liked this posts");
