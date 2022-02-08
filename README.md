@@ -30,6 +30,12 @@ Below, you'll find specific learning objectives for each tool.
 - Start the server in a terminal session `mvn spring-boot:run`
 - Start a new terminal session, navigate to the Acebook directory and then do `mvn test` to run both feature tests and unit tests
 
+To avoid filling the development database too much:
+
+- create a Postgres database `acebook_springboot_test`
+- start the server with test-profile `mvn spring-boot:run -Dspring-boot.run.profiles=test`
+- run `mvn test` in a separate terminal
+
 ## Existing features
 
 This app already has a few basic features
