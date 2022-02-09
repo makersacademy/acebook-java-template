@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -20,7 +22,12 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
-        model.addAttribute("posts", posts);
+        List<Post> listOfPosts = new ArrayList<>();
+        for(Post p : posts) {
+            listOfPosts.add(p); 
+        }
+        Collections.reverse(listOfPosts);
+        model.addAttribute("posts", listOfPosts);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
