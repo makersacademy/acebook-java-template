@@ -1,5 +1,10 @@
+import static org.junit.Assert.assertTrue;
+
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.UserRepository;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,28 +21,47 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 public class SignUpTest {
 
-    WebDriver driver;
-    Faker faker;
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private AuthoritiesRepository authRepo;
+
+    private WebDriver driver;
+    private String fakeUser;
 
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
-        faker = new Faker();
+        fakeUser = new Faker().name().username();
+        authRepo.deleteAll();
+        userRepo.deleteAll();
+    }
+
+    @Test
+    public void successfulSignUpRedirectsToSignIn() {
+        this.createUser();
+        String title = driver.getTitle();
+        Assert.assertEquals("Please sign in", title);
+    }
+
+    @Test
+    public void successfulSignUpAddsUserToAuthAndUserTable() {
+        this.createUser();
+        assertTrue(userRepo.existsUserByUsername(fakeUser));
+        assertTrue(authRepo.existsAuthorityByUsername(fakeUser));
+    }
+
+    private void createUser() {
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(fakeUser);
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
     }
 
     @After
     public void tearDown() {
         driver.close();
-    }
-
-    @Test
-    public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
-        String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
     }
 }
