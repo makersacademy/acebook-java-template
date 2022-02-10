@@ -20,7 +20,7 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li th:text="${post.content}"></li>
         <p>
             <input type="text" name="comment" id="comment" placeholder="Add comment" />
             <input type="submit" value="Submit" id="submit_comment" />
