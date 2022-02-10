@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users, authorities;
 
 CREATE TABLE users (
   id bigserial PRIMARY KEY,
