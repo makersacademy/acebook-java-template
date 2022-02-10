@@ -22,12 +22,7 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
-        List<Post> listOfPosts = new ArrayList<>();
-        for(Post p : posts) {
-            listOfPosts.add(p); 
-        }
-        Collections.reverse(listOfPosts);
-        model.addAttribute("posts", listOfPosts);
+        model.addAttribute("posts", this.reversedPosts(posts));
         model.addAttribute("post", new Post());
         return "posts/index";
     }
@@ -36,5 +31,14 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post) {
         repository.save(post);
         return new RedirectView("/posts");
+    }
+
+    private List<Post> reversedPosts(Iterable<Post> posts) {
+        List<Post> reversedList = new ArrayList<>();
+        for(Post p : posts) {
+            reversedList.add(p); 
+        }
+        Collections.reverse(reversedList);
+        return reversedList;
     }
 }
