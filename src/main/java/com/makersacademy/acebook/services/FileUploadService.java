@@ -36,7 +36,7 @@ public class FileUploadService {
 		return Files.walk(this.location, 1)
 				.filter(path -> !path.equals(this.location))
 				.map(this.location::relativize)
-        .map( path -> "/uploads-dir/pictures/" +  path.toString() )
+        .map( path -> "/uploads-dir/pictures/" + path.toString() )
         .collect(Collectors.toList());
   }
   
