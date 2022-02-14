@@ -1,8 +1,6 @@
 package services;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.after;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,11 +16,11 @@ public class FileUploadServiceTest {
   public void FileUploadServiceStoresAFile() throws IOException {
     FileUploadService uploadService = new FileUploadService();
     MockMultipartFile testFile = new MockMultipartFile("testfile", "testfile.txt", "text/plain", "some test file content".getBytes());
-    uploadService.store(testFile, "user");
+    uploadService.store(testFile, "user.name");
     List<String> list = uploadService.loadAll();
     Boolean fileIsStored = false;
     for (String str : list) {
-      if (str.contains("user_" + testFile.getOriginalFilename()))
+      if (str.contains("user.name_" + testFile.getOriginalFilename()))
         fileIsStored = true;
     }
     assertTrue(fileIsStored);
