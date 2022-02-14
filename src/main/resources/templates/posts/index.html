@@ -21,11 +21,24 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}"></li>
+        <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
         <p>
-            <input type="text" name="comment" id="comment" placeholder="Add comment" />
+
+            <ul th:each="cmt: ${comments}">
+            <span th:if="${post.id == cmt.postsid}">
+                <li th:text="${cmt.message}"></li>
+            </span>
+            </ul>           
+
+            <input type="text" th:field="*{message}" id="comment" placeholder="Add comment" />
+            <input type="hidden" th:attr="name='postsid'" id="postsid" th:value="${post.id}" />
             <input type="submit" value="Submit" id="submit_comment" />
         </p>
+        </form>
     </ul>
 
     </body>
+
 </html>
+
+
