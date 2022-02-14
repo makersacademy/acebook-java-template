@@ -40,10 +40,22 @@
         </div>
       </nav>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" id="submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+    <!-- Post a new Pictures -->
+    <div class="ms-3">
+      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <div class="row g-2 align-items-center mb-2 mt-2">
+          <div class="col-auto">
+            <input type="text" th:field="*{content}" id="content" placeholder="What's going on?" />
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary btn-sm" id="submit">Submit</button>
+          </div>
+          <div class="col-auto">
+            <input class="btn btn-outline-secondary btn-sm" type="reset" value="Reset">
+          </div>
+        </div>
+      </form>
+    </div>
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}"></li>
