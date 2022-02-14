@@ -21,12 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 public class SignUpTest {
 
-    @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private AuthoritiesRepository authRepo;
-
     private WebDriver driver;
     private String fakeUser;
 
@@ -35,8 +29,6 @@ public class SignUpTest {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         fakeUser = new Faker().name().username();
-        authRepo.deleteAll();
-        userRepo.deleteAll();
     }
 
     @Test
@@ -44,13 +36,6 @@ public class SignUpTest {
         this.createUser();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
-    }
-
-    @Test
-    public void successfulSignUpAddsUserToAuthAndUserTable() {
-        this.createUser();
-        assertTrue(userRepo.existsUserByUsername(fakeUser));
-        assertTrue(authRepo.existsAuthorityByUsername(fakeUser));
     }
 
     private void createUser() {

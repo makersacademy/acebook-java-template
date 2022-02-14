@@ -27,8 +27,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/posts").hasRole("USER")
+                .antMatchers("/pictures").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
+        http.csrf().disable();
     }
 
     @Bean

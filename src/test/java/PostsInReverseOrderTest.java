@@ -21,15 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 public class PostsInReverseOrderTest {
 
-    @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private AuthoritiesRepository authRepo;
-
-    @Autowired
-    private PostRepository postRepo;
-  
     WebDriver driver;
     String fakeUser;
 
@@ -38,9 +29,6 @@ public class PostsInReverseOrderTest {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         fakeUser = new Faker().name().username();
-        authRepo.deleteAll();
-        userRepo.deleteAll();
-        postRepo.deleteAll();
     }
 
     @Test
