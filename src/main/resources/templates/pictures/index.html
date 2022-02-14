@@ -11,14 +11,33 @@
     <title>Acebook</title>
   </head>
   <body>
-    
-    <div class="ms-3">
-      <h1>Pictures</h1>
-      <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-      </div>
-    </div>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Acebook</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/posts">Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/pictures">Pictures</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <div sec:authorize="isAuthenticated()">
+              Signed in as <span sec:authentication="name"></span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Post a new Pictures -->
     <div class="ms-3">
       <form method="POST" action="/pictures" enctype="multipart/form-data">
         <div class="row g-2 align-items-center mb-2 mt-2">
@@ -32,6 +51,8 @@
       </form>
     </div>
 
+
+    <!-- Picture Gallery -->
     <div th:each="path : ${picturePaths}" class="card mb-3 ms-3" style="width: 18rem;">
       <img th:src="${path}" class="card-body">
     </div>
