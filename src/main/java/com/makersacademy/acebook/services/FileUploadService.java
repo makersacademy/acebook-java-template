@@ -17,10 +17,10 @@ public class FileUploadService {
 
   private final Path location = Paths.get("src/main/resources/static/uploads-dir/pictures");
 
-  public void store(MultipartFile file) {
+  public void store(MultipartFile file, String userName) {
     try {
 			Path destinationFile = this.location.resolve(
-					Paths.get("user_" + file.getOriginalFilename()))
+					Paths.get( userName + "_" + file.getOriginalFilename()))
 					.normalize().toAbsolutePath();
 			try (InputStream inputStream = file.getInputStream()) {
 				Files.copy(inputStream, destinationFile,

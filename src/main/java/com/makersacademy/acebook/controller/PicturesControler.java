@@ -6,6 +6,7 @@ import java.util.List;
 import com.makersacademy.acebook.services.FileUploadService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,9 @@ public class PicturesControler {
   }
 
   @PostMapping("/pictures")
-  public RedirectView upload(@RequestParam("file") MultipartFile file) {
-    uploadService.store(file);
+  public RedirectView upload(@RequestParam("file") MultipartFile file, Authentication auth) {
+    String userName = auth.getName();
+    uploadService.store(file, userName);
     return new RedirectView("/pictures");
   }
     
