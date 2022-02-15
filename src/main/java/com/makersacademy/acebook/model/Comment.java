@@ -28,7 +28,11 @@ public class Comment {
     }
 
     // -----getter and setter provided by lombok.Data-----
-    // public String getMessage() { return this.message; }
-    // public void setMessage(String message) { this.message = message; }
+     public String getMessage() { return this.message; }
+     public void setMessage(String message) { this.message = message; }
+     public Long getUsersid() { return this.usersid; }
+     public void setUsersid(Long usersid) { this.usersid = usersid; }
+     public Long getPostsid() { return this.postsid; }
+     public void setPostsid(Long usersid) { this.postsid = usersid; }
 
 }
