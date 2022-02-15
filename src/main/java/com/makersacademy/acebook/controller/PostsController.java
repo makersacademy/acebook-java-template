@@ -36,7 +36,7 @@ public class PostsController {
         model.addAttribute("post", new Post());
         model.addAttribute("comment", new Comment());
         model.addAttribute("comments", this.commentRepository.findAll());
-        // model.addAttribute("userName", this.userRepository.findById(id));
+        model.addAttribute("username", this.userRepository.findAll());
         return "posts/index";
     }
 
