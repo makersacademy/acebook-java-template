@@ -1,3 +1,5 @@
+import javax.validation.constraints.AssertTrue;
+
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
@@ -12,14 +14,13 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 
-public class PostsInReverseOrderTest {
+public class UsersCanCreatePostsTest {
 
     WebDriver driver;
     String fakeUser;
@@ -45,6 +46,19 @@ public class PostsInReverseOrderTest {
       Integer firstPosition = page.indexOf("first post"); 
       Integer secondPosition = page.indexOf("second post");
       Assert.assertTrue(firstPosition > secondPosition);
+    }
+
+    @Test
+    public void postsShowsTheAuthorsName() {
+      this.createUserAndLogin();
+      driver.get("http://localhost:8080/posts");
+      // create new post
+      driver.findElement(By.id("content")).sendKeys("Testpost");
+      driver.findElement(By.id("submit")).click();
+      // the author + message should appear
+      String page = driver.findElement(By.tagName("body")).getText();
+      String displayPost = "'" + fakeUser + "': Testpost"; 
+      Assert.assertTrue(page.contains(displayPost));
     }
 
     @After

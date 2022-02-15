@@ -17,6 +17,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String author;
 
     public Post() {}
 
@@ -25,9 +26,9 @@ public class Post {
     }
 
     // -----getter and setter provided by lombok.Data-----
-    // public String getContent() { return this.content; }
-    // public void setContent(String content) { this.content = content; }
-    // public Long getId() { return this.id; }
-    // public void setId(Long id) { this.id = id; }
+     public String getContent() { return this.content; }
+     public void setContent(String content) { this.content = content; }
+     public Long getId() { return this.id; }
+     public void setId(Long id) { this.id = id; }
 
 }

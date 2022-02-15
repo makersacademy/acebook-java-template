@@ -4,7 +4,6 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    
     {
       "type": "java",
       "name": "Launch Current File",
@@ -17,6 +16,16 @@
       "request": "launch",
       "mainClass": "com.makersacademy.acebook.Application",
       "projectName": "acebook-template"
-    }
+     },
+     {
+      "type": "java",
+      "name": "Spring Boot-Application<acebook-template>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.makersacademy.acebook.Application",
+      "projectName": "acebook-template",
+      "args": ""
+     }
   ]
 }
