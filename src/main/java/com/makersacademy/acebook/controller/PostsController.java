@@ -9,6 +9,7 @@ import com.makersacademy.acebook.repository.UserRepository;
 // import org.omg.CORBA.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,8 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, Authentication auth) {
+        post.setAuthor(auth.getName());
         repository.save(post);
         return new RedirectView("/posts");
     }
