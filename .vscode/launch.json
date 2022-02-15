@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Application<acebook-template>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.makersacademy.acebook.Application",
+      "projectName": "acebook-template",
+      "args": ""
+    }
+  ]
+}
