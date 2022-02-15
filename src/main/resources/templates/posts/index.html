@@ -40,7 +40,7 @@
         </div>
       </nav>
 
-    <!-- Post a new Pictures -->
+    <!-- Create a new Post -->
     <div class="ms-3">
       <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <div class="row g-2 align-items-center mb-2 mt-2">
@@ -56,22 +56,24 @@
         </div>
       </form>
     </div>
-
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}"></li>
+    
+    <!-- Show all Posts and Comments -->
+    <ul th:each="post : ${posts}">
+        <li>
+          '<span th:text="${post.author}"></span>': 
+          <span th:text="${post.content}"></span>
+        </li>
         <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
-        <p>
-
-            <ul th:each="cmt: ${comments}">
+          <ul th:each="cmt : ${comments}">
             <span th:if="${post.id == cmt.postsid}">
                 <li th:text="${cmt.message}"></li>
-            </span>
-            </ul>           
+            </span>    
+          </ul>   
 
-            <input type="text" th:field="*{message}" id="comment" placeholder="Add comment" />
-            <input type="hidden" th:attr="name='postsid'" id="postsid" th:value="${post.id}" />
-            <input type="submit" value="Submit" id="submit_comment" />
-        </p>
+          <input type="text" th:field="*{message}" id="comment" placeholder="Add comment" />
+          <input type="hidden" th:attr="name='postsid'" id="postsid" th:value="${post.id}" />
+          <input type="submit" value="Submit" id="submit_comment" />
+          
         </form>
     </ul>
 
