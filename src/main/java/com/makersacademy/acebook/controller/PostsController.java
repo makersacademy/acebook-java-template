@@ -75,14 +75,4 @@ public class PostsController {
         
     }
 
-    @PostMapping("/posts/likedown")
-    public RedirectView update(@ModelAttribute Post post, Long id, String like  ) {
-        
-        //ptional<Post> repository.findById(id);
-        
-        //Post updatePost = new Post(  );
-                
-        repository.save(post);
-        return new RedirectView("/posts");
-    }
 }
