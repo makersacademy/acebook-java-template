@@ -15,9 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.Id;
 
 @Controller
 public class PostsController {
@@ -44,6 +48,8 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Authentication auth) {
         post.setAuthor(auth.getName());
+        Short likes = 0;
+        post.setLikes(likes);
         repository.save(post);
         return new RedirectView("/posts");
     }
@@ -55,5 +61,28 @@ public class PostsController {
         }
         Collections.reverse(reversedList);
         return reversedList;
+    }
+
+    @PostMapping("/posts/like")
+    public RedirectView update(@ModelAttribute Post post, Long id, Short likes, String content, String author, String like ) {
+        
+        Short newlikes = (like.equals("up")) ?  (++ likes) : (-- likes) ;
+
+        Post updatePost = new Post( id, newlikes, content, author );
+              
+        repository.save(updatePost);
+        return new RedirectView("/posts");
+        
+    }
+
+    @PostMapping("/posts/likedown")
+    public RedirectView update(@ModelAttribute Post post, Long id, String like  ) {
+        
+        //ptional<Post> repository.findById(id);
+        
+        //Post updatePost = new Post(  );
+                
+        repository.save(post);
+        return new RedirectView("/posts");
     }
 }

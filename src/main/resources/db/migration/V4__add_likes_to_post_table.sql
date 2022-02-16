@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD COLUMN likes smallint DEFAULT 0;

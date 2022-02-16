@@ -74,6 +74,31 @@
         <li>
           '<span th:text="${post.author}"></span>': 
           <span th:text="${post.content}"></span>
+
+          <!-- Show likes on Posts -->      
+          &nbsp&nbsp&nbsp&nbsp
+          <form style="display:inline-block" action="#" th:action="@{/posts/like}" th:object="${post}" method="post" >
+            <input type="hidden" th:attr="name='id'" id="id" th:value="${post.id}" />
+            <input type="hidden" th:attr="name='likes'" id="likes" th:value="${post.likes}" />
+            <input type="hidden" th:attr="name='content'" id="content" th:value="${post.content}" />
+            <input type="hidden" th:attr="name='author'" id="author" th:value="${post.author}" />
+            <input type="hidden" th:attr="name='like'" id="like" value=up />
+            <input type="submit" value="Like" /> 
+            </form>  
+             
+             &nbsp&nbsp <span th:text="${post.likes}">  </span> &nbsp&nbsp
+            
+            <form style="display:inline-block" action="#" th:action="@{/posts/like}" th:object="${post}" method="post" >
+              <input type="hidden" th:attr="name='id'" id="id" th:value="${post.id}" />
+              <input type="hidden" th:attr="name='likes'" id="likes" th:value="${post.likes}" />
+              <input type="hidden" th:attr="name='content'" id="content" th:value="${post.content}" />
+              <input type="hidden" th:attr="name='author'" id="author" th:value="${post.author}" />
+              <input type="hidden" th:attr="name='like'" id="like" value="down" />   
+            <input type="submit" value="Dislike" />
+            </form> 
+            <br><br>
+            <!-- End Show likes on Posts -->  
+
         </li>
         <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
             <ul th:each="cmt : ${comments}">
