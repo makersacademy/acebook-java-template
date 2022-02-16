@@ -10,16 +10,6 @@
 
     <title>Acebook</title>
 
-    <style type="text/css">
-      dummydeclaration { padding-left: 4em; }
-      tab1 { padding-left: 4em; }
-      tab2 { padding-left: 8em; }
-      tab3 { padding-left: 12em; }
-      tab4 { padding-left: 16em; }
-      tab5 { padding-left: 20em; }
-      tab6 { padding-left: 24em; }
-    </style>
-
   </head>
     <body>
 
@@ -72,19 +62,17 @@
     <!-- Show all Posts and Comments -->
     <ul th:each="post : ${posts}">
         <li>
-          '<span th:text="${post.author}"></span>': 
+          <small>'<span th:text="${post.author}"></span>': </small>
           <span th:text="${post.content}"></span>
         </li>
         <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
             <ul th:each="cmt : ${comments}">
                 <ul th:each="usr : ${username}">
                     <span th:if="${post.id == cmt.postsid AND cmt.usersid == usr.id}">
-                        <th>  
-                            <li>
-                                <tr th:text="${cmt.message}"></tr>
-                                <tab1><small><tr th:text="${usr.username}"></tr></small></tab1>
-                            </li>
-                        </th>
+                        <li>
+                            <small>'<span th:text="${usr.username}"></span>': </small>
+                            <span th:text="${cmt.message}"></span>
+                        </li>    
                     </span>
                 </ul>           
             </ul>
