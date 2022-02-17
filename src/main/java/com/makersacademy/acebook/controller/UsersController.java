@@ -4,7 +4,9 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +34,11 @@ public class UsersController {
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
+    }
+    @GetMapping("/users/profile")
+    public String profile(Model model, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName()).get(0);
+        model.addAttribute("picturePath", user.getAvatarPath());
+        return "users/profile";
     }
 }

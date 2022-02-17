@@ -20,6 +20,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String avatarpath = "/uploads-dir/avatar/default.png";
 
     public User() {
         this.enabled = TRUE;
@@ -39,7 +40,9 @@ public class User {
 
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
+    public String getAvatarPath() { return this.avatarpath; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
+    public void setAvatarPath(String avatarpath) { this.avatarpath = avatarpath; }
     public Long getId() {return this.id;}
 }

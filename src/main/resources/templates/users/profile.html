@@ -25,10 +25,10 @@
               <a class="nav-link" href="/posts">Posts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/pictures">Pictures</a>
+              <a class="nav-link" aria-current="page" href="/pictures">Pictures</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/users/profile">Profile</a>
+              <a class="nav-link active" href="/users/profile">Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/logout">Logout</a>
@@ -60,9 +60,7 @@
     <!-- Picture Gallery -->
     <div class="row row-cols-1 row-cols-sm-3 g-4">
       <div class="col">
-        <div th:each="path : ${picturePaths}" class="card">
-          <img th:src="${path}" class="card-body" alt="...">
-        </div>
+          <img th:src="${picturePath}" class="card-body" alt="...">
       </div>
     </div>
   
