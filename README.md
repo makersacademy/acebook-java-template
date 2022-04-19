@@ -45,6 +45,29 @@ pattern is used. The repository pattern separates the business logic of models f
 connecting to the database and making queries. Take a look in the `src/main/java/repository` and you'll find 
 `PostRepository` which generates and executes queries to Create, Read, Update and Delete (CRUD) posts. 
 
+# Branch control
+
+## Useful commands
+
+- git branch -a (View all branches, an * will appear next to the current branch you are in) <br />
+- git branch "branch name" (Creates a new branch, the speech marks are not required) <br />
+- git checkout -b "branch name" (Creates and checks out a branch all in one command) <br />
+- git checkout "branch name" (changes to a different branch. If the branch does not exist will throw error, don't worry just run the
+command again and check spelling)<br />
+- git merge "branch name" (Merges current branch onto main, add "--no--ff" to keep the branch commit history)
+
+## Branch workflow
+
+- Make sure we an up to date main branch, using git pull. <br />
+- Create a new branch, naming it based on the ticket(s) we are currently working on. <br />
+- Checkout our new branch and make the appropriate changes. <br />
+- Make the changes and run git add and commit commands as normal. <br />
+- Aim not to push new changes until they are complete but if we need to, so our pair can take over
+for example, run the push command via the follwing step. <br />
+- Git push will always point to the origin for the main branch to begin with, our first push on our new branch we must use 'git push --set-upstream origin "branch name". This will point our changes to our new branch instead of the main branch (that would be bad). We only have tp do this once, any further pushes we can use 'git push origin'. <br />
+- Once happy, its time to merge. We can do this through the terminal or alternatively through GitHub directly. <br />
+- For simplicity, stick to merging using GitHub. Set authorization if required and move your ticket from 'Doing' to 'Merge Ready'. <br />
+
 ## Initial learning goals
 
 You don't need an in-depth knowledge of each dependency listed above. Once you can tick off these learning goals,
