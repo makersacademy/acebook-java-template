@@ -8,7 +8,15 @@
     </head>
     <body>
 
+    <div class="navbar">
+        <a href="/login">Login</a>
+        <a href="/users/new" class="active">Sign up</a>
+        <a href="/posts" class="active">Posts</a>
+        <a href="/logout" class="active">Logout</a>
+    </div>
+
     <h1>Posts</h1>
+
 
     <div sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
