@@ -30,4 +30,10 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    @GetMapping("/posts/reverse")
+    public String show() {
+        List<Post> posts = repository.findAll(Sort.by(Sort.Direction.ASC, "created_at"));
+        return "posts/reverse";
+    }
 }
