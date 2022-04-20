@@ -1,8 +1,6 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +23,8 @@ public class Post {
 
     public Post() {}
 
-    public Post(String content, Timestamp timestamp) {
+    public Post(String content) {
         this.content = content;
-        this.timestamp = timestamp;
     }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
@@ -38,18 +35,5 @@ public class Post {
         Timestamp timestamp = new Timestamp(now);
         this.timestamp = timestamp;
     }
-
-    // public static Timestamp createTimeStamp() {
-    //     long now = System.currentTimeMillis();
-    //     Timestamp timestamp = new Timestamp(now);
-    //     return timestamp;
-    // }
-
-    // private String createTimeStamp() {
-    //     LocalDateTime currentDateTime = LocalDateTime.now();
-    //     DateTimeFormatter formattedTimeObj = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
-    //     String timeStamp = currentDateTime.format(formattedTimeObj);
-    //     return timeStamp;
-    // }
 
 }
