@@ -1,8 +1,7 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,35 +20,29 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    // private String userWhoPosted;
     private Timestamp timestamp;
 
     public Post() {}
 
     public Post(String content, Timestamp timestamp) {
         this.content = content;
-        this.timestamp = timestamp;
+        this.timestamp = getTime();
     }
+
+
+    public Timestamp getTime() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat formatTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatTimestamp.format(timestamp);
+        return timestamp;
+    }
+
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public Timestamp getTimestamp() { return this.timestamp; }
-    
-    public void generateTimestamp() {
-        long now = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(now);
-        this.timestamp = timestamp;
-    }
 
-    // public static Timestamp createTimeStamp() {
-    //     long now = System.currentTimeMillis();
-    //     Timestamp timestamp = new Timestamp(now);
-    //     return timestamp;
-    // }
-
-    // private String createTimeStamp() {
-    //     LocalDateTime currentDateTime = LocalDateTime.now();
-    //     DateTimeFormatter formattedTimeObj = DateTimeFormatter.ofPattern("yyyy MM dd HH:mm:ss");
-    //     String timeStamp = currentDateTime.format(formattedTimeObj);
-    //     return timeStamp;
-    // }
+    // public String getUser() { return this.userWhoPosted; }
+    // public void setUser(String userWhoPosted) { this.userWhoPosted = userWhoPosted; }
 
 }
