@@ -37,7 +37,7 @@ public class PostsController {
 
     @GetMapping("/posts/reverse")
     public String reverse(Model model) {
-        Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "created_at"));
+        Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
         model.addAttribute("reversed_posts", reversed_posts);
         return "posts/reverse";
     }
