@@ -28,6 +28,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        post.generateTimestamp();
         repository.save(post);
         return new RedirectView("/posts");
     }

@@ -25,7 +25,7 @@ public class Post {
 
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, Timestamp timestamp) {
         this.content = content;
         this.timestamp = getTime();
     }
@@ -40,8 +40,7 @@ public class Post {
 
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
-
-    public Timestamp getTimeStamp() { return this.timestamp; }
+    public Timestamp getTimestamp() { return this.timestamp; }
 
     // public String getUser() { return this.userWhoPosted; }
     // public void setUser(String userWhoPosted) { this.userWhoPosted = userWhoPosted; }
