@@ -5,6 +5,16 @@
         <meta charset="UTF-8">
         <title>Signup</title>
     </head>
+
+    <header>
+        <div class="navbar">
+            <a href="/login">Login</a>
+            <a href="/users/new" class="active">Sign up</a>
+            <a href="/posts" class="active">Posts</a>
+            <a href="/logout" class="active">Logout</a>
+        </div>
+    </header>
+    
     <body>
         <form action="#" th:action="@{/users}" th:object="${user}" method="post">
             <p>Username: <input type="text" th:field="*{username}" /></p>

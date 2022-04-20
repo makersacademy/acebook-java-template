@@ -22,6 +22,7 @@ public class PostsController {
         Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        // model.addAttribute("user", )
         return "posts/index";
     }
 
