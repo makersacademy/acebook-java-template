@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Controller
 public class PostsController {
@@ -31,6 +32,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        post.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         repository.save(post);
         return new RedirectView("/posts");
     }

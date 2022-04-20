@@ -31,5 +31,6 @@ public class Post {
     public String getContent() { return this.content; }
     public Long getId() { return this.id; }
     public void setContent(String content) { this.content = content; }
+    public void setCreatedAt(Timestamp createdAt) {this.createdAt = createdAt; }
 
 }
