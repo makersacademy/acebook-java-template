@@ -29,6 +29,7 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <li th:text="${post.timestamp}" />
     </ul>
 
     </body>
