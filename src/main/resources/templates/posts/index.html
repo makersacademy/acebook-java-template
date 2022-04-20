@@ -6,14 +6,17 @@
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
     </head>
-    <body>
+    
+    <header>
+        <div class="navbar">
+            <a href="/login">Login</a>
+            <a href="/users/new" class="active">Sign up</a>
+            <a href="/posts" class="active">Posts</a>
+            <a href="/logout" class="active">Logout</a>
+        </div>
+    </header>
 
-    <div class="navbar">
-        <a href="/login">Login</a>
-        <a href="/users/new" class="active">Sign up</a>
-        <a href="/posts" class="active">Posts</a>
-        <a href="/logout" class="active">Logout</a>
-    </div>
+    <body>
 
     <h1>Posts</h1>
 
@@ -24,6 +27,7 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p>Posted by: </p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
