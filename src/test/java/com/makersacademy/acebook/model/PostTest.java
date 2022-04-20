@@ -18,9 +18,11 @@ public class PostTest {
 
 	@Test
 	public void postHasTimestamp() {
+		post.generateTimestamp();
 		LocalDate currentDate = LocalDate.now();
 		String dateString = currentDate.toString();
-		String timeString = post.getTimeStamp().toString();
+		String timeString = post.getTimestamp().toString();
 		assertThat((timeString), containsString(dateString));
 	}
+
 }
