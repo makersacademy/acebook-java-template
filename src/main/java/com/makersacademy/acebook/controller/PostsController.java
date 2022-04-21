@@ -8,9 +8,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import antlr.StringUtils;
+
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -41,5 +46,8 @@ public class PostsController {
         Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
         model.addAttribute("reversed_posts", reversed_posts);
         return "posts/reverse";
+        
     }
+
+
 }
