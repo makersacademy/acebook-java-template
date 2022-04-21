@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS likes;
 
 CREATE TABLE likes (
+  id BIGSERIAL PRIMARY KEY,
   userid BIGINT REFERENCES users(id) NOT NULL,
-  postid BIGINT REFERENCES posts(id) NOT NULL,
-  PRIMARY KEY (userid, postid)
+  postid BIGINT REFERENCES posts(id) NOT NULL
 );

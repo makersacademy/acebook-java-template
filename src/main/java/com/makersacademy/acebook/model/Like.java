@@ -14,19 +14,19 @@ import lombok.Data;
 public class Like {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long userId;
-  private Long postId;
+  private Long userid;
+  private Long postid;
 
   public Like() {}
 
-  public Like(Long userId, Long postId) {
-    this.userId = userId;
-    this.postId = postId;
+  public Like(Long userid, Long postid) {
+    this.userid = userid;
+    this.postid = postid;
   }
 
-  public Long getUserId() { return this.userId; }
-  public void setUserId(Long userId) { this.userId = userId; }
-  public Long getPostId() { return this.postId; }
-  public void setPostId(Long postId) { this.postId = postId; }
+  public Long getUserid() { return this.userid; }
+  public void setUserid(Long userid) { this.userid = userid; }
+  public Long getPostid() { return this.postid; }
+  public void setPostid(Long postid) { this.postid = postid; }
 
 }
