@@ -1,13 +1,10 @@
 package com.makersacademy.acebook.model;
-
 import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
-
 import lombok.Data;
 
 @Data
@@ -20,6 +17,7 @@ public class Post {
     private Long id;
     private String content;
     private Timestamp timestamp;
+    private Integer userid;
 
     public Post() {}
 
@@ -29,6 +27,7 @@ public class Post {
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public Timestamp getTimestamp() { return this.timestamp; }
+    public Integer getUserId() { return this.userid; }
     
     public void generateTimestamp() {
         long now = System.currentTimeMillis();
@@ -36,4 +35,7 @@ public class Post {
         this.timestamp = timestamp;
     }
 
+    public void addUserID(Integer id) {
+        this.userid = id;
+    }
 }
