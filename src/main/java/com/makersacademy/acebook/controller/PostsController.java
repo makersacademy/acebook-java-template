@@ -9,9 +9,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import antlr.StringUtils;
+
 import java.util.List;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -22,7 +26,12 @@ public class PostsController {
     PostRepository repository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
+    public String index(Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+    
+        String uploadDir = "user-photos/";
+ 
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());

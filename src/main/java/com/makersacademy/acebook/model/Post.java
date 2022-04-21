@@ -26,6 +26,8 @@ public class Post {
     private String content;
     @Column(name="created_at")
 	private Timestamp createdAt;
+    @Column(nullable = true, length = 250)
+    private String photos;
 
     public Post() {}
 
