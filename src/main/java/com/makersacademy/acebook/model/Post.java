@@ -27,9 +27,11 @@ public class Post {
     @NotBlank (message = "Post is mandatory")
     private String content;
     @Column(name="created_at")
-	private Timestamp createdAt;
+	  private Timestamp createdAt;
     @Column(name="like_count")
     private int likeCount = 0;
+    @Column(nullable = true, length = 250)
+    private String photos;
 
     public Post() {}
 
