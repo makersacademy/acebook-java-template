@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import antlr.StringUtils;
 
 import java.util.List;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,12 +27,7 @@ public class PostsController {
     PostRepository repository;
 
     @GetMapping("/posts")
-    public String index(Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-    
-        String uploadDir = "user-photos/";
- 
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+    public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
@@ -51,5 +47,8 @@ public class PostsController {
         Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
         model.addAttribute("reversed_posts", reversed_posts);
         return "posts/reverse";
+        
     }
+
+
 }
