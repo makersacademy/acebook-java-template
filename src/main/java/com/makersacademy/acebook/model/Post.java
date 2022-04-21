@@ -10,6 +10,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -26,7 +28,8 @@ public class Post {
     private String content;
     @Column(name="created_at")
 	private Timestamp createdAt;
-    private int likesNumber = 0;
+    @Column(name="like_count")
+    private int likeCount = 0;
 
     public Post() {}
 
@@ -38,11 +41,11 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public void setCreatedAt(Timestamp createdAt) {this.createdAt = createdAt; }
 
-    public Integer addLike() {
-
+    public void addLike() {
+        likeCount++;
     }
 
-    public Integer likeCount() {
-        return likesNumber;
+    public int getLikeCount() {
+        return likeCount;
     }
 }

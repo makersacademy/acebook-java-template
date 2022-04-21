@@ -25,8 +25,11 @@
         <p><input type="submit" value="View Newest First" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+    <ul th:each="this_post: ${posts}">
+        <a th:text="${this_post.content}" />
+        <form action="#" th:action="@{/posts/incrementlikes(postId=${this_post.id})}" method="post">
+            <input type='submit' value="Like" id="*{this_post.id}" />
+        </form>
     </ul>
 
     </body>

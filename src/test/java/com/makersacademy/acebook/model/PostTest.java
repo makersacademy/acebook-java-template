@@ -17,13 +17,13 @@ public class PostTest {
 	@Test 
 	public void testGetsInitialNumberofLikes() {
 		Post post = new Post();
-    assertEquals(post.likeCount(), Integer.valueOf(0));
+    assertEquals(post.getLikeCount(), 0);
   }
 
 	@Test
 	public void testAddstoLikeCounter() {
 		Post post = new Post();
 		post.addLike();
-		assertEquals(post.likeCount(), Integer.valueOf(1));
+		assertEquals(post.getLikeCount(), 1);
 	}
 }
