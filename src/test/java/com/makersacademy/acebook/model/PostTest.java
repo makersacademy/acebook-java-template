@@ -14,4 +14,16 @@ public class PostTest {
 		assertThat(post.getContent(), containsString("hello"));
 	}
 
+	@Test 
+	public void testGetsInitialNumberofLikes() {
+		Post post = new Post();
+    assertEquals(post.likeCount(), Integer.valueOf(0));
+  }
+
+	@Test
+	public void testAddstoLikeCounter() {
+		Post post = new Post();
+		post.addLike();
+		assertEquals(post.likeCount(), Integer.valueOf(1));
+	}
 }
