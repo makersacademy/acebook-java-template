@@ -35,8 +35,8 @@
         <li th:text="${post.content}" />
         <li th:text="${post.timestamp}" />
         <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
-            <p>userid: <input type="text" th:field="*{userid}" /></p>
-            <p><input type="submit" value="Like" /></p>
+            <input type="hidden" name="postid" th:value="${post.id}"/>
+            <input type="submit" value="Like" />
         </form>
     </ul>
 

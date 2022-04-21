@@ -29,6 +29,7 @@ public class Post {
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public Timestamp getTimestamp() { return this.timestamp; }
+    public Long getId() { return this.id; }
     
     public void generateTimestamp() {
         long now = System.currentTimeMillis();
