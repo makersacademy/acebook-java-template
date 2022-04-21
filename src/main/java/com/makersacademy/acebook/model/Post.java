@@ -26,6 +26,7 @@ public class Post {
     private String content;
     @Column(name="created_at")
 	private Timestamp createdAt;
+    private int likesNumber = 0;
 
     public Post() {}
 
@@ -37,4 +38,11 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public void setCreatedAt(Timestamp createdAt) {this.createdAt = createdAt; }
 
+    public Integer addLike() {
+
+    }
+
+    public Integer likeCount() {
+        return likesNumber;
+    }
 }
