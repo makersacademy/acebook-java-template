@@ -8,14 +8,20 @@
     </head>
     <body>
 
-    <h1>Acebook</h1>
+    <header>
+        <a href="/">
+        </a>
+        <h1>Acebook : Connecting People</h1>
+    </header>
 
-    <form action="#" th:action="@{/users}" method="post">
+    <div th:insert="navbar :: navbar">  </div>
+
+    <!-- <form action="#" th:action="@{/users}" method="post">
         <input type="submit" value="Sign In" />
     </form>
 
     <form action="#" th:action="@{/users/new}" method="get">
         <input type="submit" value="Sign Up" />
-    </form>
+    </form> -->
     </body>
 </html>

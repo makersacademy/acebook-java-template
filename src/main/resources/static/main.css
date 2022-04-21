@@ -1,3 +1,59 @@
+header {
+    background-color: #f9faf9;
+    color: black;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0px;
+    border-radius: 20px;
+}
+
+h1 {
+    font-family: 'Monaco', cursive;
+    font-size: 60;
+    color: black;
+    word-spacing: 2;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #a1ecb2;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    border-radius: 10px;
+    font-family: 'Monaco', cursive;
+    font-size: 40;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+  
+.navbar a.right {
+    float: right;
+}
+  
+.navbar a:hover {
+    animation-name: link-color;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes link-color {
+    100% {
+      color: #fbff00;
+      background-color: rgba(34, 32, 32, 0.518);
+    }
+}
+
 .posts-main {
     border-collapse: collapse;
 }
