@@ -35,7 +35,7 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public RedirectView signup() {
+    public RedirectView login() {
         return new RedirectView("/login");
     }
 }
