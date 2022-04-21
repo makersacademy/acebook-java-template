@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>NavigationBar</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+
+      <nav th:fragment="navbar" class="navbar">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" th:href="@{/}">Home</a>
+              </div>
+              <ul class="nav navbar-nav">
+                  <a class="nav-link" th:href="@{/posts}">Posts</a>
+              </ul>
+              <ul>
+                  <a class="navbar right" th:href="@{/users}">Log in</a>
+
+                  <a class="navbar right" th:href="@{/users/new}">Sign up</a>
+      
+                  <a class="navbar right" th:href="@{/contact_page}">Contact us!</a>    
+              </ul>
+          </div>    
+      </nav>
+      
+      </body>
+      </html>

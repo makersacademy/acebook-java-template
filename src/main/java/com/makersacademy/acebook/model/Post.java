@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -19,6 +22,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank (message = "Post is mandatory")
     private String content;
     @Column(name="created_at")
 	private Timestamp createdAt;
@@ -31,5 +35,6 @@ public class Post {
     public String getContent() { return this.content; }
     public Long getId() { return this.id; }
     public void setContent(String content) { this.content = content; }
+    public void setCreatedAt(Timestamp createdAt) {this.createdAt = createdAt; }
 
 }

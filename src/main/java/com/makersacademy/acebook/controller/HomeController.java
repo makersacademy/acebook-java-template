@@ -11,15 +11,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class HomeController {
 
-	@GetMapping("/")							// Create a simple "Acebook" page that wellcomes and prompts the user to either sign-in / sign-up
-	public String homePage(HomePage model) {
-    	User user = model.getUser();
-		System.out.println(user.getUsername());
-        return "/";
-    }
-	// return homepage.index.html 
-
 	@RequestMapping(value = "/")
+	public String homePage() {
+		return "homePage";
+	}
+
 	public RedirectView index() {
 		return new RedirectView("/posts");  // remove the redirection? --> No, on homePage should 2 buttons redirect to either sign-in / sign-up
 	}
