@@ -14,6 +14,7 @@ import lombok.Data;
 public class Like {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   private Long userid;
   private Long postid;
 

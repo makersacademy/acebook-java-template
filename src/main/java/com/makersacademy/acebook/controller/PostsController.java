@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.omg.CORBA.Request;
@@ -22,6 +23,7 @@ public class PostsController {
         Iterable<Post> posts = repository.findAllByOrderByTimestampDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("like", new Like());
         // model.addAttribute("user", )
         return "posts/index";
     }
