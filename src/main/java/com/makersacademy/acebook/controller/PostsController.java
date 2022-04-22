@@ -47,7 +47,6 @@ public class PostsController {
         Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
         model.addAttribute("reversed_posts", reversed_posts);
         return "posts/reverse";
-
     }
 
     @PostMapping("/posts/incrementlikes")
