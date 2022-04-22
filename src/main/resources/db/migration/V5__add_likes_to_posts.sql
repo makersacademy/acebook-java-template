@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD likes BIGINT DEFAULT 0;
