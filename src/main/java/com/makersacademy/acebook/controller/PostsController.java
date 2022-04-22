@@ -28,8 +28,8 @@ public class PostsController {
     PostRepository repository;
 
     @GetMapping("/posts")
-    public String index(Model model, @RequestParam Boolean reverse) {
-        Iterable<Post> posts = reverse ? repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
+    public String index(Model model, @RequestParam(defaultValue = "false") String reverse) {
+        Iterable<Post> posts = reverse.equals("true") ? repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
                 : repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
