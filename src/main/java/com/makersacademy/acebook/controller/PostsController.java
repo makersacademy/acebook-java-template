@@ -28,13 +28,13 @@ public class PostsController {
     PostRepository repository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
+    public String index(Model model, @RequestParam Boolean reverse) {
+        Iterable<Post> posts = reverse ? repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
+                : repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
-    // include logic in index that checks parameters (whether button has been clicked for reverse)
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
@@ -43,19 +43,18 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-    @GetMapping("/posts/reverse")
-    public String reverse(Model model) {
-        Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
-        model.addAttribute("reversed_posts", reversed_posts);
-        return "posts/reverse";
-        
-    }
+    // @GetMapping("/posts/reverse")
+    // public String reverse(Model model) {
+    //     Iterable<Post> reversed_posts = repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+    //     model.addAttribute("reversed_posts", reversed_posts);
+    //     return "posts/reverse";
+
+    // }
 
     @PostMapping("/posts/incrementlikes")
     public RedirectView incrementLikes(@RequestParam Long postId) {
         Optional<Post> potentialPost = repository.findById(postId);
-        if (potentialPost.isPresent())
-        {
+        if (potentialPost.isPresent()) {
             Post post = potentialPost.get();
             post.addLike();
             repository.save(post);
