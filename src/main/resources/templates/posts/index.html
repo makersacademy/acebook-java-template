@@ -34,6 +34,7 @@
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
         <li th:text="${post.timestamp}" />
+        <li th:inline="text"> [[${post.likes}]] likes
         <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
             <input type="hidden" name="postid" th:value="${post.id}"/>
             <input type="submit" value="Like" />

@@ -20,6 +20,7 @@ public class Post {
     private Long id;
     private String content;
     private Timestamp timestamp;
+    private Long likes;
 
     public Post() {}
 
@@ -30,6 +31,8 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public Timestamp getTimestamp() { return this.timestamp; }
     public Long getId() { return this.id; }
+    public Long getLikes() { return this.likes; }
+    public void setLikes(Long likes) { this.likes = likes;}
     
     public void generateTimestamp() {
         long now = System.currentTimeMillis();
