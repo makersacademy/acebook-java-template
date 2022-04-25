@@ -25,18 +25,9 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-
-        for (Post post : posts) {
-            Long likes = likeRepository.countByPostid(post.getId());
-            post.setLikes(likes);
-            postRepository.save(post);
-        }
-        // Long numberOfLikes = likeRepository.countByPostid(new Post().getId());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        // model.addAttribute("numberOfLikes", numberOfLikes);
         model.addAttribute("like", new Like());
-        // model.addAttribute("user", )
         return "posts/index";
     }
 
@@ -52,6 +43,7 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         post.generateTimestamp();
+        post.setLikes(Long.valueOf(0));
         postRepository.save(post);
         return new RedirectView("/posts");
     }

@@ -1,7 +1,5 @@
 package com.makersacademy.acebook.controller;
 
-import java.util.Optional;
-
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.LikeRepository;
@@ -17,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class LikesController {
 
   @Autowired
-  LikeRepository repository;
+  LikeRepository likeRepository;
   @Autowired
   PostRepository postRepository;
 
@@ -46,7 +44,13 @@ public class LikesController {
 
   @PostMapping("/likes")
   public RedirectView likePost(@ModelAttribute Like like) {
-    repository.save(like);
+    likeRepository.save(like);
+    Iterable<Post> posts = postRepository.findAll();
+    for (Post post : posts) {
+      Long likes = likeRepository.countByPostid(post.getId());
+      post.setLikes(likes);
+      postRepository.save(post);
+    }
     return new RedirectView("/posts");
   }
 
