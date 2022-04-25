@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LikeRepository extends CrudRepository<Like, Long> {
   Long countByPostid(Long postid);
+  Iterable<Like> findAllByUserid(Long userid);
 }

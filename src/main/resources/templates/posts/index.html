@@ -35,10 +35,12 @@
         <li th:text="${post.content}" />
         <li th:text="${post.timestamp}" />
         <li th:inline="text"> [[${post.likes}]] likes
-        <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
-            <input type="hidden" name="postid" th:value="${post.id}"/>
-            <input type="submit" value="Like" />
-        </form>
+        <div th:unless="${userLikesPostids.contains(post.id)}">
+            <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
+                <input type="hidden" name="postid" th:value="${post.id}"/>
+                <input type="submit" value="Like" />
+            </form>
+        </div>
     </ul>
 
     </body>
