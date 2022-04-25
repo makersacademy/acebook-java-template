@@ -4,14 +4,12 @@ import java.security.Principal;
 
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -62,6 +60,21 @@ public class LikesController {
     }
     return new RedirectView("/posts");
   }
+
+  @DeleteMapping("/likes/{id}")
+  public RedirectView unlikePost(@PathVariable("id") Long id) {
+    likeRepository.deleteById(id);
+    Iterable<Post> posts = postRepository.findAll();
+    for (Post post : posts) {
+      Long likes = likeRepository.countByPostid(post.getId());
+      post.setLikes(likes);
+      postRepository.save(post);
+    }
+    return new RedirectView("/posts");
+  }
+
+
+
 
   
 }

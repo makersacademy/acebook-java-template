@@ -41,6 +41,13 @@
                 <input type="submit" value="Like" />
             </form>
         </div>
+        <div th:each="userLike: ${userLikes}">
+            <div th:if="${userLike.postid == post.id}">
+                <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
+                    <input type="submit" value="Unlike" />
+                </form>
+            </div>
+        </div>
     </ul>
 
     </body>

@@ -41,6 +41,7 @@ public class PostsController {
         }
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("userLikes", userLikes);
         model.addAttribute("userLikesPostids", userLikesPostids);
         model.addAttribute("like", new Like());
         return "posts/index";

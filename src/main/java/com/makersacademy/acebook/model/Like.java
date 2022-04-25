@@ -25,6 +25,7 @@ public class Like {
     this.postid = postid;
   }
 
+  public Long getId() { return this.id; }
   public Long getUserid() { return this.userid; }
   public void setUserid(Long userid) { this.userid = userid; }
   public Long getPostid() { return this.postid; }
