@@ -1,9 +1,13 @@
 package com.makersacademy.acebook.controller;
 
+import java.security.Principal;
+
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,8 @@ public class LikesController {
   LikeRepository likeRepository;
   @Autowired
   PostRepository postRepository;
+  @Autowired
+  UserRepository userRepository;
 
   // @GetMapping("/likes")
   // public String index(Model model) {
@@ -43,7 +49,10 @@ public class LikesController {
 
 
   @PostMapping("/likes")
-  public RedirectView likePost(@ModelAttribute Like like) {
+  public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
+    String username = principal.getName();
+    Long userid = userRepository.findIdByUsername(username);
+    like.setUserid(userid);
     likeRepository.save(like);
     Iterable<Post> posts = postRepository.findAll();
     for (Post post : posts) {
