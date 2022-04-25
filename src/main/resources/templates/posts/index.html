@@ -27,14 +27,19 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p>Posted by: </p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-        <li th:text="${post.timestamp}" />
-        <li th:inline="text"> [[${post.likes}]] likes
+        <li th:text="${post.content}"></li>
+        <ul>
+            <li th:inline="text"> Posted: [[${post.timestamp}]]</li>
+            <li th:switch="${post.likes}">
+                <div th:case="'0'">Be the first to like this</div>
+                <div th:case="'1'">Liked by 1 person</div>
+                <div th:case="*">Liked by [[${post.likes}]] people</div>
+            </li>
+        </ul>
         <div th:unless="${userLikesPostids.contains(post.id)}">
             <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
                 <input type="hidden" name="postid" th:value="${post.id}"/>
@@ -43,11 +48,13 @@
         </div>
         <div th:each="userLike: ${userLikes}">
             <div th:if="${userLike.postid == post.id}">
+                <div>You like this</div>
                 <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
                     <input type="submit" value="Unlike" />
                 </form>
             </div>
         </div>
+        <br>
     </ul>
 
     </body>
