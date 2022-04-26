@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -26,6 +28,8 @@ public class PostsController {
     LikeRepository likeRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping("/posts")
     public String index(Model model, Principal principal) {
@@ -43,6 +47,7 @@ public class PostsController {
         model.addAttribute("userLikes", userLikes);
         model.addAttribute("userLikesPostids", userLikesPostids);
         model.addAttribute("like", new Like());
+        model.addAttribute("comment", new Comment());
         return "posts/index";
     }
 

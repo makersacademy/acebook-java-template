@@ -3,7 +3,6 @@ package com.makersacademy.acebook.controller;
 import java.security.Principal;
 
 import com.makersacademy.acebook.model.Comment;
-import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -28,6 +27,7 @@ public class CommentsController {
     String username = principal.getName();
     Long userid = userRepository.findIdByUsername(username);
     comment.setUserid(userid);
+    comment.generateTimestamp();
     commentRepository.save(comment);
     return new RedirectView("/posts");
   }
