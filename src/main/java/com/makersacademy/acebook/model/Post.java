@@ -19,12 +19,15 @@ public class Post {
     private Timestamp timestamp;
     private Long likes;
     private Long userid;
+    private String imagepath;
 
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, String imagepath) {
         this.content = content;
+        this.imagepath = imagepath;
     }
+
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public Timestamp getTimestamp() { return this.timestamp; }
@@ -32,6 +35,10 @@ public class Post {
     public Long getLikes() { return this.likes; }
     public void setLikes(Long likes) { this.likes = likes;}
     public Long getUserId() { return this.userid; }
+
+    public String getImagepath() { return this.imagepath; }
+    public void setImagepath(String imagepath) { this.imagepath = imagepath; }
+
     
     public void generateTimestamp() {
         long now = System.currentTimeMillis();
@@ -42,4 +49,5 @@ public class Post {
     public void addUserID(Long id) {
         this.userid = id;
     }
+
 }

@@ -26,36 +26,52 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <h3>Write a post:</h3>
         <p>Content: <input type="text" th:field="*{content}" /></p>
+        <h3>Include a photo to be posted:</h3>
+        <label for="imagepath">Select a file:</label>
+        <input type="file" id="imagepath" name="imagepath" th:field="*{imagepath}"><br>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}"></li>
-        <ul>
-            <li th:inline="text"> Posted: [[${post.timestamp}]]</li>
-            <li th:switch="${post.likes}">
-                <div th:case="'0'">Be the first to like this</div>
-                <div th:case="'1'">Liked by 1 person</div>
-                <div th:case="*">Liked by [[${post.likes}]] people</div>
-            </li>
-        </ul>
-        <div th:unless="${userLikesPostids.contains(post.id)}">
-            <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
-                <input type="hidden" name="postid" th:value="${post.id}"/>
-                <input type="submit" value="Like" />
-            </form>
-        </div>
-        <div th:each="userLike: ${userLikes}">
-            <div th:if="${userLike.postid == post.id}">
-                <div>You like this</div>
-                <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
-                    <input type="submit" value="Unlike" />
+        <div th:unless="${post.content == '' && post.imagepath == ''}">
+            <div th:unless="${post.content == ''}">
+                <li th:text="${post.content}"></li>
+            </div>
+            <div th:unless="${post.imagepath == ''}">
+                <img th:src="${post.imagepath}" />
+            </div>
+            <ul>
+                <li th:inline="text"> Posted: [[${post.timestamp}]]</li>
+                <li th:switch="${post.likes}">
+                    <div th:case="'0'">Be the first to like this</div>
+                    <div th:case="'1'">Liked by 1 person</div>
+                    <div th:case="*">Liked by [[${post.likes}]] people</div>
+                </li>
+            </ul>
+            <div th:unless="${userLikesPostids.contains(post.id)}">
+                <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
+                    <input type="hidden" name="postid" th:value="${post.id}"/>
+                    <input type="submit" value="Like" />
                 </form>
             </div>
+            <div th:each="userLike: ${userLikes}">
+                <div th:if="${userLike.postid == post.id}">
+                    <div>You like this</div>
+                    <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
+                        <input type="submit" value="Unlike" />
+                    </form>
+                </div>
+            </div>
+            <br>
         </div>
-        <br>
     </ul>
 
+    <h1> Servlet form</h1>
+    <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" />
+      </form>
     </body>
 </html>
