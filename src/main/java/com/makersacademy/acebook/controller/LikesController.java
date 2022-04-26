@@ -23,28 +23,6 @@ public class LikesController {
   @Autowired
   UserRepository userRepository;
 
-  // @GetMapping("/likes")
-  // public String index(Model model) {
-  //   Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-  //   // Long numberOfLikes = likeRepository.countByPostid(new Post().getId());
-  //   model.addAttribute("posts", posts);
-  //   model.addAttribute("post", new Post());
-  //   // model.addAttribute("numberOfLikes", numberOfLikes);
-  //   model.addAttribute("like", new Like());
-  //   // model.addAttribute("user", )
-  //   return "likes/index";
-  // }
-  
-  // // @GetMapping("/likes/{id}")
-  // // public String showLikes(@PathVariable("id") long id, Model model) {
-  // //   Optional<Post> result = postRepository.findById(id);
-  // //   Post post = result.get();
-  // //   Long numberOfLikes = repository.countByPostid(id);
-  // //   model.addAttribute("numberOfLikes", numberOfLikes);
-  // //   model.addAttribute("post", post);
-  // //   return "posts/index";
-  // // }
-
 
   @PostMapping("/likes")
   public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
@@ -72,9 +50,5 @@ public class LikesController {
     }
     return new RedirectView("/posts");
   }
-
-
-
-
-  
+ 
 }
