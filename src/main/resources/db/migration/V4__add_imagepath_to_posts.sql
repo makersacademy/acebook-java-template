@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD imagepath VARCHAR(250);
