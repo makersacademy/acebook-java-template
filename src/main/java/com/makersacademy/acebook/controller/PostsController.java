@@ -36,6 +36,7 @@ public class PostsController {
         String username = principal.getName();
         Long userid = userRepository.findIdByUsername(username);
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
+        Iterable<Comment> comments = commentRepository.findAllByOrderByTimestampAsc();
         Iterable<Like> userLikes = likeRepository.findAllByUserid(userid);
         ArrayList<Long> userLikesPostids = new ArrayList<Long>();
         for (Like like : userLikes) {
@@ -47,6 +48,7 @@ public class PostsController {
         model.addAttribute("userLikes", userLikes);
         model.addAttribute("userLikesPostids", userLikesPostids);
         model.addAttribute("like", new Like());
+        model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
         return "posts/index";
     }
