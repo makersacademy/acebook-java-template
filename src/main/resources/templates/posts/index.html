@@ -68,26 +68,23 @@
             <p>Comments:</p>
             <ul>
             <div th:each="comment: ${comments}">
-                <div th:if="${comment.postid == post.id}">
-                    <div th:unless="${comment.content == ''}">
-                        <li th:text="${comment.content}"></li>
-                    </div>
-                    <div th:each="user: ${users}">
-                        <div th:if="${comment.userid == user.id}">
-                            <ul>
-                            <li th:text="${user.username}"></li>
-                            <li th:text="${comment.timestamp}">
-                            </ul>
+                <div th:unless="${comment.content == ''}">
+                    <div th:if="${comment.postid == post.id}">
+                        <div th:each="user: ${users}">
+                            <div th:if="${comment.userid == user.id}">
+                                <li th:inline="text">[[${user.username}]] at [[${comment.timestamp}]]:</li>
+                                <blockquote th:text="${comment.content}"></blockquote>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </ul>
             <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
-                <p>Write a comment: <input type="text" th:field="*{content}" />
+                <li><p>Write a comment: <input type="text" th:field="*{content}" />
                 <input type="hidden" name="postid" th:value="${post.id}" />
-                <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p></li>
             </form>
+            </ul>
             <hr>
         </div>
     </ul>
