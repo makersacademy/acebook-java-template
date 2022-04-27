@@ -35,7 +35,7 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <div th:unless="${post.content == '' && post.imagepath == ''}">
+        <!-- <div th:unless="${post.content == '' && post.imagepath == ''}">
             <div th:unless="${post.content == ''}">
                 <li th:text="${post.content}"></li>
             </div>
@@ -65,7 +65,11 @@
                 </div>
             </div>
             <br>
-        </div>
+        </div> -->
+        <li th:text="${post.user.username}" />
+        <li th:text="${post.content}" />
+        <li th:text="${post.timestamp}" />
+        <li><img th:src="${post.imagepath}" /></li>
     </ul>
 
     <h1> Servlet form</h1>

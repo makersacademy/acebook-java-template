@@ -26,9 +26,9 @@ public class LikesController {
 
   @PostMapping("/likes")
   public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
-    String username = principal.getName();
-    Long userid = userRepository.findIdByUsername(username);
-    like.setUserid(userid);
+    // String username = principal.getName();
+    // Long userid = userRepository.findIdByUsername(username);
+    // like.setUserid(userid);
     likeRepository.save(like);
     Iterable<Post> posts = postRepository.findAll();
     for (Post post : posts) {
