@@ -58,3 +58,4 @@ public class Post {
         Timestamp timestamp = new Timestamp(now);
         this.timestamp = timestamp;
     }
+}
