@@ -28,6 +28,9 @@
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
         <p>Posted by: </p>
+        <h3>Include a photo to be posted:</h3>
+        <label for="imagepath">Select a file:</label>
+        <input type="file" id="imagepath" name="imagepath" th:field="*{imagepath}"><br><br>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
@@ -35,7 +38,13 @@
         <li th:text="${post.user.username}" />
         <li th:text="${post.content}" />
         <li th:text="${post.timestamp}" />
+        <li><img th:src="${post.imagepath}" /></li>
     </ul>
 
+    <h1> Servlet form</h1>
+    <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" />
+      </form>
     </body>
 </html>
