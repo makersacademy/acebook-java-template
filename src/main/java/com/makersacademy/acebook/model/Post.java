@@ -28,8 +28,9 @@ public class Post {
 
     @Column(name="timestamp")
     private Timestamp timestamp;
+    
+    @Column(name="likes")
     private Long likes;
-    // private Long userid;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="userid")
@@ -45,23 +46,23 @@ public class Post {
 
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
-    public Timestamp getTimestamp() { return this.timestamp; }
-    public Long getLikes() { return this.likes; }
-    public void setLikes(Long likes) { this.likes = likes;}
-    // public Long getUserId() { return this.userid; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user;  }
     public Long getId() {return this.id; }
 
-
     public String getImagepath() { return this.imagepath; }
     public void setImagepath(String imagepath) { this.imagepath = imagepath; }
 
-    
+    public Timestamp getTimestamp() { return this.timestamp; }
+
     public void generateTimestamp() {
         long now = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(now);
         this.timestamp = timestamp;
     }
+
+    public Long getLikes() { return this.likes; }
+    public void setLikes(Long likes) { this.likes = likes; }
+
 }

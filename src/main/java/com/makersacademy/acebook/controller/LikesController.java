@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -23,12 +24,16 @@ public class LikesController {
   @Autowired
   UserRepository userRepository;
 
+  private User getUser(Principal principal) {
+    String username = principal.getName();
+    User user = userRepository.findByUsername(username);
+    return user;
+  }
+
 
   @PostMapping("/likes")
   public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
-    // String username = principal.getName();
-    // Long userid = userRepository.findIdByUsername(username);
-    // like.setUserid(userid);
+    like.setUserid(getUser(principal).getId());
     likeRepository.save(like);
     Iterable<Post> posts = postRepository.findAll();
     for (Post post : posts) {

@@ -35,7 +35,7 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <!-- <div th:unless="${post.content == '' && post.imagepath == ''}">
+        <div th:unless="${post.content == '' && post.imagepath == ''}">
             <div th:unless="${post.content == ''}">
                 <li th:text="${post.content}"></li>
             </div>
@@ -43,7 +43,7 @@
                 <img th:src="${post.imagepath}" />
             </div>
             <ul>
-                <li th:inline="text"> Posted: [[${post.timestamp}]]</li>
+                <li th:inline="text"> Posted by [[${post.user.username}]] at [[${post.timestamp}]]</li>
                 <li th:switch="${post.likes}">
                     <div th:case="'0'">Be the first to like this</div>
                     <div th:case="'1'">Liked by 1 person</div>
@@ -65,11 +65,7 @@
                 </div>
             </div>
             <br>
-        </div> -->
-        <li th:text="${post.user.username}" />
-        <li th:text="${post.content}" />
-        <li th:text="${post.timestamp}" />
-        <li><img th:src="${post.imagepath}" /></li>
+        </div>   
     </ul>
 
     <h1> Servlet form</h1>

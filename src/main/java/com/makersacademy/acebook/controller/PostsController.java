@@ -37,18 +37,16 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model, Principal principal) {
-        // String username = principal.getName();
-        // Long userid = userRepository.findIdByUsername(username);
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-        // Iterable<Like> userLikes = likeRepository.findAllByUserid(userid);
+        Iterable<Like> userLikes = likeRepository.findAllByUserid(getUser(principal).getId());
         ArrayList<Long> userLikesPostids = new ArrayList<Long>();
-        // for (Like like : userLikes) {
-        //     Long postid = like.getPostid();
-        //     userLikesPostids.add(postid);
-        // }
+        for (Like like : userLikes) {
+            Long postid = like.getPostid();
+            userLikesPostids.add(postid);
+        }
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        // model.addAttribute("userLikes", userLikes);
+        model.addAttribute("userLikes", userLikes);
         model.addAttribute("userLikesPostids", userLikesPostids);
         model.addAttribute("like", new Like());
         return "posts/index";
