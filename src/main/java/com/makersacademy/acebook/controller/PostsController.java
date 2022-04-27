@@ -1,16 +1,21 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
 // import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +23,9 @@ import java.util.Optional;
 public class PostsController {
 
     @Autowired
-    PostRepository repository;
+    PostRepository postRepository;
+    @Autowired
+    LikeRepository likeRepository;
     @Autowired
     UserRepository userRepository;
 
@@ -29,10 +36,19 @@ public class PostsController {
     }
 
     @GetMapping("/posts")
-    public String index(Model model) {
-        Iterable<Post> posts = repository.findAllByOrderByTimestampDesc();
+    public String index(Model model, Principal principal) {
+        Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
+        Iterable<Like> userLikes = likeRepository.findAllByUserid(getUser(principal).getId());
+        ArrayList<Long> userLikesPostids = new ArrayList<Long>();
+        for (Like like : userLikes) {
+            Long postid = like.getPostid();
+            userLikesPostids.add(postid);
+        }
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        model.addAttribute("userLikes", userLikes);
+        model.addAttribute("userLikesPostids", userLikesPostids);
+        model.addAttribute("like", new Like());
         return "posts/index";
     }
 
@@ -40,7 +56,8 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         post.setUser(getUser(principal));
         post.generateTimestamp();
-        repository.save(post);
+        post.setLikes(Long.valueOf(0));
+        postRepository.save(post);
         return new RedirectView("/posts");
     }
 }
