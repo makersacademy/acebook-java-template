@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-  @Query(value = "SELECT id FROM users WHERE username = :username", nativeQuery=true)
-  public Long findIdByUsername(@Param("username") String username);
-
+  // @Query(value = "SELECT * FROM users WHERE username = :username", nativeQuery=true)
+  // public User findByUsername(@Param("username") String username);
+  User findByUsername(String username);
 }

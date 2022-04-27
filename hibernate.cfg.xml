@@ -1,0 +1,13 @@
+<hibernate-configuration>
+  <session-factory>
+      <property name="hibernate.connection.driver_class">org.h2.Driver</property>
+      <property name="hibernate.connection.url">
+        jdbc:h2:mem:spring_hibernate_one_to_many</property>
+      <property name="hibernate.connection.username">sa</property>
+      <property name="hibernate.connection.password"/>
+      <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+      <property name="hibernate.current_session_context_class">thread</property>
+      <property name="hibernate.show_sql">true</property>
+      <<span class="pl-ent">property</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>hbm2ddl.auto<span class="pl-pds">"</span></span>>create</<span class="pl-ent">property</span>>
+  </session-factory>
+</hibernate-configuration>

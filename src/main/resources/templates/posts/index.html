@@ -43,7 +43,7 @@
                 <img th:src="${post.imagepath}" />
             </div>
             <ul>
-                <li th:inline="text"> Posted: [[${post.timestamp}]]</li>
+                <li th:inline="text"> Posted by [[${post.user.username}]] at [[${post.timestamp}]]</li>
                 <li th:switch="${post.likes}">
                     <div th:case="'0'">Be the first to like this</div>
                     <div th:case="'1'">Liked by 1 person</div>

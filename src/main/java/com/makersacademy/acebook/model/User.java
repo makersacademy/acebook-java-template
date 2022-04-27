@@ -1,14 +1,21 @@
 package com.makersacademy.acebook.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.mapping.Set;
+
 import javax.persistence.GenerationType;
 
 import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,6 +27,12 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+        private List<Post> posts;
+    
+    public List<Post> getPosts() {
+        return posts;
+    }
 
     public User() {
         this.enabled = TRUE;
@@ -41,5 +54,5 @@ public class User {
     public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
-    public Long getId() { return this.id; }
+    public Long getId() {return this.id; }
 }

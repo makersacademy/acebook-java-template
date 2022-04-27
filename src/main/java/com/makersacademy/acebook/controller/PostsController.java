@@ -18,6 +18,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostsController {
@@ -31,14 +33,18 @@ public class PostsController {
     @Autowired
     CommentRepository commentRepository;
 
+    private User getUser(Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        return user;
+    }
+
     @GetMapping("/posts")
     public String index(Model model, Principal principal) {
-        String username = principal.getName();
-        Long userid = userRepository.findIdByUsername(username);
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
         Iterable<Comment> comments = commentRepository.findAllByOrderByTimestampAsc();
         Iterable<User> users = userRepository.findAll();
-        Iterable<Like> userLikes = likeRepository.findAllByUserid(userid);
+        Iterable<Like> userLikes = likeRepository.findAllByUserid(getUser(principal).getId());
         ArrayList<Long> userLikesPostids = new ArrayList<Long>();
         for (Like like : userLikes) {
             Long postid = like.getPostid();
@@ -57,9 +63,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        String username = principal.getName();
-        Long userId = userRepository.findIdByUsername(username);
-        post.addUserID(userId);
+        post.setUser(getUser(principal));
         post.generateTimestamp();
         post.setLikes(Long.valueOf(0));
         postRepository.save(post);
