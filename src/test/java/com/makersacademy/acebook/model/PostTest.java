@@ -1,5 +1,5 @@
 package com.makersacademy.acebook.model;
-
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
@@ -24,5 +24,11 @@ public class PostTest {
 		String timeString = post.getTimestamp().toString();
 		assertThat((timeString), containsString(dateString));
 	}
+
+	// @Test
+	// public void postHasUserId(){
+	// 	post.addUserID(1);
+	// 	assertEquals("retrieves user id", Integer.valueOf(1), post.getUserId());
+	// }
 
 }

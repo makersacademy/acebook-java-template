@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostsController {
@@ -20,6 +21,12 @@ public class PostsController {
     PostRepository repository;
     @Autowired
     UserRepository userRepository;
+
+    private User getUser(Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        return user;
+    }
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -31,9 +38,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        String username = (principal.getName());
-        Integer userId = userRepository.findIdByUsername(username);
-        post.addUserID(userId);
+        post.setUser(getUser(principal));
         post.generateTimestamp();
         repository.save(post);
         return new RedirectView("/posts");
