@@ -72,6 +72,14 @@
                     <div th:unless="${comment.content == ''}">
                         <li th:text="${comment.content}"></li>
                     </div>
+                    <div th:each="user: ${users}">
+                        <div th:if="${comment.userid == user.id}">
+                            <ul>
+                            <li th:text="${user.username}"></li>
+                            <li th:text="${comment.timestamp}">
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             </ul>
@@ -80,7 +88,6 @@
                 <input type="hidden" name="postid" th:value="${post.id}" />
                 <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
             </form>
-
             <hr>
         </div>
     </ul>
