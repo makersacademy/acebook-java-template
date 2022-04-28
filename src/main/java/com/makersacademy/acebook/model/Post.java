@@ -32,6 +32,9 @@ public class Post {
     @Column(name="likes")
     private Long likes;
 
+    @Column(name="commentcount")
+    private Long commentcount;
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="userid")
     private User user;
@@ -64,5 +67,8 @@ public class Post {
 
     public Long getLikes() { return this.likes; }
     public void setLikes(Long likes) { this.likes = likes; }
+
+    public Long getCommentcount() { return this.commentcount; }
+    public void setCommentcount(Long commentcount) { this.commentcount = commentcount; }
 
 }

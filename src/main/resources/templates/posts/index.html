@@ -64,14 +64,16 @@
                     </form>
                 </div>
             </div>
-            <p>Comments:</p>
+            <div th:switch="${post.commentcount}">
+                <p th:case="'0'">No comments yet</p>
+                <p th:case="'1'">1 comment:</p>
+                <p th:case="*">[[${post.commentcount}]] comments:</p>
+            </div>
             <ul>
             <div th:each="comment: ${comments}">
-                <div th:unless="${comment.content == ''}">
-                    <div th:if="${comment.postid == post.id}">
-                        <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
-                        <blockquote th:text="${comment.content}"></blockquote>
-                    </div>
+                <div th:if="${comment.postid == post.id}">
+                    <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
+                    <blockquote th:text="${comment.content}"></blockquote>
                 </div>
             </div>
             <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">

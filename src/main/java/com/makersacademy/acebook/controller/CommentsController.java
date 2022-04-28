@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -33,7 +34,15 @@ public class CommentsController {
   public RedirectView likePost(@ModelAttribute Comment comment, Principal principal) {
     comment.setUser(getUser(principal));
     comment.generateTimestamp();
-    commentRepository.save(comment);
+    if (comment.getContent() != "") {
+      commentRepository.save(comment);
+    }
+    Iterable<Post> posts = postRepository.findAll();
+    for (Post post : posts) {
+      Long commentcount = commentRepository.countByPostid(post.getId());
+      post.setCommentcount(commentcount);
+      postRepository.save(post);
+    }
     return new RedirectView("/posts");
   }
 

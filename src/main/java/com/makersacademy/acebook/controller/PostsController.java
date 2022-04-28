@@ -58,6 +58,7 @@ public class PostsController {
         post.setUser(getUser(principal));
         post.generateTimestamp();
         post.setLikes(Long.valueOf(0));
+        post.setCommentcount(Long.valueOf(0));
         postRepository.save(post);
         return new RedirectView("/posts");
     }
