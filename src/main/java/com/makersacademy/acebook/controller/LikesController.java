@@ -30,10 +30,9 @@ public class LikesController {
     return user;
   }
 
-
   @PostMapping("/likes")
   public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
-    like.setUserid(getUser(principal).getId());
+    like.setUser(getUser(principal));
     likeRepository.save(like);
     Iterable<Post> posts = postRepository.findAll();
     for (Post post : posts) {

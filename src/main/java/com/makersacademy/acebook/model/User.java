@@ -27,11 +27,19 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
         private List<Post> posts;
+
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Like> likes;
     
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
     }
 
     public User() {
@@ -55,4 +63,13 @@ public class User {
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
     public Long getId() {return this.id; }
+
+    public ArrayList<Long> getLikedPostids() {
+        ArrayList<Long> likedPostids = new ArrayList<Long>();
+        for (Like like : this.likes) {
+            Long postid = like.getPostid();
+            likedPostids.add(postid);
+        }
+        return likedPostids;
+    }
 }

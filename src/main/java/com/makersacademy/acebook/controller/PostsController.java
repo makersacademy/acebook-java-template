@@ -43,21 +43,13 @@ public class PostsController {
     public String index(Model model, Principal principal) {
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
         Iterable<Comment> comments = commentRepository.findAllByOrderByTimestampAsc();
-        Iterable<User> users = userRepository.findAll();
-        Iterable<Like> userLikes = likeRepository.findAllByUserid(getUser(principal).getId());
-        ArrayList<Long> userLikesPostids = new ArrayList<Long>();
-        for (Like like : userLikes) {
-            Long postid = like.getPostid();
-            userLikesPostids.add(postid);
-        }
+        User user = getUser(principal);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("userLikes", userLikes);
-        model.addAttribute("userLikesPostids", userLikesPostids);
+        model.addAttribute("user", user);
         model.addAttribute("like", new Like());
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
-        model.addAttribute("users", users);
         return "posts/index";
     }
 
