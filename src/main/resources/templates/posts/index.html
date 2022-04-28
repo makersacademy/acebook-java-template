@@ -36,20 +36,18 @@
 
     <ul th:each="post: ${posts}">
         <div th:unless="${post.content == '' && post.imagepath == ''}">
+            <li th:inline="text">[[${post.user.username}]] at [[${post.timestamp}]]:</li>
             <div th:unless="${post.content == ''}">
-                <p><li th:text="${post.content}"></li></p>
+                <h3><blockquote th:text="${post.content}"></blockquote></h3>
             </div>
             <div th:unless="${post.imagepath == ''}">
-                <img th:src="${post.imagepath}" />
+                <blockquote><img th:src="${post.imagepath}" /></blockquote>
             </div>
-            <ul>
-                <li th:inline="text"> Posted by [[${post.user.username}]] at [[${post.timestamp}]]</li>
-                <li th:switch="${post.likes}">
-                    <div th:case="'0'">Be the first to like this</div>
-                    <div th:case="'1'">Liked by 1 person</div>
-                    <div th:case="*">Liked by [[${post.likes}]] people</div>
-                </li>
-            </ul>
+            <div th:switch="${post.likes}">
+                <div th:case="'0'">Be the first to like this</div>
+                <div th:case="'1'">Liked by 1 person</div>
+                <div th:case="*">Liked by [[${post.likes}]] people</div>
+            </div>
             <div th:unless="${user.getLikedPostids().contains(post.id)}">
                 <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
                     <input type="hidden" name="postid" th:value="${post.id}"/>
@@ -70,17 +68,17 @@
                 <p th:case="*">[[${post.commentcount}]] comments:</p>
             </div>
             <ul>
-            <div th:each="comment: ${comments}">
-                <div th:if="${comment.postid == post.id}">
-                    <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
-                    <blockquote th:text="${comment.content}"></blockquote>
+                <div th:each="comment: ${comments}">
+                    <div th:if="${comment.postid == post.id}">
+                        <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
+                        <blockquote th:text="${comment.content}"></blockquote>
+                    </div>
                 </div>
-            </div>
-            <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
-                <li><p>Write a comment: <input type="text" th:field="*{content}" />
-                <input type="hidden" name="postid" th:value="${post.id}" />
-                <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p></li>
-            </form>
+                <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
+                    <li><p>Write a comment: <input type="text" th:field="*{content}" />
+                    <input type="hidden" name="postid" th:value="${post.id}" />
+                    <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p></li>
+                </form>
             </ul>
             <hr>
         </div>
