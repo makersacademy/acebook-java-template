@@ -31,11 +31,10 @@ public class CommentsController {
 
   @PostMapping("/comments")
   public RedirectView likePost(@ModelAttribute Comment comment, Principal principal) {
-    comment.setUserid(getUser(principal).getId());
+    comment.setUser(getUser(principal));
     comment.generateTimestamp();
     commentRepository.save(comment);
     return new RedirectView("/posts");
   }
-
 
 }

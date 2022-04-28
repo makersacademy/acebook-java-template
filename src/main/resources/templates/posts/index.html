@@ -69,12 +69,8 @@
             <div th:each="comment: ${comments}">
                 <div th:unless="${comment.content == ''}">
                     <div th:if="${comment.postid == post.id}">
-                        <div th:each="user: ${users}">
-                            <div th:if="${comment.userid == user.id}">
-                                <li th:inline="text">[[${user.username}]] at [[${comment.timestamp}]]:</li>
-                                <blockquote th:text="${comment.content}"></blockquote>
-                            </div>
-                        </div>
+                        <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
+                        <blockquote th:text="${comment.content}"></blockquote>
                     </div>
                 </div>
             </div>
