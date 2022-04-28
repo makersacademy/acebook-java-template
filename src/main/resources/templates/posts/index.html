@@ -50,16 +50,16 @@
                     <div th:case="*">Liked by [[${post.likes}]] people</div>
                 </li>
             </ul>
-            <div th:unless="${userLikesPostids.contains(post.id)}">
+            <div th:unless="${user.getLikedPostids().contains(post.id)}">
                 <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
                     <input type="hidden" name="postid" th:value="${post.id}"/>
                     <input type="submit" value="Like" />
                 </form>
             </div>
-            <div th:each="userLike: ${userLikes}">
-                <div th:if="${userLike.postid == post.id}">
+            <div th:each="like: ${user.likes}">
+                <div th:if="${like.postid == post.id}">
                     <div>You like this</div>
-                    <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
+                    <form action="#" th:action="@{/likes/{id} (id=${like.id})}" th:method="delete">
                         <input type="submit" value="Unlike" />
                     </form>
                 </div>
