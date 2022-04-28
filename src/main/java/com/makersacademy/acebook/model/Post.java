@@ -73,9 +73,9 @@ public class Post {
     public Long getCommentcount() { return this.commentcount; }
     public void setCommentcount(Long commentcount) { this.commentcount = commentcount; }
 
-    public String formatTimeStamp() {
+    public String formatTimestamp() {
         LocalDateTime localDateTime = this.timestamp.toLocalDateTime();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, H:m:s");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, HH:mm:ss");
         String formatted = localDateTime.format(formatter);
         return formatted;
     }

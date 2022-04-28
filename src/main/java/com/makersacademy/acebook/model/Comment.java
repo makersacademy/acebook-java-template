@@ -61,9 +61,9 @@ public class Comment {
     this.timestamp = timestamp;
   }
 
-  public String formatTimeStamp() {
+  public String formatTimestamp() {
     LocalDateTime localDateTime = this.timestamp.toLocalDateTime();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, H:m:s");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, HH:mm:ss");
     String formatted = localDateTime.format(formatter);
     return formatted;
   }
