@@ -36,7 +36,7 @@
 
     <ul th:each="post: ${posts}">
         <div th:unless="${post.content == '' && post.imagepath == ''}">
-            <li th:inline="text">[[${post.user.username}]] at [[${post.timestamp}]]:</li>
+            <li th:inline="text">[[${post.user.username}]] on [[${post.formatTimeStamp()}]]:</li>
             <div th:unless="${post.content == ''}">
                 <h3><blockquote th:text="${post.content}"></blockquote></h3>
             </div>
@@ -70,7 +70,7 @@
             <ul>
                 <div th:each="comment: ${comments}">
                     <div th:if="${comment.postid == post.id}">
-                        <li th:inline="text">[[${comment.user.username}]] at [[${comment.timestamp}]]:</li>
+                        <li th:inline="text">[[${comment.user.username}]] on [[${comment.formatTimeStamp()}]]:</li>
                         <blockquote th:text="${comment.content}"></blockquote>
                     </div>
                 </div>

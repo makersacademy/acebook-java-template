@@ -1,5 +1,7 @@
 package com.makersacademy.acebook.model;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,5 +72,12 @@ public class Post {
 
     public Long getCommentcount() { return this.commentcount; }
     public void setCommentcount(Long commentcount) { this.commentcount = commentcount; }
+
+    public String formatTimeStamp() {
+        LocalDateTime localDateTime = this.timestamp.toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, H:m:s");
+        String formatted = localDateTime.format(formatter);
+        return formatted;
+    }
 
 }
