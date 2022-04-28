@@ -1,0 +1,1 @@
+ALTER TABLE posts ADD commentcount BIGINT DEFAULT 0;

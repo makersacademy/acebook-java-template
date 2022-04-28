@@ -36,36 +36,52 @@
 
     <ul th:each="post: ${posts}">
         <div th:unless="${post.content == '' && post.imagepath == ''}">
+            <li th:inline="text">[[${post.user.username}]] on [[${post.formatTimestamp()}]]:</li>
             <div th:unless="${post.content == ''}">
-                <li th:text="${post.content}"></li>
+                <h3><blockquote th:text="${post.content}"></blockquote></h3>
             </div>
             <div th:unless="${post.imagepath == ''}">
-                <img th:src="${post.imagepath}" />
+                <blockquote><img th:src="${post.imagepath}" /></blockquote>
             </div>
-            <ul>
-                <li th:inline="text"> Posted by [[${post.user.username}]] at [[${post.timestamp}]]</li>
-                <li th:switch="${post.likes}">
-                    <div th:case="'0'">Be the first to like this</div>
-                    <div th:case="'1'">Liked by 1 person</div>
-                    <div th:case="*">Liked by [[${post.likes}]] people</div>
-                </li>
-            </ul>
-            <div th:unless="${userLikesPostids.contains(post.id)}">
+            <div th:switch="${post.likes}">
+                <div th:case="'0'">Be the first to like this</div>
+                <div th:case="'1'">Liked by 1 person</div>
+                <div th:case="*">Liked by [[${post.likes}]] people</div>
+            </div>
+            <div th:unless="${user.getLikedPostids().contains(post.id)}">
                 <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
                     <input type="hidden" name="postid" th:value="${post.id}"/>
                     <input type="submit" value="Like" />
                 </form>
             </div>
-            <div th:each="userLike: ${userLikes}">
-                <div th:if="${userLike.postid == post.id}">
+            <div th:each="like: ${user.likes}">
+                <div th:if="${like.postid == post.id}">
                     <div>You like this</div>
-                    <form action="#" th:action="@{/likes/{id} (id=${userLike.id})}" th:method="delete">
+                    <form action="#" th:action="@{/likes/{id} (id=${like.id})}" th:method="delete">
                         <input type="submit" value="Unlike" />
                     </form>
                 </div>
             </div>
-            <br>
-        </div>   
+            <div th:switch="${post.commentcount}">
+                <p th:case="'0'">No comments yet</p>
+                <p th:case="'1'">1 comment:</p>
+                <p th:case="*">[[${post.commentcount}]] comments:</p>
+            </div>
+            <ul>
+                <div th:each="comment: ${comments}">
+                    <div th:if="${comment.postid == post.id}">
+                        <li th:inline="text">[[${comment.user.username}]] on [[${comment.formatTimestamp()}]]:</li>
+                        <blockquote th:text="${comment.content}"></blockquote>
+                    </div>
+                </div>
+                <form action="#" th:action="@{/comments}" th:object="${comment}" method="post">
+                    <li><p>Write a comment: <input type="text" th:field="*{content}" />
+                    <input type="hidden" name="postid" th:value="${post.id}" />
+                    <input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p></li>
+                </form>
+            </ul>
+            <hr>
+        </div>
     </ul>
 
     <h1> Servlet form</h1>

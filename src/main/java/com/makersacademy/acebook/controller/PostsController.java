@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -28,6 +30,8 @@ public class PostsController {
     LikeRepository likeRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     private User getUser(Principal principal) {
         String username = principal.getName();
@@ -38,17 +42,14 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model, Principal principal) {
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-        Iterable<Like> userLikes = likeRepository.findAllByUserid(getUser(principal).getId());
-        ArrayList<Long> userLikesPostids = new ArrayList<Long>();
-        for (Like like : userLikes) {
-            Long postid = like.getPostid();
-            userLikesPostids.add(postid);
-        }
+        Iterable<Comment> comments = commentRepository.findAllByOrderByTimestampAsc();
+        User user = getUser(principal);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("userLikes", userLikes);
-        model.addAttribute("userLikesPostids", userLikesPostids);
+        model.addAttribute("user", user);
         model.addAttribute("like", new Like());
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
         return "posts/index";
     }
 
@@ -57,6 +58,7 @@ public class PostsController {
         post.setUser(getUser(principal));
         post.generateTimestamp();
         post.setLikes(Long.valueOf(0));
+        post.setCommentcount(Long.valueOf(0));
         postRepository.save(post);
         return new RedirectView("/posts");
     }

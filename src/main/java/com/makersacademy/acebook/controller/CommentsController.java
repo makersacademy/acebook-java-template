@@ -2,10 +2,10 @@ package com.makersacademy.acebook.controller;
 
 import java.security.Principal;
 
-import com.makersacademy.acebook.model.Like;
-import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.LikeRepository;
+import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-public class LikesController {
+public class CommentsController {
 
   @Autowired
-  LikeRepository likeRepository;
+  CommentRepository commentRepository;
   @Autowired
   PostRepository postRepository;
   @Autowired
@@ -30,29 +30,20 @@ public class LikesController {
     return user;
   }
 
-  @PostMapping("/likes")
-  public RedirectView likePost(@ModelAttribute Like like, Principal principal) {
-    like.setUser(getUser(principal));
-    likeRepository.save(like);
+  @PostMapping("/comments")
+  public RedirectView likePost(@ModelAttribute Comment comment, Principal principal) {
+    comment.setUser(getUser(principal));
+    comment.generateTimestamp();
+    if (comment.getContent() != "") {
+      commentRepository.save(comment);
+    }
     Iterable<Post> posts = postRepository.findAll();
     for (Post post : posts) {
-      Long likes = likeRepository.countByPostid(post.getId());
-      post.setLikes(likes);
+      Long commentcount = commentRepository.countByPostid(post.getId());
+      post.setCommentcount(commentcount);
       postRepository.save(post);
     }
     return new RedirectView("/posts");
   }
 
-  @DeleteMapping("/likes/{id}")
-  public RedirectView unlikePost(@PathVariable("id") Long id) {
-    likeRepository.deleteById(id);
-    Iterable<Post> posts = postRepository.findAll();
-    for (Post post : posts) {
-      Long likes = likeRepository.countByPostid(post.getId());
-      post.setLikes(likes);
-      postRepository.save(post);
-    }
-    return new RedirectView("/posts");
-  }
- 
 }

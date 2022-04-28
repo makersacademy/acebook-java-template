@@ -1,5 +1,7 @@
 package com.makersacademy.acebook.model;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +33,9 @@ public class Post {
     
     @Column(name="likes")
     private Long likes;
+
+    @Column(name="commentcount")
+    private Long commentcount;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="userid")
@@ -64,5 +69,15 @@ public class Post {
 
     public Long getLikes() { return this.likes; }
     public void setLikes(Long likes) { this.likes = likes; }
+
+    public Long getCommentcount() { return this.commentcount; }
+    public void setCommentcount(Long commentcount) { this.commentcount = commentcount; }
+
+    public String formatTimestamp() {
+        LocalDateTime localDateTime = this.timestamp.toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMM y, HH:mm:ss");
+        String formatted = localDateTime.format(formatter);
+        return formatted;
+    }
 
 }
