@@ -5,23 +5,34 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=PT+Sans&display=swap" rel="stylesheet">
     </head>
     
     <header>
+        <div class="header">
+            <img class="logo" src="logo.jpg">
+            <h1 class="heading">ACEBOOK</h1>
+        </div>
+
         <div class="navbar">
             <a href="/login">Login</a>
-            <a href="/users/new" class="active">Sign up</a>
+            <a href="/users/new">Sign up</a>
             <a href="/posts" class="active">Posts</a>
-            <a href="/logout" class="active">Logout</a>
+            <a href="/logout">Logout</a>
         </div>
     </header>
 
     <body>
 
-    <h1>Posts</h1>
+    <h1 class="title">Posts</h1>
 
 
-    <div sec:authorize="isAuthenticated()">
+    <div class="signin" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
     </div>
 
@@ -84,10 +95,10 @@
         </div>
     </ul>
 
-    <h1> Servlet form</h1>
+    <!-- <h1> Servlet form</h1>
     <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
         <input type="file" name="file" />
         <input type="submit" value="Upload" />
-      </form>
+      </form> -->
     </body>
 </html>

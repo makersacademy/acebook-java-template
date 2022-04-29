@@ -6,5 +6,85 @@
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: left;
-    margin-bottom: 0.5rem;;
+    margin-bottom: 0.5rem;
 }
+
+.navbar {
+    overflow: hidden;
+    background-color: rgb(86, 156, 116);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 100px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px 10px 20px 10px;
+  }
+
+  .navbar a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+
+  }
+
+  .navbar a:hover {
+    animation-name: link-color;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes link-color {
+    100% {
+      color: orange;
+      background-color: rgba(34, 32, 32, 0.518);
+      border-radius: 10px;
+    }
+  }
+  
+  .navbar a.active {
+    background-color: black;
+    color: orange;
+  }
+
+  form {
+    margin: 35px;
+    background-color: rgb(206, 225, 225);
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Akshar', sans-serif; 
+  }
+
+  .signin {
+      background-color: rgb(215, 215, 215);
+      margin: 10px;
+      padding: 10px 5px;
+      border-radius: 5px;
+      border-color: black;
+      border-width: 2px;
+  }
+
+  .logo {
+    float: left;
+    width: auto;
+    height: 150px;
+    background: #555;
+  }
+  
+  .heading {
+    position: relative;
+    top: 18px;
+    left: 10px;
+  }
+
+  .header h1, .navbar a, h1 {
+    font-family: 'PT Sans', sans-serif;
+  }
+
+  .title {
+      text-align: center;
+      font-size: 40px;
+  }
