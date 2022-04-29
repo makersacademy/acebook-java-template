@@ -5,9 +5,20 @@
         <meta charset="UTF-8">
         <title>Signup</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=PT+Sans&display=swap" rel="stylesheet">
     </head>
 
     <header>
+        <div class="header">
+            <img class="logo" src="/logo.jpg">
+            <h1 class="heading">ACEBOOK</h1>
+        </div>
+
         <div class="navbar">
             <a href="/login">Login</a>
             <a href="/users/new" class="active">Sign up</a>
@@ -17,10 +28,12 @@
     </header>
     
     <body>
+        <h1 class="title">Register a new account</h1>
+
         <form action="#" th:action="@{/users}" th:object="${user}" method="post">
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+            <p><input type="submit" value="Register" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
     </body>
 </html>

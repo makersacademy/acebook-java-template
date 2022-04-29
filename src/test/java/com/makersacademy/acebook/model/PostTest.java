@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class PostTest {
 
-	private Post post = new Post("hello");
+	private Post post = new Post("hello", "cat_image.jpg");
 
 	@Test
 	public void postHasContent() {
@@ -31,4 +31,8 @@ public class PostTest {
 	// 	assertEquals("retrieves user id", Integer.valueOf(1), post.getUserId());
 	// }
 
+	@Test
+	public void postHasImage() {
+		assertThat(post.getImagepath(), containsString("cat_image.jpg"));
+	}
 }

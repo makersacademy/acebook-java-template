@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=PT+Sans&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+  <div class="header">
+    <img class="logo" src="logo.jpg">
+    <h1 class="heading">ACEBOOK</h1>
+  </div>
+
+  <div class="navbar">
+    <a href="/login" class="active">Login</a>
+    <a href="/users/new">Sign up</a>
+    <a href="/posts" >Posts</a>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
+
+<h1 class="title">Welcome</h1>
+
+<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
+     
+  <div th:if="${param.error}">
+      <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+  </div>
+   
+  <div th:if="${param.logout}">
+      <p class="text-warning">You have been logged out.</p>
+  </div>
+   
+  <div class="border border-secondary p-3 rounded">
+      <p>Welome to Acebook. To view and create posts, please register for an account or login.</p>
+      <p>Username:
+          <input type="username" name="username" class="form-control" placeholder="Username" required autofocus/>
+      </p>
+      <p>Password:
+          <input type="password" name="password" class="form-control" placeholder="Password" required />
+      </p>
+      <p>
+          <input type="checkbox" name="remember-me" />&nbsp;Remember Me
+      </p>
+      <p>
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </p>
+  </div>
+</form>      
+</html>

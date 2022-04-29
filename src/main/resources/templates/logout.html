@@ -1,0 +1,38 @@
+<html>
+  <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=PT+Sans&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+  <div class="header">
+    <img class="logo" src="logo.jpg">
+    <h1 class="heading">ACEBOOK</h1>
+  </div>
+
+  <div class="navbar">
+    <a href="/login">Login</a>
+    <a href="/users/new">Sign up</a>
+    <a href="/posts" >Posts</a>
+    <a href="/logout" class="active">Logout</a>
+  </div>
+</header>
+
+<h1 class="title">Logout</h1>
+
+  <form class="logout" th:action="@{/doLogout}" method="post">
+    <p>Are you sure you want to logout?</p>
+    <input type="submit" value="Logout" />
+  </form>
+
+</html>
