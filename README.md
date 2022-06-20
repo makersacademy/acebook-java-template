@@ -1,7 +1,7 @@
 # Acebook
 
 This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
-//
+
 The application uses:
   - `maven` to build the project
   - `thymeleaf` for templating
@@ -91,3 +91,5 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 
 * [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
+
+This is a test 
