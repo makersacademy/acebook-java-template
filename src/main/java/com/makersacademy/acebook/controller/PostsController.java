@@ -29,4 +29,10 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    @PostMapping("/posts/{post_id")
+    public RedirectView delete(@PathVariable("postId") String postId) {
+        System.out.println("Request recived");
+        return new RedirectView("/posts");
+    }
 }
