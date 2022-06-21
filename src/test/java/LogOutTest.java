@@ -48,7 +48,7 @@ public class LogOutTest {
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.className("btn")).click();
         //signed in as username
-        driver.findElement(By.id("logout")).click();
+        driver.findElement(By.className("log-out-btn")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Confirm Log Out?", title);
         driver.findElement(By.className("btn")).click();
