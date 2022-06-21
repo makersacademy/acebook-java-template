@@ -15,7 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SignUpTest {
+
+public class LogOutTest {
 
     WebDriver driver;
     Faker faker;
@@ -24,12 +25,12 @@ public class SignUpTest {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        driver = new ChromeDriver();
-        faker = new Faker();
-        username = faker.name().firstName();
-        password= "mypassword";
-    }
+      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+      driver = new ChromeDriver();
+      faker = new Faker();
+      username = faker.name().firstName();
+      password= "mypassword";
+    } 
 
     @After
     public void tearDown() {
@@ -37,27 +38,22 @@ public class SignUpTest {
     }
 
     @Test
-    public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
-        String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
-    }
-
-    @Test
-    public void successfulSignUpAndSignIn() {
-        driver.get("http://localhost:8080/users/new");
+    public void logsOutAndRedirectsToSignIn(){
+      driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("submit")).click();
-        //redirects to sign in
+        //Sign up as username
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.className("btn")).click();
-        WebElement userText = driver.findElement(By.id("user-signed-in"));
-        Assert.assertEquals("Signed in as " + username, userText.getText());
-
+        //signed in as username
+        driver.findElement(By.id("logout")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Confirm Log Out?", title);
+        driver.findElement(By.className("btn")).click();
+        //Logged out of user
+        WebElement signInText= driver.findElement(By.className("form-signin-heading"));
+        Assert.assertEquals("Please sign in", signInText.getText());
     }
 }

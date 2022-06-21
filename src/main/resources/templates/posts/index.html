@@ -10,8 +10,14 @@
 
     <h1>Posts</h1>
 
-    <div sec:authorize="isAuthenticated()">
+    <div id="user-signed-in" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
+    </div>
+
+    <div>
+        <a href="/logout">  
+            <button class="log-out-btn" value="Log Out">Log Out</button>
+        </a>
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
