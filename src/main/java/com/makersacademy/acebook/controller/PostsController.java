@@ -8,25 +8,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-
 @Controller
 public class PostsController {
 
     @Autowired
     PostRepository repository;
+    String keyword = "";
 
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
+    if(keyword.isEmpty()) posts = repository.findAll();
+    else posts = repository.findByContentContaining(keyword);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
+
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam("search") String search) {
+        System.out.println(keyword);
+        keyword = search;
         repository.save(post);
         return new RedirectView("/posts");
     }
+
 }
