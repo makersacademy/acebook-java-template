@@ -14,6 +14,12 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
+    <div>
+        <a href="/logout">  
+            <button class="log-out-btn" value="Log Out">Log Out</button>
+        </a>
+    </div>
+
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
