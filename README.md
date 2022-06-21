@@ -25,10 +25,26 @@ Below, you'll find specific learning objectives for each tool.
 
 ## Running the tests
 
-- Make sure chromedriver is installed using `brew install chromedriver`
-- You might also need geckodriver
+- Install chromedriver using `brew install chromedriver`
 - Start the server in a terminal session `mvn spring-boot:run`
-- Start a new terminal session, navigate to the Acebook directory and then do `mvn test` to run both feature tests and unit tests
+- Open a new terminal session and navigate to the Acebook directory
+- Run your tests in the second terminal session with `mvn test`
+
+> All the tests should pass. If one or more fail, read the next section.
+
+## Common Setup Issues
+
+### The application is not running
+
+For the feature tests to execute properly, you'll need to have the server running in one terminal session and then use a second terminal session to run the tests.
+
+### Chromedriver is in the wrong place
+
+Selenium uses Chromedriver to interact with the Chrome browser. If you're on a Mac, Chromedriver needs to be in `/usr/local/bin`. You can find out where it is like this `which chromedriver`. If it's in the wrong place, move it using `mv`.
+
+### Chromedriver can't be opened
+
+Your Mac might refuse to open Chromedriver because it's from an unidentified developer. If you see a popup at that point, dismiss it by selecting `Cancel`, then go to `System Preferences`, `Security and Privacy`, `General`. You should see a message telling you that Chromedriver was blocked and, if so, there will be an `Open Anyway` button. Click that and then re-try your tests.
 
 ## Existing features
 
