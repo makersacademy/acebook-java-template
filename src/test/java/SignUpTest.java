@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +19,16 @@ public class SignUpTest {
 
     WebDriver driver;
     Faker faker;
+    String username;
+    String password;
 
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
+        username = faker.name().firstName();
+        password= "mypassword";
     }
 
     @After
@@ -39,5 +44,20 @@ public class SignUpTest {
         driver.findElement(By.id("submit")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
+    }
+
+    @Test
+    public void successfulSignUpAndSignIn() {
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.id("submit")).click();
+        //redirects to sign in
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.className("btn")).click();
+        WebElement userText = driver.findElement(By.id("user-signed-in"));
+        Assert.assertEquals("Signed in as " + username, userText.getText());
+
     }
 }

@@ -10,7 +10,7 @@
 
     <h1>Posts</h1>
 
-    <div sec:authorize="isAuthenticated()">
+    <div id="user-signed-in" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
     </div>
 
