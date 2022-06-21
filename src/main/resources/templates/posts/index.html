@@ -9,6 +9,10 @@
     <body>
 
     <h1>Posts</h1>
+    
+    <form action="#" th:action="@{/login}" method="get">
+        <p><input type="submit" value="Logout" id="submit"/> </p>
+    </form>
 
     <div sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
