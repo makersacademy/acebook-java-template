@@ -1,3 +1,4 @@
+
 package com.makersacademy.acebook.model;
 
 import javax.persistence.Entity;
