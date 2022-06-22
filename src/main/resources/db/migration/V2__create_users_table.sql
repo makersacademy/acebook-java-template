@@ -2,14 +2,18 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id bigserial PRIMARY KEY,
-  username varchar(50) NOT NULL UNIQUE,
-  password varchar(60) NOT NULL
+  name varchar(50) NOT NULL,
+  password varchar(60) NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  about TEXT NULL, 
+  imageUrl TEXT NULL,
+  passwordDigest TEXT NOT NULL,
+  time TIMESTAMP NOT NULL 
 );
 CREATE TABLE authorities (
   id bigserial PRIMARY KEY,
-  username varchar(50) NOT NULL,
-  authority varchar(50) NOT NULL,
-  constraint fk_authorities_users foreign key(username) references users(username)
+  email varchar(50) REFERENCES users(email),
+  authority varchar(50) NOT NULL
 );
 
-create unique index ix_auth_username on authorities(username, authority);
+create unique index ix_auth_email on authorities(email, authority);
