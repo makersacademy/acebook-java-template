@@ -8,7 +8,6 @@ import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.sql.Date;
 
