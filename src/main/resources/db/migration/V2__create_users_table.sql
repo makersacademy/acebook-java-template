@@ -3,10 +3,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id bigserial PRIMARY KEY,
   username varchar(50) NOT NULL UNIQUE,
-  password varchar(50) NOT NULL,
-  enabled boolean NOT NULL
+  password varchar(50) NOT NULL
 );
-
 CREATE TABLE authorities (
   id bigserial PRIMARY KEY,
   username varchar(50) NOT NULL,

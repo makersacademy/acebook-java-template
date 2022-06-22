@@ -16,14 +16,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+    private String message;
 
     public Post() {}
 
-    public Post(String content) {
-        this.content = content;
+    public Post(String message) {
+        this.message = message;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
+    public String getContent() { return this.message; }
+    public void setContent(String message) { this.message = message; }
 
 }
