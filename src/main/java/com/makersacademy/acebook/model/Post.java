@@ -3,9 +3,14 @@ package com.makersacademy.acebook.model;
 import javax.persistence.*;
 
 import lombok.Data;
+import net.bytebuddy.asm.Advice.Local;
+import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
+
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -18,15 +23,15 @@ public class Post {
     private String content;
 
     @CreatedDate
-    private Instant createdDate;
+    private Date createdDate;
 
     public Post() {
         // this constructor is used when post models are created based on data from the posts table
         // but somehow the dates are not all set to "now"
-        this.createdDate = Instant.now();
+        this.createdDate = java.sql.Date.valueOf(LocalDate.now());
     }
 
     public String getContent()             { return this.content; }
-    public Instant getCreatedDate()        { return this.createdDate; }
+    public Date getCreatedDate()        { return this.createdDate; }
     public void setContent(String content) { this.content = content; }
 }
