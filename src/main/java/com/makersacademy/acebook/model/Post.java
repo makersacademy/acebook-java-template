@@ -1,3 +1,4 @@
+
 package com.makersacademy.acebook.model;
 
 import javax.persistence.Entity;
@@ -16,14 +17,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String message;
+    private String content;
 
     public Post() {}
 
-    public Post(String message) {
-        this.message = message;
+    public Post(String content) {
+        this.content = content;
     }
-    public String getContent() { return this.message; }
-    public void setContent(String message) { this.message = message; }
+    public String getContent() { return this.content; }
+    public void setContent(String content) { this.content = content; }
 
 }
