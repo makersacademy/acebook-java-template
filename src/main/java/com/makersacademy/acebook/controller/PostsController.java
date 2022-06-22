@@ -23,10 +23,12 @@ public class PostsController {
         model.addAttribute("post", new Post());
         return "posts/index";
     }
-
+    //POST '/posts'
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    
 }
