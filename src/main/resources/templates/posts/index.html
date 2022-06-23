@@ -21,12 +21,16 @@
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
         <p>Search for Post: <input type="text" name="search" th:value="${search}"/></p>
+        <p>Creation Date: <input type="date" name="date" id="date" th:value="${date}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li>
+            <div th:text="${post.content}" ></div>
+            <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
+        </li>
     </ul>
 
     </body>
