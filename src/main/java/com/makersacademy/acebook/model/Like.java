@@ -20,6 +20,8 @@ public class Like {
 
     private Long post_id;
 
+    public Like() {}
+
     public Like(String username, Long post_id) {
         this.username = username;
         this.post_id = post_id;
