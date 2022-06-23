@@ -8,3 +8,81 @@
     text-align: left;
     margin-bottom: 0.5rem;;
 }
+
+body {
+    background-image: linear-gradient(to left, #e8e6ec, #726f75);
+  }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(145, 137, 181);
+  }
+
+  #nav-bar {
+      color: #c51616;
+  }
+
+  #nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #nav-bar a {
+      color: rgb(20, 27, 231);
+      text-align: center;
+  }
+  
+  #post-list {
+    color: #000000;
+    display: block;
+  }
+  
+  li {
+    border-right: 1px solid #bbb;
+    float: left;
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  p {
+    background-image: linear-gradient(to left, #4815d6, #771ad3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 60px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #0f1eaa, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  h5 {
+    color: #04AA6D;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #9696c9;
+  }
+
+  .active {
+    background-color: #04AA6D;
+  }

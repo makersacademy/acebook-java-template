@@ -7,16 +7,9 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-
-    <h1>Posts</h1>
     
-    <form action="#" th:action="@{/login}" method="get">
-        <p><input type="submit" value="Logout" id="submit"/> </p>
-    </form>
-
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+    <div th:replace="navbar/navbar :: nav"></div>
+    <u><h1>Posts</h1></u>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
@@ -26,7 +19,8 @@
     </form>
 
 
-    <ul th:each="post: ${posts}">
+
+    <ul id="post-list" th:each="post: ${posts}">
         <li>
             <div th:text="${post.content}" ></div>
             Posted By: <div th:text="${post.username}" ></div>
