@@ -22,6 +22,10 @@ public class SignUpTest {
     String username;
     String password;
 
+
+    /* Mateusz chromedriver patch:
+     * /Program Files/chromedriver/chromedriver.exe
+     */
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");

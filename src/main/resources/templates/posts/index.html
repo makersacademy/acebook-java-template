@@ -7,17 +7,34 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
+<ul class="nav-bar">
+
+    <li><a href="/posts">
+        <button class="nav-bar-button">Home</button>
+    </a></li>
+
+    <li><a href="/profile">
+        <button id="user-btn" class="nav-bar-button">USER OR SOMETHING IDK</button>
+    </a></li>
+
+    <li><a href="">
+        <button class="nav-bar-button">TEST BUTTON</button>
+    </a></li>
+
+
+    <li style="float:right"><a id="logout" href="/logout">  
+        <button class="log-out-btn" value="Log Out">Log Out</button>
+    </a></li>
+
+</ul>
+
+
+
 
     <h1>Posts</h1>
 
     <div id="user-signed-in" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
-    </div>
-
-    <div>
-        <a id="logout" href="/logout">  
-            <button class="log-out-btn" value="Log Out">Log Out</button>
-        </a>
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">

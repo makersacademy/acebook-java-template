@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Acebook</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+      <ul class="nav-bar">
+
+        <li><a href="/posts">
+            <button class="nav-bar-button">Home</button>
+        </a></li>
+    
+        <li><a href="">
+            <button id="user-btn" class="nav-bar-button">USER OR SOMETHING IDK</button>
+        </a></li>
+    
+        <li><a href="">
+            <button class="nav-bar-button">TEST BUTTON</button>
+        </a></li>
+    
+    
+        <li style="float:right"><a id="logout" href="/logout">  
+            <button class="log-out-btn" value="Log Out">Log Out</button>
+        </a></li>
+    
+    </ul>
+    <div id="user-profile" sec:authorize="isAuthenticated()">
+      <span sec:authentication="name"></span> profile
+  </div>
