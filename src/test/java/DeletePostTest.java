@@ -1,5 +1,6 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class DeletePostTest {
     Faker faker;
     String username;
     String password;
-    String text;
+    String testText;
     String id;
 
     @Before
@@ -32,8 +33,7 @@ public class DeletePostTest {
       faker = new Faker();
       username = faker.name().firstName();
       password= "mypassword";
-      text = "Maven is working";
-      id = "1";
+      testText = "This text was made by DeletePostTest";
     } 
 
     @After
@@ -42,7 +42,7 @@ public class DeletePostTest {
     }
 
     @Test
-    public void updatePosts(){
+    public void deletePostsById(){
       driver.get("http://localhost:8080/users/new");
       driver.findElement(By.id("username")).sendKeys(username);
       driver.findElement(By.id("password")).sendKeys(password);
@@ -52,16 +52,29 @@ public class DeletePostTest {
       driver.findElement(By.id("password")).sendKeys(password);
       driver.findElement(By.className("btn")).click();
       //signed in as username
-      WebElement post = driver.findElement(By.id(id));
-      Assert.assertEquals(text, post.getText());
-      // driver.findElement(By.id("edit")).click();
-      //List<WebElement> editLinks = driver.findElements(By.className("edit-link"));
+
+      driver.findElement(By.id("content-input")).sendKeys(testText);
+      driver.findElement(By.id("submit")).click();
+      //inputs testText into the form and sumbits the post
+      List<WebElement> postsList = driver.findElements(By.className("post-class")); 
+
+      Integer lastIndex = postsList.size() - 1;
+      WebElement lastPost = postsList.get(lastIndex);
+      Assert.assertEquals(testText, lastPost.getText());
+       //checks that the post is on the page
+
+      driver.findElement(By.id("delete-btn")).click();
+      postsList = driver.findElements(By.className("post-class"));
+      Assert.assertEquals(Integer.valueOf(postsList.size()), Integer.valueOf(lastIndex));
+      //Deletes the post and checks that there is one less post on the page
+     
+         
       // create another post (to create a more realistic scenario)
-      // find all edit links use latest to edit
-      // click edit go to new page with form for editing
-      // form should be pre-populated with current value for content
-      // change the content
-      // submit the form
-      // expect the page to have the edited content
+      // create new post
+      // get list of ids of posts
+      // get last post id (since latest post will always be last)
+      // click delete button that has that id
+      // refresh page
+      // check that no post has that content + id
     }
 }
