@@ -1,0 +1,12 @@
+
+  <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+      
+    </div>
+    <ul id="nav-bar" class="nav navbar-nav">
+      <!-- <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/users/new}">Signup!</a></li> -->
+      <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}" method="post">Logout</a></li>
+      <li sec:authorize="isAnonymous()"><a class="nav-link" th:href=@{/login} method="get">Login</a></li>
+      <a sec:authorize="isAuthenticated()"></a> Signed in as: <a sec:authentication="name"></a></li>
+    </ul>
+  </nav>
