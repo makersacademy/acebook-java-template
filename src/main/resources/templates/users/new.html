@@ -11,5 +11,9 @@
             <p>Password: <input type="password" th:field="*{password}" /></p>
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
+
+        <form action="#" th:action="@{/login}" method="get">
+            <p><input type="submit" value="Already have an account? Login here!" id="submit"/> </p>
+        </form>
     </body>
 </html>

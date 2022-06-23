@@ -9,6 +9,10 @@
     <body>
 
     <h1>Posts</h1>
+    
+    <form action="#" th:action="@{/login}" method="get">
+        <p><input type="submit" value="Logout" id="submit"/> </p>
+    </form>
 
     <div sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
@@ -16,9 +20,11 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p>Search for Post: <input type="text" name="search" th:value="${search}"/></p>
         <p>Creation Date: <input type="date" name="date" id="date" th:value="${date}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+
 
     <ul th:each="post: ${posts}">
         <li>
