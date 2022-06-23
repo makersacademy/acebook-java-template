@@ -38,4 +38,6 @@ public class UsersController {
     public RedirectView login(@ModelAttribute User user) {
         return new RedirectView("/login");
     }
+
+
 }

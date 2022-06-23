@@ -27,7 +27,11 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
-        <button type = "button"> Like </button>
+        <form action="#" th:action="@{/likes}" method="post">
+            <input type="hidden" th:value="${post.id}">
+            <input type="hidden" th:value="${#authentication.name}">
+            <input type="submit" value="Like" />
+        </form>
     </ul>
 
     </body>

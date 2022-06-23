@@ -16,16 +16,16 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long user_id;
+    private String username;
 
     private Long post_id;
 
-    public Like(Long user_id, Long post_id) {
-        this.user_id = user_id;
+    public Like(String username, Long post_id) {
+        this.username = username;
         this.post_id = post_id;
     }
 
-    public Long getUserId() { return this.user_id; }
+    public String getUsername() { return this.username; }
 
     public Long getPostId() { return this.post_id; }
 
