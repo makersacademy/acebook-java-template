@@ -18,7 +18,6 @@ public class LikesController {
 
     @PostMapping("/likes")
     public RedirectView create(@ModelAttribute Like like) {
-        System.out.println(like);
         repository.save(like);
         return new RedirectView("/posts");
     }
