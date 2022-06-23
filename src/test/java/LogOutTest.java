@@ -23,9 +23,13 @@ public class LogOutTest {
     String username;
     String password;
 
+
+    /* Mateusz chromedriver patch:
+     * /Program Files/chromedriver/chromedriver.exe
+     */
     @Before
     public void setup() {
-      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+      System.setProperty("webdriver.chrome.driver", "/Program Files/chromedriver/chromedriver.exe");
       driver = new ChromeDriver();
       faker = new Faker();
       username = faker.name().firstName();

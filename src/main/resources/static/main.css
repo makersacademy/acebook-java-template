@@ -9,8 +9,74 @@
     margin-bottom: 0.5rem;
 }
 
-.log-out-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+
+li {
+    display: inline;
 }
+
+.nav-bar {
+    background-color: #69c96c;
+    list-style-type: none;
+    margin: 0;
+    padding: 0.8rem;
+  }
+
+  a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
+  .nav-bar-button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .nav-bar-button:hover {background-color: #3e8e41}
+  
+  .nav-bar-button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  .log-out-btn {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  .log-out-btn:hover {background-color: #3e8e41}
+  
+  .log-out-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
