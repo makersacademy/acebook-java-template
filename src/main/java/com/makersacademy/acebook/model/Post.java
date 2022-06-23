@@ -20,6 +20,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String username;
 
     @CreatedDate
     private Date createdDate;
@@ -33,4 +34,9 @@ public class Post {
     public String getContent()             { return this.content; }
     public Date getCreatedDate()        { return this.createdDate; }
     public void setContent(String content) { this.content = content; }
+    public String getUsername(){return this.username;}
+
+    public void setUsername(String name) {
+        this.username = name;
+    }
 }
