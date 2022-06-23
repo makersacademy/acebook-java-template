@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-    <h1>Posts</h1>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/main.css" />
+</head>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+<body>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+  <h1>Posts</h1>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-    </ul>
+  <div sec:authorize="isAuthenticated()">
+    Signed in as <span sec:authentication="name"></span>
+  </div>
 
-    </body>
+  <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <p>Content: <input type="text" th:field="*{message}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+
+  <ul th:each="post: ${posts}">
+    <li th:text="${post.message}" />
+  </ul>
+
+</body>
+
 </html>

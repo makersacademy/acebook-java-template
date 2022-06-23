@@ -8,13 +8,13 @@ CREATE TABLE messages (
 );
 
 CREATE TABLE followers (
-  userId INTEGER REFERENCES users (id) NOT NULL,
-  followerId INTEGER REFERENCES users (id) NOT NULL,
+  user_id INTEGER REFERENCES users (id) NOT NULL,
+  follower_id INTEGER REFERENCES users (id) NOT NULL,
   time TIMESTAMP NOT NULL
 );
 
 CREATE TABLE followings (
-  userId INTEGER REFERENCES users (id) NOT NULL,
-  followingId INTEGER REFERENCES users (id) NOT NULL,
+  user_id INTEGER REFERENCES users (id) NOT NULL,
+  following_id INTEGER REFERENCES users (id) NOT NULL,
   time TIMESTAMP NOT NULL
 );
