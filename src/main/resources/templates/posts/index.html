@@ -29,7 +29,8 @@
     <ul th:each="post: ${posts}">
         <li>
             <div th:text="${post.content}" ></div>
-            <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
+            Posted By: <div th:text="${post.username}" ></div>
+            at: <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
         </li>
     </ul>
 
