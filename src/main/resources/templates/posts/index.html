@@ -21,12 +21,15 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:id="${post.id}" th:text="${post.content}"  />
+        <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
+        <li class="post-class" th:id="${post.id}" th:text="${post.content}"/>
+        <input type="submit" id="delete-btn" value="Delete" />
+        </form>
     </ul>
 
     </body>
