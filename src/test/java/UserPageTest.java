@@ -27,7 +27,7 @@ public class UserPageTest {
      */
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/Program Files/chromedriver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
         username = faker.name().firstName();
