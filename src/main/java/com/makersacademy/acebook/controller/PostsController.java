@@ -26,10 +26,11 @@ public class PostsController {
         Iterable<Post> posts;
         if(tmpDate == null && keyword.isEmpty()) posts = repository.findAll();
         else if(tmpDate == null && !keyword.isEmpty()) posts = repository.findByContentContaining(keyword);
-        else if (tmpDate != null && keyowrd.isEmpty()) posts = repository.findByCreatedDate(tmpDate);
+        else if (tmpDate != null && keyword.isEmpty()) posts = repository.findByCreatedDate(tmpDate);
         else posts = repository.findAll(); // new method necessary to filter based on content and date
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        tmpDate = null;
         return "posts/index";
 
     }
@@ -45,5 +46,6 @@ public class PostsController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return new RedirectView("/posts");
      }
 } 
