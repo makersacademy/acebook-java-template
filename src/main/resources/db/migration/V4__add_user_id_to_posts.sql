@@ -1,0 +1,2 @@
+ALTER TABLE posts
+ADD user_id BIGINT REFERENCES users (id) NOT NULL
