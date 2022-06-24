@@ -113,4 +113,8 @@ public class User {
     this.enabled = enabled;
   }
 
+  public Long getId() {
+    return id;
+  }
+
 }
