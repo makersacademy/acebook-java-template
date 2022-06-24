@@ -44,4 +44,16 @@ public class UsersController {
     model.addAttribute("users", userRepository.findAll());
     return "users/all";
   }
+
+  @GetMapping("users/settings")
+  public String settings(Model model){
+    return "/users/settings";
+  }
+
+  @GetMapping("/users/editDetails")
+  public String editDetails(Model model){
+    return "/users/editDetails";
+  }
+
+
 }

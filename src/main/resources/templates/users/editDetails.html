@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/main.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+    <h3> EDIT PERSONAL DETAILS</h3>
+    <p>My personal details</p>
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" >
+    <br>
+    <label for="about">About me:</label>
+    <input type="text"  id="about" th:field="*{about}">
+    <br>
+    <label for="email">Email:</label>
+    <input type="text"  id="email" th:field="*{email}">
+    <br>
+    <!-- Image uploading doesnt work yet -->
+    <img src="/images/pepe.jpeg" alignalt="profile_pic" class="profile-picture">
+    <input type="file" accept="image/*" >
+    <br>
+    <!-- Password authentication doesnt work yet -->
+    <label for="password">Password:</label>
+    <input type="password" id="password">
+    <br>
+    <label for="password-2">Re-enter password:</label>
+    <input type="password" id="password" th:field="*{password}">
+    <br>
+    <input type="submit" value="Save"> <input type="reset" value="Cancel">
+  </form>
+</body>
+</html>

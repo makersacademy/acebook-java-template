@@ -8,6 +8,12 @@
 </head>
 
 <body>
+<form action="/login" method="get">
+    <input type="submit" value="Login">
+</form>
+<button onclick="window.location.href='/login'">Login v2</button>
+<a href="login" th:href="@{/login}">Login v3</a>
+
   <form action="#" th:action="@{/users}" th:object="${user}" method="post">
     <p>Email: <input type="text" th:field="*{email}" /></p>
     <p>Name: <input type="text" th:field="*{name}" /></p>
