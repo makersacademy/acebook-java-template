@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/main.css" rel="stylesheet">
+  <title>User settings</title>
+</head>
+<body>
+  <div id="header">
+    <span>
+      <button onclick="window.location.href='/users/feed'">Back to feed</button>
+      <button onclick="window.location.href='/users/myProfile'">Back to profile</button>
+      <h3> SETTINGS </h3>
+      <!-- Two buttons have been taken out from here because it doesnt make sense: settings and follow friend -->
+    </span>
+  </div>
+  <div id="user-details">
+    <div class="float-left">
+      <img src="/images/pepe.jpeg" alignalt="profile_pic" class="profile-picture">
+    </div>
+    <div id="float-right"></div>
+      <p> My personal details</p>
+      <p th:field="*{name}"></p>
+      <p th:field="*{about}"></p>
+      <p th:field="*{email}"></p>
+    </div>
+  </div>
+    <button onclick="window.location.href='/users/editDetails'">Edit my details</button>
+    <form name="logoutForm" th:action="@{/logout}" method="post">
+      <input type="submit" value="Logout">
+    </form>
+</body>
+</html>
