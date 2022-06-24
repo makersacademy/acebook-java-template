@@ -9,7 +9,7 @@
 
 <body>
 
-  <h1>Posts</h1>
+  <h1>Feed</h1>
 
   <div sec:authorize="isAuthenticated()">
     Signed in as <span sec:authentication="name"></span>
@@ -20,9 +20,13 @@
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
   </form>
 
-  <ul th:each="post: ${posts}">
-    <li th:text="${post.message}" />
-  </ul>
+  <div class=posts-main>
+    <ul class=main-list th:each="post: ${posts}">
+        <div class=post-main>
+            <p th:text="${post.message}"> </p>
+        </div>
+    </ul>
+  </div>
 
 </body>
 

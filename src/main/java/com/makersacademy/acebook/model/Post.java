@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+
 import javax.persistence.GenerationType;
 
 import lombok.Data;
@@ -16,11 +18,13 @@ import lombok.Data;
 @Table(name = "POSTS")
 public class Post {
 
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String message;
   private LocalDateTime time;
+  private Long userId;
 
   public Post() {
     this.time = LocalDateTime.now();
@@ -38,5 +42,15 @@ public class Post {
   public void setMessage(String message) {
     this.message = message;
   }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+  
 
 }
