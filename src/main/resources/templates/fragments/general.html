@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <header th:fragment="header">
+    <a th:href="@{/}">
+      <img class="logo" src="/images/logo.jpg" alt="acebook logo">
+    </a>
+    <nav class="logged-in-menu">
+      <a th:href="@{/about}">
+        <img class="nav-icon" src="/images/add_friend.png" alt="add friend">
+      </a>
+      <a th:href="@{/profile}">
+        <img class="nav-icon" src="/images/account.png" alt="go to profile">
+      </a>
+      <a th:href="@{/settings}">
+        <img class="nav-icon" src="/images/settings.png" alt="go to settings">
+      </a>
+    </nav>
+  </header>
+
+  <footer th:fragment="footer">
+    <p>&copy; 2022 VEDoT</p>
+  </footer>
+</body>
+
+</html>
