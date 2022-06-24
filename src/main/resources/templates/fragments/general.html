@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <header>
+    <nav th:fragment="header">
+      <ul>
+        <li><a th:href="@{/}"><i class="fa fa-brands fa-github-alt"></i></a></li>
+        <li><button id="search_btn" class="tooltip" data-tooltip="Search"><i
+              class="fa-solid fa-magnifying-glass"></i></i></button></li>
+        <li id="space2"></li>
+        <li> <a class="tooltip active" data-tooltip="Home" href="#" id="home"> <i class="fas fa-home"></i> </a>
+        </li>
+        <li id="space1"></li>
+        <li> <button class="tooltip" data-tooltip="Add" id="btn_plus"><i class="fas fa-plus"></i></button> </li>
+        <li> <button class="tooltip" data-tooltip="Message" id="btn_msg"><i
+              class="fab fa-facebook-messenger"></i></button></li>
+        <li> <button class="tooltip" data-tooltip="Notification" id="btn_bell"> <i class="fas fa-bell"></i></button>
+        </li>
+        <li> <button class="tooltip" data-tooltip="Profile" id="btn_profile"><i class="fas fa-user-cog"></i></button>
+        </li>
+      </ul>
+      <!-- <a th:href="@{/}">
+        <img class="logo" src="/images/logo.jpg" alt="acebook logo">
+      </a>
+      <div class="logged-in-menu">
+        <a th:href="@{/about}">
+          <img class="nav-icon" src="/images/add_friend.png" alt="add friend">
+        </a>
+        <a th:href="@{/profile}">
+          <div sec:authorize="isAuthenticated()">
+            <img class="nav-icon" src="/images/account.png" alt="go to profile">
+            <span sec:authentication="name"></span>
+          </div>
+        </a>
+        <a th:href="@{/settings}">
+          <img class="nav-icon" src="/images/settings.png" alt="go to settings">
+        </a>
+      </div> -->
+    </nav>
+  </header>
+
+  <footer th:fragment="footer">
+    <p>&copy; 2022 VEDoT</p>
+  </footer>
+</body>
+
+</html>

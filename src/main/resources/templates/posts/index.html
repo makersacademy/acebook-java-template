@@ -2,32 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <title>Acebook</title>
-  <link rel="stylesheet" href="/main.css" />
 </head>
 
 <body>
-
-  <h1>Feed</h1>
-
-  <div sec:authorize="isAuthenticated()">
-    Signed in as <span sec:authentication="name"></span>
-  </div>
-
-  <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-    <p>Content: <input type="text" th:field="*{message}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-  </form>
-
-  <div class=posts-main>
-    <ul class=main-list th:each="post: ${posts}">
-        <div class=post-main>
-            <p th:text="${post.message}"> </p>
-        </div>
+  <div th:insert="fragments/general :: header"></div>
+  <div class="container">
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <p>Content: <input type="text" th:field="*{message}" /></p>
+      <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+    <ul class="post-list">
+      <li class="post" th:each="post: ${posts}">
+        <p th:text="${post.message}"></p>
+        <p th:text="${post.user.name}"></p>
+        <p th:text="${post.user.email}"></p>
+      </li>
     </ul>
   </div>
-
+  <div th:insert="fragments/general :: footer"></div>
 </body>
 
 </html>

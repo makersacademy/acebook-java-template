@@ -1,11 +1,13 @@
-
 package com.makersacademy.acebook.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import javax.persistence.GenerationType;
@@ -29,6 +31,9 @@ public class User {
   private String imageUrl;
   private LocalDateTime time;
   private Boolean enabled;
+
+  @OneToMany(mappedBy = "user")
+  private Set<Post> posts;
 
   public User() {
     this.time = LocalDateTime.now();
@@ -121,5 +126,4 @@ public class User {
     this.id = id;
   }
 
-  
 }
