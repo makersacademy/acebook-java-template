@@ -4,6 +4,9 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -40,7 +43,10 @@ public class UsersController {
   }
 
   @GetMapping("/users/all")
-  public String all(Model model) {
+  public String all(Model model, Principal principal) {
+    Long userId = userRepository.findByUsername(principal.getName()).get(0).getId();
+    model.addAttribute("userId", userId);
+    model.addAttribute("username", principal.getName());
     model.addAttribute("users", userRepository.findAll());
     return "users/all";
   }

@@ -1,0 +1,45 @@
+body {
+  padding: 3rem;
+  display: grid;
+  place-content: center;
+}
+
+header,
+nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  height: 5rem;
+  padding: 0 0.5rem;
+}
+
+header {
+  width: 100%;
+  align-content: stretch;
+  background: #ccc;
+}
+
+nav {
+  margin-left: auto;
+}
+
+.logo {
+  width: 9rem;
+}
+
+.nav-icon {
+  width: 1.5rem;
+}
+
+.posts-main {
+  border-collapse: collapse;
+}
+
+.post-main {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  ;
+}

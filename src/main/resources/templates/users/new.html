@@ -3,17 +3,20 @@
 <html lang="en">
 
 <head>
+  <link th:href="@{/styles.css}" rel="stylesheet" />
   <meta charset="UTF-8">
   <title>Signup</title>
 </head>
 
 <body>
+  <div th:insert="fragments/general :: header"></div>
   <form action="#" th:action="@{/users}" th:object="${user}" method="post">
     <p>Email: <input type="text" th:field="*{email}" /></p>
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Password: <input type="password" th:field="*{password}" /></p>
     <p><input type="submit" value="Submit" id="submit" /> <input type="reset" value="Reset" /></p>
   </form>
+  <div th:insert="fragments/general :: footer"></div>
 </body>
 
 </html>

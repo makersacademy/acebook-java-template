@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head lang="en">
+  <link th:href="@{/styles.css}" rel="stylesheet" />
   <meta charset="UTF-8" />
   <title>Acebook</title>
   <link rel="stylesheet" href="/main.css" />
 </head>
 
 <body>
-
+  <div th:insert="fragments/general :: header"></div>
   <h1>Posts</h1>
 
   <div sec:authorize="isAuthenticated()">
@@ -23,7 +24,7 @@
   <ul th:each="post: ${posts}">
     <li th:text="${post.message}" />
   </ul>
-
+  <div th:insert="fragments/general :: footer"></div>
 </body>
 
 </html>

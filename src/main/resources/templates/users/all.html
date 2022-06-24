@@ -4,10 +4,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Signup</title>
+  <link th:href="@{/styles.css}" rel="stylesheet" />
+  <title>Show All</title>
 </head>
 
 <body>
+  <h1 th:text="${username}">username</h1>
+  <h1 th:text="${userId}">userId</h1>
+  <div th:insert="fragments/general :: header"></div>
   <div th:switch="${users}">
     <h2 th:case="null">No users yet!</h2>
     <div th:case="*">
@@ -22,6 +26,7 @@
         </thead>
         <tbody>
           <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.password}"></td>
           </tr>
@@ -29,6 +34,7 @@
       </table>
     </div>
   </div>
+  <div th:insert="fragments/general :: footer"></div>
 </body>
 
 </html>
