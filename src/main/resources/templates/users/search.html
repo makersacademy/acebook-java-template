@@ -11,47 +11,28 @@
 <body>
   <div th:insert="fragments/general :: header"></div>
   <div class="container">
-    <div th:switch="${users}">
-      <h2 th:case="null">No users found!</h2>
+    <div th:switch="${users.size()}">
+      <h2 th:case="0">No users found!</h2>
       <div th:case="*">
         <ul class="search-list">
-          <li class="search" th:each="post: ${posts}">
+          <li class="search" th:each="user : ${users}">
             <div class="search-top-line">
-              <div class="post-info-cluster">
-                <a th:href="@{/users/{username}/profile(username=${post.user.username})}">
+              <div class="search-info-cluster">
+                <a th:href="@{/users/{username}/profile(username=${user.username})}">
                   <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
                 </a>
-                <div class="post-name-time">
-                  <a class="post-username" th:text="${post.user.name}" th:href="
-                    @{/users/{username}/profile(username=${post.user.username})}">
-                  </a>
-                  <p class="post-time" th:text="${#temporals.format(post.time, 'dd MMMM HH:mm')}"></p>
-                </div>
+                <a class="search-username" th:text="${user.name}" th:href="
+                    @{/users/{username}/profile(username=${user.username})}">
+                </a>
               </div>
-              <i class="fa-regular fa-thumbs-up"></i>
+              <button class="btn">Add Friend</button>
+              <button class="btn">Send Message</button>
             </div>
-            <p class="post-text" th:text="${post.message}"></p>
-          </li>
-        </ul>
-        <h2>Users</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>email</th>
-              <th>password</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="user : ${users}">
-              <td th:text="${user.id}"></td>
-              <td th:text="${user.email}"></td>
-              <td th:text="${user.name}"></td>
-            </tr>
-          </tbody>
-        </table>
       </div>
+      </li>
+      </ul>
     </div>
+  </div>
   </div>
   <div th:insert="fragments/general :: footer"></div>
 </body>

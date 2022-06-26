@@ -26,10 +26,12 @@ body {
   overflow: hidden;
 }
 
+.search-list,
 .post-list {
   max-width: 600px;
 }
 
+.search,
 .post-form,
 .post {
   align-self: center;
