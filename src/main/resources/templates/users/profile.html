@@ -11,10 +11,10 @@
 <body>
   <div th:insert="fragments/general :: header"></div>
   <div class="container">
-    <span sec:authentication="name">Bob</span>
-    <p th:text="${user.name}"></p>
-    <p th:text="${user.email}"></p>
-    <p th:text="${user.about}"></p>
+    <p>ID: <span th:text="${user.id}"></span></p>
+    <p>Name: <span th:text="${user.name}"></span></p>
+    <p>Email: <span th:text="${user.email}"></span></p>
+    <p>About: <span th:text="${user.about}"></span></p>
   </div>
   <a th:href="@{/logout}"></a>
   <div th:insert="fragments/general :: footer"></div>
