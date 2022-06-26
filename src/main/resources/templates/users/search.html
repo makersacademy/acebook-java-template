@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+</head>
+
+<body>
+  <div th:insert="fragments/general :: header"></div>
+  <div class="container">
+    <div th:switch="${users}">
+      <h2 th:case="null">No users found!</h2>
+      <div th:case="*">
+        <ul class="search-list">
+          <li class="search" th:each="post: ${posts}">
+            <div class="search-top-line">
+              <div class="post-info-cluster">
+                <a th:href="@{/users/{username}/profile(username=${post.user.username})}">
+                  <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
+                </a>
+                <div class="post-name-time">
+                  <a class="post-username" th:text="${post.user.name}" th:href="
+                    @{/users/{username}/profile(username=${post.user.username})}">
+                  </a>
+                  <p class="post-time" th:text="${#temporals.format(post.time, 'dd MMMM HH:mm')}"></p>
+                </div>
+              </div>
+              <i class="fa-regular fa-thumbs-up"></i>
+            </div>
+            <p class="post-text" th:text="${post.message}"></p>
+          </li>
+        </ul>
+        <h2>Users</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>email</th>
+              <th>password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="user : ${users}">
+              <td th:text="${user.id}"></td>
+              <td th:text="${user.email}"></td>
+              <td th:text="${user.name}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div th:insert="fragments/general :: footer"></div>
+</body>
+
+</html>

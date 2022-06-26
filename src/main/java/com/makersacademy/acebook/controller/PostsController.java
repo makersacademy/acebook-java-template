@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -26,11 +23,11 @@ public class PostsController {
   UserRepository userRepository;
 
   @GetMapping("/posts")
-  public String index(Model model) {
-    Iterable<Post> posts = postRepository.findAll();
+  public String index(Model model, @ModelAttribute Post post, Principal principal) {
+    List<Post> posts = postRepository.findAllByOrderByTimeDesc();
     model.addAttribute("posts", posts);
-    model.addAttribute("post", new Post());
-    return "posts/index";
+    model.addAttribute("principal", principal);
+    return "posts/feed";
   }
 
   @PostMapping("/posts")

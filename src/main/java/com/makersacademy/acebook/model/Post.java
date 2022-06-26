@@ -23,6 +23,7 @@ public class Post {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String message;
+  private String imageUrl;
   private LocalDateTime time;
 
   @ManyToOne

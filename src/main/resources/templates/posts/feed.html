@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+</head>
+
+<body>
+  <div th:insert="fragments/general :: header"></div>
+  <div class="container">
+    <form class="post-form" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <div class="post-form-cluster">
+        <a th:href="@{/users/{username}(username=${principal.getName()})}">
+          <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
+        </a>
+        <input type="text" class="post-form-text" th:field="*{message}">
+      </div>
+
+      <div class="post-buttons">
+        <input type="submit" value="Post" class="btn">
+        <input type="reset" value="Clear" class="btn">
+      </div>
+    </form>
+
+    <ul class="post-list">
+      <li class="post" th:each="post: ${posts}">
+        <div class="post-top-line">
+          <div class="post-info-cluster">
+            <a th:href="@{/users/{username}(username=${post.user.username})}">
+              <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
+            </a>
+            <div class="post-name-time">
+              <a class="post-username" th:text="${post.user.name}" th:href="
+                @{/users/{username}/profile(username=${post.user.username})}">
+              </a>
+              <p class="post-time" th:text="${#temporals.format(post.time, 'dd MMMM HH:mm')}"></p>
+            </div>
+          </div>
+          <i class="fa-regular fa-thumbs-up"></i>
+        </div>
+        <p class="post-text" th:text="${post.message}"></p>
+        <img class="post-image" th:if="${post.imageUrl != null}" th:src="${post.imageUrl}" alt="post image">
+  </div>
+  </li>
+  </ul>
+  </div>
+  <div th:insert="fragments/general :: footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+</head>
+
+<body>
+  <div th:insert="fragments/general :: header"></div>
+  <div class="container">
+    <span sec:authentication="name">Bob</span>
+    <p th:text="${user.name}"></p>
+    <p th:text="${user.email}"></p>
+    <p th:text="${user.about}"></p>
+  </div>
+  <a th:href="@{/logout}"></a>
+  <div th:insert="fragments/general :: footer"></div>
+</body>
+
+</html>
