@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+</head>
+
+<body>
+  <div th:insert="fragments/general :: header"></div>
+
+  <div class="container">
+    <ul class="friend-list">
+      <li class="friend-details" th:each="friend: ${friends}">
+        <p>Name: <span th:text="${friend.friend.name}"></span></p>
+      </li>
+    </ul>
+  </div>
+
+  <div th:insert="fragments/general :: footer"></div>
+</body>
+
+</html>

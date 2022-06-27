@@ -8,8 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FriendRepository extends CrudRepository<Friend, Long> {
 
-  List<Friend> findByUsername(String username);
-
-  List<Friend> findByUsernameContains(String username);
-
+  List<Friend> findByUserIdAndAccepted(Long userId, Boolean accepted);
 }
