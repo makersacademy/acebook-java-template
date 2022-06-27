@@ -5,6 +5,9 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -69,13 +72,13 @@ public class UsersController {
     return "/users/settings";
   }
 
-  @PostMapping("/posts")
-  public RedirectView create(@ModelAttribute Post post, Principal principal) {
-      User user = userRepository.findByUsername(principal.getName()).get(0);
-      post.setUserId(user.getId());
-      postRepository.save(post);
-      return new RedirectView("posts");
-  }
+  // @PostMapping("/posts")
+  // public RedirectView create(@ModelAttribute Post post, Principal principal) {
+  //     User user = userRepository.findByUsername(principal.getName()).get(0);
+  //     post.setUserId(user.getId());
+  //     postRepository.save(post);
+  //     return new RedirectView("posts");
+  // }
 
   @GetMapping("/users/editDetails")
   public String showDetails(Model model, Principal principal, @ModelAttribute User user){
@@ -126,4 +129,21 @@ public class UsersController {
       return new RedirectView("/users/settings");
 
     }
+
+
+
+  // THEO STUFF
+  @GetMapping("/users/{username}")
+  public String profile(Model model, @PathVariable String username) {
+    User user = userRepository.findByUsername(username).get(0);
+    model.addAttribute("user", user);
+    return "users/profile";
+  }
+
+  @GetMapping("/users/search")
+  public String showSearchResults(Model model, String keyword) {
+    List<User> users = userRepository.findByUsernameContains(keyword);
+    model.addAttribute("users", users);
+    return "/users/search";
+  }
 }

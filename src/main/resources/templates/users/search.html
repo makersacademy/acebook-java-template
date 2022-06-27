@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+  <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/5f58b769bf.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <title>Acebook</title>
+</head>
+
+<body>
+  <div th:insert="fragments/general :: header"></div>
+  <div class="container">
+    <div th:switch="${users.size()}">
+      <h2 th:case="0">No users found!</h2>
+      <div th:case="*">
+        <ul class="search-list">
+          <li class="search" th:each="user : ${users}">
+            <div class="search-top-line">
+              <div class="search-info-cluster">
+                <a th:href="@{/users/{username}/profile(username=${user.username})}">
+                  <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
+                </a>
+                <a class="search-username" th:text="${user.name}" th:href="
+                    @{/users/{username}/profile(username=${user.username})}">
+                </a>
+              </div>
+              <button class="btn">Add Friend</button>
+              <button class="btn">Send Message</button>
+            </div>
+      </div>
+      </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div th:insert="fragments/general :: footer"></div>
+</body>
+
+</html>

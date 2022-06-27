@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+  <header>
+    <nav th:fragment="header">
+      <ul>
+        <li>
+          <a class="tooltip active" data-tooltip="Home" th:href="@{/}" id="home">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+        <li>
+          <form class="search-form" th:action="@{/users/search}" method="get">
+            <div class="nav-search-bar">
+              <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              <input type="text" name="keyword" th:value="${keyword}" class="search-form-text">
+            </div>
+          </form>
+        </li>
+        <li id="space1"></li>
+        <li>
+          <a th:href="@{'/users/'+${#authentication.name}}">
+            <div class="nav-profile-link tooltip" data-tooltip="Profile">
+              <button id="btn_plus">
+                <i class="fa-solid fa-user"></i>
+              </button>
+              <span class="nav-profile-name" sec:authentication="name">Name</span>
+            </div>
+          </a>
+        </li>
+        <li id="space1"></li>
+        <li>
+          <button class="tooltip" data-tooltip="Add" id="btn_plus">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="tooltip" data-tooltip="Message" id="btn_msg">
+            <i class="fab fa-facebook-messenger"></i>
+          </button>
+        </li>
+        <li>
+          <button class="tooltip" data-tooltip="Notification" id="btn_bell">
+            <i class="fas fa-bell"></i>
+          </button>
+        </li>
+        <li>
+          <a th:href="@{/logout}">
+            <button class="tooltip" data-tooltip="Settings" id="btn_profile"><i class="fas fa-user-cog"></i></button>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <footer th:fragment="footer">
+    <p>&copy; 2022 VEDoT</p>
+  </footer>
+</body>
+
+</html>

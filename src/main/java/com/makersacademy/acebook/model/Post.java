@@ -6,8 +6,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 import javax.persistence.GenerationType;
 
@@ -18,13 +19,16 @@ import lombok.Data;
 @Table(name = "POSTS")
 public class Post {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String message;
+  private String imageUrl;
   private LocalDateTime time;
-  private Long userId;
+
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
   public Post() {
     this.time = LocalDateTime.now();
@@ -43,14 +47,8 @@ public class Post {
     this.message = message;
   }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-  
+  public void setUser(User user) {
+    this.user = user;
+  }
 
 }

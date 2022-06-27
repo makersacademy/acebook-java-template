@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -25,11 +26,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
-          .antMatchers("/posts").hasRole("USER")
-          .antMatchers("/users").permitAll()
-          .and()
-        .formLogin();
+    http
+        .authorizeRequests()
+        .antMatchers("/posts").hasRole("USER")
+        .antMatchers("/users/new").permitAll()
+        .antMatchers("/users/*").hasRole("USER")
+        .and()
+        .formLogin()
+        .and()
+        .logout()
+        .logoutSuccessUrl("/login")
+        .invalidateHttpSession(true) // set invalidation state when logout
+        .deleteCookies("JSESSIONID")
+        .and()
+        .exceptionHandling()
+        .accessDeniedPage("/403");
   }
 
   @Bean
