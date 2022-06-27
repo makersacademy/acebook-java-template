@@ -10,7 +10,7 @@
 <body>
   <div id="header">
     <span>
-      <button onclick="window.location.href='/users/feed'">Back to feed</button>
+      <button onclick="window.location.href='/posts'">Back to feed</button>
       <button onclick="window.location.href='/users/myProfile'">Back to profile</button>
       <h3> SETTINGS </h3>
       <!-- Two buttons have been taken out from here because it doesnt make sense: settings and follow friend -->
@@ -18,13 +18,16 @@
   </div>
   <div id="user-details">
     <div class="float-left">
-      <img src="/images/pepe.jpeg" alignalt="profile_pic" class="profile-picture">
+      <img src="/images/pepe.jpeg" alt="profile_pic" class="profile-picture" style="border-radius: 50%; width: 100%; max-width: 75px;">
     </div>
     <div id="float-right"></div>
       <p> My personal details</p>
-      <p th:field="*{name}"></p>
-      <p th:field="*{about}"></p>
-      <p th:field="*{email}"></p>
+      <label for="name">Name:</label>
+      <p th:text="*{user.name}" id="name"></p>
+      <label for="about">About:</label>
+      <p th:text="*{user.about}" id="about"></p>
+      <label for="email">Email:</label>
+      <p th:text="*{user.email}" id="email"></p>
     </div>
   </div>
     <button onclick="window.location.href='/users/editDetails'">Edit my details</button>

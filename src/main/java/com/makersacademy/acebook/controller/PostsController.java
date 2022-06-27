@@ -33,11 +33,11 @@ public class PostsController {
         return "posts/index";
     }
 
-    @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).get(0);
-        post.setUserId(user.getId());
-        postRepository.save(post);
-        return new RedirectView("/posts");
-    }
+    // @PostMapping("/posts")
+    // public RedirectView create(@ModelAttribute Post post, Principal principal) {
+    //     User user = userRepository.findByUsername(principal.getName()).get(0);
+    //     post.setUserId(user.getId());
+    //     postRepository.save(post);
+    //     return new RedirectView("/posts");
+    // }
 }

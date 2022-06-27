@@ -5,33 +5,45 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/main.css" rel="stylesheet">
-  <title>Document</title>
+  <title>EDIT DETAILS</title>
 </head>
 <body>
-  <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-    <h3> EDIT PERSONAL DETAILS</h3>
-    <p>My personal details</p>
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" >
-    <br>
-    <label for="about">About me:</label>
-    <input type="text"  id="about" th:field="*{about}">
-    <br>
-    <label for="email">Email:</label>
-    <input type="text"  id="email" th:field="*{email}">
-    <br>
-    <!-- Image uploading doesnt work yet -->
-    <img src="/images/pepe.jpeg" alignalt="profile_pic" class="profile-picture">
-    <input type="file" accept="image/*" >
-    <br>
-    <!-- Password authentication doesnt work yet -->
-    <label for="password">Password:</label>
-    <input type="password" id="password">
-    <br>
-    <label for="password-2">Re-enter password:</label>
-    <input type="password" id="password" th:field="*{password}">
-    <br>
-    <input type="submit" value="Save"> <input type="reset" value="Cancel">
+  <!-- <form action="#" th:action="@{/users}" th:object="${user}" method="post"> -->
+    <!-- This should override the user attributes in the database -->
+    <form action="#" th:action="@{/users/settings}"  method="post">
+      <h3> EDIT PERSONAL DETAILS</h3>
+      <p>My personal details</p>
+      <label for="name">Name:</label>
+      <!-- maybe th:field is not required -->
+      <input type="text" id="name" th:value="*{user.name}" th:name="name">
+      <br>
+      <label for="about">About me:</label>
+      <!-- th:field -->
+      <input type="text"  id="about" th:value="*{user.about}" th:name="about">
+      <br>
+      <label for="email">Email:</label>
+      <!-- th:field -->
+      <input type="text"  id="email" th:value="*{user.email}" th:name="email">
+      <br>
+      
+      <!-- Image uploading doesnt work yet -->
+      <!-- <form th:action="@{/users/settings}" enctype="multipart/form-data"> -->
+        <img th:src="*{user.imageUrl}" alt="profilePicture" class="profilePicture">
+        <input type="file" accept="image/*" th:name="profilePicture">
+      <!-- </form> -->
+
+      <br>
+      <!-- Password authentication doesnt work yet -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" th:name="password1">
+      <br>
+      <label for="password-2">Re-enter password:</label>
+      <input type="password" id="password" th:name="password2">
+      <br>
+      <!-- This would be nicer if it was done with error messages.. but here it is. I DONT CARE THIS WAS LONG TO DO ALRIGHT? >:(-->
+      <span th:if="${!matchingPassword}">The passwords you entered do not match.</span>
+      <br>
+      <input type="submit" value="Save"> <input type="reset" value="Cancel">
   </form>
 </body>
 </html>
