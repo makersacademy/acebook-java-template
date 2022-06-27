@@ -35,6 +35,12 @@ public class User {
   @OneToMany(mappedBy = "user")
   private Set<Post> posts;
 
+  @OneToMany(mappedBy = "user")
+  private Set<Friend> users;
+
+  @OneToMany(mappedBy = "user")
+  private Set<Friend> friends;
+
   public User() {
     this.time = LocalDateTime.now();
     this.enabled = TRUE;
