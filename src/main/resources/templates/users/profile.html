@@ -18,6 +18,28 @@
   </div>
   <a th:href="@{/logout}"></a>
   <div th:insert="fragments/general :: footer"></div>
+
+  <div class="container">
+    <div th:switch="${friend.size()}">
+      <h2 th:case="0">You have NOOOOO Fiends</h2>
+      <div th:case="*">
+        <ul class="search-list">
+          <li class="search" th:each="friend : ${friends}">
+            <div class="search-top-line">
+              <div class="search-info-cluster">
+                <a th:href="@{/users/{username}/profile(username=${user.username})}">
+                  <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
+                </a>
+              </div>
+              <button class="btn">Un-Friend</button>
+              <button class="btn">Send Message</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
