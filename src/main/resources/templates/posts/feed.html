@@ -34,7 +34,7 @@
             </a>
             <div class="post-name-time">
               <a class="post-username" th:text="${post.user.name}" th:href="
-                @{/users/{username}/profile(username=${post.user.username})}">
+                @{/users/{username}(username=${post.user.username})}">
               </a>
               <p class="post-time" th:text="${#temporals.format(post.time, 'dd MMMM HH:mm')}"></p>
             </div>
