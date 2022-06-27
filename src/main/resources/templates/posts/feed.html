@@ -13,7 +13,7 @@
   <div class="container">
     <form class="post-form" action="#" th:action="@{/posts}" th:object="${post}" method="post">
       <div class="post-form-cluster">
-        <a th:href="@{/users/{username}(username=${principal.getName()})}">
+        <a th:href="@{/users/{username}(username=${#authentication.name})}">
           <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
         </a>
         <input type="text" class="post-form-text" th:field="*{message}">

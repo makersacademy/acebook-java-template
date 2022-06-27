@@ -23,10 +23,9 @@ public class PostsController {
   UserRepository userRepository;
 
   @GetMapping("/posts")
-  public String index(Model model, @ModelAttribute Post post, Principal principal) {
+  public String index(Model model, @ModelAttribute Post post) {
     List<Post> posts = postRepository.findAllByOrderByTimeDesc();
     model.addAttribute("posts", posts);
-    model.addAttribute("principal", principal);
     return "posts/feed";
   }
 
