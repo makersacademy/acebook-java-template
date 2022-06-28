@@ -29,4 +29,21 @@
     </ul>
     <div id="user-profile" sec:authorize="isAuthenticated()">
       <span sec:authentication="name"></span> profile
-  </div>
+    </div>
+
+    <ul th:each="i : ${#numbers.sequence(posts.size() - 1, 0, -1)}" th:with="post=${posts[i]}">
+        <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
+        <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
+            <div>
+                <li class="post-class" th:id="${post.id}" th:user="${post.user.username}"/>
+                    <header th:text="${post.user.username}"></header>
+                    <div>
+                        <span class="post-content" th:text="${post.content}"></span>
+                        
+                        <input type="submit" id="delete-btn" value="Delete" />
+            </div>
+        </form>
+        </span>
+    </ul>
+  </body>
+    </html>

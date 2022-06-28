@@ -64,4 +64,12 @@ public class SignUpTest {
         Assert.assertEquals("Signed in as " + username, userText.getText());
 
     }
+    @Test
+    public void redirectToSignIn() {
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.className("log-in-btn")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Please sign in", title);
+
+    }
 }

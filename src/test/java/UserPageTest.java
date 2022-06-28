@@ -19,7 +19,10 @@ public class UserPageTest {
     WebDriver driver;
     Faker faker;
     String username;
+    String usernameTwo;
     String password;
+    String testTextOne;
+    String testTextTwo;
 
 
     /* Mateusz chromedriver patch:
@@ -31,7 +34,10 @@ public class UserPageTest {
         driver = new ChromeDriver();
         faker = new Faker();
         username = faker.name().firstName();
+        usernameTwo = faker.name().firstName();
         password = "mypassword";
+        testTextOne = "1";
+        testTextTwo = "2";
     }
 
     @After
@@ -53,6 +59,47 @@ public class UserPageTest {
       driver.findElement(By.id("user-btn")).click();
       WebElement userText = driver.findElement(By.id("user-profile"));
       Assert.assertEquals(username + " profile", userText.getText());
+    }
+    @Test
+    public void userPageOnlyShowsUserPosts() {
+      //singup
+      driver.get("http://localhost:8080/users/new");
+      driver.findElement(By.id("username")).sendKeys(username);
+      driver.findElement(By.id("password")).sendKeys(password);
+      driver.findElement(By.id("submit")).click();
+      //signin
+      driver.findElement(By.id("username")).sendKeys(username);
+      driver.findElement(By.id("password")).sendKeys(password);
+      driver.findElement(By.className("btn")).click();
+      //post
+      driver.findElement(By.id("content-input")).sendKeys(testTextOne);
+      driver.findElement(By.id("submit")).click();
+
+
+      //singup
+      driver.get("http://localhost:8080/users/new");
+      driver.findElement(By.id("username")).sendKeys(usernameTwo);
+      driver.findElement(By.id("password")).sendKeys(password);
+      driver.findElement(By.id("submit")).click();
+      //signin
+      driver.findElement(By.id("username")).sendKeys(usernameTwo);
+      driver.findElement(By.id("password")).sendKeys(password);
+      driver.findElement(By.className("btn")).click();
+      //post
+      driver.findElement(By.id("content-input")).sendKeys(testTextTwo);
+      driver.findElement(By.id("submit")).click();
+
+      
+      driver.findElement(By.className("log-out-btn")).click();
+      driver.findElement(By.className("btn")).click();
+
+      driver.findElement(By.id("username")).sendKeys(username);
+      driver.findElement(By.id("password")).sendKeys(password);
+      driver.findElement(By.className("btn")).click();
+      
+      driver.findElement(By.id("user-btn")).click();
+      WebElement userPost = driver.findElement(By.className("post-content"));
+      Assert.assertEquals(testTextOne, userPost.getText());
     }
 
   
