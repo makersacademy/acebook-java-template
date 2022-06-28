@@ -12,6 +12,23 @@
   <div th:insert="fragments/general :: header"></div>
 
   <div class="container">
+    <h1>My Pending Requests</h1>
+    <ul class="request-list">
+      <li class="request-details" th:each="sentRequest: ${sentRequests}">
+        <p>Name: <span th:text="${sentRequest.friend.name}"></span></p>
+        <p>Status: Pending</p>
+      </li>
+    </ul>
+    <h1>Friend Requests</h1>
+    <ul class="request-list">
+      <li class="request-details" th:each="request: ${requests}">
+        <p>Name: <span th:text="${request.user.name}"></span></p>
+        <a th:href="@{/friends/accept/{username}(username=${request.user.username})}">
+          <button>Accept</button>
+        </a>
+      </li>
+    </ul>
+    <h1>Friends</h1>
     <ul class="friend-list">
       <li class="friend-details" th:each="friend: ${friends}">
         <p>Name: <span th:text="${friend.friend.name}"></span></p>
