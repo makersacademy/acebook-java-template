@@ -28,8 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/posts").hasRole("USER")
                 .antMatchers("/users").permitAll()
-                .and().formLogin();
-    }
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll();                
+    }       
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
