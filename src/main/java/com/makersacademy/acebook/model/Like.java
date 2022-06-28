@@ -1,4 +1,3 @@
-
 package com.makersacademy.acebook.model;
 
 import java.time.LocalDateTime;
@@ -16,47 +15,53 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "POSTS")
-public class Post {
-
+@Table(name = "LIKES")
+public class Like {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String message;
-  private String imageUrl;
-  private Long likesCount;
   private LocalDateTime time;
 
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  public Post() {
+  @ManyToOne
+  @JoinColumn(name = "post_id", nullable = false)
+  private Post post;
+
+  public Like() {
     this.time = LocalDateTime.now();
   }
 
-  public Post(String message) {
-    this.message = message;
+  public Like(User user, Post post) {
     this.time = LocalDateTime.now();
+    this.user = user;
+    this.post = post;
   }
 
-  public String getMessage() {
-    return this.message;
+  public Long getId() {
+    return id;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public LocalDateTime getTime() {
+    return time;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public Post getPost() {
+    return post;
   }
 
   public void setUser(User user) {
     this.user = user;
   }
 
-  public Long getLikesCount() {
-    return this.likesCount;
+  public void setPost(Post post) {
+    this.post = post;
   }
 
-  public void setLikesCount(Long likesCount) {
-    this.likesCount = likesCount;
-  }
 }

@@ -39,7 +39,12 @@
               <p class="post-time" th:text="${#temporals.format(post.time, 'dd MMMM HH:mm')}"></p>
             </div>
           </div>
-          <i class="fa-regular fa-thumbs-up"></i>
+          <div class="post-likes">
+            <span th:if="${post.likesCount != 0}" th:text="${post.likesCount}"></span>
+            <a th:href="@{/likes/{postId}(postId=${post.id})}">
+              <i class="fa-regular fa-thumbs-up"></i>
+            </a>
+          </div>
         </div>
         <p class="post-text" th:text="${post.message}"></p>
         <img class="post-image" th:if="${post.imageUrl != null}" th:src="${post.imageUrl}" alt="post image">
