@@ -155,6 +155,7 @@ nav ul li #btn_profile::after{
   align-items: center;
   padding: 10px;
   cursor: pointer;
+  
 }
 .sidebarRow:hover {
   background-color: lightgray;
@@ -169,11 +170,16 @@ nav ul li #btn_profile::after{
   font-size: xx-large;
   color: blue;
 }
+.sidebar {
+  display: flex;
+  /* flex-flow: column wrap; */
+  flex-direction: column;
+}
 
 
 /* Post-list posts of users with name, date and content styling: */
-.post-list {
-  width: 70%;
+/* .post-list {
+  width: 30%;
   margin-top: 15px;
   border-radius: 15px;
   background-color: white;
@@ -182,10 +188,22 @@ nav ul li #btn_profile::after{
   position: relative;
   align-items: center;
   padding: 15px;
+} */
+.main-content {
+  display: flex;
+ /* justify-content: left; */
+ /* flex-direction: row;
+ flex-wrap: wrap;
+ text-align: center; */
+}
+.post-list {
+  display: flex;
+  flex-flow: row wrap;
+  width: 30%;
 }
 /* img of the post lists */
 .post_image img {
-  width: 70%;
+  width: 30%;
 }
 /* likes/comments/share icons */
 .post_option {
@@ -198,106 +216,25 @@ nav ul li #btn_profile::after{
 .container {
   font-size: medium;
   color: green;
+  display: flex;
+  flex-flow: row;
 }
 /* }the continer with the likes/comments icons */
 .post_options {
   padding-top: 10px;
   border-top: 1px solid lightgrey;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   font-size: medium;
   color: grey;
   cursor: pointer;
   padding: 15px;
 }
-
-
-
-
-
-/* .posts-main {
-  border-collapse: collapse;
-}
-
-.post-main {
-  /* border: 1px solid rgb(204, 201, 201);
-  padding: 0.5rem;
-  text-align: left;
-  margin-bottom: 0.5rem; */
-/* }
-
-
-body {
-width: 100%;  
-background-image: linear-gradient(to left, #dbd9e0, #e1dce7);
-}
-/* ul from the nav-bar background */
-/* ul {
-  list-style-type: none;
-  /* margin: 0;
-  padding: 0; */
-  /* overflow: hidden;
-  background-color: rgb(232, 12, 12);
-  width: 100%;
-} */
-/* 
-
-.countainer-fluid {
- padding: 30px 20px;
- display: flex;
- justify-content: center;
- position: sticky;
- top: 0;
- color: rgb(46, 9, 9);
- z-index: 100;
- box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 75);
-} */
-
-/* #nav-bar {
-    color: #c51616;
-}
-
-#nav-bar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-#nav-bar a {
-    color: rgb(20, 27, 231);
-    text-align: center;
-} */
-/* where the lists with posts starts: */
-
-
-
-/* #post-list {
-  color: #dde0e5bf;
-  background-color: rgb(207, 201, 201);
-  display: block;
-  text-decoration: double;
- 
-}
-
-
-.text li {
-  border-right: 1px solid rgb(196, 29, 29);
+.main_body {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: row-flex;
 }
 
-li:last-child {
-  border-right: none;
-}
-
-li a {
-  display: block;
-  color: rgb(88, 17, 17);
-  text-align: center;
-  padding: 14px 16px;
-  /* text-decoration: none; */
-}
 
 /* text css: */
 p {
@@ -327,5 +264,4 @@ li a:hover {
 
 .active {
   background-color: #1d4234;
-} */
-
+} 
