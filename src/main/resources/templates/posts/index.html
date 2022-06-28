@@ -27,10 +27,6 @@
     </a></li>
 
 </ul>
-
-
-
-
     <h1>Posts</h1>
 
     <div id="user-signed-in" sec:authorize="isAuthenticated()">
@@ -42,12 +38,18 @@
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
+    <ul th:each="i : ${#numbers.sequence(posts.size() - 1, 0, -1)}" th:with="post=${posts[i]}">
         <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
-        <li class="post-class" th:id="${post.id}" th:text="${post.content}"/>
-        <input type="submit" id="delete-btn" value="Delete" />
+            <div>
+                <li class="post-class" th:id="${post.id}" th:user="${post.user.username}"/>
+                    <header th:text="${post.user.username}"></header>
+                    <div>
+                        <span class="post-content" th:text="${post.content}"></span>
+                        <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
+                        <input type="submit" id="delete-btn" value="Delete" />
+                        </span>
+            </div>
         </form>
     </ul>
-
     </body>
 </html>

@@ -4,12 +4,19 @@
     <head>
         <meta charset="UTF-8">
         <title>Signup</title>
+        <link type="text/css"  rel="stylesheet" href="/main.css" />
     </head>
     <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-            <p>Username: <input type="text" th:field="*{username}" /></p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+      <div class="login" >
+        <a href="/login">Already have an account? Click here to log in</a>  
+      </div>
+      <div class="sign-in-box">
+        <form class="sign-in" action="#" th:action="@{/users}" th:object="${user}" method="post">
+            <p><input type="text" th:placeholder="username" th:field="*{username}" /></p>
+            <p><input type="password" th:placeholder="password"  th:field="*{password}" /></p>
+            <p><input type="submit" value="Sign up" id="submit"/></p>
         </form>
+      </div>
+
     </body>
 </html>

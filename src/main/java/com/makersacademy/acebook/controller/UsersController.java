@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import java.security.Principal;
@@ -25,7 +27,8 @@ public class UsersController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
-    
+    @Autowired
+    PostRepository repository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -42,7 +45,10 @@ public class UsersController {
     }
     
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Model model) {
+      Iterable<Post> posts = repository.findAll();
+      model.addAttribute("posts", posts);
+      model.addAttribute("post", new Post());
 
         return "/users/userProfile";
     }

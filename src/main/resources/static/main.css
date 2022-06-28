@@ -30,11 +30,11 @@ li {
   }
   
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
   
   a:active {
-    text-decoration: underline;
+    text-decoration: none;
   }
   .nav-bar-button {
     display: inline-block;
@@ -80,3 +80,11 @@ li {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+  .sign-in-box {
+    position: relative;
+    display       : grid;
+    place-content : center;
+  }
+
+  
