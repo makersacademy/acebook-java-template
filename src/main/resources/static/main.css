@@ -8,7 +8,9 @@
     text-align: left;
     margin-bottom: 0.5rem;
 }
-
+body {
+  margin: 0px;
+}
 
 li {
     display: inline;
@@ -17,7 +19,7 @@ li {
 .nav-bar {
     background-color: #69c96c;
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
     padding: 0.8rem;
   }
 
@@ -48,15 +50,12 @@ li {
     background-color: #4CAF50;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
   }
   
   .nav-bar-button:hover {background-color: #3e8e41}
   
   .nav-bar-button:active {
     background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
   }
 
   .log-out-btn {
@@ -71,20 +70,67 @@ li {
     background-color: #4CAF50;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
   }
   .log-out-btn:hover {background-color: #3e8e41}
   
   .log-out-btn:active {
     background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
   }
 
   .sign-in-box {
     position: relative;
     display       : grid;
     place-content : center;
+  }
+
+  .post-div {
+    margin-right: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-style: solid;
+    border-color: #3e8e41;
+    border-width: 1px;
+    background-color: #c1e1c2;
+  }
+
+  .post-username {
+    font-weight: bold;
+  }
+
+  .delete-btn{
+    background-color: transparent;
+    border: none;
+    float: right;
+    margin: -5px 5px 0 0;
+  }
+
+  .delete-btn:hover{
+    background-color: #87a889;
+    border: none;
+    float: right;
+    margin: -5px 5px 0 0;
+  }
+
+  .delete-btn:active{
+    background-color: #87a889;
+    border: none;
+    float: right;
+    margin: -5px 5px 0 0;
+  }
+
+  #user-signed-in{
+    margin-left: 3px;
+    margin-top: 3px;
+  }
+
+  .content-div{
+    margin: auto;
+    text-align: center;
+  }
+
+  .post-user-img{
+    margin-top: -5px;
   }
 
   
