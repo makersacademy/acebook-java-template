@@ -18,18 +18,20 @@
           <li class="search" th:each="user : ${users}">
             <div class="search-top-line">
               <div class="search-info-cluster">
-                <a th:href="@{/users/{username}/profile(username=${user.username})}">
+                <a th:href="@{/users/{username}(username=${user.username})}">
                   <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
                 </a>
                 <a class="search-username" th:text="${user.name}" th:href="
-                    @{/users/{username}/profile(username=${user.username})}">
+                    @{/users/{username}(username=${user.username})}">
                 </a>
               </div>
               <div th:switch="${users.contains(search)}"></div>
-                <h2 th:case=False>
-                  <button class="btn">Add Friend</button>
-                </h2>
-              <button class="btn">Add Friend</button>
+              <h2 th:case=False>
+                <button class="btn">Add Friend</button>
+              </h2>
+              <a th:href="@{/friends/add/{username}(username=${user.username})}">
+                <button class="btn">Add Friend</button>
+              </a>
               <button class="btn">Send Message</button>
             </div>
       </div>

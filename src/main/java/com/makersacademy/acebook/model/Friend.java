@@ -23,65 +23,73 @@ import lombok.Data;
 @Table(name = "FRIENDS")
 public class Friend {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Boolean accepted;
-    private String visibility;
-    private LocalDateTime time;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private Boolean accepted;
+  private String visibility;
+  private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "friend_id", nullable = false)
-    private User theFriend;
+  @ManyToOne
+  @JoinColumn(name = "friend_id", nullable = false)
+  private User theFriend;
 
-    public Friend() {
+  public Friend() {
     this.time = LocalDateTime.now();
     this.accepted = FALSE;
     this.visibility = "all";
-    }
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Friend(User user, User theFriend, Boolean accepted) {
+    this.time = LocalDateTime.now();
+    this.accepted = accepted;
+    this.visibility = "all";
+    this.user = user;
+    this.theFriend = theFriend;
+  }
 
-    public Boolean getAccepted() {
-        return accepted;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setAccepted(Boolean accepted) {
-        this.accepted = accepted;
-    }
+  public Boolean getAccepted() {
+    return accepted;
+  }
 
-    public String getVisibility() {
-        return visibility;
-    }
+  public void setAccepted(Boolean accepted) {
+    this.accepted = accepted;
+  }
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
-    }
+  public String getVisibility() {
+    return visibility;
+  }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
+  public void setVisibility(String visibility) {
+    this.visibility = visibility;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public LocalDateTime getTime() {
+    return time;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public User getFriend() {
-        return theFriend;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public void setFriend(User theFriend) {
-        this.theFriend = theFriend;
-    }
+  public User getFriend() {
+    return theFriend;
+  }
+
+  public void setFriend(User theFriend) {
+    this.theFriend = theFriend;
+  }
 
 }
