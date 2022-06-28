@@ -11,28 +11,28 @@
 <body>
   <div th:insert="fragments/general :: header"></div>
   <div class="container">
-    <div th:switch="${users.size()}">
+    <div class="search-list" th:switch="${users.size()}">
       <h2 th:case="0">No users found!</h2>
       <div th:case="*">
-        <ul class="search-list">
+        <ul>
           <li class="search" th:each="user : ${users}">
             <div class="search-top-line">
               <div class="search-info-cluster">
-                <a th:href="@{/users/{username}(username=${user.username})}">
+                <a class="search-username" th:href="@{/users/{username}(username=${user.username})}">
                   <img class="post-icon" src="/images/fb-user-icon.png"><!-- placeholder -->
                 </a>
                 <a class="search-username" th:text="${user.name}" th:href="
                     @{/users/{username}(username=${user.username})}">
                 </a>
               </div>
-              <div th:switch="${users.contains(search)}"></div>
-              <h2 th:case=False>
-                <button class="btn">Add Friend</button>
-              </h2>
-              <a th:href="@{/friends/add/{username}(username=${user.username})}">
-                <button class="btn">Add Friend</button>
-              </a>
-              <button class="btn">Send Message</button>
+              <div class="search-buttons">
+                <a class="btn" th:href="@{/friends/add/{username}(username=${user.username})}">
+                  Add Friend
+                </a>
+                <a class="btn" href="#">
+                  Send Message
+                </a>
+              </div>
             </div>
       </div>
       </li>

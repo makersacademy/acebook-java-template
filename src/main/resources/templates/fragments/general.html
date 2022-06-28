@@ -24,7 +24,7 @@
         <li>
           <a th:href="@{'/users/'+${#authentication.name}}">
             <div class="nav-profile-link tooltip" data-tooltip="Profile">
-              <button id="btn_plus">
+              <button id="btn_profile">
                 <i class="fa-solid fa-user"></i>
               </button>
               <span class="nav-profile-name" sec:authentication="name">Name</span>
@@ -33,9 +33,9 @@
         </li>
         <li id="space1"></li>
         <li>
-          <button class="tooltip" data-tooltip="Add" id="btn_plus">
-            <i class="fas fa-plus"></i>
-          </button>
+          <a class="tooltip" data-tooltip="Friends" id="btn_friends" th:href="@{'/friends/'+${#authentication.name}}">
+            <i class="fa-solid fa-user-group"></i>
+          </a>
         </li>
         <li>
           <button class="tooltip" data-tooltip="Message" id="btn_msg">
@@ -48,8 +48,8 @@
           </button>
         </li>
         <li>
-          <a th:href="@{/logout}">
-            <button class="tooltip" data-tooltip="Settings" id="btn_profile"><i class="fas fa-user-cog"></i></button>
+          <a class="tooltip" data-tooltip="Settings" id="btn_profile" th:href="@{/logout}">
+            <i class="fas fa-user-cog"></i>
           </a>
         </li>
       </ul>

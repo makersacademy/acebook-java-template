@@ -24,9 +24,11 @@ body {
   align-items: center;
   margin: 5rem auto;
   overflow: hidden;
+  max-width: 600px;
 }
 
-h1 {
+h1,
+h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 2rem;
@@ -36,15 +38,15 @@ h1 {
 .request-list,
 .search-list,
 .post-list {
-  max-width: 600px;
+  width: 100%;
 }
 
+.new-user,
 .request-details,
 .search,
 .post-form,
 .post {
   align-self: center;
-  max-width: 600px;
   width: 100%;
   margin: 1rem 0;
   padding: 1rem;
@@ -81,6 +83,7 @@ h1 {
   gap: 1rem;
 }
 
+.search-username,
 .post-username {
   font-size: 1.25em;
   font-weight: bold;
@@ -106,6 +109,7 @@ h1 {
   align-self: center;
 }
 
+.search-info-cluster,
 .post-info-cluster {
   display: flex;
   flex-direction: row;
@@ -139,18 +143,34 @@ h1 {
   justify-content: space-between;
 }
 
+.search-buttons,
+.friend-buttons,
 .post-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  padding: 1rem 0 0.25rem 0;
 }
 
 .btn {
   padding: 0.75rem 2rem;
   border-radius: 2rem;
-  width: 7rem;
+  min-width: 7rem;
   border: none;
   cursor: pointer;
+  background-color: #eee;
+  text-decoration: none;
+  color: black;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.accept {
+  background-color: #e8fce9;
+}
+
+.reject {
+  background-color: #fce9e8;
 }
 
 .btn:hover {
@@ -170,6 +190,7 @@ h1 {
   cursor: pointer;
 }
 
+.new-user-form input,
 .search-form input {
   border: none;
   outline: none;
@@ -182,11 +203,32 @@ h1 {
   cursor: pointer;
 }
 
+.new-user-form input:hover,
 .search-form input:hover {
   background-color: #eee;
 }
 
+.new-user-form {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-row-gap: 1.5rem;
+  justify-items: stretch;
+  align-items: center;
+}
 
+.new-user-form ul {
+  grid-column: span 2;
+}
+
+.new-user-form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.new-user-form input {
+  width: 100%;
+}
 
 /*
 Nav Bar
@@ -251,7 +293,7 @@ nav ul li a {
 
 }
 
-nav ul li #btn_plus,
+nav ul li #btn_friends,
 nav ul li #btn_msg,
 nav ul li #btn_bell,
 nav ul li #btn_profile {
