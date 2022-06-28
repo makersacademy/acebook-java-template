@@ -13,8 +13,8 @@
             <button class="nav-bar-button">Home</button>
         </a></li>
     
-        <li><a href="">
-            <button id="user-btn" class="nav-bar-button">USER OR SOMETHING IDK</button>
+        <li><a href="/profile">
+            <button id="user-btn" class="nav-bar-button">Your Profile</button>
         </a></li>
     
         <li><a href="">
@@ -27,20 +27,29 @@
         </a></li>
     
     </ul>
+
     <div id="user-profile" sec:authorize="isAuthenticated()">
-      <span sec:authentication="name"></span> profile
+        <img style="vertical-align:middle" src="../static/avatar.png" width="60" th:src="@{/avatar.png}" alt="Avatar" class="avatar">
+        <span sec:authentication="name"></span>'s profile
+            <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
+                <p><input type="submit" id="submit" value="Submit" /></p>
+            </form>
     </div>
 
     <ul th:each="i : ${#numbers.sequence(posts.size() - 1, 0, -1)}" th:with="post=${posts[i]}">
         <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
         <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
-            <div>
+            <div class="post-div">
                 <li class="post-class" th:id="${post.id}" th:user="${post.user.username}"/>
-                    <header th:text="${post.user.username}"></header>
+                    <span class="post-username" th:text="${post.user.username}"></span>
+                    <button class="delete-btn" type="submit" id="delete-btn">
+                        <img src="../static/delete.png" width="10" th:src="@{/delete.png}" alt="Delete post" class="delete-post"/>
+                    </button>
+                    
                     <div>
                         <span class="post-content" th:text="${post.content}"></span>
-                        
-                        <input type="submit" id="delete-btn" value="Delete" />
+                    </div>
             </div>
         </form>
         </span>
