@@ -60,14 +60,6 @@ public class FriendsController {
 
   @GetMapping("/friends/reject/{username}")
   public RedirectView rejectFriend(Model model, @PathVariable String username, Principal principal) {
-    // get the name of the user
-    // get the name of the firend
-    // locate the record fo the friend request
-    // delete the request from the freind table.
-
-    // user_id -> person who initiated the request
-    // friend_id -> person who accepts or rejects (us)
-
     User user = userRepository.findByUsername(username).get(0);
     User theFriend = userRepository.findByUsername(principal.getName()).get(0);
     Long userId = user.getId();

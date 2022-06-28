@@ -15,13 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
-
-// Image upload
-import org.springframework.core.io.ClassPathResource;
 
 @Controller
 public class UsersController {
@@ -30,8 +25,8 @@ public class UsersController {
   UserRepository userRepository;
   @Autowired
   PasswordEncoder getPasswordEncoder;
-  // @Autowired
-  // AuthoritiesRepository authoritiesRepository;
+  @Autowired
+  AuthoritiesRepository authoritiesRepository;
 
   // Password authentication
   Boolean matchingPassword = true;
@@ -48,6 +43,8 @@ public class UsersController {
     user.setPassword(getPasswordEncoder.encode(user.getPassword()));
     user.setUsername(user.getEmail());
     userRepository.save(user);
+    Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+    authoritiesRepository.save(authority);
     return new RedirectView("/login");
   }
 
@@ -63,14 +60,6 @@ public class UsersController {
     model.addAttribute("user", currentUser);
     return "/users/settings";
   }
-
-  // @PostMapping("/posts")
-  // public RedirectView create(@ModelAttribute Post post, Principal principal) {
-  // User user = userRepository.findByUsername(principal.getName()).get(0);
-  // post.setUserId(user.getId());
-  // postRepository.save(post);
-  // return new RedirectView("posts");
-  // }
 
   @GetMapping("/users/editDetails")
   public String showDetails(Model model, Principal principal, @ModelAttribute User user) {
