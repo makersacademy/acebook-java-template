@@ -1,12 +1,63 @@
+<!-- <nav th:fragment="navbar" class="navbar navbar-expand-xl navbar-dark">  -->
 
-  <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
-    <div class="container-fluid">
-      
-    </div>
-    <ul id="nav-bar" class="nav navbar-nav">
-      <!-- <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/users/new}">Signup!</a></li> -->
-      <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}" method="post">Logout</a></li>
-      <li sec:authorize="isAnonymous()"><a class="nav-link" th:href=@{/login} method="get">Login</a></li>
-      <a sec:authorize="isAuthenticated()"></a> Signed in as: <a sec:authentication="name"></a></li>
-    </ul>
+    <!-- <div class="container-fluid"> 
+      navbar-expand-lg-->
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+      <script src="https://kit.fontawesome.com/1afd8264a8.js" crossorigin="anonymous"></script>
+    <!-- </div> -->
+    <link rel="stylesheet" href="/main.css" />
+
+    <nav>
+      <ul>
+          <li> <a href="#" id="fb"> <i class="fab fa-facebook-f    "></i> </a> </li>
+          <li> <button id="search_btn" class="tooltip" data-tooltip="Search" type="text" th:value="${search}"> 
+            <i class="fab fa-search    "></i></p></button> </li>
+          
+          <li id="space2"></li>
+          
+          <li sec:authorize="isAuthenticated()"><a class="tooltip active" th:href="@{/logout}" method="post" data-tooltip="Home" href="#" id="home"> 
+            <i class="fas fa-home"></i></a> </li>
+          <li sec:authorize="isAuthenticated()"> <a class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Group" href="#" id="group"> 
+            <i class="fas fa-user-friends    "></i> </a></li>
+          <li sec:authorize="isAuthenticated()"> <a class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Watch" href="#" id="tv">
+             <i class="fas fa-tv    "></i> </a> </li>
+          <li sec:authorize="isAuthenticated()"> <a class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Friend" href="#" id="friend"> 
+            <i class="fas fa-user-alt    "></i> </a> </li>
+          <li id="space1"></li>
+          <li sec:authorize="isAuthenticated()"> <button class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Add" id="btn_plus">
+            <i class="fas fa-plus    "></i></button> </li>
+          <li sec:authorize="isAuthenticated()"> <button class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Message" id="btn_msg">
+            <i class="fab fa-facebook-messenger    "></i></button></li>
+          <li sec:authorize="isAuthenticated()"> <button class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Notification" id="btn_bell"> 
+            <i class="fas fa-bell    "></i></button></li>
+          <li sec:authorize="isAuthenticated()">  <button class="tooltip" th:href="@{/logout}" method="post" data-tooltip="Profile" id="btn_profile">
+            <i class="fas fa-user-cog    "></i></button>  </li>
+      </ul>
   </nav>
+</header>
+
+    <!-- <ul id="nav-bar" class="nav navbar-nav">
+
+      <!-- fb icon: -->
+      <!-- <a href="#" class="fa fa-facebook"></a>
+      <a class="tooltip active" data-tooltip="Home" href="#" id="home"> <i class="fa-solid fa-house"></i> alalala</a>
+       -->
+      <!-- Search field:
+      <p>Search for Post: <input type="text" name="search" th:value="${search}"/></p>
+      <li> <a class="tooltip active" data-tooltip="Home" href="#" id="home"> <i class="fa-solid fa-house"></i> </a> </li>
+      <li> <button id="search_btn" class="tooltip" data-tooltip="Search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
+      <li sec:authorize="isAuthenticated()"><a class="home" th:href="@{/logout}" method="post">HOME</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="watch" th:href="@{/logout}" method="post">WATCH</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="marketplace" th:href="@{/logout}" method="post">MARKETPLACE</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="groups" th:href="@{/logout}" method="post">GROUPS</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="gaming" th:href="@{/logout}" method="post">GAMING</a></li>
+      <!-- login and logout & signed in as: -->
+      <!-- <li sec:authorize="isAuthenticated()"><a class="logout" th:href="@{/logout}" method="post">Logout</a></li>
+      <li sec:authorize="isAnonymous()"><a class="nav-link" th:href=@{/login} method="get">Login</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="nav-link"> Signed in as: <a sec:authentication="name"></a></li>
+    </ul>
+  </nav> --> 
+
+   <!-- <div class="container-lg bg-light text-black"></div> -->
+      <!-- <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/users/new}">Signup!</a></li> -->
+

@@ -5,28 +5,116 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <!-- <link rel="stylesheet" href="/navbar.css" />  -->
+        <script src="https://kit.fontawesome.com/1afd8264a8.js" crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     </head>
+   
     <body>
-    
-    <div th:replace="navbar/navbar :: nav"></div>
+        <div th:replace="navbar/navbar :: nav"></div>
+  
     <u><h1>Posts</h1></u>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <li> <a class="tooltip active" data-tooltip="Home" href="#" id="home"> <i class="fa-solid fa-house"></i> </a> </li>
+        <!-- content db pb not sendig -->
         <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p>Search for Post: <input type="text" name="search" th:value="${search}"/></p>
-        <p>Creation Date: <input type="date" name="date" id="date" th:value="${date}" /></p>
+        <p>Search: <input type="text" name="search" th:value="${search}"/></p>
+        <p>Date: <input type="date" name="date" id="date" th:value="${date}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+    </div>
 
+        <!-- <ul id="post-list" th:each="post: ${posts}">
+        <div th:text="${post.content}" ></div>
+        Posted By: <div th:text="${post.username}" ></div>
+        at: <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
+        </div>  -->
 
+   
+       
+        <!-- </ul> -->
 
-    <ul id="post-list" th:each="post: ${posts}">
-        <li>
-            <div th:text="${post.content}" ></div>
-            Posted By: <div th:text="${post.username}" ></div>
-            at: <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
-        </li>
-    </ul>
+        <div class="main_body">
+            <div class="sidebar">
 
+                <div class="sidebarRow">
+                    <img class="user_avatar"
+                    src=""
+                    alt=""
+                    />
+                    <h4>BLAH</h4> 
+               </div>
+
+             <div class="sidebarRow">
+                   <span class="material-icons"> local_hospital</span>
+                   <h4>hospital info</h4>
+             </div>
+
+             <div class="sidebarRow">
+                <span class="material-icons"> people </span>
+                <h4>people</h4>
+            </div>
+
+            <div class="sidebarRow">
+                <span class="material-icons"> chat </span>
+                <h4>messenger</h4>
+            </div>
+            <div class="sidebarRow">
+                <span class="material-icons"> storefront </span>
+                <h4>marketplace</h4>
+            </div>
+            <div class="sidebarRow">
+                <span class="material-icons"> video_library</span>
+                <h4>videos</h4>
+            </div>
+            <div class="sidebarRow">
+                <span class="material-icons"> expand </span>
+                <h4>More</h4>
+            </div>
+
+            <!-- finish main_body -->
+        </div>
+       
+        </div>
+        </div>
+   
     </body>
+
+<li>
+    <!-- list of posts from users plus image -->
+        <ul class="post-list" th:each="post: ${posts}">
+            <div class="post_image">
+                <img
+                src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Beautiful_swan.jpg" alt="swan"
+                />
+            <div class="container">
+            <div class="container-lg p-3 mb-3 bg-light text-dark">
+            <div th:text="${post.content}" ></div>
+                Posted By: <div th:text="${post.username}" ></div>
+                   at: <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
+                   <div class="post_options">
+                        <div class="post_option">
+                             <span class="material-icons"> thumb_up </span>
+                                <p>Like</p>
+                        </div>
+                        <div class="post_option">
+                            <span class="material-icons"> chat_bubble_outline </span>
+                                <p>Comment</p>
+                        </div>
+                        <div class="post_option">
+                            <span class="material-icons"> near_me </span> 
+                            <p>Share</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        <!-- icons of likes/comments/dislikes -->
+        
+        </div>
+    </ul>
+</li>
+
 </html>
