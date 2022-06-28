@@ -26,11 +26,20 @@ body {
   overflow: hidden;
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.friend-list,
+.request-list,
 .search-list,
 .post-list {
   max-width: 600px;
 }
 
+.request-details,
 .search,
 .post-form,
 .post {
@@ -168,6 +177,8 @@ body {
 .search-form input:hover {
   background-color: #eee;
 }
+
+
 
 /*
 Nav Bar

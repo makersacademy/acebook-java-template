@@ -26,6 +26,9 @@
         <a th:href="@{/friends/accept/{username}(username=${request.user.username})}">
           <button>Accept</button>
         </a>
+        <a th:href="@{/friends/reject/{username}(username=${request.user.username})}">
+          <button>Reject</button>
+        </a>
       </li>
     </ul>
     <h1>Friends</h1>
