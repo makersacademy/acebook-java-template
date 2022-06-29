@@ -52,6 +52,10 @@ public class Post {
     this.user = user;
   }
 
+  public void getUser(User user) {
+    this.user = user;
+  }
+
   public Long getLikesCount() {
     return this.likesCount;
   }
