@@ -127,13 +127,13 @@ h2 {
 
 .post-likes {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.5rem;
   font-size: 0.75rem;
   font-weight: bold;
 }
 
-.fa-thumbs-up {
+.post-likes .fa-thumbs-up {
   font-size: 1rem;
   color: #1A7FE9;
 }
@@ -151,6 +151,17 @@ h2 {
   justify-content: center;
   gap: 1rem;
   padding: 1rem 0 0.25rem 0;
+}
+
+.post-likes-info {
+  margin: 0.5rem 0;
+}
+
+.post-like-comment-buttons button {
+  border-top: 1px #eee solid;
+  color: black;
+  padding: 0.5rem 2rem;
+  margin: 0.25rem 0;
 }
 
 .btn {
