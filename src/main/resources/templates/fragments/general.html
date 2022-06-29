@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
-  <header>
+  <div>
     <nav th:fragment="header">
       <ul>
         <li>
@@ -38,14 +38,14 @@
           </a>
         </li>
         <li>
-          <button class="tooltip" data-tooltip="Message" id="btn_msg">
+          <a href="#" class="tooltip" data-tooltip="Message" id="btn_msg">
             <i class="fab fa-facebook-messenger"></i>
-          </button>
+          </a>
         </li>
         <li>
-          <button class="tooltip" data-tooltip="Notification" id="btn_bell">
+          <a href="#" class="tooltip" data-tooltip="Notification" id="btn_bell">
             <i class="fas fa-bell"></i>
-          </button>
+          </a>
         </li>
         <li>
           <a class="tooltip" data-tooltip="Settings" id="btn_profile" th:href="@{/logout}">
@@ -54,7 +54,32 @@
         </li>
       </ul>
     </nav>
-  </header>
+  </div>
+
+  <div>
+    <nav th:fragment="header-not-logged-in">
+      <ul>
+        <li>
+          <a class="tooltip active" data-tooltip="Home" th:href="@{/users/new}" id="home">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+        <li id="space1"></li>
+        <li id="space1"></li>
+        <li>
+          <a th:href="@{/users/new}" class="tooltip" data-tooltip="Sign Up" id="btn_signup">
+            Sign Up
+          </a>
+        </li>
+        <li>
+          <a class="tooltip" data-tooltip="Log In" id="btn_login" th:href="@{/login}">
+            Log In
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
 
   <footer th:fragment="footer">
     <p>&copy; 2022 VEDoT</p>
