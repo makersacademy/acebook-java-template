@@ -1,21 +1,21 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Like;
-import com.makersacademy.acebook.repository.LikeRepository;
+import com.makersacademy.acebook.model.Comment;
+import com.makersacademy.acebook.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-public class LikesController {
+public class CommentsController {
 
     @Autowired
-    LikeRepository repository;
+    CommentRepository repository;
 
-    @PostMapping("/likes")
-    public RedirectView create(@ModelAttribute Like like) {
-        repository.save(like);
+    @PostMapping("/comments")
+    public RedirectView create(@ModelAttribute Comment comment) {
+        repository.save(comment);
         return new RedirectView("/posts");
     }
 

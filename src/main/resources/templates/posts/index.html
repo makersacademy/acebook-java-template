@@ -35,6 +35,16 @@
             <input type="hidden" name="username" th:value="${#authentication.name}">
             <input type="submit" value="Like" />
         </form>
+
+        <ul th:each="comment: ${comments}">
+            <li  th:if="${comment.post_id == post.id}"></li>
+        </ul>
+        <form action="#" th:action="@{/comments}"  th:object="${comment}" method="comment">
+            <p>Comment: <input type="text" th:field="*{CommentContent}" /></p>
+            <input type="hidden" name="post_id" th:value="${post.id}">
+            <input type="hidden" name="username" th:value="${#authentication.name}">
+            <p><input type="submit" value="Submit" /></p>
+        </form>
     </ul>
        
     <div class="main_body">    <!-- </ul> -->

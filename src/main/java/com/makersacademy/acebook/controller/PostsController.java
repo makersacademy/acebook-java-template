@@ -3,8 +3,10 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
+import com.makersacademy.acebook.repository.CommentRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +28,9 @@ public class PostsController {
     @Autowired
     LikeRepository likesRepository;
 
+    @Autowired
+    CommentRepository commentsRepository;
+
     Date tmpDate = null;
 
     String keyword = "";
@@ -33,6 +38,7 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Like> likes = likesRepository.findAll();
+        Iterable<Comment> comments = commentsRepository.findAll();
         Iterable<Post> posts;
         if(tmpDate == null && keyword.isEmpty()) posts = repository.findAll();
         else if(tmpDate == null && !keyword.isEmpty()) posts = repository.findByContentContaining(keyword);
@@ -42,6 +48,8 @@ public class PostsController {
         model.addAttribute("posts", posts);
         model.addAttribute("likes", likes);
         model.addAttribute("post", new Post());
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
         tmpDate = null;
         return "posts/index";
 
