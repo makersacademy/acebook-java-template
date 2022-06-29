@@ -28,11 +28,11 @@
     
     </ul>
 
-    <div id="user-profile" sec:authorize="isAuthenticated()">
+    <div id="user-signed-in" sec:authorize="isAuthenticated()">
         <img style="vertical-align:middle" src="../static/avatar.png" width="60" th:src="@{/avatar.png}" alt="Avatar" class="avatar">
         <span sec:authentication="name"></span>'s profile
-            <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                <p>Content: <input id="content-input" type="text" th:field="*{content}" /></p>
+            <form class="content-div"  action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <p><input id="content-input" type="text" placeholder="Create a new post" th:field="*{content}" /></p>
                 <p><input type="submit" id="submit" value="Submit" /></p>
             </form>
     </div>
