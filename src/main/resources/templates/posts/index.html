@@ -25,9 +25,20 @@
         at: <div th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}" ></div>
         </div>  -->
 
-   
+    <ul th:each="post: ${posts}">
+        <li th:text="${post.content}" />
+        <ul th:each="like: ${likes}">
+            <li  th:if="${like.post_id == post.id}">You Liked This!</li>
+        </ul>
+        <form action="#" th:action="@{/likes}" method="post">
+            <input type="hidden" name="post_id" th:value="${post.id}">
+            <input type="hidden" name="username" th:value="${#authentication.name}">
+            <input type="submit" value="Like" />
+        </form>
+    </ul>
        
     <div class="main_body">    <!-- </ul> -->
+
 
         <div class="sidebar">
             <div class="sidebarRow">
@@ -35,6 +46,7 @@
                 src=""
                 alt=""
                 />
+
                     <h4>BLAH</h4> 
             </div>
 
