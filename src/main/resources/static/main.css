@@ -203,7 +203,7 @@ nav ul li #btn_profile::after{
 }
 /* img of the post lists */
 .post_image img {
-  width: 30%;
+  width: 100%;
 }
 /* likes/comments/share icons */
 .post_option {
@@ -234,7 +234,6 @@ nav ul li #btn_profile::after{
   display: flex;
   justify-content: row-flex;
 }
-
 
 /* text css: */
 p {
