@@ -56,16 +56,17 @@ public class DeletePostTest {
       driver.findElement(By.id("content-input")).sendKeys(testText);
       driver.findElement(By.id("submit")).click();
       //inputs testText into the form and sumbits the post
-      List<WebElement> postsList = driver.findElements(By.className("post-class")); 
+      List<WebElement> postsList = driver.findElements(By.className("post-content")); 
 
-      Integer lastIndex = postsList.size() - 1;
-      WebElement lastPost = postsList.get(lastIndex);
-      Assert.assertEquals(testText, lastPost.getText());
+      Integer firstIndex = 0;
+      Integer postListNewSize = postsList.size();
+      WebElement firstPost = postsList.get(firstIndex);
+      Assert.assertEquals(testText, firstPost.getText());
        //checks that the post is on the page
 
       driver.findElement(By.id("delete-btn")).click();
-      postsList = driver.findElements(By.className("post-class"));
-      Assert.assertEquals(Integer.valueOf(postsList.size()), Integer.valueOf(lastIndex));
+      postsList = driver.findElements(By.className("post-content"));
+      Assert.assertEquals(Integer.valueOf(postsList.size()), Integer.valueOf(postListNewSize - 1));
       //Deletes the post and checks that there is one less post on the page
      
          

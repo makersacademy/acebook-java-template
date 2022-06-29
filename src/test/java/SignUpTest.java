@@ -67,7 +67,7 @@ public class SignUpTest {
     @Test
     public void redirectToSignIn() {
         driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.className("log-in-btn")).click();
+        driver.findElement(By.className("login-link")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
 

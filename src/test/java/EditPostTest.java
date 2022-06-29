@@ -1,11 +1,6 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.PostLoad;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,14 +17,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 
-public class SortPostsTest {
+public class EditPostTest {
 
     WebDriver driver;
     Faker faker;
     String username;
     String password;
-    String testTextOne;
-    String testTextTwo;
+    String testText;
+    String editText;
     String id;
 
     @Before
@@ -39,8 +34,8 @@ public class SortPostsTest {
       faker = new Faker();
       username = faker.name().firstName();
       password= "mypassword";
-      testTextOne = "1";
-      testTextTwo = "2";     
+      testText = "This text was made by EditPostTest";
+      editText = "This text was Edited";
     } 
 
     @After
@@ -49,7 +44,7 @@ public class SortPostsTest {
     }
 
     @Test
-    public void sortPostsById(){
+    public void EditPost(){
       driver.get("http://localhost:8080/users/new");
       driver.findElement(By.id("username")).sendKeys(username);
       driver.findElement(By.id("password")).sendKeys(password);
@@ -60,27 +55,27 @@ public class SortPostsTest {
       driver.findElement(By.className("btn")).click();
       //signed in as username
 
-      driver.findElement(By.id("content-input")).sendKeys(testTextOne);
-      driver.findElement(By.id("submit")).click();
-      driver.findElement(By.id("content-input")).sendKeys(testTextTwo);
+      driver.findElement(By.id("content-input")).sendKeys(testText);
       driver.findElement(By.id("submit")).click();
       //inputs testText into the form and sumbits the post
       List<WebElement> postsList = driver.findElements(By.className("post-content")); 
-      List<String> postText = new ArrayList<String>();
-      postsList.forEach((text) -> postText.add(text.getText()));
 
-      Integer textOneIndex = postText.indexOf(testTextOne);
-      Integer textTwoIndex = postText.indexOf(testTextTwo);
-      System.out.println(postText);
 
-      Assert.assertTrue(textTwoIndex < textOneIndex);
-       //checks that the post is on the page    
-      // create another post (to create a more realistic scenario)
-      // create new post
-      // get list of ids of posts
-      // get last post id (since latest post will always be last)
-      // click delete button that has that id
-      // refresh page
-      // check that no post has that content + id
+      //Check last element on list is the post we posted
+      WebElement firstPost = postsList.get(0);
+      Assert.assertEquals(testText, firstPost.getText());
+
+      driver.findElement(By.id("edit-link")).click();
+      driver.findElement(By.id("edit-input")).sendKeys(editText);
+      driver.findElement(By.id("submit-edit")).click();
+
+
+
+      List<WebElement> editedPostsList = driver.findElements(By.className("post-content"));
+
+      //check if last element on list is same with edited
+      WebElement editedFirstPost = editedPostsList.get(0);
+      Assert.assertEquals(editText, editedFirstPost.getText());
+
     }
 }

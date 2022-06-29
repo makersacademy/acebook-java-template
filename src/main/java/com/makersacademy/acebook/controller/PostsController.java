@@ -5,7 +5,10 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
+import org.hibernate.ResourceClosedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostsController {
@@ -46,5 +50,25 @@ public class PostsController {
         repository.deleteById(id);
         return new RedirectView("/posts");
     }
-    
+
+    @GetMapping("/posts/{id}/edit")
+      public String edit(@PathVariable Long id, Model model) {
+        Optional<Post> post = repository.findById(id);
+        model.addAttribute("post", post.orElseThrow());
+      return "posts/editPost";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public RedirectView update(@PathVariable("id") Long id, @ModelAttribute Post updatedPost){
+      // Post post = repository.findById(id)
+      // .orElseThrow(() -> new ResourceNotFoundException("Post not found :: "+ id ));
+      
+      Optional<Post> optionalPost = repository.findById(id);
+      Post post = optionalPost.get();
+
+      post.setContent(updatedPost.getContent());
+      repository.save(post);
+
+      return new RedirectView("/posts");
+    }
 }
