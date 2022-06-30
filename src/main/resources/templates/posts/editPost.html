@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Acebook</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+        <ul class="nav-bar">
+            
+            <li><a href="/posts">
+                <button class="nav-bar-button">Home</button>
+            </a></li>
+        
+            <li><a href="/profile/">
+                <button id="user-btn" class="nav-bar-button">Your Profile</button>
+            </a></li>
+        
+            <li><a href="">
+                <button class="nav-bar-button">TEST BUTTON</button>
+            </a></li>
+        
+        
+            <li style="float:right"><a id="logout" href="/logout">  
+                <button class="log-out-btn" value="Log Out">Log Out</button>
+            </a></li>
+        </ul>
+
+        <form class="content-div" action="#" th:action="@{/posts/{post_id}/edit(post_id=${post.id})}" th:object="${post}" method="post">
+            <p><input id="edit-input" type="text" th:field="*{content}" th:value="${post.content}"/></p>
+            <p><input type="submit" id="submit-edit" value="Submit" /></p>
+        </form>
+    </body>
+</html>
+

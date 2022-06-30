@@ -57,8 +57,8 @@ public class UserPageTest {
       driver.findElement(By.className("btn")).click();
 
       driver.findElement(By.id("user-btn")).click();
-      WebElement userText = driver.findElement(By.id("user-profile"));
-      Assert.assertEquals(username + " profile", userText.getText());
+      WebElement userText = driver.findElement(By.id("user-signed-in"));
+      Assert.assertEquals(username + "'s profile", userText.getText());
     }
     @Test
     public void userPageOnlyShowsUserPosts() {
