@@ -50,7 +50,7 @@ public class UsersController {
       model.addAttribute("posts", posts);
       model.addAttribute("post", new Post());
 
-        return "/users/userProfile";
+        return "users/profile";
     }
 
 
