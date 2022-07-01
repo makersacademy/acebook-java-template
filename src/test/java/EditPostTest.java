@@ -29,7 +29,7 @@ public class EditPostTest {
 
     @Before
     public void setup() {
-      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+      System.setProperty("webdriver.chrome.driver", "/Program Files/chromedriver/chromedriver.exe");
       driver = new ChromeDriver();
       faker = new Faker();
       username = faker.name().firstName();
@@ -66,6 +66,7 @@ public class EditPostTest {
       Assert.assertEquals(testText, firstPost.getText());
 
       driver.findElement(By.id("edit-link")).click();
+      driver.findElement(By.id("edit-input")).clear();
       driver.findElement(By.id("edit-input")).sendKeys(editText);
       driver.findElement(By.id("submit-edit")).click();
 

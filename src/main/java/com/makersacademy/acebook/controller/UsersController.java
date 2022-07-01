@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -50,8 +53,15 @@ public class UsersController {
       model.addAttribute("posts", posts);
       model.addAttribute("post", new Post());
 
-        return "/users/userProfile";
+        return "users/userProfile";
     }
+
+    // @RequestMapping(method = RequestMethod.POST, value = "/images")
+    // public RedirectView createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    //     imageService.createImage(file);
+
+    //     return new RedirectView("/login");
+    // }
 
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
