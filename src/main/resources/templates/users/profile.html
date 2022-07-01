@@ -48,28 +48,25 @@
 -->
 
     <ul th:each="i : ${#numbers.sequence(posts.size() - 1, 0, -1)}" th:with="post=${posts[i]}">
+      <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
             <div class="post-div">
                 <li class="post-class" th:id="${post.id}" th:user="${post.user.username}"/>
-                <img class="post-user-img" style="vertical-align:middle" width="15" th:src="@{/avatar.png}" alt="Avatar">
-                <span class="post-username" th:text="${post.user.username}"></span>
-                <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
-                    <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
+                  <img class="post-user-img" style="vertical-align:middle" width="15" th:src="@{/avatar.png}" alt="Avatar">
+                    <span class="post-username" th:text="${post.user.username}"></span>
+                          <form th:action="@{/posts/{post_id}/delete(post_id=${post.id})}" method="post">
                 
-                    <button class="delete-btn" type="submit" id="delete-btn">
-                        <img src="../static/delete.png" width="10" th:src="@{/delete.png}" alt="Delete post" class="delete-post"/>
-                    </button>
-                    </form>
-                </span>
-                    <div>
+                              <button class="delete-btn" type="submit" id="delete-btn">
+                                <img src="../static/delete.png" width="10" th:src="@{/delete.png}" alt="Delete post" class="delete-post"/>
+                              </button>
+                          </form>
+                        <div>
                         <span class="post-content" th:text="${post.content}"></span>
-                        <span th:if="${post.user.username==#authentication.getPrincipal().getUsername()}">
                         <a th:href="@{/posts/{post_id}/edit(post_id=${post.id})}">
                         <button class="edit-btn" id="edit-link">Edit</button>
                         </a>
-                        </span>
                     </div>
             </div>
-        
+          </span>  
         
     </ul>
   </body>
