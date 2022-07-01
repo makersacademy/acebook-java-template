@@ -102,21 +102,21 @@ li {
     background-color: transparent;
     border: none;
     float: right;
-    margin: -5px 5px 0 0;
+    margin: -20px 5px 0 0;
   }
 
   .delete-btn:hover{
     background-color: #87a889;
     border: none;
     float: right;
-    margin: -5px 5px 0 0;
+    margin: -20px 5px 0 0;
   }
 
   .delete-btn:active{
     background-color: #87a889;
     border: none;
     float: right;
-    margin: -5px 5px 0 0;
+    margin: -20px 5px 0 0;
   }
 
   #user-signed-in{

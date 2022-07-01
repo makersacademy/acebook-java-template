@@ -28,10 +28,12 @@ public class PostsController {
     UserRepository userRepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
         Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        User user = userRepository.findByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "posts/index";
     }
     //POST '/posts'

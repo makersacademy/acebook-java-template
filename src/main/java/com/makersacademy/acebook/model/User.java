@@ -24,6 +24,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String user_picture = "avatar.png";
 
     @OneToMany(mappedBy = "user")
     private Set<Post> posts;
@@ -46,7 +47,10 @@ public class User {
 
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
+    public String getUserPicture() { return this.user_picture; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
+    public void setUserPicture(String user_picture) { this.user_picture = user_picture; }
+
 
 }
