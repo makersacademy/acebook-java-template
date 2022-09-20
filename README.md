@@ -56,10 +56,7 @@ This app already has a few basic features
 
 ## Design
 
-This app uses a structure that is similar to Bookmark Manager. The biggest difference is that, here, the repository 
-pattern is used. The repository pattern separates the business logic of models from the responsibility of 
-connecting to the database and making queries. Take a look in the `src/main/java/repository` and you'll find 
-`PostRepository` which generates and executes queries to Create, Read, Update and Delete (CRUD) posts. 
+This app uses the repository pattern. The repository pattern separates the business logic of models from the responsibility of connecting to the database and making queries. Take a look in the `src/main/java/repository` and you'll find `PostRepository` which generates and executes queries to Create, Read, Update and Delete (CRUD) posts. Depending on what you've built in the past, it might or might not feel familiar to you.
 
 ## Initial learning goals
 
