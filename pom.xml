@@ -29,10 +29,6 @@
     </parent>
 
     <repositories>
-	     <repository>
-		       <id>projectlombok.org</id>
-		       <url>https://projectlombok.org/edge-releases</url>
-	     </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -71,7 +67,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>edge-SNAPSHOT</version>
+	    <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
