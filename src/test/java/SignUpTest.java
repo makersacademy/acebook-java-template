@@ -43,8 +43,6 @@ public class SignUpTest {
 
 
     // Unsuccessful Sign Up
-    //  - blank username
-    //  - blank password
     //  - username already exists
     //  - invalid password length
 
@@ -57,4 +55,26 @@ public class SignUpTest {
         String url = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/users/new", url);
     }
+
+    @Test
+    public void unsuccessfulSignUpTestBlankPassword(){
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+        driver.findElement(By.id("password")).sendKeys("");
+        driver.findElement(By.id("submit")).click();
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/users/new", url);
+    }
+
+    @Test
+    public void unsuccessfulSignUpTestPassCharMin(){
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+        driver.findElement(By.id("password")).sendKeys("123456");
+        driver.findElement(By.id("submit")).click();
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/users/new", url);
+    }
+
+    
 }

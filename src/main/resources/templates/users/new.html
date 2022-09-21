@@ -14,7 +14,15 @@
                 required
                 />
             </p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
+            <p>Password: 
+                <!-- Moving on from MVP - Password should require symbols and numbers -->
+                <input 
+                type="password" 
+                th:field="*{password}" 
+                pattern="[A-Za-z0-9]+" 
+                minlength="7"
+                required/>
+            </p>
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
     </body>
