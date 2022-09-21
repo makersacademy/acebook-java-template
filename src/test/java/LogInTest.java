@@ -30,36 +30,32 @@ public class LogInTest {
     public void tearDown() {
         driver.close();
     }
-    
-    // We would like to write a test for already exisitng feature logging in:
 
     @Test
     public void successfulLogInRedirectsToPosts() {
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys("Emma");
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
         driver.get("http://localhost:8080/login");
-        driver.findElement(By.id("username")).sendKeys("Danny");
+        driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
         String title = driver.getTitle();
         String url = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/posts", url);
         Assert.assertEquals("Acebook", title);
-
-        // WebElement h1 = driver.findElement(By.tagName("h1"));
-        // Assert.assertEquals("Posts", h1);
     }   
 
     @Test
     public void unsuccessfulLogInRedirectsBackToLogin() {
         driver.get("http://localhost:8080/login");
-        driver.findElement(By.id("username")).sendKeys("Danny");
-        driver.findElement(By.id("password")).sendKeys("no");
+        driver.findElement(By.id("username")).sendKeys("Emma");
+        driver.findElement(By.id("password")).sendKeys("12345678");
         driver.findElement(By.tagName("button")).click();
         boolean exist = driver.findElement(By.className("alert")).isDisplayed();
-        String title = driver.getTitle();
         String url = driver.getCurrentUrl();
-
         Assert.assertEquals("http://localhost:8080/login?error", url);
-        Assert.assertTrue(exist);
-        
+        Assert.assertTrue(exist); 
     }   
 }
