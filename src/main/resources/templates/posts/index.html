@@ -17,7 +17,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Acebook</title>
   </head>
   <body>
@@ -48,12 +48,15 @@
         </ul>
       </div>
     </nav>
-    <div class="container">
-      <div sec:authorize="isAuthenticated()">
+    
+      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
+        <div class="row">  
+        <div class="col-sm">
+            <div sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
       </div>
 
-      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>
           Content:
           <input
@@ -69,9 +72,13 @@
           <input type="reset" value="Reset" />
         </p>
       </form>
+    <div class="card">
       <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
       </ul>
+    </div>
+    </div>
+    </div>
     </div>
 
     <script
