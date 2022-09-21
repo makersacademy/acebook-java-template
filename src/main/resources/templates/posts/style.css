@@ -2,3 +2,7 @@ ol {
   display: flex;
   flex-direction: column-reverse;
 }
+
+.move {
+  margin: auto;
+}
