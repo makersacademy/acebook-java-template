@@ -22,10 +22,10 @@
         <input type="reset" value="Reset" />
       </p>
     </form>
-    <ol th:each="post: ${posts}">
+    <ul th:each="post: ${posts}">
       <!-- <span th:if="${post.id }"> -->
       <li th:text="${post.content}" />
       <!-- </span> -->
-    </ol>
+    </ul>
   </body>
 </html>
