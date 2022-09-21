@@ -5,6 +5,28 @@
 .post-main {
     border: 1px solid #999;
     padding: 0.5rem;
-    text-align: left;
+    text-align: center;
     margin-bottom: 0.5rem;;
+    margin: auto;
+}
+
+.myPosts {
+    width: 320px;
+    padding: 10px;
+    background-color: #999;
+    border: 5px solid white;
+    margin: auto;
+}
+
+.logout {
+    width: 320px;
+    padding: 10px;
+    margin-right: auto;
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 0;
+	padding-left: 0;
+    margin: auto;
 }
