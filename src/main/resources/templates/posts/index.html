@@ -56,7 +56,13 @@
       <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>
           Content:
-          <input type="text" minlength="1" th:field="*{content}" required />
+          <input
+            type="text"
+            minlength="1"
+            pattern="[A-Za-z]{3}"
+            th:field="*{content}"
+            required
+          />
         </p>
         <p>
           <input type="submit" value="Submit" />
