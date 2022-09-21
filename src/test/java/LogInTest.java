@@ -33,19 +33,22 @@ public class LogInTest {
 
     @Test
     public void successfulLogInRedirectsToPosts() {
+        // user signs up
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
+        // user logs in
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
+        // main page
         String title = driver.getTitle();
         String url = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/posts", url);
         Assert.assertEquals("Acebook", title);
-    }   
+    }
 
     @Test
     public void unsuccessfulLogInRedirectsBackToLogin() {
@@ -56,6 +59,6 @@ public class LogInTest {
         boolean exist = driver.findElement(By.className("alert")).isDisplayed();
         String url = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/login?error", url);
-        Assert.assertTrue(exist); 
-    }   
+        Assert.assertTrue(exist);
+    }
 }
