@@ -23,7 +23,7 @@ public class UsersController {
     @GetMapping("/users/new")
     public String signup(Model model) {
         model.addAttribute("user", new User());
-        return "users/new";
+        return "users/new"; // static html file
     }
 
     @PostMapping("/users")
