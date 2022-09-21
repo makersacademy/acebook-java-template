@@ -40,4 +40,21 @@ public class SignUpTest {
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
     }
+
+
+    // Unsuccessful Sign Up
+    //  - blank username
+    //  - blank password
+    //  - username already exists
+    //  - invalid password length
+
+    @Test
+    public void unsuccessfulSignUpTestBlankUsername(){
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys("");
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/users/new", url);
+    }
 }
