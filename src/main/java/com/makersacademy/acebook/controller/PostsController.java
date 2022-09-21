@@ -18,7 +18,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
+        Iterable<Post> posts = repository.findAll(); // filter them by the added_on date (most recent)
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
