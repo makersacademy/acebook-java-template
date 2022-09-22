@@ -41,11 +41,23 @@ public class HomeTest {
 
     @Test
     public void getslashreturnsyoutopostsifsignedin() {
+        // Test Values
+        String RN = "Random Name";
+        String RP = "Random Password";
 
+        // Mocks Creating User
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
+        driver.findElement(By.id("submit")).click();
+
+        // Mocks Logging in
         driver.get("http://localhost:8080/login");
-        driver.findElement(By.id("username")).sendKeys("connor");
-        driver.findElement(By.id("password")).sendKeys("1234");
+        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
         driver.findElement(By.className("btn")).click();
+
+        // Checking if '/' redirects to posts when logged in.
         driver.get("http://localhost:8080/");
         Assert.assertEquals("Acebook", driver.getTitle());
     }

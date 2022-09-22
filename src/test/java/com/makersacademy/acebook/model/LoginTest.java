@@ -36,12 +36,23 @@ public class LoginTest {
 
     @Test
     public void successfulLoginRedirectsToPosts() {
+        // Test Values
         String RN = "Random Name";
         String RP = "Random Password";
+
+        // Mocks Creating User
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
+        driver.findElement(By.id("submit")).click();
+
+        // Mocks Logging in
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys(RN);
         driver.findElement(By.id("password")).sendKeys(RP);
         driver.findElement(By.className("btn")).click();
+
+        // Asserts Login success by getting title of page
         String title = driver.getTitle();
         Assert.assertEquals("Acebook", title);
     }
