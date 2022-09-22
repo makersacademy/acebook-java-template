@@ -62,9 +62,10 @@
           <input
             type="text"
             minlength="1"
-            pattern="[A-Za-z0-9]+"
+            pattern=".*\S+.*"
             th:field="*{content}"
-            required
+            title="This field is required"
+            required 
           />
         </p>
         <p>
