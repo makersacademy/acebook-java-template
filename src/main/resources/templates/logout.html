@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Sign in</title>
+    <title>Logout</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
   </head>
   <body>
-    <div class="container">
     <!-- confirm log out form -->
+    <div class="d-flex justify-content-center">
     <form class="logout" th:action="@{/logout}" method="post">
-      <p>Are you sure you want to logout?</p>
-      <input type="submit" value="Logout" />
+      <label for="logout" class="logout">Are you sure you want to logout?</label>
+      <br>
+      <div class="col text-center">
+      <input class="btn btn-danger" type="submit" value="Logout" />
+      <br>
+      <br>
+      <input class="btn btn-primary" type="button" value="Go back!" onclick="history.back()">
+      </div>
     </form>
+    </div>
 </body>
 </html>
 </html>
-
