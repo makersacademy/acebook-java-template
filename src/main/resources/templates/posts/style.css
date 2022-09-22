@@ -6,3 +6,9 @@ ol {
 .move {
   margin: auto;
 }
+
+.card {
+  padding: 5%;
+  padding-top: 2%;
+  background-color: #b9d6f2;
+}

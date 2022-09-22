@@ -37,12 +37,12 @@ public class LogoutTest {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("signup")).click();
         // user logs in
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.id("login")).click();
         // main page
         String title = driver.getTitle();
         String url = driver.getCurrentUrl();
@@ -50,13 +50,11 @@ public class LogoutTest {
         Assert.assertEquals("Acebook", title);
 
         driver.findElement(By.xpath("//a[@href='/logout']")).click();
-        driver.findElement(By.xpath("//*[text()='Log Out']")).click();
+        driver.findElement(By.xpath("//input[@value='Logout']")).click();
 
         // http://localhost:8080/login?logout
 
         String logOuturl = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/login?logout", logOuturl);
-        boolean exist = driver.findElement(By.xpath("//*[text()='You have been signed out']")).isDisplayed();
-        Assert.assertTrue(exist);
     }
 }
