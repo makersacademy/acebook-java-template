@@ -59,6 +59,6 @@ public class HomeTest {
 
         // Checking if '/' redirects to posts when logged in.
         driver.get("http://localhost:8080/");
-        Assert.assertEquals("Acebook", driver.getTitle());
+        Assert.assertEquals("Winklevoss", driver.getTitle());
     }
 }
