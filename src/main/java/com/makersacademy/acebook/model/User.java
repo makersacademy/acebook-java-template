@@ -20,7 +20,9 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private byte image;
 
+    // Constructors:
     public User() {
         this.enabled = TRUE;
     }
@@ -35,6 +37,22 @@ public class User {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+    }
+
+    public User(String username, String password, boolean enabled, byte image) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.image = image;
+    }
+
+    // Getters and Setters:
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -53,5 +71,11 @@ public class User {
         this.password = password;
     }
 
-    // getters and setters for image
+     public byte getImage() {
+        return this.image;
+    }
+
+    public void setImage(byte image) {
+        this.image = image;
+    }
 }
