@@ -4,6 +4,9 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +30,14 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
-        userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
-        return new RedirectView("/login");
+    public RedirectView signup(@ModelAttribute User user) throws Exception {
+        if (userRepository.existsByUsername(user.getUsername())){
+            return new RedirectView("users/new?retry");
+        } else {
+            userRepository.save(user);
+            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+            authoritiesRepository.save(authority);
+            return new RedirectView("/login");
+        }
     }
 }
