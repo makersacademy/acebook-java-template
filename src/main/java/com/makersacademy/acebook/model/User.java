@@ -20,7 +20,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
-    private byte image;
+    private String image;
 
     // Constructors:
     public User() {
