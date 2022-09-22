@@ -12,3 +12,7 @@ ol {
   padding-top: 2%;
   background-color: #b9d6f2;
 }
+
+.navbar-nav {
+  margin-left: auto;
+}
