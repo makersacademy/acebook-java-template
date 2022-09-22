@@ -37,12 +37,12 @@ public class LogInTest {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("signup")).click();
         // user logs in
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.id("login")).click();
         // main page
         String title = driver.getTitle();
         String url = driver.getCurrentUrl();
@@ -55,10 +55,8 @@ public class LogInTest {
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys("Emma");
         driver.findElement(By.id("password")).sendKeys("12345678");
-        driver.findElement(By.tagName("button")).click();
-        boolean exist = driver.findElement(By.className("alert")).isDisplayed();
+        driver.findElement(By.id("login")).click();
         String url = driver.getCurrentUrl();
         Assert.assertEquals("http://localhost:8080/login?error", url);
-        Assert.assertTrue(exist);
     }
 }
