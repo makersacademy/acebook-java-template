@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 import javax.sql.DataSource;
 
 @EnableWebSecurity
@@ -39,8 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/posts").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
-                // .and().logout().deleteCookies("remove").invalidateHttpSession(false)
-                // .logoutUrl("/logout").logoutSuccessUrl("/logout-success");
+        // .and().logout().deleteCookies("remove").invalidateHttpSession(false)
+        // .logoutUrl("/logout").logoutSuccessUrl("/logout-success");
     }
 
 }

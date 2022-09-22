@@ -1,3 +1,5 @@
+package com.makersacademy.acebook.model;
+
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import org.junit.After;
@@ -8,13 +10,13 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SignUpTest {
+
+public class LoginTest {
 
     WebDriver driver;
     Faker faker;
@@ -32,12 +34,25 @@ public class SignUpTest {
     }
 
     @Test
-    public void successfulSignUpRedirectsToSignIn() {
+    public void successfulLoginRedirectsToPosts() {
+        // Test Values
+        String RN = "Random Name";
+        String RP = "Random Password";
+
+        // Mocks Creating User
         driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
         driver.findElement(By.id("submit")).click();
+
+        // Mocks Logging in
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
+        driver.findElement(By.className("btn")).click();
+
+        // Asserts Login success by getting title of page
         String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
+        Assert.assertEquals("Winklevoss", title);
     }
 }
