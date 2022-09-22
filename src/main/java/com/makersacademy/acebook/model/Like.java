@@ -18,7 +18,7 @@ public class Like {
     private Long user_id;
     private Long post_id;
 
-    
+    // Constructors:
     public Like(){
     }
     
@@ -37,6 +37,7 @@ public class Like {
         this.post_id = post_id;
     }
 
+    // Getters and Setters:
     public Long getId() {
         return this.id;
     }
@@ -60,5 +61,4 @@ public class Like {
     public void setPost_id(Long post_id) {
         this.post_id = post_id;
     }
-    
 }
