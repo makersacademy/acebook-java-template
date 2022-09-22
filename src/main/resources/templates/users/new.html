@@ -18,7 +18,7 @@
           <input type="text" th:field="*{username}" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
           <label for="password" class="sr-only">Password</label>
           <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Password" required>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+          <button id="signup" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
       </form>
       <!-- redirect to login page  -->
       <form class="form-signin" method="get" action="/login">
