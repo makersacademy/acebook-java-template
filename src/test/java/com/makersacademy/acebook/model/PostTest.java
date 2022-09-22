@@ -21,22 +21,7 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = Application.class)
 public class PostTest {
 
-	WebDriver driver;
-	Faker faker;
-
-	@Before
-	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-		driver = new ChromeDriver();
-		faker = new Faker();
-	}
-
-	@After
-	public void tearDown() {
-		driver.close();
-	}
-
-	private Post post = new Post("Test Post");
+	private Post post = new Post("title", "hello");
 
 	@Test
 	public void postHasContent() {

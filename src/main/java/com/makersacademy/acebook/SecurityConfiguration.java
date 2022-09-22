@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.sql.Driver;
+
 import javax.sql.DataSource;
 
 @EnableWebSecurity
@@ -29,6 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/posts").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
+                // .and().logout().deleteCookies("remove").invalidateHttpSession(false)
+                // .logoutUrl("/logout").logoutSuccessUrl("/logout-success");
     }
 
     @Bean

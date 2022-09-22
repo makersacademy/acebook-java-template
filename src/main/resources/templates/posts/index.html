@@ -3,25 +3,56 @@
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
-        <title>Acebook</title>
+        <title>Winklevoss</title>
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
+        
+        <h1>Posts</h1>
+        
+        <nav> <!-- nav bar - subject to change -->
+            <a href="/profile"><p>Profile</p></a>
+            <a href="/friends"><p>Friends</p></a>
+            <a href="/groups"><p>Groups</p></a>
+            <a href="/events"><p>Events</p></a>
+            <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
+            <a href="/messages"><p>Messages</p></a>
+        </nav>
+        
+        <div class="container"> <!-- Added container div for positioning body content - can move around -->
 
-    <h1>Posts</h1>
+            <div sec:authorize="isAuthenticated()">
+                Signed in as <span sec:authentication="name"></span>
+            </div>
+            
+            <div class="logout">
+                <form action="/logout" method="get">
+                    <p><input type="submit" id="Logout" value="Logout" /></p>
+                </form>
+            </div>
+            
+            <div class="myPosts">
+                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                    <p>Content: <input type="text" th:field="*{content}" /> <input type="submit" value="Submit" /></p>
+                </form>
+            </div>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+            <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <p>Title: <input type="text" name="title"/></p>
+                <p>Content: <input type="text" name="content"/></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+            <ul th:each="post: ${posts}">
+                <li th:text="${post.title}" />
+                <li th:text="${post.content}" />
+            </ul>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-    </ul>
+            <form action="/logout" method="get">
+                <p><input type="submit" id="Logout" value="Logout" /></p>
+            </form>
+
+        </div> <!-- End of container div -->
 
     </body>
 </html>
