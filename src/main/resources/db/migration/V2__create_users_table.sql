@@ -3,10 +3,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id bigserial PRIMARY KEY,
   username varchar(50) NOT NULL UNIQUE,
-  password varchar(50) NOT NULL,
-  -- enabled is automatically set to TRUE by Spring Security
-  -- if this is changed to FALSE
-  -- the user won't be able to log in anymore
+  password varchar(100) NOT NULL,
   enabled boolean NOT NULL
 );
 
