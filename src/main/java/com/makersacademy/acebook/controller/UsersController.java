@@ -32,11 +32,12 @@ public class UsersController {
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) throws Exception {
         if (userRepository.existsByUsername(user.getUsername())){
-            return new RedirectView("users/new?fail");
+            return new RedirectView("users/new?retry");
+        } else {
+            userRepository.save(user);
+            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+            authoritiesRepository.save(authority);
+            return new RedirectView("/login");
         }
-        userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
-        return new RedirectView("/login");
     }
 }
