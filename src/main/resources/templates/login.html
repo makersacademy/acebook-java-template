@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="container">
-     <!-- login form -->
+    <!-- login form -->
       <form class="form-signin" th:action="@{/login}" method="post">
         <h2 class="form-signin-heading">Please log in</h2>
           <label for="username" class="sr-only">Username</label>
@@ -22,8 +22,8 @@
       </form>
       <!-- redirect to sign up  -->
       <form class="form-signin" method="get" action="users/new">
-       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-       <div id="emailHelp" class="form-text">Please sign up here if you don't have an account.</div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      <div id="emailHelp" class="form-text">Please sign up here if you don't have an account.</div>
     </form>
 </body>
 </html>
