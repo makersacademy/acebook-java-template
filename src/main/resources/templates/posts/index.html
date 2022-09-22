@@ -99,7 +99,15 @@
       </form>
     <div class="card">
       <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+
+        <br>
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text" th:text="${post.content}"></p>
+          </div>
+        </div>
+        
       </ul>
     </div>
     </div>
