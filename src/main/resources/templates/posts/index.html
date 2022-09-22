@@ -24,18 +24,6 @@
             <div sec:authorize="isAuthenticated()">
                 Signed in as <span sec:authentication="name"></span>
             </div>
-            
-            <div class="logout">
-                <form action="/logout" method="get">
-                    <p><input type="submit" id="Logout" value="Logout" /></p>
-                </form>
-            </div>
-            
-            <div class="myPosts">
-                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <p>Content: <input type="text" th:field="*{content}" /> <input type="submit" value="Submit" /></p>
-                </form>
-            </div>
 
             <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
                 <p>Title: <input type="text" name="title"/></p>

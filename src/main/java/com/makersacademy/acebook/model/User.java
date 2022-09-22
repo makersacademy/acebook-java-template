@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import antlr.collections.List;
-
 import javax.persistence.GenerationType;
 
 import lombok.Data;
@@ -28,9 +26,9 @@ public class User {
     private String password;
     private boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Post> posts;
-    
+
     public User() {
         this.enabled = TRUE;
     }
@@ -47,7 +45,7 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getId() { return this.id; }
+    public Long getId() { return id; }
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public void setId(Long id) {this.id = id; }
