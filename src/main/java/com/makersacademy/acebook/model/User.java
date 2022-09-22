@@ -20,7 +20,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
-    private byte image;
+    private String image;
 
     // Constructors:
     public User() {
@@ -39,7 +39,7 @@ public class User {
         this.enabled = enabled;
     }
 
-    public User(String username, String password, boolean enabled, byte image) {
+    public User(String username, String password, boolean enabled, String image) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -71,11 +71,11 @@ public class User {
         this.password = password;
     }
 
-     public byte getImage() {
+     public String getImage() {
         return this.image;
     }
 
-    public void setImage(byte image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
