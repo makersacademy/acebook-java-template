@@ -18,12 +18,22 @@ public class Post {
     private Long id;
     private String content;
 
-    public Post() {}
+    public Post() {
+    }
 
     public Post(String content) {
         this.content = content;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    // getters and setters for user_id
+    // getters and setters timestamp && method for formating the date
 
 }
