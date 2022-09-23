@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 public class UsersController {
@@ -20,6 +21,9 @@ public class UsersController {
     @Autowired
     AuthoritiesRepository authoritiesRepository;
 
+    @Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping("/users/new")
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -28,9 +32,13 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
+        String password = user.getPassword();
+        String encodedPassword = bCryptPasswordEncoder.encode(password);
+        user.setPassword(encodedPassword);
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
+        userRepository.save(user);
         return new RedirectView("/login");
     }
 }
