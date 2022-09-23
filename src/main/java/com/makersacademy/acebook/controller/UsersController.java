@@ -22,23 +22,30 @@ public class UsersController {
     AuthoritiesRepository authoritiesRepository;
 
     @Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/users/new")
+    @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("user", new User());
-        return "users/new";
+        return "/signup/signup";
     }
 
-    @PostMapping("/users")
+    @PostMapping("/signup")
     public RedirectView signup(@ModelAttribute User user) {
-        String password = user.getPassword();
-        String encodedPassword = bCryptPasswordEncoder.encode(password);
-        user.setPassword(encodedPassword);
-        userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
-        userRepository.save(user);
-        return new RedirectView("/login");
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            return new RedirectView("/signup");
+        } else {
+
+            String password = user.getPassword();
+            String encodedPassword = bCryptPasswordEncoder
+                    .encode(password);
+            user.setPassword(encodedPassword);
+            userRepository.save(user);
+            Authority authority = new Authority(user.getUsername(),
+                    "ROLE_USER");
+            authoritiesRepository.save(authority);
+            userRepository.save(user);
+            return new RedirectView("/login");
+        }
     }
 }

@@ -46,10 +46,10 @@ public class HomeTest {
         String RP = "Random Password";
 
         // Mocks Creating User
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(RN);
+        driver.get("http://localhost:8080/signup");
+        driver.findElement(By.id("email")).sendKeys(RN);
         driver.findElement(By.id("password")).sendKeys(RP);
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.className("submit-btn")).click();
 
         // Mocks Logging in
         driver.get("http://localhost:8080/login");

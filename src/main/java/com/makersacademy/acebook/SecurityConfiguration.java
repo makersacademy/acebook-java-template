@@ -18,26 +18,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     @Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	// Enable jdbc authentication
-	@Autowired
-	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
-	}
-
- 
-
-  
+    // Enable jdbc authentication
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/posts").hasRole("USER")
-                .antMatchers("/users").permitAll()
-                .and().formLogin();
+                .antMatchers("/signup").permitAll().and().formLogin();
         // .and().logout().deleteCookies("remove").invalidateHttpSession(false)
         // .logoutUrl("/logout").logoutSuccessUrl("/logout-success");
     }
