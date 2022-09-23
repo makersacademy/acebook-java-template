@@ -40,4 +40,11 @@ public class UsersController {
             return new RedirectView("/login");
         }
     }
+
+    @GetMapping("/users/all")
+    public String allUsers(Model model){
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "users/all";
+    }
 }
