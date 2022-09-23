@@ -35,6 +35,7 @@
 
             <div class="myPosts">
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100">
                     <p>Title: <input type="text" name="title"/></p>
                     <p>Content: <input type="text" name="content"/></p>
                     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
@@ -42,8 +43,12 @@
             </div>
 
             <ul th:each="post: ${posts}">
-                <div class="myPosts"><h3><li th:text="${post.title}" /></h3>
-                <li th:text="${post.content}" /></div>
+                <div class="myPosts">
+                    <a href="/profile"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
+                    <li><b><span sec:authentication="name"></span></b></li></a>
+                    <li th:text="${post.title}" >
+                    <li th:text="${post.content}" >
+                </div>
             </ul>
 
         </div> <!-- End of container div -->
