@@ -33,3 +33,20 @@ INSERT INTO "friends" ("requester_id", "requestee_id", "request_status") VALUES
 ('7', '12', 'accepted'),
 ('11', '10', 'pending'),
 ('1', '8', 'pending');
+
+-- This is seed data for authorities table
+TRUNCATE TABLE "authorities" RESTART IDENTITY CASCADE;
+
+INSERT INTO "authorities" ("username", "authority") VALUES
+('Benjamin', 'USER_ROLE'),
+('Chris', 'USER_ROLE'),
+('Sophia', 'USER_ROLE'),
+('Xiaoyu', 'USER_ROLE'),
+('Walter White', 'USER_ROLE'),
+('Timothy', 'USER_ROLE'),
+('Dave The Rave', 'USER_ROLE'),
+('Yasmin', 'USER_ROLE'),
+('Scarlet', 'USER_ROLE'),
+('Aoife', 'USER_ROLE'),
+('Eoin', 'USER_ROLE'),
+('Mario', 'USER_ROLE');

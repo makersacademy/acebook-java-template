@@ -8,6 +8,7 @@ import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,18 +32,26 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model, HttpSession session) {
-        Iterable<Post> posts = postRepository.findAll();
-        User user = userRepository.findByUserName("boris");
-        Long ID = user.getId();
-        Enumeration<String> sessionAttributes = session.getAttributeNames();
+        // Get posts
+        Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("id", ID);
+
+        // Get username
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Get user ID and store in session (have HttpSession as parameter and call session.getAttribute("id") to get)
+        Long ID = userRepository.findByUserName(userName).getId();
+        Enumeration<String> sessionAttributes = session.getAttributeNames();
+        if (session.getAttribute("id") != ID) { session.setAttribute("id", ID); }
+        model.addAttribute("id", session.getAttribute("id"));
+        model.addAttribute("session", sessionAttributes);
 
         // Likes 
         Iterable<Like> likes = likerepository.findAll();
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Post());
+
         return "posts/index";
     }
 

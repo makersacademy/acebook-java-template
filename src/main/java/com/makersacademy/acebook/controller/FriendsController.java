@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class FriendsController {
 
@@ -23,14 +25,26 @@ public class FriendsController {
   UserRepository userRepository;
 
   @GetMapping("/friends")
-  public String friends(Model model) {
-    // model.addAttribute(attributeValue);
-    // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    // UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    // User currentUser = userService.getUser(userDetail.getUsername());
-    //     request.getSession().setAttribute("userId", u.getId());
-    // // int currentUserID = currentUser.getUserID();
-    // userRepository.getFriends();
+  public String friends(Model model, HttpSession session) {
+
+    // Add user ID as TL variable
+    Long userID = Long.parseLong(session.getAttribute("id").toString());
+    model.addAttribute("id", userID);
+
+    // Get friends and friend requests lists and add to TL as lists
+    model.addAttribute("friend", new User());
+    Iterable<User> friendsList = userRepository.getFriends(userID);
+    model.addAttribute("friends", friendsList);
+    Iterable<User> requestsList = userRepository.getFriendRequests(userID);
+    model.addAttribute("reqs", requestsList);
+
     return "friends/friends";
+  }
+
+  // This adds friends directly for now
+  @PostMapping("/friends")
+  public RedirectView create(Long requesterId, Long requesteeId) {
+    userRepository.addAsFriends(requesterId, requesteeId);
+    return new RedirectView("/friends");
   }
 }
