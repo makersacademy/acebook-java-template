@@ -22,7 +22,7 @@
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
 
             <div sec:authorize="isAuthenticated()">
-                Signed in as <span sec:authentication="name"></span>
+                <h2><span sec:authentication="name"></span></h2>
             </div>
             
             <div class="logout">
@@ -31,26 +31,20 @@
                 </form>
             </div>
             
+            
+
             <div class="myPosts">
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <p>Content: <input type="text" th:field="*{content}" /> <input type="submit" value="Submit" /></p>
+                    <p>Title: <input type="text" name="title"/></p>
+                    <p>Content: <input type="text" name="content"/></p>
+                    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
                 </form>
             </div>
 
-            <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                <p>Title: <input type="text" name="title"/></p>
-                <p>Content: <input type="text" name="content"/></p>
-                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-            </form>
-
             <ul th:each="post: ${posts}">
-                <li th:text="${post.title}" />
-                <li th:text="${post.content}" />
+                <div class="myPosts"><h3><li th:text="${post.title}" /></h3>
+                <li th:text="${post.content}" /></div>
             </ul>
-
-            <form action="/logout" method="get">
-                <p><input type="submit" id="Logout" value="Logout" /></p>
-            </form>
 
         </div> <!-- End of container div -->
 
