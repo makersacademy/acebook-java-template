@@ -1,19 +1,76 @@
+/* SETUP */
+
+/* MAIN */
+
+/* POSTS */
+
+/* POSTS - CREATE */
+
 textarea {
   resize: none;
 }
 
-.likebtn {
-  /* background-color: #f4511e; */
-  border: none;
-  color: white;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
-  opacity: 0.6;
-  transition: 0.3s;
+/* POSTS - VIEW */
+
+.post-card {
+  border-radius: 20px;
+  border: 1px solid #555;
 }
 
-.likebtn:hover {
-  opacity: 1;
-  /* background-color: #f4511e; */
+.card-img {
+  border-radius: 50%;
+  border: 4px solid #555;
+  width: 90%;
+}
+
+.img-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-body {
+  /* background-color: ; */
+}
+
+.text-muted {
+  padding: 0 8px 0 0;
+}
+
+i {
+  padding: 0 20px 0 0;
+}
+
+.img-comment:hover::before {
+  content: "\F252";
+}
+
+.img-comment:hover {
+  content: "\F253";
+}
+
+.img-like:hover::before {
+  content: "\F415";
+}
+
+.img-like:hover {
+  color: red;
+  content: "\F417";
+}
+
+.img-out:hover::before {
+  content: "\F52D";
+}
+
+.img-out:hover {
+  color: #1e90ff;
+  /*content: "\F52D";*/
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: black;
 }
