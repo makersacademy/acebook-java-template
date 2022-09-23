@@ -60,24 +60,4 @@ public class LogOutTest {
     Assert.assertEquals(driver.getTitle(), "Please sign in");
   }
 
-  // Test to see if session exists
-
-  // @Test
-  // public void logInCreatesCookies() {
-  // driver.get("http://localhost:8080/login");
-  // driver.findElement(By.id("username")).sendKeys("boris");
-  // driver.findElement(By.id("password")).sendKeys("password123");
-  // driver.findElement(By.id("submit")).click();
-  // Assert.assertTrue(driver.manage().getCookieNamed("boris");
-  //
-
-  // Test for redirecting to login page from /logout if not logged in
-
-  // @Test
-  // public void logOutRedirectsGuestToLogInPage() {
-  // driver.get("http://localhost:8080/logout");
-  // String title = driver.getTitle();
-  // Assert.assertEquals("Please sign in", title);
-  //
-
 }

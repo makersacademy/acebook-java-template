@@ -1,15 +1,11 @@
 package com.makersacademy.acebook.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.type.TrueFalseType;
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
-
-// import com.makersacademy.acebook.repository.CredentialsRepository;
-import com.makersacademy.acebook.repository.UserRepository;
 
 import javax.persistence.GenerationType;
 
@@ -17,12 +13,7 @@ import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.Set;
 
 @Data
 @Entity
@@ -34,6 +25,9 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Post> posts;
 
     public User() {
         this.enabled = TRUE;
@@ -79,4 +73,12 @@ public class User {
 
     // return credentials.isPresent() ? "exist" : "doesnt exist";
     // }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
