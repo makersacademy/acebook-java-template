@@ -64,4 +64,46 @@ public class PostTest {
 		String title = driver.getTitle();
 		Assert.assertEquals("Winklevoss", title);
 	}
+
+	@Test
+	public void testsIfAnUserCanCreateMultiplePosts() {
+		// Mocks Creating User
+		String username = faker.name().firstName();
+		String password = "password";
+		driver.get("http://localhost:8080/users/new");
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.id("submit")).click();
+
+		// Mocks Logging in
+		driver.get("http://localhost:8080/login");
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.className("btn")).click();
+
+		// Checking if it redirects to posts when logged in.
+		driver.get("http://localhost:8080/posts");
+		String title = driver.getTitle();
+		Assert.assertEquals("Winklevoss", title);
+
+		// Mocks Adding posts
+		driver.findElement(By.id("post-title")).sendKeys("My first title");
+		driver.findElement(By.id("post-content")).sendKeys("My first content");
+		driver.findElement(By.id("submit")).click();
+
+		driver.get("http://localhost:8080/posts");
+		driver.findElement(By.id("post-title")).sendKeys("My second title");
+		driver.findElement(By.id("post-content")).sendKeys("My second content");
+		driver.findElement(By.id("submit")).click();
+
+		driver.get("http://localhost:8080/posts");
+		driver.findElement(By.id("post-title")).sendKeys("My third title");
+		driver.findElement(By.id("post-content")).sendKeys("My third content");
+		driver.findElement(By.id("submit")).click();
+
+		// Checks if all the posts are displayed on the web page
+		assertTrue(driver.getPageSource().contains("My first content"));
+		assertTrue(driver.getPageSource().contains("My second content"));
+		assertTrue(driver.getPageSource().contains("My third content"));
+	}
 }

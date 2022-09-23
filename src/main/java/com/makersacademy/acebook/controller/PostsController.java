@@ -34,13 +34,7 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByUsername(username);
-        System.out.println("---------------");
-        System.out.println(username);
-        System.out.println(user);
-        System.out.println("---------------");
         post.setUser(user);
-        System.out.println(post);
-        System.out.println("---------------");
         postRepository.save(post);
         return new RedirectView("/posts");
     }
