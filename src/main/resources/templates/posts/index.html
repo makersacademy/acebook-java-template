@@ -43,10 +43,20 @@
                 <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
             </form>
 
-            <ul th:each="post: ${posts}">
-                <li th:text="${post.title}" />
-                <li th:text="${post.content}" />
-            </ul>
+            <div th:each="post: ${posts}">
+                <p th:text="${post.title}"> </p>
+                <p th:text="${post.content}"></p>
+                <div th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}">
+                    <span th:text="${like.username} + 'liked this'"></span>
+                </div>
+                <p>likes</p>
+                <form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
+                    <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
+                    <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>
+                    <p><input type="submit" value="Like" /></p>
+                </form>
+                <p> </p>
+            </div>
 
             <form action="/logout" method="get">
                 <p><input type="submit" id="Logout" value="Logout" /></p>
@@ -56,3 +66,6 @@
 
     </body>
 </html>
+
+<!-- th:if="${like.liked_post} == ${post.id}" -->
+<!-- <p th:text="${like.username} + 'liked this'"></p> -->
