@@ -96,15 +96,17 @@
       </svg> Create a post</div>
       <div class="card-body">
       <label class="form-label" for="content">Content:
-      <input
+      <textarea 
         id="content"
+        maxlength="140"
         type="text"
         minlength="1"
         pattern=".*\S+.*"
+        placeholder="What's happening?"
         th:field="*{content}"
         title="This field is required"
         required
-      />
+      ></textarea>
       </label>
     <label class="form-label" for="content">Picture:
       <input type="file" class="form-control" />
