@@ -6,6 +6,13 @@ nav {
     margin-top: -20px;
     /* Padding-inline indents elements from the left */
     padding-inline: 50px;
+    /* Color set to dark orange (orangered) */
+    background-color: rgba(222, 124, 4, 0.787);
+
+}
+
+body {
+    background-color: rgb(251, 211, 136);
 }
 
 .posts-main {
@@ -20,18 +27,27 @@ nav {
     margin: auto;
 }
 
+
 .myPosts {
     width: 320px;
     padding: 10px;
-    background-color: #999;
-    border: 5px solid white;
+    background-color: rgb(215, 133, 31);
+    border: 5px solid rgb(159, 89, 2);
+    /* border-radius: 25px; */
     margin: auto;
 }
 
-.logout {
-    width: 320px;
+.profile {
+    /*width: 320px;*/
     padding: 10px;
-    margin-right: auto;
+    background-color: rgb(215, 133, 31);
+    border-bottom: 20px solid rgba(159, 88, 2);
+}
+
+.logout {
+    position:fixed;
+    right:10px;
+    top:5px;
 }
 
 ul {
