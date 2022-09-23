@@ -36,9 +36,9 @@
             <div class="myPosts">
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
                     <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100">
-                    <p>Title: <input type="text" name="title"/></p>
-                    <p>Content: <input type="text" name="content"/></p>
-                    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                    <p>Title: <input type="text" id="post-title" name="title"/></p>
+                    <p>Content: <input type="text" id="post-content" name="content"/></p>
+                    <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
                 </form>
             </div>
 
