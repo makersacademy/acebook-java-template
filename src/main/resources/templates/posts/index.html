@@ -21,6 +21,7 @@
     <title>Acebook</title>
   </head>
   <body> 
+    <!-- NAV BAR -->
     <nav class="navbar navbar-expand-sm bg-light">
       <a class="navbar-brand" href="#">Halo</a>
       <button
@@ -36,6 +37,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          
+          <!-- HOME -->
           <li class="nav-item">
             <a class="nav-link" href="/posts">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -43,12 +46,16 @@
                 <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
               </svg>Home</a>
           </li>
+
+            <!-- FRIENDS -->
           <li class="nav-item">
             <a class="nav-link" href="/friends">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
               </svg> Friends</a>
           </li>
+
+              <!-- USERS -->
             <li class="nav-item">
             <a class="nav-link" href="#">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -56,6 +63,8 @@
                 <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
               </svg> Users</a>
           </li>
+
+              <!-- INBOX -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
@@ -64,6 +73,7 @@
                 </ul>
               </div>
 
+              <!-- LOGOUT -->
               <div class = "navbar-collapse flex-glow-1 text-right"></div>
                   <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
                     <a class="nav-link" href="/logout">
@@ -73,33 +83,43 @@
       </div>
     </nav>
     
-      <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
-        <div class="row">  
-        <div class="col-sm">
-            <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-      </div>
+      <!-- CREATE A POST -->
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+      <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
+      <div class="row"> 
+      <div class="col-sm">
 
-        <p>
-          Content:
-          <input
-            type="text"
-            minlength="1"
-            pattern=".*\S+.*"
-            th:field="*{content}"
-            title="This field is required"
-            required 
-          />
-        </p>
-        <p>
-          <input type="submit" value="Submit" />
-          <input type="reset" value="Reset" />
-        </p>
+      <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+      </svg> Create a post</div>
+      <div class="card-body">
+      <label class="form-label" for="content">Content:
+      <input
+        id="content"
+        type="text"
+        minlength="1"
+        pattern=".*\S+.*"
+        th:field="*{content}"
+        title="This field is required"
+        required
+      />
+      </label>
+    <label class="form-label" for="content">Picture:
+      <input type="file" class="form-control" />
+      </label>
+      <br>
+      <br>
+      <input type="submit" class="btn btn-success" value="Submit" />
+      <input type="reset" class="btn btn-danger" value="Reset" />
+      </div>
+      </div>
       </form>
+    
+      <!-- LISTING ALL POSTS -->
     <div class="card">
       <ul th:each="post: ${posts}">
-
         <br>
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
           <div class="card-body">
@@ -107,12 +127,13 @@
             <p class="card-text" th:text="${post.content}"></p>
           </div>
         </div>
-        
       </ul>
     </div>
     </div>
     </div>
     </div>
+
+    <!-- SCRIPTS -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
