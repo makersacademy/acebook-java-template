@@ -1,3 +1,19 @@
 textarea {
   resize: none;
 }
+
+.likebtn {
+  /* background-color: #f4511e; */
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.likebtn:hover {
+  opacity: 1;
+  /* background-color: #f4511e; */
+}

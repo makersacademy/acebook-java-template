@@ -5,6 +5,7 @@
 >
   <head lang="en">
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -123,7 +124,7 @@
     <div class="card">
       <ul th:each="post: ${posts}">
         <br>
-        <div class="card text-bg-light mb-2" style="max-width: 18rem;">
+        <div class="btn text-bg-light mb-2" style="max-width: 18rem;">
           <div class="card-body">
             <p class="card-text" th:text="${post.content}"></p>
             <p class="card-text" th:text="${post.formatted_time}"></p>
@@ -134,7 +135,7 @@
               </svg>
             </a>
               <a class="btn bg-transparent m-1" href="/comments">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                 </svg>
               </a>
