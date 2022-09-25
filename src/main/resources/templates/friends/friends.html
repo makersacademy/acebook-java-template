@@ -18,6 +18,11 @@
 
         <p>This will be the Friends page.</p>
 
+        <ul th:each="post: ${posts}">
+          <li th:text="${post.title}" />
+          <li th:text="${post.content}" />
+        </ul>
+
       </div>
     </body>
 </html>
