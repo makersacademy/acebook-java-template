@@ -21,6 +21,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
   String getRequestStatus(Long requesterId, Long requesteeId);
   
   @Query(
+    value = "SELECT * FROM users WHERE NOT users.id IN (SELECT DISTINCT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE friends.requestee_id = ?1 OR friends.requester_id = ?1)",
+    nativeQuery = true)
+  Iterable<User> getStrangers(Long userId);
+  
+  @Query(
     value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'accepted'",
     nativeQuery = true)
   Iterable<User> getFriends(Long userId);
@@ -31,14 +36,14 @@ public interface UserRepository extends CrudRepository<User, Long> {
   Iterable<User> getFriendRequests(Long userId);
 
   @Query(
-    value = "SELECT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requestee_id = ?1 AND users.id != ?1 AND friends.request_status = 'pending'",
+    value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE friends.requestee_id = ?1 AND users.id != ?1 AND friends.request_status = 'pending'",
     nativeQuery = true)
-  Iterable<User> getReceivedFriendRequests(Long userId);
+  Iterable<User> getIncomingFriendRequests(Long userId);
 
   @Query(
-    value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id WHERE friends.requester_id = ?1 AND users.id != ?1 AND friends.request_status = 'pending'",
+    value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND users.id != ?1 AND friends.request_status = 'pending'",
     nativeQuery = true)
-  Iterable<User> getSentFriendRequests(Long userId);
+  Iterable<User> getOutgoingFriendRequests(Long userId);
 
   @Query(
     value = "INSERT INTO friends (requester_id, requestee_id, request_status) VALUES (?1, ?2, 'pending'",

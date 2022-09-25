@@ -33,20 +33,87 @@ public class FriendsController {
   @GetMapping("/friends")
   public String friends(Model model, HttpSession session) {
 
-    // Add user ID as TL variable
+    // Get (session) user ID
     Long userID = Long.parseLong(session.getAttribute("id").toString());
     model.addAttribute("id", userID);
     User currentUser = userRepository.findById(userID).get();
     model.addAttribute("currentuser", currentUser);
 
-    // Get friends and friend requests lists and add to TL as lists
+    ///
+
+    //Get user object
     model.addAttribute("friend", new User());
-    Iterable<User> friendsList = userRepository.getFriends(userID);
-    model.addAttribute("friends", friendsList);
-    // Iterable<User> requestsList = userRepository.getFriendRequests(userID);
-    // model.addAttribute("reqs", requestsList);
-    Iterable<Friendship> requestsList = friendshipRepository.getPendingFriendships(userID);
-    model.addAttribute("reqs", requestsList);
+
+    ///
+
+    // Get friends
+    Iterable<User> friends = userRepository.getFriends(userID);
+    // Count friends, only return if not 0. Send count to TL for "You haven't made any friends yet." message conditional
+    int friendCount = 0;
+    // (Need user for enhanced for loop, even though it "is not used")
+    for (User user: friends) {
+      friendCount++;
+    }
+
+    model.addAttribute("friendcount", friendCount);
+
+    if (friendCount > 0) {
+      model.addAttribute("friends", friends);
+    }
+
+    ///
+
+    // Get incoming friend requests
+    Iterable<User> incomingReqs = userRepository.getIncomingFriendRequests(userID);
+
+    // Count incoming requests, only return if not 0. Send count to TL for "No incoming requests" message conditional
+    int inReqCount = 0;
+    // (Need user for enhanced for loop, even though it "is not used")
+    for (User user: incomingReqs) {
+      inReqCount++;
+    }
+
+    model.addAttribute("incount", inReqCount);
+
+    if (inReqCount > 0) {
+      model.addAttribute("inreqs", incomingReqs);
+    }
+    
+    ///
+
+    // Get outgoing friend requests
+    Iterable<User> outgoingReqs = userRepository.getOutgoingFriendRequests(userID);
+
+    // Count outgoing requests, only return if not 0. Send count to TL for "No outgoing requests" message conditional
+    int outReqCount = 0;
+    // (Need user for enhanced for loop, even though it "is not used")
+    for (User user: outgoingReqs) {
+      outReqCount++;
+    }
+
+    model.addAttribute("outcount", outReqCount);
+
+    if (outReqCount > 0) {
+      model.addAttribute("outreqs", outgoingReqs);
+    }
+    
+    ///
+
+    // Get new users (strangers for browse users)
+    Iterable<User> strangers = userRepository.getStrangers(userID);
+
+    // Count strangers, only return if not 0. Send count to TL for "No outgoing requests" message conditional
+    int strangerCount = 0;
+    // (Need user for enhanced for loop, even though it "is not used")
+    for (User user: strangers) {
+      strangerCount++;
+    }
+    
+    model.addAttribute("strangercount", strangerCount);
+
+    if (outReqCount > 0) {
+      model.addAttribute("strangers", strangers);
+    }
 
     return "friends/friends";
   }

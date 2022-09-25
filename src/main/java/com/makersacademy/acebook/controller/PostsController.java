@@ -33,7 +33,7 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model, HttpSession session) {
         // Get posts
-        Iterable<Post> posts = repository.findAll();
+        Iterable<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
 
@@ -55,11 +55,10 @@ public class PostsController {
         return "posts/index";
     }
 
-
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         String username = principal.getName();
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUserName(username);
         post.setUser(user);
         postRepository.save(post);
         return new RedirectView("/posts");
