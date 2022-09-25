@@ -38,15 +38,15 @@ INSERT INTO "friends" ("requester_id", "requestee_id", "request_status") VALUES
 TRUNCATE TABLE "authorities" RESTART IDENTITY CASCADE;
 
 INSERT INTO "authorities" ("username", "authority") VALUES
-('Benjamin', 'USER_ROLE'),
-('Chris', 'USER_ROLE'),
-('Sophia', 'USER_ROLE'),
-('Xiaoyu', 'USER_ROLE'),
-('Walter White', 'USER_ROLE'),
-('Timothy', 'USER_ROLE'),
-('Dave The Rave', 'USER_ROLE'),
-('Yasmin', 'USER_ROLE'),
-('Scarlet', 'USER_ROLE'),
-('Aoife', 'USER_ROLE'),
-('Eoin', 'USER_ROLE'),
-('Mario', 'USER_ROLE');
+('Benjamin', 'ROLE_USER'),
+('Chris', 'ROLE_USER'),
+('Sophia', 'ROLE_USER'),
+('Xiaoyu', 'ROLE_USER'),
+('Walter White', 'ROLE_USER'),
+('Timothy', 'ROLE_USER'),
+('Dave The Rave', 'ROLE_USER'),
+('Yasmin', 'ROLE_USER'),
+('Scarlet', 'ROLE_USER'),
+('Aoife', 'ROLE_USER'),
+('Eoin', 'ROLE_USER'),
+('Mario', 'ROLE_USER');

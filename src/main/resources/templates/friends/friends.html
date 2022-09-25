@@ -19,26 +19,47 @@
         <p>This will be the Friends page.</p>
         
         <p th:text="'user ID = ' + ${id}"></p>
-        <p th:text="'user ID = ' + ${friend}"></p>
+        <p th:text="'current user = ' + ${currentuser}"></p>
 
         <div class="friends">
           <h3>Friends:</h3>
           <ul th:each="friend: ${friends}">
             <li th:text="${friend.username}" />
+            <form th:action="#">
+
+            </form>
           </ul>
         </div>
 
-        <div class="friend-requests">
+        <!-- <div class="friend-requests">
           <h3>Requests:</h3>
           <ul th:each="friend: ${reqs}">
             <li th:text="${friend.username}" />
           </ul>
-        </div>
+        </div><br> -->
 
-        <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
-          <label for="submit">Add Benjamin as friend</label>
+        <div class="friend-requests">
+          <h3>Requests:</h3>
+          <ul th:each="req: ${reqs}">
+            <span th:if="${}"><li th:text="${req.username}" /></span>
+          </ul>
+        </div><br>
+
+        <form action="#" th:action="@{/friends/request}" method="post">
+          <label for="submit">Request Benjamin as friend</label>
+          <input type="hidden" name="requesterId" th:value="${id}">
+          <input type="hidden" name="requesteeId" th:value="13">
           <p><input type="submit" value="Submit" /></p>
-      </form>
+        </form>
+
+        <!-- <form action="#" th:action="@{/friends/request}" th:object="${friend}" method="post">
+          <label for="submit">Request Benjamin as friend</label>
+          <input type="hidden" name="requester_id" th:value="id">
+          <input type="hidden" name="requestee_id" value="1L">
+          <p><input type="submit" value="Submit" /></p>
+        </form> -->
+
+        <a href="/posts">Back to Posts</a>
 
       </div>
     </body>

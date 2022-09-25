@@ -33,9 +33,9 @@ public class Friendship {
         this.requestStatus = "pending";
     }
     
-    // public String getRequestStatus(Long requesterId, Long requesteeId) {return this.requestStatus;}
-    // public String getContent() {return this.content;}
+    public Long getRequesterId() {return this.requesterId;}
+    public Long getRequesteeId() {return this.requesteeId;}
+    public String getRequestStatus() {return this.requestStatus;}
 
-    // public void setRequestStatus(String requestStatus) {this.requestStatus = requestStatus;}
-    // public void setContent(String content) {this.content = content;}
+    public void setRequestStatus(String requestStatus) {this.requestStatus = requestStatus;}
 }
