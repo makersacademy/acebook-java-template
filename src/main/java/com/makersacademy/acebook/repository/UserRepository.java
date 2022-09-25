@@ -29,6 +29,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
     value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'accepted'",
     nativeQuery = true)
   Iterable<User> getFriends(Long userId);
+  
+  @Query(
+    value = "SELECT DISTINCT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE friends.requester_id IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE ((friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'accepted') OR friends.requestee_id IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'accepted')) AND users.id NOT IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'accepted') AND users.id != ?1 AND friends.request_status = 'accepted'",
+    nativeQuery = true)
+  Iterable<User> getFriendsOfFriends(Long userId);
+  
+  @Query(
+    value = "SELECT DISTINCT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE friends.requester_id IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE ((friends.requester_id = '1' OR friends.requestee_id = '1') AND users.id != '1' AND friends.request_status = 'accepted') OR friends.requestee_id IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = '1' OR friends.requestee_id = '1') AND users.id != '1' AND friends.request_status = 'accepted')) AND users.id NOT IN (SELECT users.id FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = '1' OR friends.requestee_id = '1') AND users.id != '1' AND friends.request_status = 'accepted') AND users.id != '1' AND friends.request_status = 'accepted'",
+    nativeQuery = true)
+  Iterable<User> getMutualFriends(Long userId1, Long userId2);
 
   @Query(
     value = "SELECT users.* FROM users JOIN friends ON friends.requester_id = users.id OR friends.requestee_id = users.id WHERE (friends.requester_id = ?1 OR friends.requestee_id = ?1) AND users.id != ?1 AND friends.request_status = 'pending'",
