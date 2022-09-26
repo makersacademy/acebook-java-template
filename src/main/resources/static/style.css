@@ -44,24 +44,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: '\F252';
+  content: "\F252";
 }
 
 .img-comment:hover {
-  content: '\F253';
+  content: "\F253";
 }
 
 .img-like:hover::before {
-  content: '\F415';
+  content: "\F415";
 }
 
 .img-like:hover {
   color: red;
-  content: '\F417';
+  content: "\F417";
 }
 
 .img-out:hover::before {
-  content: '\F52D';
+  content: "\F52D";
 }
 
 .img-out:hover {
@@ -70,10 +70,12 @@ i {
 }
 
 #colour_btn {
+  text-decoration: none;
   color: black;
 }
 
 #colour_btn:hover {
+  text-decoration: none;
   color: black;
 }
 
@@ -94,10 +96,9 @@ i {
   width: 500px;
 }
 
-.navbar
-        {
-    backdrop-filter: blur(12px) !important;  
-    -webkit-backdrop-filter: blur(12px) !important;  
+.navbar {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 button,
@@ -116,13 +117,12 @@ button {
   font-size: 2;
   color: #0064d0;
   position: relative;
-  
 }
 
 button::before,
 button::after {
   background: #0064d0;
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   border-radius: 3.5px;
