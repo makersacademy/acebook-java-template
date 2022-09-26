@@ -96,7 +96,7 @@
         <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
       </svg> Create a post</div>
       <div class="card-body">
-      <label class="form-label" for="content">Content:
+      <h6>Content: </h6>
       <textarea 
         id="content"
         maxlength="140"
@@ -108,10 +108,7 @@
         title="This field is required"
         required
       ></textarea>
-      </label>
-    <label class="form-label" for="content">Picture:
-      <input type="file" class="form-control" />
-      </label>
+      <h6>Add a photo: </h6><input type="text" id="image_post" name="image_post" placeholder="Enter Photo URL" th:field="*{image_post}"/>
       <br>
       <br>
       <input type="submit" class="btn btn-success" value="Submit" />
@@ -123,10 +120,13 @@
       <!-- LISTING ALL POSTS -->
     <div class="card">
       <ul th:each="post: ${posts}">
-        <br>
+        <br> 
         <div class="btn text-bg-light mb-2" style="max-width: 18rem;">
           <div class="card-body">
+            <!-- <span sec:authentication="name"></span> -->
+            <p class="card-text" th:text="${post.username}"></p>
             <p class="card-text" th:text="${post.content}"></p>
+            <img class="image_post" th:src="${post.image_post}" />
             <p class="card-text" th:text="${post.formatted_time}"></p>
             <p class="card-text" th:text="${post.formatted_date}"></p>
             <a class="btn bg-transparent m-1" href="/likes">
