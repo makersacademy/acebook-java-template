@@ -18,6 +18,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css" />
     <title>Acebook</title>
   </head>
@@ -121,7 +122,7 @@
       </form>
     
       <!-- LISTING ALL POSTS -->
-    <div class="card">
+    <!-- <div class="card">
       <ul th:each="post: ${posts}">
         <br>
         <div class="btn text-bg-light mb-2" style="max-width: 18rem;">
@@ -142,7 +143,38 @@
           </div>
         </div>
       </ul>
-    </div>
+    </div> -->
+
+    <hr>
+
+      <div class="card">
+        <ul th:each="post: ${posts}">
+
+          <div class="post-card card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="img-profile col-md-4">
+                    <img src="https://picsum.photos/200" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Phil:</h5>
+                        <p class="card-text" th:text="${post.content}"></p>
+                        <p class="card-text">
+                          <small class="text-muted" th:text="${post.formatted_time}"></small>
+                          <small class="text-muted" th:text="${post.formatted_date}"></small>
+                        </p>
+
+                        <a href="/comments"><i class="img-comment bi bi-chat-left"></i></a>
+                        <a href="/likes"><i class="img-like bi bi-heart"></i></a>
+                        <a href=""><i class="img-out bi bi-share-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </ul>
+      </div>
+    
     </div>
     </div>
     </div>
