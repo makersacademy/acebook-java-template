@@ -170,9 +170,9 @@
                       </p>
 
                         <a href="/comments"><i class="img-comment bi bi-chat-left"></i></a>
-                        <p class="card-text" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p>
+                        <p class="counter" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p>
                         <a href="/likes"><i class="img-like bi bi-heart"></i></a>
-                        <p class="card-text" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
+                        <p class="counter" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
                         <a href=""><i class="img-out bi bi-share-fill"></i></a>
                     </div>
                 </div>
