@@ -170,7 +170,9 @@
                         <p class="card-text" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p>
 
                         <!-- LIKING -->
-                        <a href="/likes"><i class="img-like bi bi-heart"></i></a>
+                        <!-- <a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a> -->
+                        <!-- <div th:if="" -->
+                        <a th:href="@{/posts/like?postid={id}(id=${post.id})}"><i class="img-like bi bi-heart"></i></a>
                         <p class="card-text" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
 
                         <a href=""><i class="img-out bi bi-share-fill"></i></a>
