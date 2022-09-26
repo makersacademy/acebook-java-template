@@ -1,7 +1,9 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
@@ -33,6 +35,9 @@ public class PostsController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
 
     private Long getUserId() {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -84,5 +89,16 @@ public class PostsController {
         // post.likes()
         return new RedirectView("/posts");
     }
+
+    // @PostMapping("/posts/newLike")
+    // @ResponseBody()
+    // public RedirectView newLike(@RequestParam("postid") Long postId) {
+    // Like newLike = new Like();
+    // newLike.setUser_id(getUserId());
+    // newLike.setPost_id(postId);
+    // likeRepository.save(newLike);
+
+    // return new RedirectView("/posts");
+    // }
 
 }
