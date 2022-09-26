@@ -38,19 +38,19 @@ INSERT INTO "users" ("username", "password", "enabled") VALUES
 -- This is seed data for friends table
 TRUNCATE TABLE "friends" RESTART IDENTITY CASCADE;
 
-INSERT INTO "friends" ("requester_id", "requestee_id", "request_status") VALUES
-('1', '4', 'accepted'),
-('1', '3', 'pending'),
-('5', '6', 'blocked'),
-('7', '8', 'accepted'),
-('4', '12', 'accepted'),
-('12', '9', 'pending'),
-('5', '4', 'blocked'),
-('8', '10', 'pending'),
-('11', '1', 'accepted'),
-('7', '12', 'accepted'),
-('11', '10', 'pending'),
-('1', '8', 'pending');
+INSERT INTO "friends" ("requester_id", "requestee_id", "request_status", "low_id", "high_id") VALUES
+('1', '4', 'accepted', '1', '4'),
+('1', '3', 'pending', '1', '3'),
+('5', '6', 'blocked', '5', '6'),
+('7', '8', 'accepted', '7', '8'),
+('4', '12', 'accepted', '4', '12'),
+('12', '9', 'pending', '9', '12'),
+('5', '4', 'blocked', '4', '5'),
+('8', '10', 'pending', '8', '10'),
+('11', '1', 'accepted', '1', '11'),
+('7', '12', 'accepted', '7', '12'),
+('11', '10', 'pending', '10', '11'),
+('1', '8', 'pending', '1', '8');
 
 -- This is seed data for authorities table
 TRUNCATE TABLE "authorities" RESTART IDENTITY CASCADE;

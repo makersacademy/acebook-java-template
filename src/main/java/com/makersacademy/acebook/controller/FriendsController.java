@@ -32,10 +32,6 @@ public class FriendsController {
 
   @GetMapping("/friends")
   public String friends(Model model, HttpSession session) {
-
-    String requestStatus = userRepository.getRequestStatus(Long.valueOf("5"), Long.valueOf("6"));
-    model.addAttribute("status", requestStatus);
-
     // Get (session) user ID
     Long userID = Long.parseLong(session.getAttribute("id").toString());
     model.addAttribute("id", userID);

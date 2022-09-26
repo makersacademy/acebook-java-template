@@ -14,10 +14,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
   User findByUserName(String userName);
 
-  @Query(
-      // value = "SELECT request_status FROM friends WHERE (requester_id = ?1 AND
-      // requestee_id = ?2) OR (requester_id = ?2 AND requestee_id = ?1)",
-      value = "SELECT request_status FROM friends WHERE requester_id = ?1 AND requestee_id = ?2", nativeQuery = true)
+  @Query(value = "SELECT request_status FROM friends WHERE requester_id = ?1 AND requestee_id = ?2", nativeQuery = true)
   String getRequestStatus(Long requesterId, Long requesteeId);
 
   @Query(value = "SELECT friendship_id FROM friends WHERE (requester_id = ?1 AND requestee_id = ?2) OR (requestee_id = ?1 AND requester_id = ?2)", nativeQuery = true)
@@ -65,7 +62,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value = "UPDATE friends SET request_status = 'blocked' WHERE (requester_id = ?1 AND requestee_id = ?2) OR (requestee_id = ?1 AND requester_id = ?2)", nativeQuery = true)
   void blockUser(Long requesterId, Long requesteeId);
 
-  // For update/delete custom queries, need @Transactional annotation
+  // This can use to manually update request status
   @Transactional
   @Modifying
   @Query(value = "UPDATE friends SET request_status = ?3 WHERE (requester_id = ?1 AND requestee_id = ?2) OR (requestee_id = ?1 AND requester_id = ?2) AND request_status = 'pending'", nativeQuery = true)
