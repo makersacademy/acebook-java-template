@@ -58,7 +58,8 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "id")); // filtering by id
-        // User user = userRepository.findById(post.getUser_id()).get();
+        // User user = userRepository.findById(post.getUser_id()).get();\
+        model.addAttribute("repo", repository);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -67,6 +68,7 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         // use the setter to store the user_id
+
         post.setUsername(this.getUsername());
         post.setDate(this.getTimeStamp());
         post.setUser_id(getUserId());
@@ -74,6 +76,11 @@ public class PostsController {
         System.out.println(post.getTimeString());
         System.out.println(post.getDateString());
         // System.out.println(post.getDateString());
+        Long nLikes = repository.findNumberOfLikesForAPost(post.getId());
+        System.out.println(nLikes);
+
+        // post.likes()
         return new RedirectView("/posts");
     }
+
 }
