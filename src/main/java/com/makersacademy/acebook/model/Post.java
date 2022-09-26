@@ -30,6 +30,8 @@ public class Post {
     private Timestamp date;
     private String formatted_date;
     private String formatted_time;
+    private String image_post;
+    private String username;
 
     // Constructors:
     public Post() {
@@ -44,10 +46,12 @@ public class Post {
         this.user_id = user_id;
     }
 
-    public Post(String content, Long user_id, Timestamp date) {
+    public Post(String content, Long user_id, Timestamp date, String image_post, String username) {
         this.content = content;
         this.user_id = user_id;
         this.date = date;
+        this.image_post = image_post;
+        this.username = username;
     }
 
     // Getters and Setters:
@@ -104,5 +108,21 @@ public class Post {
         DateTimeFormatter format_t = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // format to extract
         String t = date.format(format_t);
         return t;
+    }
+
+    public String getImagePost() {
+        return this.image_post;
+    }
+
+    public void setImagePost(String image_post) {
+        this.image_post = image_post;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

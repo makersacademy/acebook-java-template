@@ -73,6 +73,7 @@
       </div>
     </nav>
     <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">
+      <h3>People you may know</h3>
         <div class="card">
             <ul th:each="user: ${users}">
                 <br>

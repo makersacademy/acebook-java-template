@@ -76,3 +76,9 @@ a {
 a:hover {
   color: black;
 }
+
+.image_post {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}

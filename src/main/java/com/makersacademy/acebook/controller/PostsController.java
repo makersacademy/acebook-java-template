@@ -14,7 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.sql.Date;
@@ -38,6 +41,13 @@ public class PostsController {
         return id;
     }
 
+    private String getUsername() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        String name = authentication.getName();
+        return name;
+    }
+
     private Timestamp getTimeStamp() {
         LocalDateTime time = LocalDateTime.now();
         System.out.println(time);
@@ -57,7 +67,7 @@ public class PostsController {
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
         // use the setter to store the user_id
-
+        post.setUsername(this.getUsername());
         post.setDate(this.getTimeStamp());
         post.setUser_id(getUserId());
         repository.save(post);
