@@ -32,8 +32,8 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(4,47,80,1);
-  background: linear-gradient(45deg, rgba(4,47,80,1) 0%, rgba(36,121,250,1) 100%);
+  background: hsla(33, 96%, 44%, 0.787);
+  background: linear-gradient(45deg, #d7851f 0%, rgba(204, 134, 49, 0.787)100%);
 }
 
 .popup{
@@ -51,7 +51,7 @@ body{
 
 .popup-image{
   position: relative;
-  width: 40%;
+  width: 55%;
   height: 100%;
   overflow: hidden;
   border-radius: .5rem
@@ -99,7 +99,7 @@ input:focus{
   border-radius: .5rem;
   font-weight: 500;
   font-size: 1rem;
-  background: #1A374D;
+  background: #ff6600;
   backdrop-filter: blur(1rem);
   color: var(--color);
   transition: all .25s ease 0s;
@@ -107,11 +107,11 @@ input:focus{
 }
 
 .submit-btn:hover{
-  background: #1A374Ddd;
+  background: #ff5900;
 }
 
 .submit-btn:focus{ 
-  background: #1A374Ddd;
+  background: #ff5900;
   box-shadow: 0 0 0 3px #E8454580;
 }
 

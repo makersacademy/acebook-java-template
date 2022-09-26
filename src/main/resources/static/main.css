@@ -41,7 +41,7 @@ body {
 .myPosts {
     width: 320px;
     padding: 10px;
-    background-color: rgb(215, 133, 31);
+    background-color: #d7851f;
     border: 5px solid rgb(159, 89, 2);
     /* border-radius: 25px; */
     margin: auto;
