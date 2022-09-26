@@ -178,7 +178,7 @@
                         <!-- <a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a> -->
                         <!-- <div th:if="" -->
                         <a id="colour_btn" th:href="@{/posts/like?postid={id}(id=${post.id})}"><i class="img-like bi bi-heart"></i></a>
-                        <p class="counter" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
+                        <a th:href="@{/likes/post?postid={id}(id=${post.id})}"><p class="counter" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p></a>
 
                         <a id="colour_btn" href=""><i class="img-out bi bi-share-fill"></i></a>
 
