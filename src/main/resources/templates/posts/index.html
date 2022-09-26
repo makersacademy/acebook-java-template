@@ -149,16 +149,16 @@
 
       <div class="card">
         <ul th:each="post: ${posts}">
-
           <div class="post-card card mb-3" style="max-width: 540px;">
             <div class="row no-gutters">
                 <div class="img-profile col-md-4">
                     <img src="https://picsum.photos/200" class="card-img" alt="...">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Phil:</h5>
+                  <div class="card-body">
+                      <h5 class="card-title" th:text="${post.username}"></h5>
                         <p class="card-text" th:text="${post.content}"></p>
+                        <img class="image_post" th:src="${post.image_post}" /> 
                         <p class="card-text">
                           <small class="text-muted" th:text="${post.getTimeString()}"></small>
                           <small class="text-muted" th:text="${post.getDateString()}"></small>

@@ -44,24 +44,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: "\F252";
+  content: '\F252';
 }
 
 .img-comment:hover {
-  content: "\F253";
+  content: '\F253';
 }
 
 .img-like:hover::before {
-  content: "\F415";
+  content: '\F415';
 }
 
 .img-like:hover {
   color: red;
-  content: "\F417";
+  content: '\F417';
 }
 
 .img-out:hover::before {
-  content: "\F52D";
+  content: '\F52D';
 }
 
 .img-out:hover {
@@ -80,5 +80,5 @@ a:hover {
 .image_post {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
+  border-radius: 10%;
 }
