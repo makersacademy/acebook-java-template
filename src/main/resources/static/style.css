@@ -17,3 +17,9 @@ textarea {
   opacity: 1;
   /* background-color: #f4511e; */
 }
+
+.image_post {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
