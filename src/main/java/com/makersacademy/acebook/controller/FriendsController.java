@@ -33,6 +33,9 @@ public class FriendsController {
   @GetMapping("/friends")
   public String friends(Model model, HttpSession session) {
 
+    String requestStatus = userRepository.getRequestStatus(Long.valueOf("5"), Long.valueOf("6"));
+    model.addAttribute("status", requestStatus);
+
     // Get (session) user ID
     Long userID = Long.parseLong(session.getAttribute("id").toString());
     model.addAttribute("id", userID);
@@ -101,6 +104,17 @@ public class FriendsController {
     
     ///
 
+    // Get users blocked by current user (blocked users)
+    Iterable<User> blockedUsers = userRepository.getBlockedUsers(userID);
+    // Count blocked users, only return if not 0. Send count to TL for "No blocked users" message conditional
+    int blockedUsersCount = 0;
+    // (Need user for enhanced for loop, even though it "is not used")
+    for (User user: blockedUsers) {blockedUsersCount++;}
+    model.addAttribute("blockedcount", blockedUsersCount);
+    if (blockedUsersCount > 0) {model.addAttribute("blockedusers", blockedUsers);}
+    
+    ///
+
     return "friends/friends";
   }
 
@@ -118,17 +132,37 @@ public class FriendsController {
   public RedirectView respond(String requesterId, String requesteeId, String response) {
     Long reqerId = Long.valueOf(requesterId);
     Long reqeeId = Long.valueOf(requesteeId);
+    Long friendshipId = null;
+    Friendship friendship = new Friendship(reqerId, reqeeId);
     switch (response) {
       case "accept":
         userRepository.addAsFriends(reqerId, reqeeId);
         break;
       case "cancel":
-        Long friendshipIdToCancel = userRepository.getFriendshipId(reqerId, reqeeId);
-        friendshipRepository.deleteById(friendshipIdToCancel);
+        friendshipId = userRepository.getFriendshipId(reqerId, reqeeId);
+        friendshipRepository.deleteById(friendshipId);
         break;
       case "unfriend":
-        Long friendshipIdToDelete = userRepository.getFriendshipId(reqerId, reqeeId);
-        friendshipRepository.deleteById(friendshipIdToDelete);
+        friendshipId = userRepository.getFriendshipId(reqerId, reqeeId);
+        friendshipRepository.deleteById(friendshipId);
+        break;
+      case "block":
+        // If not entries in 
+        if (userRepository.getFriendshipId(reqerId, reqeeId) == null) {
+          friendship.setRequestStatus("blocked");
+          friendshipRepository.save(friendship);
+        } else {
+          friendshipId = userRepository.getFriendshipId(reqerId, reqeeId);
+          friendshipRepository.deleteById(friendshipId);
+          friendship.setRequestStatus("blocked");
+          friendshipRepository.save(friendship);
+        }
+        break;
+      case "unblock":
+        if (userRepository.getRequestStatus(reqerId, reqeeId).equals("blocked")) {
+          friendshipId = userRepository.getFriendshipId(reqerId, reqeeId);
+          friendshipRepository.deleteById(friendshipId);
+        }
         break;
     }
     return new RedirectView("/friends");

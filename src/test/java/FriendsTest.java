@@ -94,15 +94,15 @@ public class FriendsTest {
   @Test
   public void getFriendsReturnsCorrectNumberOfFriends() {
     ArrayList<com.makersacademy.acebook.model.User> testList1 = new ArrayList<com.makersacademy.acebook.model.User>(); 
-    Iterable<com.makersacademy.acebook.model.User> testFriends1 = userRepository.getFriends(Long.valueOf("7L"));
+    Iterable<com.makersacademy.acebook.model.User> testFriends1 = userRepository.getFriends(Long.valueOf("7"));
     testFriends1.forEach(u -> testList1.add(u));
     assertEquals(2, testList1.size());
   }
 
   @Test
   public void getFriendsReturnsCorrectUserNames() {
-    ArrayList<com.makersacademy.acebook.model.User> testList2 = new ArrayList<com.makersacademy.acebook.model.User>()
-    Iterable<com.makersacademy.acebook.model.User> testFriends2 = userRepository.getFriends(Long.valueOf("1L"));
+    ArrayList<com.makersacademy.acebook.model.User> testList2 = new ArrayList<com.makersacademy.acebook.model.User>();
+    Iterable<com.makersacademy.acebook.model.User> testFriends2 = userRepository.getFriends(Long.valueOf("1"));
     testFriends2.forEach(u -> testList2.add(u));
     assertEquals("Yasmin", testList2.get(0).getUsername());
     // assertEquals("Mario",testList.get(1).getUsername());
@@ -112,13 +112,13 @@ public class FriendsTest {
 
   @Test
   public void getFriendRequestsReturnsCorrectNumberOfRequests() {
-    String testRequestStatus1 = userRepository.getRequestStatus(Long.valueOf("1L"), Long.valueOf("4L"));
+    String testRequestStatus1 = userRepository.getRequestStatus(Long.valueOf("1L"), Long.valueOf("4"));
     assertEquals("accepted", testRequestStatus1);
   }
 
   @Test
   public void getFriendRequestsReturnsCorrectUserNames() {
-    String testRequestStatus2 = userRepository.getRequestStatus(Long.valueOf("4L"), Long.valueOf("1L"));
+    String testRequestStatus2 = userRepository.getRequestStatus(Long.valueOf("4L"), Long.valueOf("1"));
     assertEquals("accepted", testRequestStatus2);
   }
 }
