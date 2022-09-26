@@ -55,9 +55,8 @@
                     <li><b><span sec:authentication="name"></span></b></li></a>
                     <li th:text="${post.title}" >
                     <li th:text="${post.content}" >
+                    <li th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')} + ' on: ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></li>
                     <li th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="${like.username} + ' liked this'"></li>
-                    <li th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')}" style="font-size:small;"></li>
-                    <li th:text="'on ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></li>
                     <li><form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
                         <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
                         <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>
