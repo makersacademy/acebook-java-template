@@ -32,16 +32,16 @@ public class LikesController {
         return id;
     }
 
-    @GetMapping("/likes")
-    public String like(Model model) {
-        return "/likes";
-    }
+    // @GetMapping("/likes")
+    // public String like(Model model) {
+    // return "/likes";
+    // }
 
-    @PostMapping("/likes")
-    public RedirectView like(@ModelAttribute Like like) {
-        like.setUser_id(getUserId());
-        repository.save(like);
+    // @PostMapping("/likes")
+    // public RedirectView like(@ModelAttribute Like like) {
+    // like.setUser_id(getUserId());
+    // repository.save(like);
 
-        return new RedirectView("/posts");
-    }
+    // return new RedirectView("/posts");
+    // }
 }
