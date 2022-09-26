@@ -113,21 +113,24 @@ button {
   cursor: pointer;
   border: none;
   display: block;
-  font-size: 0.7;
-  color: #027cff;
+  font-size: 2;
+  color: #0064d0;
   position: relative;
+  
 }
 
 button::before,
 button::after {
-  background: #027cff;
+  background: #0064d0;
   content: '';
   position: absolute;
   z-index: -1;
+  border-radius: 3.5px;
 }
 
 button:hover {
   color: whitesmoke;
+  text-decoration: underline;
 }
 
 .btn-1::after {
@@ -138,5 +141,22 @@ button:hover {
 }
 
 .btn-1:hover:after {
+  height: 100%;
+}
+
+.btn-1 {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #0054ad;
+}
+
+.btn-2::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.btn-2:hover:after {
   height: 100%;
 }
