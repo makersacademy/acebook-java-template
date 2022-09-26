@@ -108,11 +108,12 @@ public class PostsController {
             System.out.println(postid);
             System.out.println(getUserId());
             Like newLike = new Like();
-            newLike.setUser_id(getUserId());
-            newLike.setPost_id(postid);
+            newLike.setUserid(getUserId());
+            newLike.setPostid(postid);
             likeRepository.save(newLike);
         } catch (Exception e) {
             System.out.println("error");
+            likeRepository.deleteByUseridAndPostid(getUserId(), postid);
         }
         return new RedirectView("/posts");
     }
