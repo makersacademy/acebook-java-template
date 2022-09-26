@@ -24,6 +24,10 @@ public class Friendship {
     private Long requesteeId;
     @Column(name = "request_status", nullable = false)
     private String requestStatus;
+    @Column(name = "low_id", nullable = false)
+    private Long lowId;
+    @Column(name = "high_id", nullable = false)
+    private Long highId;
 
     public Friendship() {}
 
@@ -31,6 +35,10 @@ public class Friendship {
         this.requesterId = requesterId;
         this.requesteeId = requesteeId;
         this.requestStatus = "pending";
+        
+        // These automatically populate the "low_id" and "high_id" columns when instantiating by sorting the low and high values for the two foreign keys
+        this.lowId = Math.min(requesterId, requesteeId);
+        this.highId = Math.max(requesterId, requesteeId);
     }
     
     public Long getRequesterId() {return this.requesterId;}
