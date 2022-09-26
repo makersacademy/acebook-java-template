@@ -55,7 +55,7 @@ public class HomeTest {
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys(RN);
         driver.findElement(By.id("password")).sendKeys(RP);
-        driver.findElement(By.className("btn")).click();
+        driver.findElement(By.className("submit-btn")).click();
 
         // Checking if '/' redirects to posts when logged in.
         driver.get("http://localhost:8080/");
