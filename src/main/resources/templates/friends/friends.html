@@ -11,6 +11,7 @@
       <div class="logout">
         <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
         <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
+        <!-- // Uncomment to see full session user object -->
         <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
       </div>
 
@@ -33,9 +34,6 @@
         <div class="title">
           <h1>Friends</h1>
         </div>
-
-        <!-- <p>This will be the Friends page.</p> -->
-        <!-- <p th:text="${friends}"></p> -->
 
         <!-- Tab links -->
         <div class="tab">
@@ -115,7 +113,6 @@
                   <input type="hidden" name= "requesteeId" th:value="${friend.id}">
                   <input type="hidden" name= "response" value="cancel">
                   <button class="with-margin" type="submit">Cancel</button>
-                  <!-- <button onclick="myFunction()">Send Friend Request</button> -->
                   </form>
                 </div>
               </ul>
@@ -129,7 +126,6 @@
             <p>No recommendations.</p>
           </span>
           <span th:if="${friendsfriendscount &gt; 0}">
-            <!-- <p>You have <span th:text="${strangercount}"></span> pending friend request<span th:if="${strangercount &gt; 1}">s</span>.</p> -->
             <div class="icons-container">
               <ul th:each="friend: ${friendsfriends}">
                 <div class="icon">
@@ -140,7 +136,6 @@
                   <input type="hidden" name= "requesteeId" th:value="${friend.id}">
                   <button class="with-margin" type="submit">Send Friend Request</button><br>
                   <button class="with-margin">Block</button>
-                  <!-- <button onclick="myFunction()">Send Friend Request</button> -->
                   </form>
                 </div>
               </ul>
@@ -154,7 +149,6 @@
             <p>Oh, wow. There are no more new users to meet! Imagine that!</p>
           </span>
           <span th:if="${strangercount &gt; 0}">
-            <!-- <p>You have <span th:text="${strangercount}"></span> pending friend request<span th:if="${strangercount &gt; 1}">s</span>.</p> -->
             <div class="icons-container">
               <ul th:each="friend: ${strangers}">
                 <div class="icon">
@@ -163,10 +157,8 @@
                   <form action="#" th:action="@{/friends/request}" th:object="${friend}" method="POST" onsubmit="return confirm('Are you sure?');">
                   <input type="hidden" name= "requesterId" th:value="${id}">
                   <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <!-- <input type="submit" name= "Send Friend Request" value="User"> -->
                   <button class="with-margin" type="submit">Send Friend Request</button><br>
                   <button class="with-margin">Block</button>
-                  <!-- <button onclick="myFunction()">Send Friend Request</button> -->
                   </form>
                 </div>
               </ul>
@@ -178,39 +170,6 @@
           <h3>Blocked Users</h3>
           <p>These are users you've blocked.</p>
         </div>
-
-        <!-- <div id="Potential-Connections" class="tabcontent">
-          <h3>People You Might Know</h3>
-          <p>These are friends of friends.</p>
-        </div> -->
-
-        <!-- <div class="friend-requests">
-          <h3>Requests:</h3>
-          <ul th:each="friend: ${reqs}">
-            <li th:text="${friend.username}" />
-          </ul>
-        </div><br> -->
-
-        <!-- <div class="friend-requests">
-          <h3>Requests:</h3>
-          <ul th:each="req: ${reqs}">
-            <span th:if="${}"><li th:text="${req.username}" /></span>
-          </ul>
-        </div><br> -->
-
-        <!-- <form action="#" th:action="@{/friends/request}" method="post">
-          <label for="submit">Request Benjamin as friend</label>
-          <input type="hidden" name="requesterId" th:value="${id}">
-          <input type="hidden" name="requesteeId" th:value="13">
-          <p><input type="submit" value="Submit" /></p>
-        </form> -->
-
-        <!-- <form action="#" th:action="@{/friends/request}" th:object="${friend}" method="post">
-          <label for="submit">Request Benjamin as friend</label>
-          <input type="hidden" name="requester_id" th:value="id">
-          <input type="hidden" name="requestee_id" value="1L">
-          <p><input type="submit" value="Submit" /></p>
-        </form> -->
 
         <br><a href="/posts">Back to Posts</a>
 

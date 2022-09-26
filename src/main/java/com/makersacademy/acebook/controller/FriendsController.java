@@ -101,11 +101,6 @@ public class FriendsController {
     
     ///
 
-    // Get mutual friends (strangers for browse users)
-    // Iterable<User> mutualFriends = userRepository.getMutualFriends(userID);
-
-    ///
-
     return "friends/friends";
   }
 
