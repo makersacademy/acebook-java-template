@@ -69,17 +69,17 @@ public class PostTest {
 	@Test
 	public void testsIfAnUserCanCreateMultiplePosts() {
 		// Mocks Creating User
-		String username = faker.name().firstName();
-		String password = "password";
-		driver.get("http://localhost:8080/users/new");
-		driver.findElement(By.id("username")).sendKeys(username);
-		driver.findElement(By.id("password")).sendKeys(password);
-		driver.findElement(By.id("submit")).click();
+		String RN = "Random Name";
+		String RP = "Random Password";
+		driver.get("http://localhost:8080/signup");
+		driver.findElement(By.id("email")).sendKeys(RN);
+		driver.findElement(By.id("password")).sendKeys(RP);
+		driver.findElement(By.className("submit-btn")).click();
 
 		// Mocks Logging in
 		driver.get("http://localhost:8080/login");
-		driver.findElement(By.id("username")).sendKeys(username);
-		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.id("username")).sendKeys(RN);
+		driver.findElement(By.id("password")).sendKeys(RP);
 		driver.findElement(By.className("btn")).click();
 
 		// Checking if it redirects to posts when logged in.
