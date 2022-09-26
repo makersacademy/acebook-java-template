@@ -38,8 +38,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/posts").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
-        // .and().logout().deleteCookies("remove").invalidateHttpSession(false)
-        // .logoutUrl("/logout").logoutSuccessUrl("/logout-success");
     }
 
 }
