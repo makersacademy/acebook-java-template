@@ -28,17 +28,17 @@
             </div>
             
             <div class="logout">
-                <form action="/logout" method="get">
-                    <p><input type="submit" id="Logout" value="Logout" /></p>
-                </form>
-            </div>
-
-            <div class="logout">
                 <!-- // Show user ID and username for debugging -->
                 <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
                 <!-- Uncomment to see full session user object -->
                 <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
               </div>
+
+              <div class="logout">
+                <form action="/logout" method="get">
+                    <p><input type="submit" id="Logout" value="Logout" /></p>
+                </form>
+            </div>
             
                         <div class="myPosts">
                 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
@@ -55,9 +55,9 @@
                     <li><b><span sec:authentication="name"></span></b></li></a>
                     <li th:text="${post.title}" >
                     <li th:text="${post.content}" >
-                    <li th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}">
-                        <span th:text="${like.username} + ' liked this'"></span>
-                    </li>
+                    <li th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="${like.username} + ' liked this'"></li>
+                    <li th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')}" style="font-size:small;"></li>
+                    <li th:text="'on ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></li>
                     <li><form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
                         <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
                         <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>

@@ -8,6 +8,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Calendar;  
 
 import lombok.Data;
 
@@ -21,6 +25,7 @@ public class Post {
     private Long id;
     private String title;
     private String content;
+    private Date time_posted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,6 +42,7 @@ public class Post {
     public String getContent() {return this.content;}
     public User getUser() {return user;}
     public Long getId() { return id; }
+    public Date getTimePosted() { return time_posted;}
 
     public void setTitle(String title) {this.title = title;}
     public void setContent(String content) {this.content = content;}
