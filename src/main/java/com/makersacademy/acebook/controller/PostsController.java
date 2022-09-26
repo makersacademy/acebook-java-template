@@ -79,6 +79,8 @@ public class PostsController {
         Long nLikes = repository.findNumberOfLikesForAPost(post.getId());
         System.out.println(nLikes);
 
+        // Long nComments = repository.findNumberOfCommentsForAPost(post.getId());
+        // System.out.println(nLikes);
         // post.likes()
         return new RedirectView("/posts");
     }
