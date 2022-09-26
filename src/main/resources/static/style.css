@@ -40,7 +40,7 @@ textarea {
 }
 
 i {
-  padding: 0 20px 0 0;
+  padding: 0 8px 0 0;
 }
 
 .img-comment:hover::before {
@@ -69,12 +69,17 @@ i {
   /*content: "\F52D";*/
 }
 
-a {
+#colour_btn {
   color: black;
 }
 
-a:hover {
+#colour_btn:hover {
   color: black;
+}
+
+.counter {
+  display: inline;
+  padding: 0 20px 0 0;
 }
 
 .image_post {

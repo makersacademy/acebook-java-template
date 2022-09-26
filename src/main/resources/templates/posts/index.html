@@ -159,7 +159,12 @@
                   <div class="card-body">
                       <h5 class="card-title" th:text="${post.username}"></h5>
                         <p class="card-text" th:text="${post.content}"></p>
-                          <img class="image_post" th:src="${post.image_post}" /> 
+                        
+                      <!-- UNLESS post.image_post is empty, show image: -->
+                      <div th:unless="${post.image_post.isEmpty()}" >
+                        <img class="image_post" th:src="${post.image_post}" /> 
+                      </div>
+                
                         <p class="card-text">
                           <small class="text-muted" th:text="${post.getTimeString()}"></small>
                           <small class="text-muted" th:text="${post.getDateString()}"></small>
@@ -176,6 +181,8 @@
                         <p class="card-text" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
 
                         <a href=""><i class="img-out bi bi-share-fill"></i></a>
+
+
                     </div>
                 </div>
             </div>
