@@ -93,3 +93,50 @@ i {
   /* padding: 10px; */
   width: 500px;
 }
+
+.navbar
+        {
+    backdrop-filter: blur(12px) !important;  
+    -webkit-backdrop-filter: blur(12px) !important;  
+}
+
+button,
+button::after {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  border: none;
+  display: block;
+  font-size: 0.7;
+  color: #027cff;
+  position: relative;
+}
+
+button::before,
+button::after {
+  background: #027cff;
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover {
+  color: whitesmoke;
+}
+
+.btn-1::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.btn-1:hover:after {
+  height: 100%;
+}
