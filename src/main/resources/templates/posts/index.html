@@ -26,15 +26,15 @@
             <div sec:authorize="isAuthenticated()">
                 <h2><span sec:authentication="name"></span></h2>
             </div>
-            
+
             <div class="logout">
                 <!-- // Show user ID and username for debugging -->
                 <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
                 <!-- Uncomment to see full session user object -->
                 <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
               </div>
-
-              <div class="logout">
+            
+            <div class="logout">
                 <form action="/logout" method="get">
                     <p><input type="submit" id="Logout" value="Logout" /></p>
                 </form>
@@ -72,6 +72,3 @@
 
     </body>
 </html>
-
-<!-- th:if="${like.liked_post} == ${post.id}" -->
-<!-- <p th:text="${like.username} + 'liked this'"></p> -->

@@ -45,10 +45,40 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getId() { return id; }
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public void setId(Long id) {this.id = id; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // public void getAllUsernames() {
+    // String url =
+    // "jdbc:postgresql://localhost:5432/acebook_sprintboot_development";
+
+    // }
+
+    // public String isUnique(String username) {
+    // Optional<Credential> credentials =
+    // CredentialsRepository.findByUsername(username);
+
+    // return credentials.isPresent() ? "exist" : "doesnt exist";
+    // }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
