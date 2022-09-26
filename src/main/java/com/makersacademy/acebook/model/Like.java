@@ -15,26 +15,26 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long user_id;
-    private Long post_id;
+    private Long userid;
+    private Long postid;
 
     // Constructors:
-    public Like(){
+    public Like() {
     }
-    
-    public Like(Long id){
+
+    public Like(Long id) {
         this.id = id;
     }
 
-    public Like(Long id, Long user_id) {
+    public Like(Long id, Long userid) {
         this.id = id;
-        this.user_id = user_id;
+        this.userid = userid;
     }
-    
-    public Like(Long id, Long user_id, Long post_id) {
+
+    public Like(Long id, Long userid, Long postid) {
         this.id = id;
-        this.user_id = user_id;
-        this.post_id = post_id;
+        this.userid = userid;
+        this.postid = postid;
     }
 
     // Getters and Setters:
@@ -46,19 +46,19 @@ public class Like {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return this.user_id;
+    public Long getUserid() {
+        return this.userid;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
-    public Long getPost_id() {
-        return this.post_id;
+    public Long getPostid() {
+        return this.postid;
     }
 
-    public void setPost_id(Long post_id) {
-        this.post_id = post_id;
+    public void setPostid(Long postid) {
+        this.postid = postid;
     }
 }
