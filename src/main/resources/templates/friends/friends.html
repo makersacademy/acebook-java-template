@@ -11,6 +11,7 @@
       <div class="logout">
         <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
         <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
+        <!-- <p style="margin-right: 68px;" th:text="${status}"></p> -->
         <!-- // Uncomment to see full session user object -->
         <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
       </div>
@@ -59,11 +60,16 @@
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
                   <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <input type="hidden" name= "response" value="unfriend">
-                  <button class="with-margin" type="submit">Unfriend</button><br>
-                  <button class="with-margin">Block</button>
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="unfriend">
+                    <button class="with-margin" type="submit">Unfriend</button><br>
+                  </form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="block">
+                    <button class="with-margin" type="submit">Block</button>
                   </form>
                 </div>
               </ul>
@@ -84,11 +90,16 @@
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
                   <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <input type="hidden" name= "response" value="accept">
-                  <button class="with-margin" type="submit">Accept</button>
-                  <button class="with-margin">Reject</button>
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="accept">
+                    <button class="with-margin" type="submit">Accept</button>
+                  </form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="cancel">
+                    <button class="with-margin" type="submit">Reject</button>
                   </form>
                 </div>
               </ul>
@@ -132,10 +143,15 @@
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <button class="with-margin" type="submit">Send Friend Request</button><br>
-                  <button class="with-margin">Block</button>
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <button class="with-margin" type="submit">Send Friend Request</button><br>
+                  </form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="block">
+                    <button class="with-margin" type="submit">Block</button>
                   </form>
                 </div>
               </ul>
@@ -154,11 +170,16 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends/request}" th:object="${friend}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <button class="with-margin" type="submit">Send Friend Request</button><br>
-                  <button class="with-margin">Block</button>
+                  <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <button class="with-margin" type="submit">Send Friend Request</button><br>
+                  </form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name= "requesterId" th:value="${id}">
+                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                    <input type="hidden" name= "response" value="block">
+                    <button class="with-margin" type="submit">Block</button>
                   </form>
                 </div>
               </ul>
@@ -168,7 +189,25 @@
 
         <div id="Blocked-Users" class="tabcontent">
           <h3>Blocked Users</h3>
-          <p>These are users you've blocked.</p>
+          <span th:if="${blockedcount == 0}">
+            <p>No blocked users.</p>
+          </span>
+          <span th:if="${blockedcount &gt; 0}">
+            <div class="icons-container">
+              <ul th:each="friend: ${blockedusers}">
+                <div class="icon">
+                  <li th:text="${friend.username}" />
+                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <input type="hidden" name= "response" value="unblock">
+                  <button class="with-margin" type="submit">Unblock</button><br>
+                  </form>
+                </div>
+              </ul>
+            </div><br>
+          </span>
         </div>
 
         <br><a href="/posts">Back to Posts</a>
