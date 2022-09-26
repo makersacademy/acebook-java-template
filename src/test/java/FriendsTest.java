@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import javax.persistence.*;
 
+// TESTS INCOMPLETE
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class FriendsTest {

@@ -60,9 +60,13 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <button class="with-margin" onclick="myFunction('unfriend')">Unfriend</button><br>
-                  <button class="with-margin" onclick="myFunction('block')">Block</button>
-                  <form></form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <input type="hidden" name= "response" value="unfriend">
+                  <button class="with-margin" type="submit">Unfriend</button><br>
+                  <button class="with-margin">Block</button>
+                  </form>
                 </div>
               </ul>
             </div>
@@ -81,9 +85,13 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <button class="with-margin" onclick="myFunction()">Accept</button>
-                  <button class="with-margin" onclick="myFunction()">Reject</button>
-                  <form></form>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <input type="hidden" name= "response" value="accept">
+                  <button class="with-margin" type="submit">Accept</button>
+                  <button class="with-margin">Reject</button>
+                  </form>
                 </div>
               </ul>
             </div><br>
@@ -102,9 +110,13 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <button class="with-margin" onclick="myFunction()">Cancel</button>
+                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <input type="hidden" name= "response" value="cancel">
+                  <button class="with-margin" type="submit">Cancel</button>
                   <!-- <button onclick="myFunction()">Send Friend Request</button> -->
-                  <form></form>
+                  </form>
                 </div>
               </ul>
             </div><br>
@@ -123,10 +135,13 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <button class="with-margin" onclick="myFunction()">Send Friend Request</button><br>
-                  <button class="with-margin" onclick="myFunction()">Block</button>
+                  <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <button class="with-margin" type="submit">Send Friend Request</button><br>
+                  <button class="with-margin">Block</button>
                   <!-- <button onclick="myFunction()">Send Friend Request</button> -->
-                  <form></form>
+                  </form>
                 </div>
               </ul>
             </div><br>
@@ -145,10 +160,14 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <button class="with-margin" onclick="myFunction()">Send Friend Request</button><br>
-                  <button class="with-margin" onclick="myFunction()">Block</button>
+                  <form action="#" th:action="@{/friends/request}" th:object="${friend}" method="POST" onsubmit="return confirm('Are you sure?');">
+                  <input type="hidden" name= "requesterId" th:value="${id}">
+                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                  <!-- <input type="submit" name= "Send Friend Request" value="User"> -->
+                  <button class="with-margin" type="submit">Send Friend Request</button><br>
+                  <button class="with-margin">Block</button>
                   <!-- <button onclick="myFunction()">Send Friend Request</button> -->
-                  <form></form>
+                  </form>
                 </div>
               </ul>
             </div><br>
@@ -200,17 +219,6 @@
       <script>
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
-        
-        // (PUT THIS IN SEPARATE JAVA FILE) Script for buttons, takes button name as argument (returns string for TL conditional to process different post requests)
-        function myFunction() {
-          var txt;
-          if (confirm("Are you sure?")) {
-            txt = "You pressed OK!";
-          } else {
-            txt = "You pressed Cancel!";
-          }
-          document.getElementById("demo").innerHTML = txt;
-        }
       </script>
     </body>
 </html>

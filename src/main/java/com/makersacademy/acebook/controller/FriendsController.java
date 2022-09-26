@@ -121,12 +121,20 @@ public class FriendsController {
   // This responds to a friend request/blocks another user
   @PostMapping("/friends")
   public RedirectView respond(String requesterId, String requesteeId, String response) {
-    if (response == "accept") {
-      Long reqerId = Long.valueOf(requesterId + "L");
-      Long reqeeId = Long.valueOf(requesteeId + "L");
-      userRepository.addAsFriends(reqerId, reqeeId);
-    } else if (response == "reject") {
-
+    Long reqerId = Long.valueOf(requesterId);
+    Long reqeeId = Long.valueOf(requesteeId);
+    switch (response) {
+      case "accept":
+        userRepository.addAsFriends(reqerId, reqeeId);
+        break;
+      case "cancel":
+        Long friendshipIdToCancel = userRepository.getFriendshipId(reqerId, reqeeId);
+        friendshipRepository.deleteById(friendshipIdToCancel);
+        break;
+      case "unfriend":
+        Long friendshipIdToDelete = userRepository.getFriendshipId(reqerId, reqeeId);
+        friendshipRepository.deleteById(friendshipIdToDelete);
+        break;
     }
     return new RedirectView("/friends");
   }
