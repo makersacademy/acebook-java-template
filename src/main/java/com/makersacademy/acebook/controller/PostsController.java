@@ -101,4 +101,20 @@ public class PostsController {
     // return new RedirectView("/posts");
     // }
 
+    @RequestMapping("/posts/like")
+    @ResponseBody
+    public RedirectView newLike(@RequestParam("postid") Long postid) {
+        try {
+            System.out.println(postid);
+            System.out.println(getUserId());
+            Like newLike = new Like();
+            newLike.setUser_id(getUserId());
+            newLike.setPost_id(postid);
+            likeRepository.save(newLike);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        return new RedirectView("/posts");
+    }
+
 }
