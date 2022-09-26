@@ -124,7 +124,7 @@
         <br> 
         <div class="btn text-bg-light mb-2" style="max-width: 18rem;">
           <div class="card-body">
-            <!-- <span sec:authentication="name"></span> -->
+            <span sec:authentication="name"></span>
             <p class="card-text" th:text="${post.username}"></p>
             <p class="card-text" th:text="${post.content}"></p>
             <img class="image_post" th:src="${post.image_post}" />
