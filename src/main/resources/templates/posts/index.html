@@ -160,8 +160,8 @@
                         <h5 class="card-title">Phil:</h5>
                         <p class="card-text" th:text="${post.content}"></p>
                         <p class="card-text">
-                          <small class="text-muted" th:text="${post.formatted_time}"></small>
-                          <small class="text-muted" th:text="${post.formatted_date}"></small>
+                          <small class="text-muted" th:text="${post.getTimeString()}"></small>
+                          <small class="text-muted" th:text="${post.getDateString()}"></small>
                         </p>
 
                         <a href="/comments"><i class="img-comment bi bi-chat-left"></i></a>
