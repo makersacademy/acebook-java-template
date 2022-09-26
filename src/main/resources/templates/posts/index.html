@@ -85,13 +85,14 @@
       </div>
     </nav>
     
+      
       <!-- CREATE A POST -->
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
       <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
       <div class="row"> 
       <div class="col-sm">
 
-      <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+      <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
@@ -147,7 +148,7 @@
 
     <hr>
 
-      <div class="card">
+      <div class="">
         <ul th:each="post: ${posts}">
           <div class="post-card card mb-3" style="max-width: 540px;">
             <div class="row no-gutters">
@@ -158,16 +159,20 @@
                   <div class="card-body">
                       <h5 class="card-title" th:text="${post.username}"></h5>
                         <p class="card-text" th:text="${post.content}"></p>
-                        <img class="image_post" th:src="${post.image_post}" /> 
+                          <img class="image_post" th:src="${post.image_post}" /> 
                         <p class="card-text">
                           <small class="text-muted" th:text="${post.getTimeString()}"></small>
                           <small class="text-muted" th:text="${post.getDateString()}"></small>
                         </p>
 
+                        <!-- COMMENTING -->
                         <a href="/comments"><i class="img-comment bi bi-chat-left"></i></a>
                         <p class="card-text" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p>
+
+                        <!-- LIKING -->
                         <a href="/likes"><i class="img-like bi bi-heart"></i></a>
                         <p class="card-text" th:text="${repo.findNumberOfLikesForAPost(post.getId())}"></p>
+
                         <a href=""><i class="img-out bi bi-share-fill"></i></a>
                     </div>
                 </div>
