@@ -36,7 +36,7 @@ public class HomeTest {
     public void getslashreturnsyoutosigninifnotloggedin() {
         driver.get("http://localhost:8080/");
         String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
+        Assert.assertEquals("Sign In", title);
     }
 
     @Test

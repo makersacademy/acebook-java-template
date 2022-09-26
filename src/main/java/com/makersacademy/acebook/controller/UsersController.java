@@ -53,12 +53,11 @@ public class UsersController {
     @GetMapping("/login")
     public String login() {
         return "/login";
-        // return new login page
-        //
     }
-}
 
-// @GetMapping("/login")
-// public String login(){
-// return "account/login";
-// }
+    @GetMapping("/logout")
+    public String logout() {
+        return ("/login");
+    }
+
+}
