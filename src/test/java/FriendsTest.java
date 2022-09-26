@@ -93,7 +93,7 @@ public class FriendsTest {
 
   @Test
   public void getFriendsReturnsCorrectNumberOfFriends() {
-    ArrayList<com.makersacademy.acebook.model.User> testList1 = new ArrayList<com.makersacademy.acebook.model.User>();
+    ArrayList<com.makersacademy.acebook.model.User> testList1 = new ArrayList<com.makersacademy.acebook.model.User>(); 
     Iterable<com.makersacademy.acebook.model.User> testFriends1 = userRepository.getFriends(Long.valueOf("7L"));
     testFriends1.forEach(u -> testList1.add(u));
     assertEquals(2, testList1.size());
