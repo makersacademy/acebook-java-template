@@ -32,6 +32,7 @@ public class Post {
     private String formatted_time;
     private String image_post;
     private String username;
+    // private Long likes;
 
     // Constructors:
     public Post() {
