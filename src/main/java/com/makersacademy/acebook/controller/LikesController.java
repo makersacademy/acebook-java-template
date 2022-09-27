@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -29,6 +31,23 @@ public class LikesController {
             return new RedirectView("/posts");
           } else {
             return new RedirectView("/posts");
+          }
+
+    }
+
+    @PostMapping("/wall/like")
+    public RedirectView createlike(String likedpost, String username, String returnurl, HttpServletRequest request, Model model, HttpSession session) {
+
+        
+        if ( repository.findByLikedpostAndUsername(Long.parseLong(likedpost),username).isEmpty()) {
+
+            Like like = new Like();
+            like.setLikedpost(Long.parseLong(likedpost));
+            like.setUsername(username);
+            repository.save(like);
+            return new RedirectView(returnurl);
+          } else {
+            return new RedirectView(returnurl);
           }
 
     }

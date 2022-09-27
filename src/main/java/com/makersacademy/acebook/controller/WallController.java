@@ -47,15 +47,10 @@ public class WallController {
         Iterable<Like> likes = likerepository.findAll();
         model.addAttribute("likes", likes);
 
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+
         return "/wall";
     }
     
-/*
-    @RequestMapping("/wall/**")
-        public String wall(HttpServletRequest request) {
-        String fullUrl = request.getRequestURL().toString();
-        String url_id = fullUrl.split("/wall/")[1];
-        return "/wall";
-    }
-    */
 }

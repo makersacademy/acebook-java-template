@@ -15,6 +15,7 @@
         <nav> <!-- nav bar - subject to change -->
             <a href="/profile"><p>Profile</p></a>
             <a href="/posts"><p>Posts</p></a>
+            <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
             <a href="/friends"><p>Friends</p></a>
             <a href="/groups"><p>Groups</p></a>
             <a href="/events"><p>Events</p></a>
@@ -52,7 +53,7 @@
 
             <ul th:each="post: ${posts}">
                 <div class="myPosts">
-                    <a href="'/wall/' + ${post.user.id}" th:text="${post.user.username}"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
+                    <a th:href="@{/wall/{id}(id=${post.user.id})}" th:text="${post.user.username}"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
                     </a>
                     <li th:text="${post.title}" >
                     <li th:text="${post.content}" >

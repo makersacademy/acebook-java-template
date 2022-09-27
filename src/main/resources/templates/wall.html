@@ -14,6 +14,7 @@
         <nav> <!-- nav bar - subject to change -->
             <a href="/profile"><p>Profile</p></a>
             <a href="/posts"><p>Posts</p></a>
+            <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
             <a href="/friends"><p>Friends</p></a>
             <a href="/groups"><p>Groups</p></a>
             <a href="/events"><p>Events</p></a>
@@ -22,11 +23,13 @@
         </nav>
         
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
-
-            <div sec:authorize="isAuthenticated()">
-                <h2><span th:value="${user.findByid()} + '`s wall'"></span></h2>
-            </div>
-
+            <h2>
+            <ul th:each="user: ${users}" th:if="${user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
+                <li th:text="${user.username} + '`s wall'" style="font-size:x-large;font-weight: bold;"><!--<p th:each="user: ${users}" th:if="${user.id.equals(1L)}">
+                    <p th:value="${user.id} + '`s wall'">
+                    </p> -->
+                </ul>
+            </h2>
             <div class="logout">
                 <!-- // Show user ID and username for debugging -->
                 <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
@@ -42,15 +45,16 @@
 
             <ul th:each="post: ${posts}" th:if="${post.user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
                 <div class="myPosts">
-                    <a href="'/wall/' + ${post.user.id}"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
+                    <a th:href="'/wall/' + ${post.user.id}"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
                     <li><b><span th:text="${post.user.username}"></span></b></li></a>
                     <li th:text="${post.title}" >
                     <li th:text="${post.content}" >
                     <li th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')} + ' on: ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></li>
                     <li th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="${like.username} + ' liked this'"></li>
-                    <li><form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
+                    <li><form action="#" th:action="@{/wall/like}" th:object="${post}" method="post">
                         <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
                         <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>
+                        <p><input type="hidden" name="returnurl" th:value="${#httpServletRequest.requestURI}"/></p>
                         <p><input type="submit" value="Like" /></p>
                     </form>
                 </li>
