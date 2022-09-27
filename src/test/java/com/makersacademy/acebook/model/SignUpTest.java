@@ -41,4 +41,20 @@ public class SignUpTest {
         String title = driver.getTitle();
         Assert.assertEquals("Sign In", title);
     }
+
+    @Test
+    public void unsuccessfulSignUpRedirectstoFailurePage() {
+        String RN = "Random Name";
+        String RP = "Random Password";
+        driver.get("http://localhost:8080/signup");
+        driver.findElement(By.id("email")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
+        driver.findElement(By.className("submit-btn")).click();
+        driver.get("http://localhost:8080/signup");
+        driver.findElement(By.id("email")).sendKeys(RN);
+        driver.findElement(By.id("password")).sendKeys(RP);
+        driver.findElement(By.className("submit-btn")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Sign Up Error", title);
+    }
 }
