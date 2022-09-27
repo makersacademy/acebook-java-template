@@ -13,6 +13,9 @@
         <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
         <!-- // Uncomment to see full session user object -->
         <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
+        <!-- <p th:text="${mutualfriendsservice.getMutualFriends('4', '11')}"></p> -->
+        <!-- <p th:text="${mutualfriendsservice.findAll()}"></p> -->
+        <!-- <p th:text="${mutualfriendsservice.sayHello('Boris')}"></p> -->
       </div>
 
       <div class="logout">
@@ -141,6 +144,11 @@
                 <div class="icon">
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                  <!-- <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(Long.valueOf(${id}), Long.valueOf(${friend.id}))}"> -->
+                  <p style="margin: 0px;">Mutual Friends:</p>
+                  <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(id, friend.id)}">
+                    <li th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked'}" th:text="${friend.username}">
+                  </ul>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
                     <input type="hidden" name= "requesterId" th:value="${id}">
                     <input type="hidden" name= "requesteeId" th:value="${friend.id}">
