@@ -178,6 +178,101 @@ button:hover {
   height: 100%;
 }
 
+
+.btn-3 {
+  position: absolute;
+  color: #16a2b8;
+  border: 2px solid;
+  border-radius: 3.5px;
+  width: 320px;
+  transform: translatex(-15px);
+}
+
+.btn-3::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #138397;
+}
+
+.btn-3:hover:after {
+  height: 100%;
+}
+
+.login_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.login_box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.login_box .user-box {
+  position: relative;
+}
+
+.login_box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  outline: none;
+  background: transparent;
+}
+
+.login_box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: 3C6478;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login_box .user-box input:focus~label,
+.login_box .user-box input:valid~label,
+.login_box .user-box input:-webkit-autofill,
+.login_box .user-box input:-webkit-autofill:hover, 
+.login_box .user-box input:-webkit-autofill:focus{
+  top: -20px;
+  left: 0;
+  color: #838383;
+  font-size: 12px;
+}
+
+.eye{
+  position: absolute;
+}
+
+#hide1{
+  display: none;
+}
+
+a.one {
+  font-size: 13px;
+  position:relative;
+  left: 215px;
+  bottom: 30px;
+}
+a.one:hover {
+  text-decoration:underline;
+}
 /* ---------------------------------------------------------------------------------------- */
 /* friends page */
 /* all users page */
@@ -250,3 +345,4 @@ button:hover {
 
 /* ---------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- */
+
