@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,13 +69,16 @@ public class CommentsController {
     // return new RedirectView("/comments/index");
     // }
 
-    @PostMapping("/comments")
-    public RedirectView create(@ModelAttribute Comment comment) {
+    @PostMapping("/comments/post")
+    public RedirectView create(@RequestParam("postid") Long postid, @ModelAttribute Comment comment) {
         // use the setter to store the user_id
+        // System.out.println(postid);
 
         comment.setUserid(this.getUserId());
-        comment.setPostid(this.getPostId());
+        // comment.setPostid(this.getPostId());
         comment.setUsername(this.getUsername());
+        comment.setPostid(postid);
+
         // comment.setDate(this.getDate());
         // comment.setUserid(getUserId());
         commentRepository.save(comment);
@@ -83,21 +87,25 @@ public class CommentsController {
         // Long nLikes = commentRrepository.findNumberOfLikesForAPost(post.getId());
         // System.out.println(nLikes);
 
-        return new RedirectView("/comments");
+        return new RedirectView("/comments/post?postid=" + postid);
     }
 
     @RequestMapping("/comments/post")
+    // @ResponseBody
     public String commentByPost(@RequestParam("postid") Long postid, Model model) {
-        List<Object[]> nComments = commentRepository.getUsersByPostid(postid);
-        System.out.println(nComments);
+        // System.out.printf("THis is the post id for comments %d", postid);
+        // System.out.println(postid);
+        // List<Object[]> nComments = commentRepository.getUsersByPostid(postid);
+        // System.out.println(nComments);
         try {
             List<Object[]> comments = commentRepository.getUsersByPostid(postid);
             model.addAttribute("comments", comments);
+            model.addAttribute("postid", postid);
+            model.addAttribute("comment", new Comment());
 
         } catch (Exception e) {
             System.out.println("error");
         }
-
         return "comments/post";
     }
 }

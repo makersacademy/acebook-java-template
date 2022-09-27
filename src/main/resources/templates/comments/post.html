@@ -76,11 +76,11 @@
     </nav>
 
       <!-- CREATE A COMMENT -->
-    <form action="#"  th:action="@{/comments}" th:object="${comment}" method="post">
+    <form action="#"  th:action="@{/comments/post?postid={id}(id=${postid})}" th:object="${comment}" method="post">
       <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
       <div class="row"> 
       <div class="col-sm">
-
+      <input type="hidden" value="comment.postid">
       <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
@@ -115,10 +115,10 @@
 				<div class="commentCard">
 					<ul>
 						<li class="commentHead">
-							<span class="commenterName" th:text="${comment.username}">Mike</span>
+							<span class="commenterName" th:text="${comment[0]}">Mike</span>
 							<span class="commentTime"> 1d. ago</span>
 						</li>
-						<li class="commentContent" th:text="${comment.content}">
+						<li class="commentContent" th:text="${comment[1]}">
               Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. Hhaha wasn't funny. Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. wow how is this a really nice post. But guess what? I don't care plus I didn't ask plus ratio.
 						</li>
 					</ul>

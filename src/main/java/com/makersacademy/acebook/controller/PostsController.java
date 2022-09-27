@@ -110,7 +110,7 @@ public class PostsController {
     @ResponseBody
     public RedirectView newLike(@RequestParam("postid") Long postid) {
         try {
-            System.out.println(postid);
+            // System.out.println(postid);
             System.out.println(getUserId());
             Like newLike = new Like();
             newLike.setUserid(getUserId());
@@ -123,23 +123,23 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-    @RequestMapping("/posts/comment")
-    @ResponseBody
-    public RedirectView newComment(@RequestParam("postid") Long postid) {
-        try {
-            System.out.println(postid);
-            System.out.println(getUserId());
-            Comment newComment = new Comment();
-            newComment.setUserid(getUserId());
-            // newComment.setContent(getContent());
-            newComment.setPostid(postid);
-            // newComment.setContent(content);
-            commentRepository.save(newComment);
-        } catch (Exception e) {
-            System.out.println("error");
-            // commentRepository.deleteByUseridAndPostid(getUserId(), postid);
-        }
-        return new RedirectView("/posts");
-    }
+    // @RequestMapping("/posts/comment")
+    // public String newComment(@RequestParam("postid") Long postid) {
+    // try {
+    // // System.out.println(postid);
+    // System.out.printf("THis is the post id for comments %d", postid);
+    // System.out.println(getUserId());
+    // Comment newComment = new Comment();
+    // newComment.setUserid(getUserId());
+    // // newComment.setContent(getContent());
+    // newComment.setPostid(postid);
+    // // newComment.setContent(content);
+    // commentRepository.save(newComment);
+    // } catch (Exception e) {
+    // System.out.println("error");
+    // // commentRepository.deleteByUseridAndPostid(getUserId(), postid);
+    // }
+    // return "comments/post?postid=" + postid;
+    // }
 
 }
