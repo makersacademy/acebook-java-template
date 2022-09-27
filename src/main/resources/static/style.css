@@ -44,24 +44,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: "\F252";
+  content: '\F252';
 }
 
 .img-comment:hover {
-  content: "\F253";
+  content: '\F253';
 }
 
 .img-like:hover::before {
-  content: "\F415";
+  content: '\F415';
 }
 
 .img-like:hover {
   color: red;
-  content: "\F417";
+  content: '\F417';
 }
 
 .img-out:hover::before {
-  content: "\F52D";
+  content: '\F52D';
 }
 
 .img-out:hover {
@@ -130,7 +130,7 @@ button {
 button::before,
 button::after {
   background: #0064d0;
-  content: "";
+  content: '';
   position: absolute;
   z-index: -1;
   border-radius: 3.5px;
@@ -168,3 +168,76 @@ button:hover {
 .btn-2:hover:after {
   height: 100%;
 }
+
+/* ---------------------------------------------------------------------------------------- */
+/* friends page */
+/* all users page */
+/* ---------------------------------------------------------------------------------------- */
+
+.wrapper-flex {
+  display: flex;
+  flex-wrap: wrap;
+  /* width: 50%; */
+  /* justify-content: center; */
+}
+
+.friends-container {
+  overflow: hidden;
+  box-shadow: 0px 1px 1px 0px;
+  background-color: white;
+  text-align: center;
+  border-radius: 1rem;
+  position: relative;
+  width: 280px;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  /* border: #007bff; */
+}
+
+.users-container {
+  overflow: hidden;
+  box-shadow: 0px 1px 1px 0px;
+  background: rgba(238, 174, 202, 0.3);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 0.296) 0%,
+    rgba(148, 188, 233, 0.451) 100%
+  );
+  color: #000000;
+  text-align: center;
+  border-radius: 1rem;
+  position: relative;
+  width: 280px;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  /* border: #007bff; */
+}
+
+.banner-img-friends {
+  position: absolute;
+  background-image: url(https://images.unsplash.com/photo-1582727657635-c771002bdada?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+  height: 10rem;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profile-img {
+  width: 8rem;
+  clip-path: circle(60px at center);
+  margin-top: 4.5rem;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.description {
+  margin: 1rem 2rem;
+  font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */

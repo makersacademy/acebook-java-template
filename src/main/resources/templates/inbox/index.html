@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Friends</title>
+    <title>Inbox</title>
   </head>
   <body> 
     <nav class="navbar navbar-expand-sm bg-light">
@@ -86,37 +86,10 @@
       </div>
     </nav>
 
-<!-- 
-    <ul th:each="friend: ${friends}">
-<div class="container">
-<div class="card hovercard">
-  <img src="https://picsum.photos/200" alt=""/>
-  <div class="avatar">
-      <img src="https://picsum.photos/200" alt="" />
-  </div>
-  <div class="info">
-      <div class="title">The Title</div>
-        <p class="desc card-text" th:text="${friend.username}"></p>
-      </div>
-      <div class="bottom">
-        <button class="btn btn-default">Button</button>
-      </div>
-    </div>
-  </div>
-</ul> -->
 
 
-<ul th:each="friend: ${friends}">
-  <div class="wrapper-flex">
-    <div class="friends-container">
-      <div class='banner-img-friends '></div>
-      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-      <h1 class="name" th:text="${friend.username}"></h1>
-      <p class="description">Hi there!</p>
-      <button class='btn'>Message</button>
-    </div>
-    </div>
-</ul>  
+
+
 
 
         <script
