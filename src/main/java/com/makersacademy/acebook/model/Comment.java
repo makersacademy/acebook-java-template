@@ -1,6 +1,8 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +24,8 @@ public class Comment {
     private String content;
     private Timestamp date;
     private String username;
+    private String formatted_date;
+    private String formatted_time;
 
     // Constructors:
     public Comment() {
@@ -102,5 +106,29 @@ public class Comment {
 
     public void setDate(Timestamp date) {
         this.date = date;
+        this.formatted_time = this.getTimeString();
+        this.formatted_date = this.getDateString();
     }
+
+    public String formatDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
+        return dtf.format(now);
+    }
+
+    public String getTimeString() {
+        LocalDateTime time = this.date.toLocalDateTime(); // current time
+        DateTimeFormatter format_t = DateTimeFormatter.ofPattern("HH:mm"); // format to extract
+        String t = time.format(format_t);
+        return t;
+    }
+
+    public String getDateString() {
+        LocalDateTime date = this.date.toLocalDateTime(); // current date
+        DateTimeFormatter format_t = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // format to extract
+        String t = date.format(format_t);
+        return t;
+    }
+
 }

@@ -1,6 +1,9 @@
 package com.makersacademy.acebook.controller;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,13 @@ public class CommentsController {
         return 2L;
     }
 
+    private Timestamp getTimeStamp() {
+        LocalDateTime time = LocalDateTime.now();
+        System.out.println(time);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
+    }
+
     @GetMapping("/comments")
     public String comments(Model model) {
         Iterable<Comment> comments = commentRepository.findAll();
@@ -76,6 +86,8 @@ public class CommentsController {
 
         comment.setUserid(this.getUserId());
         // comment.setPostid(this.getPostId());
+        comment.setDate(this.getTimeStamp());
+        System.out.println(this.getTimeStamp());
         comment.setUsername(this.getUsername());
         comment.setPostid(postid);
 
