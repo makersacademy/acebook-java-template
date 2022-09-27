@@ -5,6 +5,7 @@
 >
   <head lang="en">
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -17,56 +18,58 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/style.css" />
-    <title>Likes</title>
-  </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-  <body>
+    </style>
+    <link rel="stylesheet" href="style.css" />
+    <title>Acebook</title>
+  </head>
+  <body> 
     <!-- NAV BAR -->
     <nav class="navbar navbar-expand-sm bg-light">
-      <a class="navbar-brand" href="#">HALO | </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <!-- HOME -->
-              <li class="nav-item">
-                  <a class="nav-link" href="/posts"><i class="nav-icons bi bi-house-fill"></i>HOME</a>
-              </li>
-              <!-- FRIENDS -->
-              <li class="nav-item">
-                  <a class="nav-link" href="/friends"><i class="nav-icons bi bi-person-hearts"></i>FRIENDS</a>
-              </li>
-              <!-- ALL USERS -->
-              <li class="nav-item">
-                  <a class="nav-link" href="/allUsers"><i class="nav-icons bi bi-people-fill"></i>USERS</a>
-              </li>
-              <!-- INBOX -->
-              <li class="nav-item">
-                  <a class="nav-link" href="/inbox"><i class="nav-icons bi bi-inbox-fill"></i>INBOX</a>
-          </ul>
-      </div>
-      <div class="navbar-collapse flex-glow-1 text-right"></div>
-      <!-- LOGOUT -->
-        <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
-        <a class="nav-link" href="/logout"><i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT</a>
-      </div>
+        <a class="navbar-brand" href="#">HALO | </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts"><i class="nav-icons bi bi-house-fill"></i>HOME</a>
+                </li>
+                <!-- FRIENDS -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/friends"><i class="nav-icons bi bi-person-hearts"></i>FRIENDS</a>
+                </li>
+                <!-- ALL USERS -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/allUsers"><i class="nav-icons bi bi-people-fill"></i>USERS</a>
+                </li>
+                <!-- INBOX -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/inbox"><i class="nav-icons bi bi-inbox-fill"></i>INBOX</a>
+            </ul>
+        </div>
+        <div class="navbar-collapse flex-glow-1 text-right"></div>
+        <!-- LOGOUT -->
+          <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
+          <a class="nav-link" href="/logout"><i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT</a>
+        </div>
     </nav>
- 
+
+    <!-- LIKES -->
     <ul class='display_block' th:each="like: ${likes}">
       <div class="wrapper-flex">
-    <div class="friends-container">
-      <div class='banner-img-friends '></div>
-      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-      <h1 class="name" th:text="${like}"></h1>
-      <p class="description" >Liked this post</p>
-      <!-- <button class='btn'>Message</button> -->
-    </div>
-    </div>
+        <div class="friends-container">
+          <div class='banner-img-friends '></div>
+          <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
+          <h1 class="name" th:text="${like}"></h1>
+          <p class="description" >Liked this post</p>
+        </div>
+     </div>
     </ul>
 
-
+    <!-- SCRIPTS -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
