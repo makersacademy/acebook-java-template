@@ -1,5 +1,7 @@
 package com.makersacademy.acebook.controller;
-
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
@@ -33,6 +35,14 @@ public class LikesController {
         return id;
     }
 
+    
+    private Timestamp getTimeStamp() {
+        LocalDateTime time = LocalDateTime.now();
+        System.out.println(time);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
+    }
+
     @GetMapping("/likes")
     public String like(Model model) {
         // Iterable<Like> likes = repository.findAll();
@@ -40,6 +50,29 @@ public class LikesController {
         // model.addAttribute("likes", likes);
         // model.addAttribute("like", new Like());
         return "likes/post";
+    }
+
+    @PostMapping("/likes/post")
+    public RedirectView create(@RequestParam("postid") Long postid, @ModelAttribute Like like) {
+        // use the setter to store the user_id
+        // System.out.println(postid);
+
+        like.setUserid(this.getUserId());
+        // like.setPostid(this.getPostId());
+        like.setDate(this.getTimeStamp());
+        // System.out.println(this.getTimeStamp());
+        // like.setUsername(this.getUsername());
+        like.setPostid(postid);
+
+        // comment.setDate(this.getDate());
+        // comment.setUserid(getUserId());
+        repository.save(like);
+        // System.out.println(comment.getTimeString());
+        // System.out.println(comment.getDateString());
+        // Long nLikes = commentRrepository.findNumberOfLikesForAPost(post.getId());
+        // System.out.println(nLikes);
+
+        return new RedirectView("/likes/post?postid=" + postid);
     }
 
     @RequestMapping("/likes/post")

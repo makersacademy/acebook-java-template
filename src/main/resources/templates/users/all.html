@@ -69,11 +69,13 @@
         <div class="navbar-collapse flex-glow-1 text-right"></div>
         <!-- LOGOUT -->
           <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
+
           <a class="nav-link" href="/logout">
             <button class="btn-2">
               <i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT
             </button>
           </a>
+
         </div>
     </nav>
 
