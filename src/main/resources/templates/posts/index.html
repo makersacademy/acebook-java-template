@@ -6,23 +6,24 @@
         <title>Winklevoss</title>
         <link rel="stylesheet" href="/main.css" />
     </head>
-    <body>
-        
+<body>
+        <header>
+            <nav> <!-- nav bar - subject to change -->
+                <a href="/profile"><p>Profile</p></a>
+                <a href="/posts"><p>Posts</p></a>
+                <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
+                <a href="/friends"><p>Friends</p></a>
+                <a href="/groups"><p>Groups</p></a>
+                <a href="/events"><p>Events</p></a>
+                <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
+                <a href="/messages"><p>Messages</p></a>
+            </nav>
+        </header>
+
         <div class="title">
             <h1>Posts</h1>
         </div>
-        
-        <nav> <!-- nav bar - subject to change -->
-            <a href="/profile"><p>Profile</p></a>
-            <a href="/posts"><p>Posts</p></a>
-            <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
-            <a href="/friends"><p>Friends</p></a>
-            <a href="/groups"><p>Groups</p></a>
-            <a href="/events"><p>Events</p></a>
-            <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
-            <a href="/messages"><p>Messages</p></a>
-        </nav>
-        
+
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
 
             <div sec:authorize="isAuthenticated()">
@@ -33,7 +34,7 @@
                 <!-- // Show user ID and username for debugging -->
                 <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
                 <!-- Uncomment to see full session user object -->
-                <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
+                <p th:text="'current user = ' + ${username}"></p>
               </div>
             
             <div class="logout">
@@ -42,34 +43,52 @@
                 </form>
             </div>
             
-                        <div class="myPosts">
-                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100">
+            <div class="myPosts">
+                <form action="#" id="post_content_form" th:action="@{/posts}" th:object="${post}" method="post">
+                    <img class="circle" src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="40" height="40">
+                    <textarea id="post-content" name="content" rows="1" cols="50" th:object="${user}" th:placeholder="'What\'s on your mind, ' + ${#authentication.getPrincipal().getUsername()} + '?'"></textarea>
+                    <input type="hidden" name="title" th:value="Title"/>
+                    <!-- <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="40" height="40">
                     <p>Title: <input type="text" id="post-title" name="title"/></p>
-                    <p>Content: <input type="text" id="post-content" name="content"/></p>
-                    <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                    <textarea id="post-content" name="content" rows="5" cols="33" th:object="${user}" th:text="'What\'s on your mind, ' + ${#authentication.getPrincipal().getUsername()} + '?'" > </textarea>
+                    <p>Content: <input type="textarea" id="post-content" name="content"/></p> -->
+                    <input type="submit" id="submit" value="Submit" />
+                         <!-- <input type="reset" value="Reset" /></p> -->
                 </form>
             </div>
 
-            <ul th:each="post: ${posts}">
+            <div th:each="post: ${posts}">
                 <div class="myPosts">
-                    <a th:href="@{/wall/{id}(id=${post.user.id})}" th:text="${post.user.username}"><li><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="50" height="50"></li>
-                    </a>
-                    <li th:text="${post.title}" >
-                    <li th:text="${post.content}" >
-                    <li th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')} + ' on: ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></li>
-                    <li th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="${like.username} + ' liked this'"></li>
-                    <li><form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
-                        <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
-                        <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>
-                        <p><input type="submit" value="Like" /></p>
-                    </form>
-                </li>
-                </div>
+                    <div class="post_heading">
+                        <img class="circle" src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="40" height="40">
+                        <a th:href="@{/wall/{id}(id=${post.user.id})}" th:text="${post.user.username}"></a>
+                        <p id="post_time" th:text="${#dates.format(post.time_posted, 'HH:mm:ss')}"></p>
+                    </div>
+                        <!-- We don't really need a post title -->
+                        <!-- <h2 th:text="${post.title}"></h2> -->
+                        <div class="post_content">
+                            <p th:text="${post.content}"> </p>
+                            <p th:text="'posted at: ' + ${#dates.format(post.time_posted, 'HH:mm:ss')} + ' on: ' + ${#dates.format(post.time_posted, 'dd-MM-yyyy')}" style="font-size:small;"></p>
+                            <p th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="${like.username} + ' liked this'"></p>
+                            <div>
+                                <form action="#" th:action="@{/posts/like}" th:object="${post}" method="post">
+                                    <p><input type="hidden" name="likedpost" th:value="${post.id}"/></p>
+                                    <p><input type="hidden" name="username" th:value="${#authentication.getPrincipal().getUsername()}"/></p>
+                                    <p><input type="submit" value="Like" /></p>
+                                    <button th:href="@{/posts/{id}(id=${post.id})}">Comment</button>
+                                </form>
+                            </div>
+                            <div class="comment_section">
+                                <label for="comment">Write a comment...</label>
+                                <input type="text" id="comment_content" name="comment">
+                                <input type="submit" id="comment_submit" value="Submit">
+                            </div>
+                        </div>
 
-            </ul>
+                </div>
+            </div>
 
         </div> <!-- End of container div -->
-
-    </body>
+<script src="/src/main/resources/static/script.js"></script>
+</body>
 </html>

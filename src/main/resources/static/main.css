@@ -13,6 +13,10 @@ nav {
 
 }
 
+.container {
+    max-width: 1140px;
+}
+
 button.with-margin {
     margin-top: 5px;
 }
@@ -39,12 +43,37 @@ body {
 
 
 .myPosts {
-    width: 320px;
+    max-width: 526px;
     padding: 10px;
+    margin: 10px auto;
     background-color: #d7851f;
-    border: 5px solid rgb(159, 89, 2);
-    /* border-radius: 25px; */
-    margin: auto;
+    border: 1px solid rgb(159, 89, 2);
+}
+
+#post_content_form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.post_heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post_content {
+    padding: 0 20px 0 20px;
+    margin: 10px 0 10px 0;
+}
+
+#post_time {
+    margin-left: auto;
 }
 
 .profile {
