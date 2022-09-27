@@ -114,6 +114,7 @@ public class PostsController {
             System.out.println(getUserId());
             Like newLike = new Like();
             newLike.setUserid(getUserId());
+            newLike.setDate(this.getTimeStamp());
             newLike.setPostid(postid);
             likeRepository.save(newLike);
         } catch (Exception e) {
