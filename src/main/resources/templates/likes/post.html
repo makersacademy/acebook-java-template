@@ -76,7 +76,8 @@
 
     <ul th:each="like: ${likes}">
       <!-- <p class="card-text" th:text="${like.}"></p> -->
-      <p class="card-text" th:text="${like}"></p>
+      <p class="likes-formatting" style="display: inline;" th:text="${like}"></p>
+      <p class="likes-formatting" style="display: inline;">liked this.</p>
     </ul>
 
 
