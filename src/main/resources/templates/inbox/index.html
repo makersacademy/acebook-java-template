@@ -17,8 +17,8 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href=" style.css" />
-    <title>Users</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Inbox</title>
   </head>
   <body> 
     <nav class="navbar navbar-expand-sm bg-light">
@@ -58,7 +58,7 @@
             <!-- USERS -->
           <li class="nav-item">
           <a class="nav-link" href="/allUsers"> 
-            <button class="btn-1">
+            <button class="btn-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
               <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
               <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
@@ -69,7 +69,7 @@
             <!-- INBOX -->
           <li class="nav-item">
               <a class="nav-link" href="/inbox">
-                <button class="btn-2">
+                <button class="btn-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
                   <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                 </svg> Inbox</button></a>
@@ -86,40 +86,13 @@
       </div>
     </nav>
 
-    <!-- <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">
-      <h3>People you may know</h3>
-        <div class="card">
-            <ul th:each="user: ${users}">
-                <br>
-                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-text" th:text="${user.username}"></h5>
-                    </div>
-                    <div>
-                      <button>Add Friend</button>
-                    </div>
-                </div>
-            </ul>
-        </div>
-    </a>
-    </div>
-    </div>
-    </div> -->
-
-    <ul class='display_block' th:each="user: ${users}">
-  <div class="wrapper-flex">
-    <div class="users-container">
-      <div class='banner-img-users'></div>
-      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-      <h1 class="name" th:text="${user.username}"></h1>
-      <p class="description">Let's be friends!</p>
-      <button class='btn'>Add Friend</button>
-    </div>
-    </div>
-</ul>
 
 
-    <script
+
+
+
+
+        <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"

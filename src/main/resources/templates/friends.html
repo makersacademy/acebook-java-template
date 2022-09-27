@@ -57,7 +57,7 @@
 
             <!-- USERS -->
           <li class="nav-item">
-          <a class="nav-link" href="/users/all"> 
+          <a class="nav-link" href="/allUsers"> 
             <button class="btn-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
               <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -68,7 +68,7 @@
 
             <!-- INBOX -->
           <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/inbox">
                 <button class="btn-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
                   <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
@@ -86,9 +86,37 @@
       </div>
     </nav>
 
-      <ul th:each="friend: ${friends}">
-            <p class="card-text" th:text="${friend.username}"></p>
-      </ul>
+<!-- 
+    <ul th:each="friend: ${friends}">
+<div class="container">
+<div class="card hovercard">
+  <img src="https://picsum.photos/200" alt=""/>
+  <div class="avatar">
+      <img src="https://picsum.photos/200" alt="" />
+  </div>
+  <div class="info">
+      <div class="title">The Title</div>
+        <p class="desc card-text" th:text="${friend.username}"></p>
+      </div>
+      <div class="bottom">
+        <button class="btn btn-default">Button</button>
+      </div>
+    </div>
+  </div>
+</ul> -->
+
+
+<ul class='display_block' th:each="friend: ${friends}">
+  <div class="wrapper-flex">
+    <div class="friends-container">
+      <div class='banner-img-friends '></div>
+      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
+      <h1 class="name" th:text="${friend.username}"></h1>
+      <p class="description">Hi there!</p>
+      <button class='btn'>Message</button>
+    </div>
+    </div>
+</ul>  
 
 
         <script
