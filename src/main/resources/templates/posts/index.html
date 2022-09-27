@@ -154,7 +154,7 @@
 
     <hr>
 
-      <div class="">
+      <div class="">  
         <ul th:each="post: ${posts}">
           <div class="post-card card mb-3" style="max-width: 540px;">
             <div class="row no-gutters">
@@ -170,7 +170,7 @@
                       <div th:unless="${post.image_post.isEmpty()}" >
                         <img class="image_post" th:src="${post.image_post}" /> 
                       </div>
-                
+
                         <p class="card-text">
                           <small class="text-muted" th:text="${post.getTimeString()}"></small>
                           <small class="text-muted" th:text="${post.getDateString()}"></small>
