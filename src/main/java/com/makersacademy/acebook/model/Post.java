@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
 import java.util.Calendar;  
+import java.sql.Timestamp;
 
 import lombok.Data;
 
@@ -25,7 +26,7 @@ public class Post {
     private Long id;
     private String title;
     private String content;
-    private Date time_posted;
+    private Timestamp time_posted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -47,5 +48,7 @@ public class Post {
     public void setTitle(String title) {this.title = title;}
     public void setContent(String content) {this.content = content;}
     public void setUser(User user) {this.user = user;}
+    public void setTimePosted(Timestamp time_posted) {this.time_posted = time_posted;}
+ 
 
 }

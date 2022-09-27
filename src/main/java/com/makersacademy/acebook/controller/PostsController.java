@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 
 import java.security.Principal;
 import java.util.Enumeration;
@@ -59,6 +60,8 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByUserName(username);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        post.setTimePosted(timestamp);
         post.setUser(user);
         postRepository.save(post);
         return new RedirectView("/posts");
