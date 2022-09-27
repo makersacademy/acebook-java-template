@@ -90,6 +90,14 @@ i {
   border-radius: 10%;
 }
 
+/* LIKES */
+
+.likes-formatting {
+  display: inline;
+}
+
+/* NAV BAR */
+
 #creator {
   margin: auto;
   /* padding: 10px; */
