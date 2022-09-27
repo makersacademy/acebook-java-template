@@ -17,7 +17,8 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/comments.css" />
     <title>Comments</title>
   </head>
 
@@ -51,14 +52,14 @@
               </svg> Friends</a>
           </li>
             <li class="nav-item">
-            <a class="nav-link" href="/users/all">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+            <a class="nav-link" href="/allUsers">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                 <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
                 <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
               </svg> Users</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/inbox">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
                     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                   </svg> Inbox</a>
@@ -74,10 +75,78 @@
       </div>
     </nav>
 
-    <ul th:each="comment: ${comments}">
-      <p class="card-text" th:text="${comment.content}"></p>
-      <p class="card-text" th:text="${comment.created_at}"></p>
-    </ul>
+      <!-- CREATE A COMMENT -->
+    <form action="#"  method="post">
+      <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
+      <div class="row"> 
+      <div class="col-sm">
+
+      <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+      </svg> Create a comment</div>
+      <div class="card-body">
+      <h6>Content: </h6>
+      <textarea 
+        id="content"
+        maxlength="140"
+        type="text"
+        minlength="1"
+        pattern=".*\S+.*"
+        placeholder="What's going on?"
+        title="This field is required"
+        required
+      ></textarea>
+      <br>
+      <br>
+      <input type="submit" class="btn btn-success" value="Comment" />
+      </div>
+      </div>
+      </form>
+    <br>
+    <br>
+        
+<!-- COMMENTS LIST -->
+<h1>Comments</h1>
+<ul th:each="comment: ${comments}">
+<div id="commentBox">
+				<div class="commentCard">
+					<ul>
+						<li class="commentHead">
+							<span class="commenterName">Mike</span>
+							<span class="commentTime"> 1d. ago</span>
+						</li>
+						<li class="commentContent">
+              Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. Hhaha wasn't funny. Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. wow how is this a really nice post. But guess what? I don't care plus I didn't ask plus ratio.
+						</li>
+					</ul>
+				</div>
+				<div class="commentCard">
+					<ul>
+						<li class="commentHead">
+							<span class="commenterName">Jack</span>
+							<span class="commentTime"> 9h. ago</span>
+						</li>
+						<li class="commentContent">
+              This is a really good comment coming from the sky. It shall only be red once it's blue. Ordinary colours aren't green but purple. This is a really good comment coming from the sky. It shall only be red once it's blue. Ordinary colours aren't green but purple.
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+    <!-- <ul th:each="comment: ${comments}">
+      <div class="wrapper-flex">
+    <div class="friends-container">
+      <div class='banner-img-friends '></div>
+      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
+      <h1 class="name" th:text="${comment.created_at}"></h1>
+      <p class="description" th:text="${comment.content}"></p>
+    </div>
+    </div>
+    </ul> -->
+
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
