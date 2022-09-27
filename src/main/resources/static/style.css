@@ -10,6 +10,10 @@ textarea {
   resize: none;
 }
 
+.display_block {
+  display: inline-block;
+}
+
 /* POSTS - VIEW */
 
 .post-card {
