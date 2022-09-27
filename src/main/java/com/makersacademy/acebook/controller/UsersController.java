@@ -52,22 +52,22 @@ public class UsersController {
 
     @GetMapping("/login")
     public String login() {
-        return "/login";
+        return "/login/login";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        return ("/login");
+        return ("/login/login");
     }
 
     @GetMapping("/badSignUp")
     public String badsignup() {
-        return ("/badSignUp");
+        return ("/signup/badSignUp");
     }
 
     @GetMapping("/badlogin")
     public String badlogin() {
-        return ("/badlogin");
+        return ("/login/badlogin");
     }
 
 }
