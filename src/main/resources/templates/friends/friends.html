@@ -147,7 +147,7 @@
                   <!-- <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(Long.valueOf(${id}), Long.valueOf(${friend.id}))}"> -->
                   <p style="margin: 0px;">Mutual Friends:</p>
                   <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(id, friend.id)}">
-                    <li th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked'}" th:text="${friend.username}">
+                    <li th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked'}" th:text="${friend.username}">
                   </ul>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
                     <input type="hidden" name= "requesterId" th:value="${id}">
