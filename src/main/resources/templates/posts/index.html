@@ -183,8 +183,8 @@
                         </p>
 
                         <!-- COMMENTING -->
-                        <a id="colour_btn" href="/comments"><i class="img-comment bi bi-chat-left"></i></a>
-                        <p class="counter" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p>
+                        <a id="colour_btn" th:href="@{/comments/post?postid={id}(id=${post.id})}" ><i class="img-comment bi bi-chat-left"></i></a>
+                        <a id="colour_btn" th:href="@{/comments/post?postid={id}(id=${post.id})}"><p class="counter" th:text="${repo.findNumberOfCommentsForAPost(post.getId())}"></p></a> 
 
                         <!-- LIKING -->
                         <!-- <a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a> -->
