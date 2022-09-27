@@ -17,34 +17,38 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long post_id;
+    private Long postid;
+    private Long userid;
     private String content;
-    private Timestamp created_at;
-    
+    private Timestamp date;
+
     // Constructors:
-    public Comment(){
+    public Comment() {
     }
-    
-    public Comment(Long id){
+
+    public Comment(Long id) {
         this.id = id;
     }
 
-    public Comment(Long id, Long post_id) {
+    public Comment(Long id, Long postid, Long userid) {
         this.id = id;
-        this.post_id = post_id;
+        this.postid = postid;
+        this.userid = userid;
     }
-    
-    public Comment(Long id, Long post_id, String content) {
+
+    public Comment(Long id, Long postid, Long userid, String content) {
         this.id = id;
-        this.post_id = post_id;
+        this.postid = postid;
+        this.userid = userid;
         this.content = content;
     }
 
-    public Comment(Long id, Long post_id, String content, Timestamp created_at) {
+    public Comment(Long id, Long postid, Long userid, String content, Timestamp date) {
         this.id = id;
-        this.post_id = post_id;
+        this.postid = postid;
+        this.userid = userid;
         this.content = content;
-        this.created_at = created_at;
+        this.date = date;
     }
 
     // Getters and Setters:
@@ -56,12 +60,20 @@ public class Comment {
         this.id = id;
     }
 
-    public Long getPost_id() {
-        return this.post_id;
+    public Long getPostid() {
+        return this.postid;
     }
 
-    public void setPost_id(Long post_id) {
-        this.post_id = post_id;
+    public void setPostid(Long postid) {
+        this.postid = postid;
+    }
+
+    public Long getUserid() {
+        return this.userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public String getContent() {
@@ -72,11 +84,11 @@ public class Comment {
         this.content = content;
     }
 
-     public Timestamp getCreated_at() {
-        return this.created_at;
+    public Timestamp getDate() {
+        return this.date;
     }
 
-    public void setcreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 }

@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+  padding-inline-start: unset;
+  font-family: roboto;
+}
+h1 {
+  text-align: center;
+}
+#commentBox {
+  width: 70%;
+  padding: 20px 10%;
+  margin: 0 auto;
+}
+
+li {
+  display: block;
+}
+
+.commentCard {
+  width: 100%;
+  height: auto;
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid black;
+  margin-block-end: 30px;
+  display: block;
+  padding-top: 0px;
+}
+
+.commentCard > ul {
+  display: block;
+  width: 100%;
+}
+
+.commentHead {
+  border-bottom: 1px solid black;
+  padding: 5px;
+  width: 100%;
+  display: block;
+}
+
+.commenterName,
+.replyName {
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.commentTime,
+.replyTime {
+  font-size: 16px;
+  margin-inline-start: 1em;
+  vertical-align: middle;
+}
+
+.commentTime::before,
+.replyTime::before {
+  content: '';
+  display: inline-block;
+  position: relative;
+  width: 0.5em;
+  height: 0.5em;
+  background-color: lightblue;
+  border-radius: 50%;
+  vertical-align: middle;
+  right: 2px;
+}
+
+.commentContent {
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+.commentReply {
+  position: relative;
+  padding-left: 30px;
+  margin-top: 20px;
+}
+
+.commentReply::before {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 30px;
+  border-left: 3px solid lightblue;
+  border-bottom: 3px solid lightblue;
+  display: block;
+  border-radius: 3px 0 3px 5px;
+  left: 0;
+  top: -10px;
+}
