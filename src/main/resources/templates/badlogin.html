@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/signup.css"/>
-        <title class="title">Sign In </title>
+        <title class="title">Sign In Error</title>
     </head>
 <div class="popup">
     <div class="popup-image">
@@ -12,6 +12,7 @@
     </div>
     <form class="signinForm"  action="#"  th:action="@{/login}"  method="post">
       <h1 class="title">Sign In</h1>
+      <label class="badcred" for="BadCred">Bad Credentials</label>
       <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
       <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
      <button class="submit-btn">Sign In</button>

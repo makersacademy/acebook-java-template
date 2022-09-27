@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/signup.css"/>
+        <title class="title">Sign Up Error</title>
+    </head>
+<div class="popup">
+    <div class="popup-image">
+      <img src="WinkelVossBlack.png" alt="Signup page image">
+    </div>
+    <form class="signinForm"  action="#"  th:action="@{/signup}" th:object="${user}" method="post">
+      <h1 class="title">Sign Up</h1>
+      <label class="badcred" for="BadCred">Bad Credentials</label>
+      <input type="text" field="username" id="email" placeholder="Username" autocomplete="off">
+      <input type="password" field="password" id="password" placeholder="Password">
+      <button class="submit-btn">Sign Up</button>
+      
+      <hr>
+      <div class="options">
+        <div>Already have have a account? <a class="link" href="/login">Sign In</a></div>
+        <div>Forgot your password? <a class="link" href="#">Reset</a></div>
+      </div>
+    </form>
+  </d>
+</html>

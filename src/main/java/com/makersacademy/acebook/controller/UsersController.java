@@ -34,7 +34,7 @@ public class UsersController {
     @PostMapping("/signup")
     public RedirectView signup(@ModelAttribute User user) {
         if (userRepository.findByUserName(user.getUsername()) != null) {
-            return new RedirectView("/signup");
+            return new RedirectView("/badSignUp");
         } else {
 
             String password = user.getPassword();
@@ -58,6 +58,16 @@ public class UsersController {
     @GetMapping("/logout")
     public String logout() {
         return ("/login");
+    }
+
+    @GetMapping("/badSignUp")
+    public String badsignup() {
+        return ("/badSignUp");
+    }
+
+    @GetMapping("/badlogin")
+    public String badlogin() {
+        return ("/badlogin");
     }
 
 }
