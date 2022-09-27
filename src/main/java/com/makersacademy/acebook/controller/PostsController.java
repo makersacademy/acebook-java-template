@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -38,6 +40,9 @@ public class PostsController {
 
     @Autowired
     LikeRepository likeRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     private Long getUserId() {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -105,7 +110,7 @@ public class PostsController {
     @ResponseBody
     public RedirectView newLike(@RequestParam("postid") Long postid) {
         try {
-            System.out.println(postid);
+            // System.out.println(postid);
             System.out.println(getUserId());
             Like newLike = new Like();
             newLike.setUserid(getUserId());
@@ -117,5 +122,24 @@ public class PostsController {
         }
         return new RedirectView("/posts");
     }
+
+    // @RequestMapping("/posts/comment")
+    // public String newComment(@RequestParam("postid") Long postid) {
+    // try {
+    // // System.out.println(postid);
+    // System.out.printf("THis is the post id for comments %d", postid);
+    // System.out.println(getUserId());
+    // Comment newComment = new Comment();
+    // newComment.setUserid(getUserId());
+    // // newComment.setContent(getContent());
+    // newComment.setPostid(postid);
+    // // newComment.setContent(content);
+    // commentRepository.save(newComment);
+    // } catch (Exception e) {
+    // System.out.println("error");
+    // // commentRepository.deleteByUseridAndPostid(getUserId(), postid);
+    // }
+    // return "comments/post?postid=" + postid;
+    // }
 
 }
