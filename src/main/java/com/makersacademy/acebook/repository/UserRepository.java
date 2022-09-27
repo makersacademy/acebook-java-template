@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface UserRepository extends CrudRepository<User, Long> {
+
+  List<User> findByid(Long id);
 
   // Bear in mind that any id value parameters must be of type "Long" (e.g. 1L)
   @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
