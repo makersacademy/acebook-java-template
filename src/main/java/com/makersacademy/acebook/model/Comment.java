@@ -21,6 +21,7 @@ public class Comment {
     private Long userid;
     private String content;
     private Timestamp date;
+    private String username;
 
     // Constructors:
     public Comment() {
@@ -36,19 +37,22 @@ public class Comment {
         this.userid = userid;
     }
 
-    public Comment(Long id, Long postid, Long userid, String content) {
+    public Comment(Long id, Long postid, Long userid, String content, String username) {
         this.id = id;
         this.postid = postid;
         this.userid = userid;
         this.content = content;
+        this.username = username;
     }
 
-    public Comment(Long id, Long postid, Long userid, String content, Timestamp date) {
+    public Comment(Long id, Long postid, Long userid, String content, Timestamp date, String username) {
         this.id = id;
         this.postid = postid;
         this.userid = userid;
         this.content = content;
         this.date = date;
+        this.username = username;
+
     }
 
     // Getters and Setters:
@@ -82,6 +86,14 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Timestamp getDate() {
