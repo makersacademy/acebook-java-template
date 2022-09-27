@@ -31,7 +31,7 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) throws Exception {
-        if (userRepository.existsByUsername(user.getUsername())){
+        if (userRepository.existsByUsername(user.getUsername())) {
             return new RedirectView("users/new?retry");
         } else {
             userRepository.save(user);
@@ -41,8 +41,8 @@ public class UsersController {
         }
     }
 
-    @GetMapping("/users/all")
-    public String allUsers(Model model){
+    @GetMapping("/allUsers")
+    public String allUsers(Model model) {
         Iterable<User> users = userRepository.findAll();
         model.addAttribute("users", users);
         return "users/all";
