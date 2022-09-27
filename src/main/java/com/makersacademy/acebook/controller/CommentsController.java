@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -67,7 +68,7 @@ public class CommentsController {
 
     @GetMapping("/comments")
     public String comments(Model model) {
-        Iterable<Comment> comments = commentRepository.findAll();
+        Iterable<Comment> comments = commentRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
         return "comments/post";
@@ -110,7 +111,8 @@ public class CommentsController {
         // List<Object[]> nComments = commentRepository.getUsersByPostid(postid);
         // System.out.println(nComments);
         try {
-            List<Object[]> comments = commentRepository.getUsersByPostid(postid);
+            List<Object[]> comments = commentRepository.getUsersByPostid(postid); // all users who commented on this
+                                                                                  // post
             model.addAttribute("comments", comments);
             model.addAttribute("postid", postid);
             model.addAttribute("comment", new Comment());
