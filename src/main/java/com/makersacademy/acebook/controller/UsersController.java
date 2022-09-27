@@ -49,4 +49,15 @@ public class UsersController {
             return new RedirectView("/login");
         }
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return ("/login");
+    }
+
 }

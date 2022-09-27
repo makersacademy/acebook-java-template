@@ -48,7 +48,7 @@ public class IndexTest {
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys(RN);
         driver.findElement(By.id("password")).sendKeys(RP);
-        driver.findElement(By.className("btn")).click();
+        driver.findElement(By.className("submit-btn")).click();
 
         driver.get("http://localhost:8080/posts");
         Assert.assertEquals("Profile",
