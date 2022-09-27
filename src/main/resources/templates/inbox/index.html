@@ -27,35 +27,57 @@
   <body> 
     <!-- NAV BAR -->
     <nav class="navbar navbar-expand-sm bg-light">
-        <a class="navbar-brand" href="#">HALO | </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <!-- HOME -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/posts"><i class="nav-icons bi bi-house-fill"></i>HOME</a>
-                </li>
-                <!-- FRIENDS -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/friends"><i class="nav-icons bi bi-person-hearts"></i>FRIENDS</a>
-                </li>
-                <!-- ALL USERS -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/allUsers"><i class="nav-icons bi bi-people-fill"></i>USERS</a>
-                </li>
-                <!-- INBOX -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/inbox"><i class="nav-icons bi bi-inbox-fill"></i>INBOX</a>
-            </ul>
-        </div>
-        <div class="navbar-collapse flex-glow-1 text-right"></div>
-        <!-- LOGOUT -->
-          <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
-          <a class="nav-link" href="/logout"><i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT</a>
-        </div>
-    </nav>
+
+      <a class="navbar-brand" href="#">HALO | </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- HOME -->
+              <li class="nav-item">
+                  <a class="nav-link" href="/posts">
+                    <button class="btn-2">
+                      <i class="nav-icons bi bi-house-fill"></i>HOME
+                    </button>
+                  </a>
+              </li>
+              <!-- FRIENDS -->
+              <li class="nav-item">
+                  <a class="nav-link" href="/friends">
+                    <button class="btn-2">
+                      <i class="nav-icons bi bi-person-hearts"></i>FRIENDS
+                    </button>
+                  </a>
+              </li>
+              <!-- ALL USERS -->
+              <li class="nav-item">
+                  <a class="nav-link" href="/allUsers">
+                    <button class="btn-2">
+                      <i class="nav-icons bi bi-people-fill"></i>USERS
+                    </button>
+                  </a>
+              </li>
+              <!-- INBOX -->
+              <li class="nav-item">
+                  <a class="nav-link" href="/inbox">
+                    <button class="btn-1">
+                      <i class="nav-icons bi bi-inbox-fill"></i>INBOX
+                    </button>
+                  </a>
+          </ul>
+      </div>
+      <div class="navbar-collapse flex-glow-1 text-right"></div>
+      <!-- LOGOUT -->
+        <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
+        <a class="nav-link" href="/logout">
+          <button class="btn-2">
+            <i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT
+          </button>
+        </a>
+      </div>
+  </nav>
+
     
 
 
