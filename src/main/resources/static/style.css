@@ -17,9 +17,10 @@ textarea {
 /* POSTS - VIEW */
 
 .post-card {
+  box-shadow: 0px 1px 1px 0px;
   background-color: #f8f9fa;
   border-radius: 20px;
-  border: 1px solid #555;
+  /* border: 1px solid #555; */
 }
 
 .card-img {
@@ -35,6 +36,10 @@ textarea {
   justify-content: flex-end;
 }
 
+.card {
+  border: 0px;
+}
+
 .card-body {
   /* background-color: ; */
 }
@@ -48,24 +53,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: '\F252';
+  content: "\F252";
 }
 
 .img-comment:hover {
-  content: '\F253';
+  content: "\F253";
 }
 
 .img-like:hover::before {
-  content: '\F415';
+  content: "\F415";
 }
 
 .img-like:hover {
   color: red;
-  content: '\F417';
+  content: "\F417";
 }
 
 .img-out:hover::before {
-  content: '\F52D';
+  content: "\F52D";
 }
 
 .img-out:hover {
@@ -134,7 +139,7 @@ button {
 button::before,
 button::after {
   background: #0064d0;
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   border-radius: 3.5px;
