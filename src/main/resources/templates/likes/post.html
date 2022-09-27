@@ -52,9 +52,9 @@
         <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
         <a class="nav-link" href="/logout"><i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT</a>
       </div>
-  </nav>
-  
-    <ul th:each="like: ${likes}">
+    </nav>
+ 
+    <ul class='display_block' th:each="like: ${likes}">
       <div class="wrapper-flex">
     <div class="friends-container">
       <div class='banner-img-friends '></div>

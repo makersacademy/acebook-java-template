@@ -51,7 +51,7 @@
         <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">Signed in as: <span sec:authentication="name"></span> </a>
         <a class="nav-link" href="/logout"><i class="nav-icons bi bi-door-closed-fill"></i>LOGOUT</a>
       </div>
-  </nav>
+    </nav>
 
     <!-- <a sec:authorize="isAuthenticated()" class="nav-link disabled" href="#">
       <h3>People you may know</h3>
@@ -73,7 +73,7 @@
     </div>
     </div> -->
 
-    <ul th:each="user: ${users}">
+    <ul class='display_block' th:each="user: ${users}">
   <div class="wrapper-flex">
     <div class="users-container">
       <div class='banner-img-users'></div>

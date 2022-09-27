@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
  @Query(value = "SELECT COUNT(1) FROM likes WHERE postid = ?1", nativeQuery = true)
  Long findNumberOfLikesForAPost(Long id);
 
- @Query(value = "SELECT COUNT(1) FROM comments WHERE post_id = ?1", nativeQuery = true)
+ @Query(value = "SELECT COUNT(1) FROM comments WHERE postid = ?1", nativeQuery = true)
  Long findNumberOfCommentsForAPost(Long id);
 
  // @Query(value = "SELECT COUNT(1) FROM comments WHERE post_id = ?1",
