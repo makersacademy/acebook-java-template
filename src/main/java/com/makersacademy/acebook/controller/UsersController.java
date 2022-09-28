@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -76,13 +78,24 @@ public class UsersController {
     @GetMapping("/allUsers")
     public String allUsers(Model model) {
         Iterable<User> users = userRepository.findAll();
+        // List<BigInteger> allUserIds = new ArrayList<BigInteger>();
+
+        // for (User user : users) {
+        // allUserIds.add(BigInteger.valueOf(user.getId()));
+        // }
+
+        // System.out.println(allUserIds);
+
+        // Iterable<Object[]> requestsRecieved =
+        // userRepository.requestsSentByOtherUsers(allUserIds, getUserId());
+
+        // iterate over all users and find the ones who have sent a friend request
+
         List<User> result = new ArrayList<User>();
         Iterable<BigInteger> pendingFriends = friendsRepository.pendingFriends(getUserId());
         List<BigInteger> pendingIds = new ArrayList<BigInteger>();
         pendingFriends.forEach(pendingIds::add);
-
         users.forEach(result::add);
-
         result.removeIf(u -> pendingIds.contains(BigInteger.valueOf(u.getId())));
 
         // users.forEach(user -> {
@@ -94,7 +107,7 @@ public class UsersController {
         // add those to the requestSent method to check whether request has been sent
         // return 'Add Friend' link if request not sent
         // return 'Request Sent' string if request has been sent
-        model.addAttribute("users", result);
+        model.addAttribute("result", result);
         model.addAttribute("friend", new Friend());
         return "users/all";
     }
