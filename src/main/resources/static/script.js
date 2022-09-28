@@ -18,3 +18,20 @@ function openTab(event, tabName) {
   document.getElementById(tabName).style.display = "block";
   event.currentTarget.className += "active";
 }
+
+// Below 2 are for getting friends of friends to work...
+function deleteNoMutualDiv(divId, mutualCount) {
+  if (mutualCount == 0) {
+    var div = document.getElementById(divId);
+    div.parentElement.remove();
+  }
+}
+
+function cleanFriendsOfFriends() {
+  var div = document.getElementById("0");
+  var p1 = document.getElementById("P1")
+  if (div.innerHTML.trim().length <= 41) {
+    p1.textContent = "No recommendations.";
+    div.remove();
+  }
+}

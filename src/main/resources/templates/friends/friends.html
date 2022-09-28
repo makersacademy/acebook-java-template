@@ -8,29 +8,28 @@
         <script type="text/javascript" src="/script.js"></script>
     </head>
     <body>
-      <div class="logout">
-        <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
-        <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
-        <!-- // Uncomment to see full session user object -->
-        <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
-        <!-- <p th:text="${mutualfriendsservice.getMutualFriends('4', '11')}"></p> -->
-        <!-- <p th:text="${mutualfriendsservice.findAll()}"></p> -->
-        <!-- <p th:text="${mutualfriendsservice.sayHello('Boris')}"></p> -->
-      </div>
-
-      <div class="logout">
-        <form action="/logout" method="get">
-          <p><input type="submit" id="Logout" value="Logout" /></p>
-        </form>
-      </div>
-
       <nav> <!-- nav bar - subject to change -->
+        <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
         <a href="/posts"><p>Posts</p></a>
         <a href="/profile"><p>Profile</p></a>
-        <a href="/groups"><p>Groups</p></a>
-        <a href="/events"><p>Events</p></a>
-        <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
+        <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
+        <a><p>Friends</p></a>
+        <!-- <a href="/groups"><p>Groups</p></a> -->
+        <!-- <a href="/events"><p>Events</p></a> -->
         <a href="/messages"><p>Messages</p></a>
+        <form>
+          <input style="margin-left: 42px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
+        </form>
+        <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
+        <div class="logout">
+          <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+          <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+        </div>
+        <div class="logout">
+          <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+            <p><input type="submit" id="Logout" value="Logout"/></p>
+          </form>
+        </div>
       </nav>
 
       <div class="container">
@@ -138,16 +137,22 @@
           <span th:if="${friendsfriendscount == 0}">
             <p>No recommendations.</p>
           </span>
+          <!-- Don't delete below <p> - need it for friends of friends -->
+          <p id="P1"></p>
           <span th:if="${friendsfriendscount &gt; 0}">
-            <div class="icons-container">
+            <div id="0" class="icons-container">
               <ul th:each="friend: ${friendsfriends}">
-                <div class="icon">
+                <div th:id="${friend.id}" class="icon">
+                  <span th:text="${mutualfriendsservice.setId(friend.id)}"></span>
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <!-- <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(Long.valueOf(${id}), Long.valueOf(${friend.id}))}"> -->
                   <p style="margin: 0px;">Mutual Friends:</p>
+                  <span th:text="${mutualfriendsservice.resetCount()}"></span>
                   <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(id, friend.id)}">
-                    <li th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked'}" th:text="${friend.username}">
+                    <span th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'pending'} or ${mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'pending'}">
+                      <li th:text="${friend.username}" />
+                      <li th:text="${mutualfriendsservice.incrementCount()}" />
+                    </span>
                   </ul>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
                     <input type="hidden" name= "requesterId" th:value="${id}">
@@ -160,6 +165,8 @@
                     <input type="hidden" name= "response" value="block">
                     <button class="with-margin" type="submit">Block</button>
                   </form>
+                  <!-- Below is the syntax for putting thymeleaf expressions in javascript - this div delete method and the th:unless check above are a compromise for handling the complexity of friends of friends (need to check status between 2nd party and 3rd party) SQL would be unmanageable -->
+                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${mutualfriendsservice.getId()}]], [[${mutualfriendsservice.getCount()}]]*/);</script>
                 </div>
               </ul>
             </div><br>
@@ -224,6 +231,7 @@
       <script>
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
+        cleanFriendsOfFriends();
       </script>
     </body>
 </html>
