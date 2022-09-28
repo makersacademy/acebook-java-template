@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.model;
 
+import java.beans.Transient;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,6 +32,8 @@ public class Post {
     private Timestamp date;
     private String formatted_date;
     private String formatted_time;
+
+    @Column(nullable = true, length = 250)
     private String image_post;
     private String username;
     // private Long likes;
@@ -125,5 +129,12 @@ public class Post {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (image_post == null || id == null)
+            return null;
+        return "image/" + id + "/" + image_post;
     }
 }
