@@ -1,0 +1,151 @@
+img {
+  width: 50px;
+  height: 50px;
+}
+#container {
+  /* padding: 10px; */
+  width: 750px;
+  height: 600px;
+  background: #eff3f7;
+  margin: 0 auto;
+  font-size: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+aside {
+  width: 260px;
+  height: 600px;
+  background-color: #1042b0;
+  display: inline-block;
+  font-size: 15px;
+  vertical-align: top;
+}
+main {
+  width: 490px;
+  height: 600px;
+  display: inline-block;
+  font-size: 15px;
+  vertical-align: top;
+}
+
+aside header {
+  padding: 30px 20px;
+}
+aside input {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 50px 0 20px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  color: rgb(0, 0, 0);
+  background-repeat: no-repeat;
+  background-position: 170px;
+  background-size: 40px;
+}
+aside input::placeholder {
+  color: rgb(0, 0, 0);
+}
+aside ul {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: scroll;
+  height: 690px;
+}
+aside li {
+  padding: 15px 0;
+}
+aside li:hover {
+  background-color: #5e616a;
+}
+
+aside li img {
+  border-radius: 50%;
+  margin-left: 20px;
+  margin-right: 8px;
+}
+aside li div {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 12px;
+}
+aside li h2 {
+  font-size: 14px;
+  color: #fff;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+aside li h3 {
+  font-size: 12px;
+  color: #7e818a;
+  font-weight: normal;
+}
+
+/* status  */
+.status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 7px;
+}
+.green {
+  background-color: #58b666;
+}
+.orange {
+  background-color: #ff725d;
+}
+
+/* chat box header */
+main header {
+  height: 110px;
+  padding: 30px 20px 30px 40px;
+}
+main header > * {
+  display: inline-block;
+  vertical-align: top;
+}
+main header img:first-child {
+  border-radius: 50%;
+}
+
+/* chat log */
+#chat {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: scroll;
+  height: 320px;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+
+/* chat box with send btn */
+main footer {
+  height: 155px;
+  padding: 20px 30px 10px 20px;
+}
+main footer textarea {
+  resize: none;
+  border: none;
+  display: block;
+  width: 100%;
+  height: 80px;
+  border-radius: 3px;
+  padding: 20px;
+  font-size: 13px;
+  margin-bottom: 13px;
+}
+
+main footer a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #6fbced;
+  vertical-align: top;
+  margin-left: 333px;
+  margin-top: 5px;
+  display: inline-block;
+}

@@ -8,7 +8,6 @@ import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,10 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -28,6 +28,9 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+// import org.apache.commons.lang3.StringUtils;
 
 @Controller
 public class PostsController {
@@ -75,9 +78,22 @@ public class PostsController {
         return "posts/index";
     }
 
+    // @PostMapping("/users/save")
+    // public RedirectView saveUser(User user,
+    // @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+    // return new RedirectView("/users", true);
+    // }
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam("image") MultipartFile multipartFile)
+            throws IOException {
         // use the setter to store the user_id
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        post.setImagePost(fileName);
+        repository.save(post);
+        String uploadDir = "src/main/resources/static/image/" + post.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         post.setUsername(this.getUsername());
         post.setDate(this.getTimeStamp());

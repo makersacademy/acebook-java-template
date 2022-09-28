@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import lombok.Data;
 
 import static java.lang.Boolean.TRUE;
+
+import java.beans.Transient;
 
 @Data
 @Entity
@@ -20,6 +23,8 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
+    @Column(nullable = true, length = 250)
     private String image;
 
     // Constructors:
@@ -71,11 +76,18 @@ public class User {
         this.password = password;
     }
 
-     public String getImage() {
+    public String getImage() {
         return this.image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (image == null || id == null)
+            return null;
+        return "image/" + id + "/" + image;
     }
 }
