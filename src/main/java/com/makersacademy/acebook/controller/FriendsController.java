@@ -41,7 +41,7 @@ public class FriendsController {
 
  @GetMapping("/friends")
  public String friends(Model model) {
-  Iterable<User> friends = userRepository.findAll();
+  Iterable<Object[]> friends = repository.findFriends(getUserId());
   model.addAttribute("friends", friends);
   model.addAttribute("friend", new Friend());
   return "friends";
@@ -70,4 +70,18 @@ public class FriendsController {
   return "request/index";
  }
 
+ @RequestMapping("/request/acceptFriend")
+ @ResponseBody
+ public RedirectView acceptFriendRequest(@RequestParam("requestid") Long request_id) {
+  try {
+
+   Friend request = repository.findById(request_id).get();
+   request.setStatus_code(true);
+   repository.save(request);
+
+  } catch (Exception e) {
+   System.out.println(e);
+  }
+  return new RedirectView("/friends");
+ }
 }
