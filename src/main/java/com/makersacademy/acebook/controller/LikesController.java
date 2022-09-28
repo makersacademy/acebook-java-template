@@ -4,6 +4,7 @@ import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
+@Transactional
 @Controller
 public class LikesController {
 
@@ -30,6 +32,7 @@ public class LikesController {
             repository.save(like);
             return new RedirectView("/posts");
           } else {
+            repository.deleteByLikedpostAndUsername(Long.parseLong(likedpost), username);
             return new RedirectView("/posts");
           }
 
@@ -47,6 +50,7 @@ public class LikesController {
             repository.save(like);
             return new RedirectView(returnurl);
           } else {
+            repository.deleteByLikedpostAndUsername(Long.parseLong(likedpost), username);
             return new RedirectView(returnurl);
           }
 
