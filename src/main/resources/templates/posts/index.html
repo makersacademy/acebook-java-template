@@ -7,41 +7,42 @@
         <link rel="stylesheet" href="/main.css" />
         <script src="https://kit.fontawesome.com/fb9be3def8.js" crossorigin="anonymous"></script>
     </head>
-<body>
-        <header>
-            <nav> <!-- nav bar - subject to change -->
-                <a href="/profile"><p>Profile</p></a>
-                <a href="/posts"><p>Posts</p></a>
-                <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
-                <a href="/friends"><p>Friends</p></a>
-                <a href="/groups"><p>Groups</p></a>
-                <a href="/events"><p>Events</p></a>
-                <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
-                <a href="/messages"><p>Messages</p></a>
-            </nav>
-        </header>
 
-        <div class="title">
-            <h1>Posts</h1>
-        </div>
-
+    <body>
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
-
-            <div sec:authorize="isAuthenticated()">
-                <h2><span sec:authentication="name"></span></h2>
+            
+            <div class="title">
+                <h1>Posts</h1>
             </div>
 
-            <div class="logout">
-                <!-- // Show user ID and username for debugging -->
-                <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
-                <!-- Uncomment to see full session user object -->
-                <p th:text="'current user = ' + ${username}"></p>
-              </div>
-            
-            <div class="logout">
-                <form action="/logout" method="get">
-                    <p><input type="submit" id="Logout" value="Logout" /></p>
+            <nav> <!-- nav bar - subject to change -->
+                <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+                <a><p>Posts</p></a>
+                <a href="/profile"><p>Profile</p></a>
+                <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
+                <a href="/friends"><p>Friends</p></a>
+                <!-- <a href="/groups"><p>Groups</p></a> -->
+                <!-- <a href="/events"><p>Events</p></a> -->
+                <a href="/messages"><p>Messages</p></a>
+                <form>
+                <input style="margin-left: 32px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
                 </form>
+                <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
+                <div class="logout">
+                <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+                <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+                <!-- // Uncomment to see full session user object -->
+                <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
+                </div>
+                <div class="logout">
+                <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+                <p><input type="submit" id="Logout" value="Logout"/></p>
+                </form>
+                </div>
+            </nav>
+        
+            <div style="text-align: center;" sec:authorize="isAuthenticated()">
+                <h2><span sec:authentication="name"></span></h2>
             </div>
             
             <main>

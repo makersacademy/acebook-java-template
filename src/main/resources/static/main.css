@@ -1,16 +1,25 @@
 nav {
     display: flex;
+    justify-content: center;
     /* gap determines spacing between elements on nav bar */
-    gap: 10px;
+    gap: 15px;
     /* No top margin was giving a big space */
-    margin-top: -20px;
+    margin-top: -8px;
     /* Padding-inline indents elements from the left */
     padding-inline: 50px;
-    /* Color set to dark orange */
-    background-color: rgba(222, 124, 4, 0.787);
-    padding-top: -10px;
+    position: fixed;
+    /* overflow determines how contained elements will change when the container is resized */
+    overflow: hidden;
+    top: 0;
     height: 45px;
-
+    padding-top: -10px;
+    margin-left: -8px;
+    width: 100%;
+    /* z-index determines stacking order of elements on a page, lowering the number brings to the front */
+    z-index: 0;
+    /* Color set to dark orange */
+    background-color: rgb(222, 124, 4);
+    border: 3px solid rgb(159, 89, 2);
 }
 
 .container {
@@ -52,7 +61,17 @@ button.with-margin {
 }
 
 body {
+    padding-top: 25px;
+    background-color: rgb(70, 68, 64);
+}
+
+.container {
+    height: 100%;
+    border: 5px solid rgb(159, 89, 2);
     background-color: rgb(251, 211, 136);
+    margin-left: -8px;
+    margin-right: -8px;
+    overflow: hidden;
 }
 
 .posts-main {
@@ -161,7 +180,7 @@ body {
 .logout {
     position:fixed;
     right:10px;
-    top:5px;
+    top:5;
 }
 
 ul {
@@ -169,6 +188,10 @@ ul {
     margin-left: 0;
 	padding-left: 0;
     margin: auto;
+}
+
+p {
+    white-space: nowrap;
 }
 
 a:link {
@@ -179,14 +202,14 @@ a:link {
 .icons-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     text-align: center;
     margin-top: -10px;
     margin-bottom: 10px;
     row-gap: 10px;
     border:1px solid rgb(202, 202, 202);
     padding: 10px;
-    background-color: rgba(246, 173, 82, 0.787);
+    background-color: rgb(246, 172, 82);
 }
 
 .icon {
@@ -204,7 +227,7 @@ a:link {
     justify-content: center;
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: rgba(222, 124, 4, 0.787);
+    background-color: rgb(222, 124, 4);
 }
   
 /* Tab buttons styling */
@@ -229,16 +252,10 @@ a:link {
 }
   
 /* Style the tab content */
+/* Took out animation for now, makes page twitchy */
 .tabcontent {
     display: none;
-    animation: fadeEffect 0.025s;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
 }
-
-/* Go from zero to full opacity */
-@keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
