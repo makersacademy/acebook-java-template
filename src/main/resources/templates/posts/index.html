@@ -79,7 +79,8 @@
     
       
       <!-- CREATE A POST -->
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <form action="#" th:action="@{/posts}" th:object="${post}"  method="post"
+    enctype="multipart/form-data">
       <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
       <div class="row"> 
       <div class="col-sm">
@@ -102,7 +103,9 @@
         title="This field is required"
         required
       ></textarea>
-      <h6>Add a photo: </h6><input type="text" id="image_post" name="image_post" placeholder="Enter Photo URL" th:field="*{image_post}"/>
+      <h6>Add a photo: </h6>
+      <!-- <input type="text" id="image_post" name="image_post" placeholder="Enter Photo URL" th:field="*{image_post}"/> -->
+      <input type="file" name="image" accept="image/png, image/jpeg" />
       <br>
       <br>
       <input type="submit" class="btn btn-success" value="Submit" />
@@ -127,7 +130,8 @@
                         
                       <!-- UNLESS post.image_post is empty, show image: -->
                       <div th:unless="${post.image_post.isEmpty()}" >
-                        <img class="image_post" th:src="${post.image_post}" /> 
+                        <img class="image_post" th:src="@{${post.photosImagePath}}" />
+                        <!-- <img class="image_post" th:src="@{${post.photosImagePath}}" /> -->
                       </div>
 
                         <p class="card-text">
