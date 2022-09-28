@@ -6,6 +6,7 @@ import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.services.FriendsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,9 @@ public class PostsController {
     @Autowired
     LikeRepository likerepository;
 
+    @Autowired
+    FriendsService friendsService;
+
     @GetMapping("/posts")
     public String index(Model model, HttpSession session) {
         // Get posts
@@ -52,6 +56,12 @@ public class PostsController {
         Iterable<Like> likes = likerepository.findAll();
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Post());
+
+
+        // Get non-blocked users (for search bar)
+        model.addAttribute("friendsservice", friendsService);
+        model.addAttribute("user", new User());
+        model.addAttribute("allusers", userRepository.getNonBlockedUsers(ID));
 
         return "posts/index";
     }

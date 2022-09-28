@@ -143,15 +143,15 @@
             <div id="0" class="icons-container">
               <ul th:each="friend: ${friendsfriends}">
                 <div th:id="${friend.id}" class="icon">
-                  <span th:text="${mutualfriendsservice.setId(friend.id)}"></span>
+                  <span th:text="${friendsservice.setId(friend.id)}"></span>
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
                   <p style="margin: 0px;">Mutual Friends:</p>
-                  <span th:text="${mutualfriendsservice.resetCount()}"></span>
-                  <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(id, friend.id)}">
-                    <span th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'pending'} or ${mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'pending'}">
+                  <span th:text="${friendsservice.resetCount()}"></span>
+                  <ul th:each="friend: ${friendsservice.getMutualFriends(id, friend.id)}">
+                    <span th:unless="${friendsservice.getRequestStatus(friend.id, id) == 'blocked' or friendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${friendsservice.getRequestStatus(id, friend.id) == 'blocked' or friendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'blocked' or friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'pending'} or ${friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'blocked' or friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'pending'}">
                       <li th:text="${friend.username}" />
-                      <li th:text="${mutualfriendsservice.incrementCount()}" />
+                      <li th:text="${friendsservice.incrementCount()}" />
                     </span>
                   </ul>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
@@ -166,7 +166,7 @@
                     <button class="with-margin" type="submit">Block</button>
                   </form>
                   <!-- Below is the syntax for putting thymeleaf expressions in javascript - this div delete method and the th:unless check above are a compromise for handling the complexity of friends of friends (need to check status between 2nd party and 3rd party) SQL would be unmanageable -->
-                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${mutualfriendsservice.getId()}]], [[${mutualfriendsservice.getCount()}]]*/);</script>
+                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${friendsservice.getId()}]], [[${friendsservice.getCount()}]]*/);</script>
                 </div>
               </ul>
             </div><br>

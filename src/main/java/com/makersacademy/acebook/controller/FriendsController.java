@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import com.makersacademy.acebook.services.MutualFriendsService;
+import com.makersacademy.acebook.services.FriendsService;
 
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.model.Friendship;
@@ -27,7 +27,7 @@ public class FriendsController {
   FriendshipRepository friendshipRepository;
 
   @Autowired
-  MutualFriendsService mutualFriendsService;
+  FriendsService friendsService;
 
   @GetMapping("/friends")
   public String friends(Model model, HttpSession session) {
@@ -44,8 +44,13 @@ public class FriendsController {
 
     ///
 
+    // Get all users (for search bar)
+    model.addAttribute("allusers", userRepository.findAll());
+
+    ///
+
     // Add MutualFriends service (to call methods in TL)
-    model.addAttribute("mutualfriendsservice", mutualFriendsService);
+    model.addAttribute("friendsservice", friendsService);
 
     ///
 

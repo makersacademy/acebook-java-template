@@ -9,7 +9,7 @@ nav {
     padding-inline: 50px;
     position: fixed;
     /* overflow determines how contained elements will change when the container is resized */
-    overflow: hidden;
+    /* overflow: hidden; */
     top: 0;
     height: 45px;
     padding-top: -10px;
@@ -20,6 +20,10 @@ nav {
     /* Color set to dark orange */
     background-color: rgb(222, 124, 4);
     border: 3px solid rgb(159, 89, 2);
+}
+
+.logowrapper {
+    overflow: hidden;
 }
 
 button.with-margin {
@@ -155,3 +159,67 @@ a:link {
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.tooltip span {
+    display:none;
+}
+
+.tooltip:hover span {
+    display:block;
+    position:fixed;
+    overflow:hidden;
+}
+
+/* Below is for dropdown menus */
+
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+  }
+  
+  #myInput {
+    box-sizing: border-box;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #myInput:focus {outline: 3px solid #ddd;}
+  
+  .dropdown-content {
+    display: none;
+    background-color: #f6f6f6;
+    margin-left: 32px;
+    /* min-width: 30px; */
+    max-width: 236px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown a:hover {background-color: #ddd;}
+  
+  .show {display: block;}
+
+  .dropdown-item {
+    border: 1px solid rgb(70, 68, 64);
+  }
