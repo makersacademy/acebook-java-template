@@ -79,39 +79,29 @@
     
       
       <!-- CREATE A POST -->
-    <form action="#" th:action="@{/posts}" th:object="${post}"  method="post"
-    enctype="multipart/form-data">
-      <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
-      <div class="row"> 
-      <div class="col-sm">
-
-      <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
-      </svg> Create a post</div>
-      <div class="card-body">
-      <h6>Content: </h6>
-      <textarea 
-        id="content"
-        maxlength="140"
-        type="text"
-        minlength="1"
-        pattern=".*\S+.*"
-        placeholder="What's happening?"
-        th:field="*{content}"
-        title="This field is required"
-        required
-      ></textarea>
-      <h6>Add a photo: </h6>
-      <!-- <input type="text" id="image_post" name="image_post" placeholder="Enter Photo URL" th:field="*{image_post}"/> -->
-      <input type="file" name="image" accept="image/png, image/jpeg" />
-      <br>
-      <br>
-      <input type="submit" class="btn btn-success" value="Submit" />
-      <input type="reset" class="btn btn-danger" value="Reset" />
-      </div>
-      </div>
+      <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+          <div class="container" style="margin-bottom:1rem;margin-top:1rem;">
+              <div class="row">
+                  <div class="col-sm">
+                      <div id='creator' class="form_post_create card text-dark bg-light mb-3" style="max-width: 18rem;">
+                          <div class="card-header">CREATE A HALO:</div>
+                          <div class="card-body">
+                              <textarea id="content" maxlength="140" type="text" minlength="1" pattern=".*\S+.*" placeholder="What's happening?" th:field="*{content}" title="This field is required" required></textarea>
+                              <div class="post_btns">
+                                  <div class="image-upload">
+                                      <label for="file-input">
+                                          <i class="img_upload_icon bi bi-image"></i>
+                                      </label>
+                                      <input id="file-input" type="file" name="image" accept="image/png, image/jpeg" />
+                                  </div>
+                                  <input type="submit" class="btn btn-success" value="POST" />
+                                  <input type="reset" class="btn btn-danger" value="CLEAR" />
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
       </form>
 
     <hr>

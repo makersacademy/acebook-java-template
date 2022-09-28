@@ -6,12 +6,50 @@
 
 /* POSTS - CREATE */
 
-textarea {
-  resize: none;
+.form_post_create {
+  border: 0px;
+  box-shadow: 0px 1px 1px 0px;
+  border-radius: 10px;
 }
 
-.display_block {
-  display: inline-block;
+textarea {
+  display: block;
+  width: 250px;
+  height: 80px;
+}
+
+.img_upload_icon {
+  font-size: 275%;
+  padding: 0 0 0 2px;
+}
+
+.img_upload_icon:hover {
+  cursor: pointer;
+  content: "\F429";
+}
+
+.img_upload_icon:hover::before {
+  content: "\F429";
+}
+
+.image-upload {
+  display: inline;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.input {
+  display: inline;
+}
+
+.btn {
+  margin: 0 0 25px 2px;
+}
+
+.post_btns {
+  padding: 0 0 0 45px;
 }
 
 /* POSTS - VIEW */
@@ -254,8 +292,8 @@ button:hover {
 .login_box .user-box input:focus ~ label,
 .login_box .user-box input:valid ~ label,
 .login_box .user-box input:-webkit-autofill,
-.login_box .user-box input:-webkit-autofill:hover, 
-.login_box .user-box input:-webkit-autofill:focus{
+.login_box .user-box input:-webkit-autofill:hover,
+.login_box .user-box input:-webkit-autofill:focus {
   top: -30px;
   left: -10px;
   color: #838383;
