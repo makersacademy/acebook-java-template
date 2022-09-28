@@ -9,7 +9,7 @@ nav {
     padding-inline: 50px;
     position: fixed;
     /* overflow determines how contained elements will change when the container is resized */
-    overflow-y: hidden;
+    overflow: hidden;
     top: 0;
     height: 45px;
     padding-top: -10px;
@@ -84,6 +84,10 @@ ul {
     margin-left: 0;
 	padding-left: 0;
     margin: auto;
+}
+
+p {
+    white-space: nowrap;
 }
 
 a:link {
