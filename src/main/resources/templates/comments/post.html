@@ -80,7 +80,7 @@
 
       <!-- CREATE A COMMENT -->
      
-        <form action="#"  th:action="@{/comments/post?postid={id}(id=${postid})}" th:object="${comment}" method="post">
+        <form action="#"  th:action="@{/comments/post?postid={id}(id=${postid})}" th:object="${comment}" method="post" class="content">
         <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
         <div class="row"> 
         <div class="col-sm">

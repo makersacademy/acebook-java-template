@@ -93,3 +93,7 @@ li {
 .comment_font{
   font-family: roboto;
 }
+.content {
+  max-width: 500px;
+  margin: auto;
+}
