@@ -4,15 +4,21 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
-
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -30,14 +36,23 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) throws Exception {
+    public String signup(@ModelAttribute User user)
+            throws IOException {
+
         if (userRepository.existsByUsername(user.getUsername())) {
-            return new RedirectView("users/new?retry");
+            return ("error/wrong");
         } else {
             userRepository.save(user);
             Authority authority = new Authority(user.getUsername(), "ROLE_USER");
             authoritiesRepository.save(authority);
-            return new RedirectView("/login");
+
+            // String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            // user = userRepository.findByUsername(user.getUsername());
+            // user.setImage(fileName);
+            // userRepository.save(user);
+            // String uploadDir = "src/main/resources/static/image/" + user.getId();
+            // FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            return ("login");
         }
     }
 
