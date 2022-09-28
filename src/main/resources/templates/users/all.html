@@ -89,7 +89,11 @@
 
             <h1 class="name" th:text="${user.username}"></h1>
             <p class="description">Let's be friends!</p>
-            <button class='btn'>Add Friend</button>
+
+            <!-- @{/comments/post?postid={id}(id=${post.id})} -->
+            <form th:action="@{/users/addfriend?userid={id}(id=${user.id})}" th:object="${friend}" method="post">
+            <button type='submit' class='btn'>Add Friend</button>
+            </form>
           </div>
         </div>
       </ul>
