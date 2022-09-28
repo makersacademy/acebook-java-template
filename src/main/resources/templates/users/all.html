@@ -84,7 +84,9 @@
         <div class="wrapper-flex">
           <div class="users-container">
             <div class='banner-img-users'></div>
-            <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
+            <!-- <img src='https://picsum.photos/200' alt='profile image' class="profile-img"> -->
+            <img src='th:src="@{${user.photosImagePath}}' alt='' class="profile-img">
+
             <h1 class="name" th:text="${user.username}"></h1>
             <p class="description">Let's be friends!</p>
             <button class='btn'>Add Friend</button>
