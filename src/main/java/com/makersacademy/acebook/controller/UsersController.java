@@ -36,11 +36,11 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public String signup(@ModelAttribute User user)
-            throws IOException {
+    public RedirectView signup(@ModelAttribute User user) throws Exception {
 
         if (userRepository.existsByUsername(user.getUsername())) {
-            return ("error/wrong");
+            // return ("error/wrong");
+            return new RedirectView("users/new?retry");
         } else {
             userRepository.save(user);
             Authority authority = new Authority(user.getUsername(), "ROLE_USER");
@@ -52,7 +52,7 @@ public class UsersController {
             // userRepository.save(user);
             // String uploadDir = "src/main/resources/static/image/" + user.getId();
             // FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-            return ("login");
+            return new RedirectView("/login");
         }
     }
 

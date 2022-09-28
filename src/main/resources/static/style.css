@@ -140,8 +140,44 @@ i {
 
 /* LIKES */
 
-.likes-formatting {
+/* LIKES_CARD */
+.card {
+  border: 0px;
+}
+
+.likes-card {
+  border: 0px;
+  box-shadow: 0px 1px 1px 0px;
+  border-radius: 10px;
+}
+
+/* LIKES_CARD_PROFILE_PHOTO */
+.card-img {
+  border-radius: 50%;
+  border: 4px solid #555;
+  width: 90%;
+  height: auto;
+}
+
+.img-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+/* LIKES_CARD_TEXT */
+.likes-card-container {
+  display: flex;
+  align-items: center;
+}
+
+.likes-card-title {
   display: inline;
+}
+
+.text-muted {
+  padding: 0 8px 0 0;
 }
 
 /* NAV BAR */
@@ -400,6 +436,11 @@ a.one:hover {
 .content {
   max-width: 500px;
   margin: auto;
+}
+
+.alert-danger{
+  font-size: 16px;
+  text-align: center;
 }
 
 /* CREDITS_LINKS */
