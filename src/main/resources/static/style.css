@@ -443,3 +443,11 @@ a.one:hover {
   font-size: 16px;
   text-align: center;
 }
+
+/* CREDITS_LINKS */
+
+.credit_links {
+  text-align: center;
+  padding: 50px;
+}
+
