@@ -8,7 +8,9 @@
     </head>
     <body>
       <nav> <!-- nav bar - subject to change -->
-        <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+        <div class="logowrapper">
+          <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+        </div>
         <a href="/posts"><p>Posts</p></a>
         <a><p>Profile</p></a>
         <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
