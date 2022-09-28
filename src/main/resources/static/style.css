@@ -401,3 +401,10 @@ a.one:hover {
   max-width: 500px;
   margin: auto;
 }
+
+/* CREDITS_LINKS */
+
+.credit_links {
+  text-align: center;
+  padding: 50px;
+}
