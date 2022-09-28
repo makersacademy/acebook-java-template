@@ -8,9 +8,10 @@
     </head>
     <body>
       <nav> <!-- nav bar - subject to change -->
-        <a href="/"><img style="height: 90px; margin-top: -22px; margin-left: -50px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
-        <a href="/posts"><p>Wall</p></a>
+        <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+        <a href="/posts"><p>Posts</p></a>
         <a><p>Profile</p></a>
+        <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
         <a href="/friends"><p>Friends</p></a>
         <!-- <a href="/groups"><p>Groups</p></a> -->
         <!-- <a href="/events"><p>Events</p></a> -->
