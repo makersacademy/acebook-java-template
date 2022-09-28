@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   padding-inline-start: unset;
-  font-family: roboto;
 }
 h1 {
   text-align: center;
@@ -88,4 +87,7 @@ li {
   border-radius: 3px 0 3px 5px;
   left: 0;
   top: -10px;
+}
+.comment_font{
+  font-family: roboto;
 }
