@@ -4,8 +4,11 @@ import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendsRepository;
 import com.makersacademy.acebook.repository.UserRepository;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +25,41 @@ public class FriendsController {
  @Autowired
  UserRepository userRepository;
 
+ private Long getUserId() {
+  SecurityContext context = SecurityContextHolder.getContext();
+  Authentication authentication = context.getAuthentication();
+  Long id = userRepository.findByUsername(authentication.getName()).getId();
+  return id;
+ }
+
+ private String getUsername() {
+  SecurityContext context = SecurityContextHolder.getContext();
+  Authentication authentication = context.getAuthentication();
+  String name = authentication.getName();
+  return name;
+ }
+
  @GetMapping("/friends")
  public String friends(Model model) {
   Iterable<User> friends = userRepository.findAll();
   model.addAttribute("friends", friends);
   model.addAttribute("friend", new Friend());
   return "friends";
+ }
+
+ @PostMapping("/users/addfriend")
+ public RedirectView sendRequest(@RequestParam("userid") Long receiveid, @ModelAttribute Friend friend) {
+  try {
+   friend.setRequest_to(receiveid);
+   friend.setRequest_from(getUserId());
+   friend.setStatus_code(false);
+   repository.save(friend);
+
+  } catch (Exception e) {
+   System.out.println(e);
+  }
+
+  return new RedirectView("/allUsers");
  }
 
 }
