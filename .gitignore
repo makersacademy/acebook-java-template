@@ -9,5 +9,5 @@ dependency-reduced-pom.xml
 .factorypath
 .project
 .settings/
-/static/image/*
-!static/image/.gitkeep
+/src/main/resources/static/image/*
+!src/main/resources/static/image/.gitkeep
