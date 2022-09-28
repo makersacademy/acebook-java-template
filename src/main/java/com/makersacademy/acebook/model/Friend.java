@@ -1,13 +1,15 @@
 package com.makersacademy.acebook.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import lombok.Data;
 
 @Data
@@ -101,5 +103,4 @@ public class Friend {
     public void setSent_at(Timestamp sent_at) {
         this.sent_at = sent_at;
     }
-
 }
