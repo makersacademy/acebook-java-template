@@ -23,31 +23,34 @@ public class Comment {
     private Long id;
     private String content;
     private Timestamp time_posted;
+    private Long userid;
+    private Long postid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
-    
+    */
     public Comment() {}
 
     public Comment(String content) {
         this.content = content;
     }
     
-    public String getContent() { return this.content; }
-    public User getUser() { return user; }
-    public Long getUserId() { return id; }
-    public Post getPost() { return post; }
+    public String getContent() { return content; }
+    /*public Long getUser() { return userid; }
+    public Long getUserId() { return id; } */
+    public Long getPostid() { return postid; }
+    public Long getUserid() { return userid; }
     public Long getId() { return id; }
     public Date getTimePosted() { return time_posted;}
 
     public void setContent(String content) { this.content = content; }
-    public void setUser(User user) { this.user = user; }
-    public void setPost(Post post) { this.post = post; }
+    public void setUserid(Long userid) { this.userid = userid; }
+    public void setPostid(Long postid) { this.postid = postid; }
     public void setTimePosted(Timestamp time_posted) { this.time_posted = time_posted; }
  
 

@@ -63,7 +63,7 @@ INSERT INTO "authorities" ("username", "authority") VALUES
 -- This is seed data for comments table
 TRUNCATE TABLE "comments" RESTART IDENTITY CASCADE;
 
-INSERT INTO "comments" ("content", "user_id", "post_id", "time_posted") VALUES
+INSERT INTO "comments" ("content", "userid", "postid", "time_posted") VALUES
 ('You look nice', '1', '1', '2022-09-27 14:13:41.531'),
 ('Very nice post', '1', '1', '2022-09-27 14:15:41.531'),
 ('Could not agree more with you!', '1', '1', '2022-09-25 14:13:41.531'),

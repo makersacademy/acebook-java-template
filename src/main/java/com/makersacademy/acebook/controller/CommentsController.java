@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.controller;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.makersacademy.acebook.model.Comment;
@@ -30,17 +32,25 @@ public class CommentsController {
   @Autowired
   CommentRepository commentRepository;
 
-  @GetMapping("/posts/{postID}/comments") 
-    public RedirectView create(@ModelAttribute Post post, Principal principal, Model model) {
+  @PostMapping("/posts/comments")
+  public RedirectView create(String userid, String postid, String content) {
+      /*
       String username = principal.getName();
       User user = userRepository.findByUserName(username);
-      Long postID = post.getId();
+      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+      comment.setTimePosted(timestamp);
+      comment.setUser(user);
+      comment.setPost(post);
+      commentRepository.save(comment);
+      */
+      Comment commentobj = new Comment();
+      commentobj.setContent(content);
+      commentobj.setUserid(Long.parseLong(userid));
+      commentobj.setPostid(Long.parseLong(postid));
+      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+      commentobj.setTimePosted(timestamp);
+      commentRepository.save(commentobj);
 
-      // Comments 
-      Iterable<Comment> comments = commentRepository.findAll();
-      model.addAttribute("comments", comments);
-      model.addAttribute("comment", new Post());
-
-      return new RedirectView("/posts/{postID}");
+      return new RedirectView("/posts");
   }
 }

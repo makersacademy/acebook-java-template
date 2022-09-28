@@ -15,10 +15,36 @@ nav {
 
 .container {
     max-width: 1140px;
+    margin: auto;
 }
 
 button.with-margin {
     margin-top: 5px;
+}
+
+.universal_button {
+    background: #0066A2;
+    color: white;
+    border-radius: 5px;
+    border-style: outset;
+    border-color: #0066A2;
+    height: 25px;
+    width: 90px;
+    font: bold15px arial,sans-serif;
+    text-shadow: none;
+}
+
+.universal_button:hover {
+    cursor: pointer;
+    background: #027dc4;
+}
+
+.fa-thumbs-up {
+    color: #027dc4d1;
+}
+
+#comment_message {
+    display: inline;
 }
 
 .title {
@@ -73,6 +99,55 @@ body {
 }
 
 #post_time {
+    margin-left: auto;
+}
+
+#number_of_likes {
+    display: inline;
+}
+
+.post_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post_footer>*:first-child {
+    margin: 5px 0 0 0;
+}
+
+.hidden_form {
+    display: none;
+}
+
+.hidden_form>*:first-child {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.hidden_form>*:last-child {
+    align-self: end;
+    margin-left: auto;
+}
+
+.display_flex {
+    display: flex !important;
+    margin-top: 5px;
+    width: 100%;
+}
+
+#comment_content {
+    width: 100%;
+    margin-right: 25px;
+}
+
+.like_and_comment_section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#button_comment {
     margin-left: auto;
 }
 
