@@ -20,6 +20,9 @@
 
   <body>
     <div class="login_box">
+      <div th:if="${param.retry}" class="alert alert-danger">    
+        Invalid username or password.
+    </div>
         <h2>Please sign up</h2>
         <!-- sign up form -->
         <form th:action="@{/users}" th:object="${user}" method="post" >

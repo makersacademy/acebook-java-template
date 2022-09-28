@@ -401,3 +401,8 @@ a.one:hover {
   max-width: 500px;
   margin: auto;
 }
+
+.alert-danger{
+  font-size: 16px;
+  text-align: center;
+}
