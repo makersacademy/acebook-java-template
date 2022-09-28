@@ -143,6 +143,7 @@ i {
 /* LIKES_CARD */
 .card {
   border: 0px;
+  background-color: #f8f9fa;
 }
 
 .likes-card {
@@ -438,7 +439,7 @@ a.one:hover {
   margin: auto;
 }
 
-.alert-danger{
+.alert-danger {
   font-size: 16px;
   text-align: center;
 }
@@ -449,3 +450,4 @@ a.one:hover {
   text-align: center;
   padding: 50px;
 }
+
