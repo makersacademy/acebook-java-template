@@ -50,6 +50,7 @@ public class LikesController {
             repository.save(like);
             return new RedirectView(returnurl);
           } else {
+            repository.deleteByLikedpostAndUsername(Long.parseLong(likedpost), username);
             return new RedirectView(returnurl);
           }
 
