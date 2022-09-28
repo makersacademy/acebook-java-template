@@ -1,15 +1,20 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.FriendsRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +33,15 @@ public class UsersController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    FriendsRepository friendsRepository;
+
+    private Long getUserId() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        Long id = userRepository.findByUsername(authentication.getName()).getId();
+        return id;
+    }
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -59,7 +73,13 @@ public class UsersController {
     @GetMapping("/allUsers")
     public String allUsers(Model model) {
         Iterable<User> users = userRepository.findAll();
+        // get user id (logged in user)
+        // get potential friend user id -> stored in the html file
+        // add those to the requestSent method to check whether request has been sent
+        // return 'Add Friend' link if request not sent
+        // return 'Request Sent' string if request has been sent
         model.addAttribute("users", users);
+        model.addAttribute("friend", new Friend());
         return "users/all";
     }
 }
