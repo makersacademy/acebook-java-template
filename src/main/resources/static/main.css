@@ -1,16 +1,21 @@
 nav {
     display: flex;
     /* gap determines spacing between elements on nav bar */
-    gap: 10px;
+    gap: 19px;
     /* No top margin was giving a big space */
-    margin-top: -20px;
+    margin-top: -8px;
     /* Padding-inline indents elements from the left */
     padding-inline: 50px;
     /* Color set to dark orange */
-    background-color: rgba(222, 124, 4, 0.787);
+    background-color: rgb(222, 124, 4);
+    position: fixed;
+    top: 0;
     padding-top: -10px;
+    margin-left: -8px;
     height: 45px;
-
+    width: 100%;
+    z-index: 0;
+    overflow-y: hidden;
 }
 
 button.with-margin {
@@ -23,6 +28,7 @@ button.with-margin {
 
 body {
     background-color: rgb(251, 211, 136);
+    padding-top: 25px;
 }
 
 .posts-main {
@@ -57,7 +63,7 @@ body {
 .logout {
     position:fixed;
     right:10px;
-    top:5px;
+    top:5;
 }
 
 ul {
@@ -82,7 +88,7 @@ a:link {
     row-gap: 10px;
     border:1px solid rgb(202, 202, 202);
     padding: 10px;
-    background-color: rgba(246, 173, 82, 0.787);
+    background-color: rgb(246, 172, 82);
 }
 
 .icon {
@@ -100,7 +106,7 @@ a:link {
     justify-content: center;
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: rgba(222, 124, 4, 0.787);
+    background-color: rgb(222, 124, 4);
 }
   
 /* Tab buttons styling */
