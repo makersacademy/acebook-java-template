@@ -1,21 +1,25 @@
 nav {
     display: flex;
+    justify-content: center;
     /* gap determines spacing between elements on nav bar */
-    gap: 19px;
+    gap: 15px;
     /* No top margin was giving a big space */
     margin-top: -8px;
     /* Padding-inline indents elements from the left */
     padding-inline: 50px;
     /* Color set to dark orange */
-    background-color: rgb(222, 124, 4);
     position: fixed;
+    /* overflow determines how contained elements will change when the container is resized */
+    overflow-y: hidden;
     top: 0;
+    height: 45px;
     padding-top: -10px;
     margin-left: -8px;
-    height: 45px;
     width: 100%;
+    /* z-index determines stacking order of elements on a page, lowering the number brings to the front */
     z-index: 0;
-    overflow-y: hidden;
+    background-color: rgb(222, 124, 4);
+    border: 3px solid rgb(159, 89, 2);
 }
 
 button.with-margin {
@@ -27,8 +31,17 @@ button.with-margin {
 }
 
 body {
-    background-color: rgb(251, 211, 136);
     padding-top: 25px;
+    background-color: rgb(70, 68, 64);
+}
+
+.container {
+    height: 100%;
+    border: 5px solid rgb(159, 89, 2);
+    background-color: rgb(251, 211, 136);
+    margin-left: -8px;
+    margin-right: -8px;
+    overflow: hidden;
 }
 
 .posts-main {
@@ -131,16 +144,17 @@ a:link {
 }
   
 /* Style the tab content */
+/* Took out animation for now, makes page twitchy */
 .tabcontent {
     display: none;
-    animation: fadeEffect 0.025s;
+    /* animation: fadeEffect 0.025s; */
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
 }
 
 /* Go from zero to full opacity */
-@keyframes fadeEffect {
+/* @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
-  }
+  } */

@@ -152,3 +152,7 @@ hr{
   background: #E8454540;
   color: var(--color)
 }
+
+.badcred{
+  color: hsla(0, 100%, 50%, 0.787)
+}

@@ -4,13 +4,14 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/signup.css"/>
+        <title class="title">Sign In </title>
     </head>
 <div class="popup">
     <div class="popup-image">
       <img src="WinkelVossBlack.png" alt="Login page image">
     </div>
     <form class="signinForm"  action="#"  th:action="@{/login}"  method="post">
-      <title class="title">Sign In </title>
+      <h1 class="title">Sign In</h1>
       <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
       <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
      <button class="submit-btn">Sign In</button>
