@@ -1,11 +1,12 @@
 * {
   box-sizing: border-box;
   padding-inline-start: unset;
-  font-family: roboto;
 }
+
 h1 {
   text-align: center;
 }
+
 #commentBox {
   width: 70%;
   padding: 20px 10%;
@@ -55,7 +56,7 @@ li {
 
 .commentTime::before,
 .replyTime::before {
-  content: '';
+  content: "";
   display: inline-block;
   position: relative;
   width: 0.5em;
@@ -79,7 +80,7 @@ li {
 
 .commentReply::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 20px;
   height: 30px;
   border-left: 3px solid lightblue;
