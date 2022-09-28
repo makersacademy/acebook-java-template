@@ -111,8 +111,7 @@ public class CommentsController {
         // List<Object[]> nComments = commentRepository.getUsersByPostid(postid);
         // System.out.println(nComments);
         try {
-            List<Object[]> comments = commentRepository.getUsersByPostid(postid); // all users who commented on this
-                                                                                  // post
+            List<Object[]> comments = commentRepository.getUsersByPostid(postid); // all users on this post
             model.addAttribute("comments", comments);
             model.addAttribute("postid", postid);
             model.addAttribute("comment", new Comment());
