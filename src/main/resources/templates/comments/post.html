@@ -22,7 +22,7 @@
 
     </style>
     <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="/comments.css" />
+    <!-- <link rel="stylesheet" href="/comments.css" /> -->
     <title>Comments</title>
   </head>
 
@@ -79,79 +79,62 @@
   </nav>
 
       <!-- CREATE A COMMENT -->
-    <form action="#"  th:action="@{/comments/post?postid={id}(id=${postid})}" th:object="${comment}" method="post" class="comment_font">
-      <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
-      <div class="row"> 
-      <div class="col-sm">
-      <input type="hidden" value="comment.postid">
-      <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
-      </svg> Create a comment</div>
-      <div class="card-body">
-      <h6>Content: </h6>
-      <textarea 
-        id="content"
-        maxlength="140"
-        type="text"
-        minlength="1"
-        pattern=".*\S+.*"
-        th:field="*{content}"
-        placeholder="What's going on?"
-        title="This field is required"
-        required
-      ></textarea>
-      <br>
-      <br>
-      <input type="submit" class="btn btn-success" value="Comment" />
-      </div>
-      </div>
-      </form>
-    <br>
-    <br>
+     
+        <form action="#"  th:action="@{/comments/post?postid={id}(id=${postid})}" th:object="${comment}" method="post">
+        <div class="container" style="margin-bottom:1rem;margin-top:1rem;" >
+        <div class="row"> 
+        <div class="col-sm">
+        <input type="hidden" value="comment.postid">
+        <div id='creator' class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+          <div class="card-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-heart-fill" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm6 2.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+        </svg> Create a comment</div>
+        <div class="card-body">
+        <h6>Content: </h6>
+        <textarea 
+          id="content"
+          maxlength="140"
+          type="text"
+          minlength="1"
+          pattern=".*\S+.*"
+          th:field="*{content}"
+          placeholder="What's going on?"
+          title="This field is required"
+          required
+        ></textarea>
+        <br>
+        <br>
+        <input type="submit" class="btn btn-success" value="Comment" />
+        </div>
+        </div>
+        </form>
         
-<!-- COMMENTS LIST -->
-<h1>Comments</h1>
-<ul th:each="comment: ${comments}">
-<div id="commentBox">
-				<div class="commentCard">
-					<ul>
-						<li class="commentHead">
-							<span class="commenterName" th:text="${comment[0]}">Mike</span>
-							<span class="commentTime" th:text="${comment[2]}"> Date</span>
-							<span class="" th:text="${comment[3]}"> Time</span>
-						</li>
-						<li class="commentContent" th:text="${comment[1]}">
-              Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. Hhaha wasn't funny. Oh wow really nice post. But guess what? I don't care plus I didn't ask plus ratio. wow how is this a really nice post. But guess what? I don't care plus I didn't ask plus ratio.
-						</li>
-					</ul>
-				</div>
-				<!-- <div class="commentCard">
-					<ul>
-						<li class="commentHead">
-							<span class="commenterName">Jack</span>
-							<span class="commentTime"> 9h. ago</span>
-						</li>
-						<li class="commentContent">
-              This is a really good comment coming from the sky. It shall only be red once it's blue. Ordinary colours aren't green but purple. This is a really good comment coming from the sky. It shall only be red once it's blue. Ordinary colours aren't green but purple.
-						</li>
-					</ul>
-				</div> -->
-			</div>
- </ul> 
-
-    <!-- <ul th:each="comment: ${comments}">
-      <div class="wrapper-flex">
-    <div class="friends-container">
-      <div class='banner-img-friends '></div>
-      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-      <h1 class="name" th:text="${comment.created_at}"></h1>
-      <p class="description" th:text="${comment.content}"></p>
-    </div>
-    </div>
-   -->
-
+      <!-- COMMENTS LIST -->
+      <div class="list_comments">
+        <h1 class="title_comments">Comments</h1>
+        <hr>
+        <ul th:each="comment: ${comments}">
+          <div class="post-card card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="img-profile col-md-4">
+                    <img src="https://picsum.photos/200" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card_comment_title card-title commenterName" th:text="${comment[0]}"></h5>
+                        <hr>
+                        <p class="card-text commentContent" th:text="${comment[1]}"></p>
+                        <p class="card-text">
+                            <small class="text-muted" th:text="${comment[3]}"></small>
+                            <small class="text-muted" th:text="${comment[2]}"></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </ul>
+      </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

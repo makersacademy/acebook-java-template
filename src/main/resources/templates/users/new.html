@@ -22,8 +22,8 @@
     <div class="login_box">
         <h2>Please sign up</h2>
         <!-- sign up form -->
-        <form th:action="@{/users}" th:object="${user}" method="post">
-          
+        <form th:action="@{/users}" th:object="${user}" method="post" >
+          <!-- enctype="multipart/form-data" -->
           <div class="user-box">
             <input type="text" th:field="*{username}" id="username" name="username" required>
             <label for="username">Username</label>
@@ -37,6 +37,12 @@
               <i id="hide2" class="bi bi-eye-slash"></i>
             </span>
           </div>
+
+          <!-- <div class="user-box">
+          <input type="file" name="image" accept="image/png, image/jpeg" />
+          <label for="image">Profile Picture</label>
+          </div> -->
+
 
           <button id="signup" class="btn btn-lg btn-info btn-block" type="submit">Sign up</button>
       </form>

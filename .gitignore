@@ -1,3 +1,4 @@
+/src/main/resources/static/image/**
 /target
 .idea/
 /node_modules
@@ -9,3 +10,4 @@ dependency-reduced-pom.xml
 .factorypath
 .project
 .settings/
+!src/main/resources/static/image/.gitkeep

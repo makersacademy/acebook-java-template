@@ -34,6 +34,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding: 10px;
 }
 
 .card {
@@ -179,7 +180,7 @@ button:hover {
 
 .btn-3 {
   position: absolute;
-  color: #16a2b8;
+  color: #0d6efd;
   border: 2px solid;
   border-radius: 3.5px;
   width: 320px;
@@ -191,11 +192,17 @@ button:hover {
   left: 0;
   top: 0;
   width: 100%;
-  background: #138397;
+  background: #0d6efd;
 }
 
 .btn-3:hover:after {
   height: 100%;
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 
 .login_box {
@@ -241,11 +248,11 @@ button:hover {
   font-size: 16px;
   color: 3C6478;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-.login_box .user-box input:focus~label,
-.login_box .user-box input:valid~label,
+.login_box .user-box input:focus ~ label,
+.login_box .user-box input:valid ~ label,
 .login_box .user-box input:-webkit-autofill,
 .login_box .user-box input:-webkit-autofill:hover, 
 .login_box .user-box input:-webkit-autofill:focus{
@@ -255,22 +262,22 @@ button:hover {
   font-size: 12px;
 }
 
-.eye{
+.eye {
   position: absolute;
 }
 
-#hide1{
+#hide1 {
   display: none;
 }
 
 a.one {
   font-size: 13px;
-  position:relative;
+  position: relative;
   left: 215px;
   bottom: 30px;
 }
 a.one:hover {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 /* ---------------------------------------------------------------------------------------- */
 /* friends page */
@@ -340,6 +347,13 @@ a.one:hover {
 .description {
   margin: 1rem 2rem;
   font-size: 0.9rem;
+}
+
+/* COMMENTS */
+
+.title_comments {
+  text-align: center;
+  font-family: ;
 }
 
 /* ---------------------------------------------------------------------------------------- */
