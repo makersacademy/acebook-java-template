@@ -90,3 +90,10 @@ li {
   left: 0;
   top: -10px;
 }
+.comment_font{
+  font-family: roboto;
+}
+.content {
+  max-width: 500px;
+  margin: auto;
+}

@@ -229,11 +229,12 @@ button:hover {
 
 .login_box .user-box input {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 16px;
   color: rgb(0, 0, 0);
   margin-bottom: 30px;
   border: none;
+  /* border-radius: 5px; */
   border-bottom: 1px solid rgb(0, 0, 0);
   outline: none;
   background: transparent;
@@ -243,7 +244,7 @@ button:hover {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 16px;
   color: 3C6478;
   pointer-events: none;
@@ -253,10 +254,10 @@ button:hover {
 .login_box .user-box input:focus ~ label,
 .login_box .user-box input:valid ~ label,
 .login_box .user-box input:-webkit-autofill,
-.login_box .user-box input:-webkit-autofill:hover,
-.login_box .user-box input:-webkit-autofill:focus {
-  top: -20px;
-  left: 0;
+.login_box .user-box input:-webkit-autofill:hover, 
+.login_box .user-box input:-webkit-autofill:focus{
+  top: -30px;
+  left: -10px;
   color: #838383;
   font-size: 12px;
 }
@@ -357,3 +358,8 @@ a.one:hover {
 
 /* ---------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- */
+
+.content {
+  max-width: 500px;
+  margin: auto;
+}
