@@ -62,4 +62,12 @@ public class FriendsController {
   return new RedirectView("/allUsers");
  }
 
+ @GetMapping("/friends/requests")
+ public String friendRequest(Model model) {
+  Iterable<Object[]> pendingFriends = repository.pendingFriendsTo(getUserId());
+  model.addAttribute("requests", pendingFriends);
+
+  return "request/index";
+ }
+
 }
