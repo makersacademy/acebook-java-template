@@ -22,7 +22,7 @@
             <!-- Search bar -->
             <div title="Search users">
                 <div class="searchbar">
-                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()" onkeyup="filterFunction()">
                 </div>
                 <div id="searchDropdown" class="dropdown-content">
                     <div th:each="user: ${allusers}" class="dropdown-item">
@@ -35,6 +35,7 @@
                                 </div>
                                 <div class="searchtext">
                                     <a th:href="'/profile/' + ${user.username}">
+                                    <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == null}">Status: Strangers</p>
                                     <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}">Status: Friends</p>
                                     <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">Status: Pending</p>
                                     <p class="search">View Profile</p>
