@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.FriendshipRepository;
+import com.makersacademy.acebook.repository.LikeRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.services.FriendsService;
 
 import java.util.List;
 
@@ -19,14 +23,21 @@ import javax.servlet.http.HttpSession;
 public class MessagesController {
 
   @Autowired
+  PostRepository postRepository;
+
+  @Autowired
   UserRepository userRepository;
 
   @Autowired
-  FriendshipRepository friendshipRepository;
+  LikeRepository likerepository;
 
   @Autowired
-  // MutualFriendsService mutualFriendsService;
+  FriendsService friendsService;
 
+  @Autowired
+  CommentRepository comrepository;
+
+  //
   @GetMapping("/messages")
   public String messages(Model model, HttpSession session) {
 
@@ -52,5 +63,45 @@ public class MessagesController {
       model.addAttribute("friends", friends);
     }
     return "messages/messages";
+  }
+
+  public PostRepository getPostRepository() {
+    return postRepository;
+  }
+
+  public void setPostRepository(PostRepository postRepository) {
+    this.postRepository = postRepository;
+  }
+
+  public UserRepository getUserRepository() {
+    return userRepository;
+  }
+
+  public void setUserRepository(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  public LikeRepository getLikerepository() {
+    return likerepository;
+  }
+
+  public void setLikerepository(LikeRepository likerepository) {
+    this.likerepository = likerepository;
+  }
+
+  public FriendsService getFriendsService() {
+    return friendsService;
+  }
+
+  public void setFriendsService(FriendsService friendsService) {
+    this.friendsService = friendsService;
+  }
+
+  public CommentRepository getComrepository() {
+    return comrepository;
+  }
+
+  public void setComrepository(CommentRepository comrepository) {
+    this.comrepository = comrepository;
   }
 }

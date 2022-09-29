@@ -1,7 +1,7 @@
 html, body {
     font-family: sans-serif;
-    background-color:#de7c04c9;
-    width: 125%;
+    background-color:rgb(251, 211, 136);
+    width: 100%;
     height: 100%;
     margin: 0;
     padding-top: 30px;
@@ -51,16 +51,23 @@ html, body {
     background: #de7c04c9;
     display: inline-block;
   }
-  .container{
+  .DMcontainer{
     border-style: solid;
     border-width: 5px;
     margin: auto;
-    width: 26%;
+    width: 50%;
     height: auto;
     padding: 30px;
-    
   }
   
+  .container {
+    height: 100%;
+    border: 5px solid rgb(159, 89, 2);
+    background-color: rgb(251, 211, 136);
+    margin-left: -8px;
+    margin-right: -8px;
+    overflow: hidden;
+}
   .friend.selected {
     background: #43A047;
     color: rgb(255, 255, 255);
@@ -147,4 +154,31 @@ html, body {
     60% {
         width: 410px;
     }
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  /* gap determines spacing between elements on nav bar */
+  gap: 15px;
+  /* No top margin was giving a big space */
+  margin-top: -8px;
+  /* Padding-inline indents elements from the left */
+  padding-inline: 50px;
+  position: fixed;
+  /* overflow determines how contained elements will change when the container is resized */
+  /* overflow: hidden; */
+  top: 10;
+  height: 45px;
+  padding-top: 0px;
+  margin-left: -8px;
+  width: 100%;
+  /* z-index determines stacking order of elements on a page, lowering the number brings to the front */
+  z-index: 0;
+  /* Color set to dark orange */
+  background-color: rgb(222, 124, 4);
+  border: 3px solid rgb(159, 89, 2);
+}
+.logowrapper {
+  overflow: hidden;
 }

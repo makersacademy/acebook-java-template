@@ -46,8 +46,6 @@ function cleanFriendsOfFriends() {
     div.remove();
   }
 }
-<<<<<<< HEAD
-=======
 
 // Make tool tip appear on mouse hover
 var tooltipSpan = document.getElementById('tooltip-span');
@@ -66,4 +64,3 @@ function getSearchDropdown() {
     setTimeout(show, 120);
   // }
 }
->>>>>>> main
