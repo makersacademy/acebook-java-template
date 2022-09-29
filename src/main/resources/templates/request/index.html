@@ -103,7 +103,7 @@
             <!-- th:href="@{/posts/like?postid={id}(id=${post.id})}" -->
             <a th:href="@{/request/acceptFriend?requestid={id}(id=${requests[0]})}">Accept Friend</a>
             <br>
-            <a th:href="@{/request/acceptFriend?requestid={id}(id=${requests[0]})}">Reject Friend</a>
+            <a th:href="@{/request/declineFriend?requestid={id}(id=${requests[0]})}">Reject Friend</a>
           </div>
         </div>
       </ul>
