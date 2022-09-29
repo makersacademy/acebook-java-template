@@ -1,3 +1,14 @@
+// This is so search bar doesn't close when clicking on user
+// var safeToBlur;
+
+// function setSafeToBlurTrue() {
+//   safeToBlur = true;
+// }
+// function setNotSafeToBlurTrue() {
+//   safeToBlur = false;
+// }
+
+// For opening and closing tabs on friends page
 function openTab(event, tabName) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -49,5 +60,7 @@ function getSearchDropdown() {
   function show() {
     document.getElementById("searchDropdown").classList.toggle("show");
   }
-  setTimeout(show, 111);
+  // if (onmouseup) {
+    setTimeout(show, 120);
+  // }
 }

@@ -202,7 +202,6 @@ a:link {
     max-width: 227px;
     overflow: auto;
     border: 1px solid #ddd;
-    z-index: 1;
 }
 
 .dropdown-content a {
@@ -212,7 +211,7 @@ a:link {
     display: block;
 }
 
-.dropdown-item a:hover {background-color: rgb(221, 221, 221);}
+/* .dropdown-item a:hover {background-color: rgb(221, 221, 221);} */
 
 .show {display: block;}
 
@@ -221,9 +220,10 @@ a:link {
     margin: 3px;
 }
 
-input.search {    
-    background: url("searchicon.png") no-repeat fixed center);
-    /* margin-top: -50px; */
-    /* height:30px; */
-    /* padding-left:25px;    */
+span.search {
+    display: block;
+}
+
+span.search:hover {
+    background-color: #ddd;
 }
