@@ -23,4 +23,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     // requests sent to me by other users
     @Query(value = "SELECT users.username FROM users INNER JOIN friends ON users.id = friends.request_from WHERE friends.request_from as = ANY(ARRAY[?1]) AND friends.request_to = ?2", nativeQuery = true)
     Iterable<Object[]> requestsSentByOtherUsers(List<BigInteger> ids, Long userid);
+
+    @Query(value = "SELECT users.id, users.username, users.password, users.enabled, users.image FROM users INNER JOIN friends ON users.id = friends.request_from WHERE friends.status_code = TRUE AND friends.request_to = ?1 UNION SELECT users.id, users.username, users.password, users.enabled, users.image FROM users INNER JOIN friends ON users.id = friends.request_to WHERE friends.status_code = TRUE AND friends.request_from = ?1", nativeQuery = true)
+    Iterable<User> findFriends(Long userid);
 }
