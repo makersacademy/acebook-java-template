@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,6 +47,7 @@ public class LogOutTest {
     driver.findElement(By.className("submit-btn")).click();
 
     driver.findElement(By.id("Logout")).click();
+    driver.switchTo().alert().accept();
     Assert.assertEquals("Sign In", driver.getTitle());
   }
 

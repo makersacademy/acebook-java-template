@@ -88,17 +88,17 @@ public class PostTest {
 		Assert.assertEquals("Winklevoss", title);
 
 		// Mocks Adding posts
-		driver.findElement(By.id("post-title")).sendKeys("My first title");
+		// driver.findElement(By.id("post-title")).sendKeys("My first title");
 		driver.findElement(By.id("post-content")).sendKeys("My first content");
 		driver.findElement(By.id("submit")).click();
 
 		driver.get("http://localhost:8080/posts");
-		driver.findElement(By.id("post-title")).sendKeys("My second title");
+		// driver.findElement(By.id("post-title")).sendKeys("My second title");
 		driver.findElement(By.id("post-content")).sendKeys("My second content");
 		driver.findElement(By.id("submit")).click();
 
 		driver.get("http://localhost:8080/posts");
-		driver.findElement(By.id("post-title")).sendKeys("My third title");
+		// driver.findElement(By.id("post-title")).sendKeys("My third title");
 		driver.findElement(By.id("post-content")).sendKeys("My third content");
 		driver.findElement(By.id("submit")).click();
 
