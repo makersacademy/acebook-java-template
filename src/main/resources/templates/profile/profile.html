@@ -156,11 +156,59 @@
             <!-- Details section -->
             <h2>About me:</h2>
             <ul>
-            <li class="profile">Name:</li>
+            <li class="profile">Interests:</li>
+            <li th:text="${friendsservice.findById(user.id).getInterests()}"></li>
+            <span th:if="${id == user.id}">
+                <button id="interests-button" onclick="toggleProfileEdit('edit-interests')">Edit</button>
+                <form id="edit-interests" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                    <textarea name="content"></textarea>
+                    <input type="hidden" name="username" th:value="${user.username}">
+                    <input type="hidden" name="column" value="interests">
+                    <button type="submit">Submit</button>
+                </form>
+            </span>
             <li class="profile">Education:</li>
+            <li th:text="${friendsservice.findById(user.id).getEducation()}"></li>
+            <span th:if="${id == user.id}">
+                <button id="education-button" onclick="toggleProfileEdit('edit-education')">Edit</button>
+                <form id="edit-education" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                    <textarea name="content"></textarea>
+                    <input type="hidden" name="username" th:value="${user.username}">
+                    <input type="hidden" name="column" value="education">
+                    <button type="submit">Submit</button>
+                </form>
+            </span>
             <li class="profile">Occupation:</li>
+            <li th:text="${friendsservice.findById(user.id).getOccupation()}"></li>
+            <span th:if="${id == user.id}">
+                <button id="occupation-button" onclick="toggleProfileEdit('edit-occupation')">Edit</button>
+                <form id="edit-occupation" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                    <textarea name="content"></textarea>
+                    <input type="hidden" name="username" th:value="${user.username}">
+                    <input type="hidden" name="column" value="occupation">
+                    <button type="submit">Submit</button>
+                </form>
+            </span>
             <li class="profile">Location:</li>
+            <li th:text="${friendsservice.findById(user.id).getLocation()}"></li>
+            <span th:if="${id == user.id}">
+                <button id="location-button" onclick="toggleProfileEdit('edit-location')">Edit</button>
+                <form id="edit-location" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                    <textarea name="content"></textarea>
+                    <input type="hidden" name="username" th:value="${user.username}">
+                    <input type="hidden" name="column" value="location">
+                    <button type="submit">Submit</button>
+                </form>
+            </span>
             </ul>
         </div> <!-- End of container -->
+        <span th:if="${id == user.id}">
+            <script>
+                document.getElementById("interests-button").click();
+                document.getElementById("education-button").click();
+                document.getElementById("occupation-button").click();
+                document.getElementById("location-button").click();
+            </script>
+        </span>
     </body>
 </html>

@@ -25,6 +25,10 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String interests;
+    private String education;
+    private String occupation;
+    private String location;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Post> posts;
@@ -48,8 +52,16 @@ public class User {
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public Long getId() { return id; }
+    public String getInterests() { return this.interests; }
+    public String getEducation() { return this.education; }
+    public String getOccupation() { return this.occupation; }
+    public String getLocation() { return this.location; }
 
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
     public void setId(Long id) { this.id = id; }
+    public void setInterests(String interests) { this.interests = interests; }
+    public void setEducation(String education) { this.education = education; }
+    public void setOccupation(String occupation) { this.occupation = occupation; }
+    public void setLocation(String location) { this.location = location; }
 }
