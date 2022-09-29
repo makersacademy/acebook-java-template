@@ -47,6 +47,11 @@ public class User {
         this.enabled = enabled;
     }
 
+    public User(Long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public User(String username, String password, boolean enabled, String image) {
         this.username = username;
         this.password = password;
