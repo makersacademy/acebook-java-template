@@ -95,7 +95,7 @@
                             <div class="post_content">
                                 <p th:text="${post.content}"> </p>
                                 <div class="likes_wrapper">
-                                    <p id="number_of_likes" th:each="like: ${likes}" th:if="${like.likedpost} == ${post.id}" th:text="1"></p>
+                                    <p id="number_of_likes" th:with="postid=${post.id}" th:text="${#lists.size(likes.?[__${postid}__.toString().equals(likedpost.toString())])}" ></p>
                                     <i class="fa-solid fa-thumbs-up"></i>
                                 </div>
                                 <div class="like_and_comment_section">
@@ -122,7 +122,7 @@
                                 <ul id="show_comments" th:each="comment: ${comments}" th:if="${comment.postid} == ${post.id}">
                                     <li id="comment_author" th:text="${#authentication.getPrincipal().getUsername()}"></li>
                                     <li id="comment_message" th:text="${comment.content}"> </li>
-                                    <li id="comment_time" th:text="${#dates.format(comment.time_posted, 'HH:mm:ss')}"></li>
+                                    <li id="comment_time" th:text="'at ' + ${#dates.format(comment.time_posted, 'HH:mm:ss')} + ' on ' + ${#dates.format(comment.time_posted, 'dd-MM-yyyy')}"></li>
                                 </ul>
                             </div>
     
@@ -131,7 +131,7 @@
             </main>
 
 
-        </div> <!-- End of container div -->
+        </div> <!-- End of container div" -->
 <script src="posts.js"></script>
 </body>
 </html>
