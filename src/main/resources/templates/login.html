@@ -22,6 +22,12 @@
   
   <body>
     <div class="login_box">
+      <div th:if="${param.error}" class="alert alert-danger">    
+        Invalid username or password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">    
+      Successfully logged out
+    </div>
       <h2>Login</h2>
     <!-- login form -->
       <form th:action="@{/login}" method="post">
@@ -47,11 +53,11 @@
           <a class="one" href="/" >Forgot Password?</a>
         </div>
 
-          <button id="login" class="btn btn-lg btn-info btn-block" type="submit">Login</button>
+          <button id="login" class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
       </form>
       <!-- redirect to sign up  -->
       <form class="form-signin" method="get" action="users/new">
-      <button class="btn-3 btn-lg btn-block" type="submit">Sign up</button>
+      <button class="btn-3 btn-primary-outline btn-lg btn-block" type="submit">Sign up</button>
     </form>
 
     <script>

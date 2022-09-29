@@ -87,27 +87,33 @@
         </a>
       </div>
   </nav>
-
+  <br>
 
     <!-- LIKES -->
     <ul class='display_block' th:each="like: ${likes}">
       <div class="wrapper-flex">
 
+        <div class="likes-card card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+              <div class="img-profile col-md-4">
+                  <img src="https://picsum.photos/200" class="card-img" alt="...">
+              </div>
+              <div class="likes-card-container col-md-8">
+                  <div class="card-body">
+                      <p class="likes-card-title" th:text="${like[0]}"></p>
+                      <p class="likes-card-title">liked this post.</p>
+                      <hr>
+                      <p class="card-text">
+                          <small class="text-muted" th:text="${like[2]}"></small>
+                          <small class="text-muted" th:text="${like[1]}"></small>
+                      </p>
+                  </div>
+              </div>
+          </div>
+        </div>
 
-    <div class="friends-container">
-      <div class='banner-img-friends '></div>
-      <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-      <h1 class="name" th:text="${like[0]}"></h1>
-      <h1 class="name" th:text="${like[1]}"></h1>
-      <h1 class="name" th:text="${like[2]}"></h1>
-      <p class="description" >Liked this post</p>
-      <!-- <h2 class="" th:text="${like}"></h2> -->
-      <!-- <button class='btn'>Message</button> -->
-    </div>
-    </div>
-
+      </div>
     </ul>
-
 
     <!-- SCRIPTS -->
     <script

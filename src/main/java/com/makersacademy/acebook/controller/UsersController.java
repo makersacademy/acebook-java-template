@@ -23,6 +23,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +50,8 @@ public class UsersController {
         return id;
     }
 
+    PasswordEncoder passwordEncoder;
+
     @GetMapping("/users/new")
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -55,12 +59,16 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public String signup(@ModelAttribute User user)
-            throws IOException {
+    public RedirectView signup(@ModelAttribute User user) throws Exception {
 
         if (userRepository.existsByUsername(user.getUsername())) {
-            return ("error/wrong");
+            // return ("error/wrong");
+            return new RedirectView("users/new?retry");
         } else {
+            passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+
             userRepository.save(user);
             Authority authority = new Authority(user.getUsername(), "ROLE_USER");
             authoritiesRepository.save(authority);
@@ -71,7 +79,7 @@ public class UsersController {
             // userRepository.save(user);
             // String uploadDir = "src/main/resources/static/image/" + user.getId();
             // FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-            return ("login");
+            return new RedirectView("/login");
         }
     }
 

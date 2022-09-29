@@ -6,12 +6,54 @@
 
 /* POSTS - CREATE */
 
-textarea {
-  resize: none;
+.form_post_create {
+  border: 0px;
+  box-shadow: 0px 1px 1px 0px;
+  border-radius: 10px;
 }
 
 .display_block {
-  display: inline-block;
+  display: inline-flex;
+}
+
+textarea {
+  display: block;
+  width: 250px;
+  height: 80px;
+}
+
+.img_upload_icon {
+  font-size: 275%;
+  padding: 0 0 0 2px;
+}
+
+.img_upload_icon:hover {
+  cursor: pointer;
+  content: '\F429';
+}
+
+.img_upload_icon:hover::before {
+  content: '\F429';
+}
+
+.image-upload {
+  display: inline;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.input {
+  display: inline;
+}
+
+.btn {
+  margin: 0 0 25px 2px;
+}
+
+.post_btns {
+  padding: 0 0 0 15px;
 }
 
 /* POSTS - VIEW */
@@ -34,6 +76,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding: 10px;
 }
 
 .card {
@@ -53,24 +96,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: "\F252";
+  content: '\F252';
 }
 
 .img-comment:hover {
-  content: "\F253";
+  content: '\F253';
 }
 
 .img-like:hover::before {
-  content: "\F415";
+  content: '\F415';
 }
 
 .img-like:hover {
   color: red;
-  content: "\F417";
+  content: '\F417';
 }
 
 .img-out:hover::before {
-  content: "\F52D";
+  content: '\F52D';
 }
 
 .img-out:hover {
@@ -101,8 +144,45 @@ i {
 
 /* LIKES */
 
-.likes-formatting {
+/* LIKES_CARD */
+.card {
+  border: 0px;
+  background-color: #f8f9fa;
+}
+
+.likes-card {
+  border: 0px;
+  box-shadow: 0px 1px 1px 0px;
+  border-radius: 10px;
+}
+
+/* LIKES_CARD_PROFILE_PHOTO */
+.card-img {
+  border-radius: 50%;
+  border: 4px solid #555;
+  width: 90%;
+  height: auto;
+}
+
+.img-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+/* LIKES_CARD_TEXT */
+.likes-card-container {
+  display: flex;
+  align-items: center;
+}
+
+.likes-card-title {
   display: inline;
+}
+
+.text-muted {
+  padding: 0 8px 0 0;
 }
 
 /* NAV BAR */
@@ -139,7 +219,7 @@ button {
 button::before,
 button::after {
   background: #0064d0;
-  content: "";
+  content: '';
   position: absolute;
   z-index: -1;
   border-radius: 3.5px;
@@ -179,7 +259,7 @@ button:hover {
 
 .btn-3 {
   position: absolute;
-  color: #16a2b8;
+  color: #0d6efd;
   border: 2px solid;
   border-radius: 3.5px;
   width: 320px;
@@ -191,11 +271,17 @@ button:hover {
   left: 0;
   top: 0;
   width: 100%;
-  background: #138397;
+  background: #0d6efd;
 }
 
 .btn-3:hover:after {
   height: 100%;
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 
 .login_box {
@@ -222,11 +308,12 @@ button:hover {
 
 .login_box .user-box input {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 16px;
   color: rgb(0, 0, 0);
   margin-bottom: 30px;
   border: none;
+  /* border-radius: 5px; */
   border-bottom: 1px solid rgb(0, 0, 0);
   outline: none;
   background: transparent;
@@ -236,40 +323,40 @@ button:hover {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 16px;
   color: 3C6478;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-.login_box .user-box input:focus~label,
-.login_box .user-box input:valid~label,
+.login_box .user-box input:focus ~ label,
+.login_box .user-box input:valid ~ label,
 .login_box .user-box input:-webkit-autofill,
-.login_box .user-box input:-webkit-autofill:hover, 
-.login_box .user-box input:-webkit-autofill:focus{
-  top: -20px;
-  left: 0;
+.login_box .user-box input:-webkit-autofill:hover,
+.login_box .user-box input:-webkit-autofill:focus {
+  top: -30px;
+  left: -10px;
   color: #838383;
   font-size: 12px;
 }
 
-.eye{
+.eye {
   position: absolute;
 }
 
-#hide1{
+#hide1 {
   display: none;
 }
 
 a.one {
   font-size: 13px;
-  position:relative;
+  position: relative;
   left: 215px;
   bottom: 30px;
 }
 a.one:hover {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 /* ---------------------------------------------------------------------------------------- */
 /* friends page */
@@ -341,5 +428,29 @@ a.one:hover {
   font-size: 0.9rem;
 }
 
+/* COMMENTS */
+
+.title_comments {
+  text-align: center;
+  /* font-family: ; */
+}
+
 /* ---------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- */
+
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+
+.alert-danger {
+  font-size: 16px;
+  text-align: center;
+}
+
+/* CREDITS_LINKS */
+
+.credit_links {
+  text-align: center;
+  padding: 50px;
+}
