@@ -63,14 +63,14 @@ p {
 
 /* Resize search bar placeholder text */
 p.search {
-    font-size: 14px;
+    font-size: 10.5px;
 }
 
 p.searchtext {
     margin-top: -1px;
     padding-right: -59px;
     margin-bottom: -50px;
-    font-size: 14px;
+    font-size: 10.5px;
 }
 
 /* Gets rid of underline for hyperlinks */
