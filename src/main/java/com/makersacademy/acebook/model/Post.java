@@ -6,11 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import java.text.DateFormat;  
 import java.text.SimpleDateFormat;  
-import java.util.Date;  
+import java.util.Date;
+import java.util.Set;
 import java.util.Calendar;  
 import java.sql.Timestamp;
 
@@ -28,6 +30,9 @@ public class Post {
     private String content;
     private Timestamp time_posted;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Post> posts;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

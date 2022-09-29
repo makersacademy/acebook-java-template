@@ -3,9 +3,11 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.model.Like;
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.services.FriendsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class PostsController {
     @Autowired
     FriendsService friendsService;
 
+    @Autowired
+    CommentRepository comrepository;
+
     @GetMapping("/posts")
     public String index(Model model, HttpSession session) {
         // Get posts
@@ -56,6 +61,10 @@ public class PostsController {
         Iterable<Like> likes = likerepository.findAll();
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Post());
+
+        Iterable<Comment> comments = comrepository.findAll();
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
 
         // Get friends service (for friends methods)
         model.addAttribute("friendsservice", friendsService);
