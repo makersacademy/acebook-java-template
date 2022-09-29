@@ -7,23 +7,38 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-        <div class="title">
-            <h1>Wall</h1>
-        </div>
-        
-        <nav> <!-- nav bar - subject to change -->
-            <a href="/profile"><p>Profile</p></a>
-            <a href="/posts"><p>Posts</p></a>
-            <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
-            <a href="/friends"><p>Friends</p></a>
-            <a href="/groups"><p>Groups</p></a>
-            <a href="/events"><p>Events</p></a>
-            <!-- Messages is not on navbar in mock-up, but subject to change (just here for convenience) -->
-            <a href="/messages"><p>Messages</p></a>
-        </nav>
-        
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
-            <h2>
+
+            <div class="title">
+                <h1>Wall</h1>
+            </div>
+            
+            <nav> <!-- nav bar - subject to change -->
+                <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+                <a href="/posts"><p>Posts</p></a>
+                <a href="/profile"><p>Profile</p></a>
+                <a><p>My Wall</p></a>
+                <a href="/friends"><p>Friends</p></a>
+                <!-- <a href="/groups"><p>Groups</p></a> -->
+                <!-- <a href="/events"><p>Events</p></a> -->
+                <a href="/messages"><p>Messages</p></a>
+                <form>
+                  <input style="margin-left: 42px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
+                </form>
+                <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
+                <div class="logout">
+                  <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+                  <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+                </div>
+                <div class="logout">
+                  <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+                    <p><input type="submit" id="Logout" value="Logout"/></p>
+                  </form>
+                </div>
+              </nav>
+        
+
+            <h2 style="text-align:center;">
             <ul th:each="user: ${users}" th:if="${user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
                 <li th:text="${user.username} + '`s wall'" style="font-size:x-large;font-weight: bold;"><!--<p th:each="user: ${users}" th:if="${user.id.equals(1L)}">
                     <p th:value="${user.id} + '`s wall'">

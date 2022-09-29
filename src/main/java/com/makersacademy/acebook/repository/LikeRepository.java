@@ -9,5 +9,7 @@ import java.util.List;
 public interface LikeRepository extends CrudRepository<Like, Long> {
 
     List<Like> findByLikedpostAndUsername(Long likedpost, String username);
+
+    List<Like> deleteByLikedpostAndUsername(Long likedpost, String username);
     
 }
