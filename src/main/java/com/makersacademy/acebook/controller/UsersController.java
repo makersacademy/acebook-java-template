@@ -77,7 +77,6 @@ public class UsersController {
 
     @GetMapping("/allUsers")
     public String allUsers(Model model) {
-        Iterable<User> users = userRepository.findAll();
         // List<BigInteger> allUserIds = new ArrayList<BigInteger>();
 
         // for (User user : users) {
@@ -91,6 +90,7 @@ public class UsersController {
 
         // iterate over all users and find the ones who have sent a friend request
 
+        Iterable<User> users = userRepository.findAll();
         List<User> result = new ArrayList<User>();
         Iterable<BigInteger> pendingFriends = friendsRepository.pendingFriends(getUserId());
         List<BigInteger> pendingIds = new ArrayList<BigInteger>();
