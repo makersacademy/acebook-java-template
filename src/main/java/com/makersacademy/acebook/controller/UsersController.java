@@ -103,6 +103,7 @@ public class UsersController {
         Iterable<BigInteger> pendingFriends = friendsRepository.pendingFriends(getUserId());
         List<BigInteger> pendingIds = new ArrayList<BigInteger>();
         pendingFriends.forEach(pendingIds::add);
+        pendingIds.add(BigInteger.valueOf(getUserId()));
         users.forEach(result::add);
         result.removeIf(u -> pendingIds.contains(BigInteger.valueOf(u.getId())));
 
