@@ -10,7 +10,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendshipRepository;
 import com.makersacademy.acebook.repository.UserRepository;
-import com.makersacademy.acebook.services.MutualFriendsService;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class MessagesController {
   FriendshipRepository friendshipRepository;
 
   @Autowired
-  MutualFriendsService mutualFriendsService;
+  // MutualFriendsService mutualFriendsService;
 
   @GetMapping("/messages")
   public String messages(Model model, HttpSession session) {
