@@ -56,68 +56,98 @@ public class FriendsController {
 
     // Get friends
     Iterable<User> friends = userRepository.getFriends(userId);
-    // Count friends, only return if not 0. Send count to TL for "You haven't made any friends yet." message conditional
+    // Count friends, only return if not 0. Send count to TL for "You haven't made
+    // any friends yet." message conditional
     int friendCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: friends) {friendCount++;}
+    for (User user : friends) {
+      friendCount++;
+    }
     model.addAttribute("friendcount", friendCount);
-    if (friendCount > 0) {model.addAttribute("friends", friends);}
+    if (friendCount > 0) {
+      model.addAttribute("friends", friends);
+    }
 
     ///
 
     // Get incoming friend requests
     Iterable<User> incomingReqs = userRepository.getIncomingFriendRequests(userId);
-    // Count incoming requests, only return if not 0. Send count to TL for "No incoming requests" message conditional
+    // Count incoming requests, only return if not 0. Send count to TL for "No
+    // incoming requests" message conditional
     int inReqCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: incomingReqs) {inReqCount++;}
+    for (User user : incomingReqs) {
+      inReqCount++;
+    }
     model.addAttribute("incount", inReqCount);
-    if (inReqCount > 0) {model.addAttribute("inreqs", incomingReqs);}
-    
+    if (inReqCount > 0) {
+      model.addAttribute("inreqs", incomingReqs);
+    }
+
     ///
 
     // Get outgoing friend requests
     Iterable<User> outgoingReqs = userRepository.getOutgoingFriendRequests(userId);
-    // Count outgoing requests, only return if not 0. Send count to TL for "No outgoing requests" message conditional
+    // Count outgoing requests, only return if not 0. Send count to TL for "No
+    // outgoing requests" message conditional
     int outReqCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: outgoingReqs) {outReqCount++;}
+    for (User user : outgoingReqs) {
+      outReqCount++;
+    }
     model.addAttribute("outcount", outReqCount);
-    if (outReqCount > 0) {model.addAttribute("outreqs", outgoingReqs);}
-    
+    if (outReqCount > 0) {
+      model.addAttribute("outreqs", outgoingReqs);
+    }
+
     ///
 
     // Get new users (strangers for browse users)
     Iterable<User> strangers = userRepository.getStrangers(userId);
-    // Count strangers, only return if not 0. Send count to TL for "No outgoing requests" message conditional
+    // Count strangers, only return if not 0. Send count to TL for "No outgoing
+    // requests" message conditional
     int strangerCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: strangers) {strangerCount++;}
+    for (User user : strangers) {
+      strangerCount++;
+    }
     model.addAttribute("strangercount", strangerCount);
-    if (strangerCount > 0) {model.addAttribute("strangers", strangers);}
-    
+    if (strangerCount > 0) {
+      model.addAttribute("strangers", strangers);
+    }
+
     ///
 
     // Get friends of friends (potential connections)
     Iterable<User> friendsOfFriends = userRepository.getFriendsOfFriends(userId);
-    // Count friends of friends, only return if not 0. Send count to TL for "No outgoing requests" message conditional
+    // Count friends of friends, only return if not 0. Send count to TL for "No
+    // outgoing requests" message conditional
     int friendsOfFriendsCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: friendsOfFriends) {friendsOfFriendsCount++;}
+    for (User user : friendsOfFriends) {
+      friendsOfFriendsCount++;
+    }
     model.addAttribute("friendsfriendscount", friendsOfFriendsCount);
-    if (friendsOfFriendsCount > 0) {model.addAttribute("friendsfriends", friendsOfFriends);}
-    
+    if (friendsOfFriendsCount > 0) {
+      model.addAttribute("friendsfriends", friendsOfFriends);
+    }
+
     ///
 
     // Get users blocked by current user (blocked users)
     Iterable<User> blockedUsers = userRepository.getBlockedUsers(userId);
-    // Count blocked users, only return if not 0. Send count to TL for "No blocked users" message conditional
+    // Count blocked users, only return if not 0. Send count to TL for "No blocked
+    // users" message conditional
     int blockedUsersCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
-    for (User user: blockedUsers) {blockedUsersCount++;}
+    for (User user : blockedUsers) {
+      blockedUsersCount++;
+    }
     model.addAttribute("blockedcount", blockedUsersCount);
-    if (blockedUsersCount > 0) {model.addAttribute("blockedusers", blockedUsers);}
-    
+    if (blockedUsersCount > 0) {
+      model.addAttribute("blockedusers", blockedUsers);
+    }
+
     ///
 
     return "friends/friends";
@@ -152,7 +182,7 @@ public class FriendsController {
         friendshipRepository.deleteById(friendshipId);
         break;
       case "block":
-        // If not entries in 
+        // If not entries in
         if (userRepository.getFriendshipId(reqerId, reqeeId) == null) {
           friendship.setRequestStatus("blocked");
           friendshipRepository.save(friendship);

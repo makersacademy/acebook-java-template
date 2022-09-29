@@ -1,43 +1,89 @@
 <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
         <title>Messages - Winklevoss</title>
-        <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="DM_List.css"/>
+        <script type="text/javascript" src="/script.js"></script>   
     </head>
     <body>
-      <nav> <!-- nav bar - subject to change -->
-        <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
-        <a href="/posts"><p>Posts</p></a>
-        <a href="/profile"><p>Profile</p></a>
-        <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
-        <a href="/friends"><p>Friends</p></a>
-        <!-- <a href="/groups"><p>Groups</p></a> -->
-        <!-- <a href="/events"><p>Events</p></a> -->
-        <a><p>Messages</p></a>
-        <form>
-          <input style="margin-left: 42px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
-        </form>
-        <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
-        <div class="logout">
-          <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
-          <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
-        </div>
-        <div class="logout">
-          <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
-            <p><input type="submit" id="Logout" value="Logout"/></p>
-          </form>
-        </div>
-      </nav>
+
       
-      <div class="container">
-        <div class="title">
-          <h1>Direct Messages</h1>
+      <nav> <!-- Taskbar -->
+        <div class="logowrapper">
+            <a href="/"><img class="logo" src="orangeandbrown.png" alt="Winklevoss Logo"></a>
         </div>
+        <!-- Text Links -->
+        <a href="/posts"><p>Posts</p></a>
+        <!-- <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a> -->
+        <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
+        <a><p>Friends</p></a>
+        <a href="/messages"><p>Messages</p></a>
+        <!-- Search bar -->
+        <div title="Search users">
+            <div class="searchbar">
+                <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+            </div>
+            <div id="searchDropdown" class="dropdown-content">
+                <div th:each="user: ${allusers}" class="dropdown-item">
+                    <span class="search">
+                        <div class="searchwrapper">
+                            <a class="searchitem" th:href="'/profile/' + ${user.username}"></a>
+                            <div class="searchavatar">
+                                <img class="searchavatar" th:src="@{/default-avatar.jpeg}">
+                                <p style="margin-left: 11px; margin-top: 18.5px;" th:text="${user.username}" class="search"></p></a>
+                            </div>
+                            <div class="searchtext">
+                                <a th:href="'/profile/' + ${user.username}">
+                                <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}">Status: Friends</p>
+                                <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">Status: Pending</p>
+                                <p class="search">View Profile</p>
+                                </a>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Notification bell -->
+        <div style="min-width: 100px;" class ="notifications">
+            <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
+        </div>
+        <!-- <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; src="default-avatar.jpeg"></a> -->
+        <!-- (Delete with MVP!!!) Debug user ID display -->
+        <div class="logout">
+            <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+            <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+        </div>
+        <!-- Logout button -->
+        <div class="logout">
+            <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+                <p><input type="submit" id="Logout" value="Logout"/></p>
+            </form>
+        </div>
+    </nav>
 
-        <p>This will be the Direct Messages page.</p>
-
+      
+      <div class="DMcontainer">
+        <h1>
+          <div class="body1">
+          <div class="text">
+            <div class="string">Direct&nbsp;Messages</div>
+        </div>
+      </h1>
+        <ul id='friend-list' th:each="friend: ${friends}">
+            <li class='friend'>
+              <img src='default-avatar.jpeg' />
+              <form action="/messages" method="get">
+                <p><input type="submit" id="DM" value="DM" /></p>
+              </form>
+              <div class='name'>
+                <li class='friend' th:text="${friend.username}">
+                </li>
+              </div>
+            </li>
+        </ul>
       </div>
     </body>
 </html>

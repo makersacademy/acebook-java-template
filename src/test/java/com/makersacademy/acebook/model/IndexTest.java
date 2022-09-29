@@ -51,7 +51,7 @@ public class IndexTest {
         driver.findElement(By.className("submit-btn")).click();
 
         driver.get("http://localhost:8080/posts");
-        Assert.assertEquals("Profile",
+        Assert.assertEquals("Posts",
                 driver.findElement(By.tagName("p")).getText());
     }
 }
