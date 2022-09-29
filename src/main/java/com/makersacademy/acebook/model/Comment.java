@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "COMMENTS")
-public class Comment {
+public class Comment implements Comparable<Comment> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -129,6 +129,14 @@ public class Comment {
         DateTimeFormatter format_t = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // format to extract
         String t = date.format(format_t);
         return t;
+    }
+
+    @Override
+    public int compareTo(Comment o) {
+        if (this.date == null || o.getDate() == null) {
+            return 0;
+        }
+        return this.date.compareTo(o.getDate());
     }
 
 }
