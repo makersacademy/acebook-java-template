@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
     </style>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>Acebook</title>
   </head>
   <body> 
@@ -52,7 +52,7 @@
                 <!-- ALL USERS -->
                 <li class="nav-item">
                     <a class="nav-link" href="/allUsers">
-                      <button class="btn-1">
+                      <button class="btn-2">
                         <i class="nav-icons bi bi-people-fill"></i>USERS
                       </button>
                     </a>
@@ -66,10 +66,10 @@
                     </a>
               </li>
 
-                              <!-- Requests -->
+              <!-- Requests -->
               <li class="nav-item">
                   <a class="nav-link" href="/friends/requests">
-                    <button class="btn-2">
+                    <button class="btn-1">
                       <i class="nav-icons bi bi-inbox-fill"></i>REQUESTS
                     </button>
                   </a>
@@ -88,22 +88,22 @@
 
         </div>
     </nav>
-<br>
-    <!-- ALL USERS -->
-      <ul class='display_block' th:each="user: ${result}">
+
+    <!-- ALL Requests -->
+      <ul class='display_block' th:each="requests: ${requests}">
         <div class="wrapper-flex">
           <div class="users-container">
             <div class='banner-img-users'></div>
             <img src='https://picsum.photos/200' alt='profile image' class="profile-img">
-            <!-- <img src='th:src="@{${user.photosImagePath}}' alt='' class="profile-img"> -->
 
-            <h1 class="name" th:text="${user.username}"></h1>
+            <h1 class="name" th:text="${requests[1]}"></h1>
             <p class="description">Let's be friends!</p>
 
             <!-- @{/comments/post?postid={id}(id=${post.id})} -->
-            <form th:action="@{/users/addfriend?userid={id}(id=${user.id})}" th:object="${friend}" method="post">
-            <button type='submit' class='btn'>Add Friend</button>
-            </form>
+            <!-- th:href="@{/posts/like?postid={id}(id=${post.id})}" -->
+            <a th:href="@{/request/acceptFriend?requestid={id}(id=${requests[0]})}">Accept Friend</a>
+            <br>
+            <a th:href="@{/request/declineFriend?requestid={id}(id=${requests[0]})}">Reject Friend</a>
           </div>
         </div>
       </ul>

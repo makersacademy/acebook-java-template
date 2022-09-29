@@ -1,15 +1,25 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.FriendsRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +40,15 @@ public class UsersController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    FriendsRepository friendsRepository;
+
+    private Long getUserId() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        Long id = userRepository.findByUsername(authentication.getName()).getId();
+        return id;
+    }
 
     PasswordEncoder passwordEncoder;
 
@@ -66,8 +85,39 @@ public class UsersController {
 
     @GetMapping("/allUsers")
     public String allUsers(Model model) {
+        // List<BigInteger> allUserIds = new ArrayList<BigInteger>();
+
+        // for (User user : users) {
+        // allUserIds.add(BigInteger.valueOf(user.getId()));
+        // }
+
+        // System.out.println(allUserIds);
+
+        // Iterable<Object[]> requestsRecieved =
+        // userRepository.requestsSentByOtherUsers(allUserIds, getUserId());
+
+        // iterate over all users and find the ones who have sent a friend request
+
         Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
+        List<User> result = new ArrayList<User>();
+        Iterable<BigInteger> pendingFriends = friendsRepository.pendingFriends(getUserId());
+        List<BigInteger> pendingIds = new ArrayList<BigInteger>();
+        pendingFriends.forEach(pendingIds::add);
+        users.forEach(result::add);
+        result.removeIf(u -> pendingIds.contains(BigInteger.valueOf(u.getId())));
+
+        // users.forEach(user -> {
+        // System.out.println(user);
+        // });
+
+        // get user id (logged in user)
+        // get potential friend user id -> stored in the html file
+        // add those to the requestSent method to check whether request has been sent
+        // return 'Add Friend' link if request not sent
+        // return 'Request Sent' string if request has been sent
+        model.addAttribute("result", result);
+        model.addAttribute("friend", new Friend());
         return "users/all";
     }
+
 }
