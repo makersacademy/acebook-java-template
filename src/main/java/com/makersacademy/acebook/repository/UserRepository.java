@@ -64,7 +64,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value = "UPDATE friends SET request_status = 'accepted' WHERE (requester_id = ?1 AND requestee_id = ?2) OR (requestee_id = ?1 AND requester_id = ?2) AND request_status = 'pending'", nativeQuery = true)
   void addAsFriends(Long requesterId, Long requesteeId);
 
-  // For update/delete custom queries, need @Transactional annotation
   @Transactional
   @Modifying
   @Query(value = "UPDATE friends SET request_status = 'blocked' WHERE (requester_id = ?1 AND requestee_id = ?2) OR (requestee_id = ?1 AND requester_id = ?2)", nativeQuery = true)

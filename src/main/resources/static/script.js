@@ -59,10 +59,10 @@ function getSearchDropdown() {
 function filterFunction() {
   var input, filter, ul, li, a, i;
   var inputCount = document.getElementById("myInput").value.length;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("searchDropdown");
-  a = div.getElementsByClassName("searchwrapper");
+  var input = document.getElementById("myInput");
+  var filter = input.value.toUpperCase();
+  var div = document.getElementById("searchDropdown");
+  var a = div.getElementsByClassName("searchwrapper");
   div.style.display = "none";
   if (inputCount > 0) {
     for (i = 0; i < a.length; i++) {
@@ -77,6 +77,11 @@ function filterFunction() {
   }
 }
 
-function scrollSearches() {
-
+function toggleProfileEdit(profileDetailsColumn) {
+  var editField = document.getElementById(profileDetailsColumn);
+  if (editField.style.display == "") {
+    editField.style.display = "none";
+  } else if (editField.style.display == "none") {
+    editField.style.display = "";
+  }
 }
