@@ -1,46 +1,84 @@
 nav {
     display: flex;
     justify-content: center;
-    /* gap determines spacing between elements on nav bar */
-    gap: 15px;
-    /* No top margin was giving a big space */
-    margin-top: -8px;
-    /* Padding-inline indents elements from the left */
-    padding-inline: 50px;
     position: fixed;
-    /* overflow determines how contained elements will change when the container is resized */
-    /* overflow: hidden; */
     top: 0;
     height: 45px;
-    padding-top: -10px;
-    margin-left: -8px;
     width: 100%;
-    /* z-index determines stacking order of elements on a page, lowering the number brings to the front */
+    margin-top: -8px;
+    margin-left: -8px;
+    /* Padding-inline indents elements from the left */
+    padding-top: -10px;
+    padding-inline: 50px;
+    /* gap determines spacing between elements on nav bar with flex */
+    gap: 15px;
+    /* z-index determines stacking order of elements on a page, increasing the number brings to the front */
     z-index: 0;
-    /* Color set to dark orange */
     background-color: rgb(222, 124, 4);
     border: 3px solid rgb(159, 89, 2);
 }
 
+body {
+    padding-top: 25px;
+    background-color: rgb(70, 68, 64);
+}
+
+/* Wrapper for top-left logo (so it doesn't stick out) */
 .logowrapper {
     overflow: hidden;
 }
 
-/* Razvan's */
+/* Razvan's (temporarily commented out!) */
 /* .container { */
     /* max-width: 1140px; */
     /* margin: auto; */
 /* } */
 
 .container {
+    overflow: hidden;
     height: 100%;
-    border: 5px solid rgb(159, 89, 2);
-    background-color: rgb(251, 211, 136);
     margin-left: -8px;
     margin-right: -8px;
-    overflow: hidden;
+    border: 5px solid rgb(159, 89, 2);
+    background-color: rgb(251, 211, 136);
 }
 
+/* Logo sizing */
+img.logo {
+    height: 90px;
+    margin-top: -22px;
+    margin-right: 50px;
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 0;
+	padding-left: 0;
+    margin: auto;
+}
+
+p {
+    white-space: nowrap;
+}
+
+/* Resize search bar placeholder text */
+p.search {
+    font-size: 14px;
+}
+
+p.searchtext {
+    margin-top: -1px;
+    padding-right: -59px;
+    margin-bottom: -50px;
+    font-size: 14px;
+}
+
+/* Gets rid of underline for hyperlinks */
+a:link {
+    text-decoration: none;
+}
+
+/* Spaces buttons correctly on Friends page */
 button.with-margin {
     margin-top: 5px;
 }
@@ -74,11 +112,6 @@ button.with-margin {
     text-align: center;
 }
 
-body {
-    padding-top: 25px;
-    background-color: rgb(70, 68, 64);
-}
-
 .posts-main {
     border-collapse: collapse;
 }
@@ -90,7 +123,6 @@ body {
     margin-bottom: 0.5rem;;
     margin: auto;
 }
-
 
 .myPosts {
     max-width: 526px;
@@ -182,32 +214,14 @@ body {
     border-bottom: 20px solid rgba(159, 88, 2);
 }
 
+/* Applied to logout button and debug user ID display (currently fixed) */
 .logout {
     position:fixed;
     right:10px;
     top:5;
 }
 
-ul {
-    list-style-type: none;
-    margin-left: 0;
-	padding-left: 0;
-    margin: auto;
-}
-
-p {
-    white-space: nowrap;
-}
-
-p.search {
-    font-size: 14px;
-}
-
-a:link {
-    /* gets rid of underline for hyperlinks */
-    text-decoration: none;
-}
-
+/* Container for icons on Friends page */
 .icons-container {
     display: flex;
     flex-wrap: wrap;
@@ -221,6 +235,7 @@ a:link {
     background-color: rgb(246, 172, 82);
 }
 
+/* Icon properties for Friends page */
 .icon {
     flex: 1 0 21%;
     border:1px solid rgb(202, 202, 202);
@@ -230,21 +245,18 @@ a:link {
     min-width: 175px;
 }
 
-/* In-page tab styling */
+/* In-page tab styling for Friends page */
 .tab {
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    overflow: hidden;
-    /* border: 1px solid #ccc; */
     margin-left: -5px;
-    /* margin-left: 11px; */
     margin-right: -5px;
-    /* margin-right: 11px; */
     border: 2px solid rgb(159, 89, 2);
     background-color: rgb(222, 124, 4);
 }
   
-/* Tab buttons styling */
+/* Tab buttons styling on Friends page*/
 .tab button {
     background-color: inherit;
     float: left;
@@ -255,18 +267,16 @@ a:link {
     transition: 0.3s;
 }
   
-/* Change background color of buttons on hover */
 .tab button:hover {
     background-color: #ddd;
 }
   
-/* Create an active/current tablink class */
+/* Properties for active tab on Friends page */
 .tab button.active {
     background-color: #ccc;
 }
   
-/* Style the tab content */
-/* Took out animation for now, makes page twitchy */
+/* Closed tabs on Friends page */
 .tabcontent {
     display: none;
     padding: 6px 12px;
@@ -274,6 +284,7 @@ a:link {
     border-top: none;
 }
 
+/* Tooltip styling */
 .tooltip span {
     display:none;
 }
@@ -285,14 +296,9 @@ a:link {
 }
 
 /* Below is for dropdown menus */
-
 #myInput {
     box-sizing: border-box;
-    background-image: url('searchicon.png');
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
     font-size: 10px;
-    /* padding: 14px 20px 12px 45px; */
     border: 2px solid rgb(159, 89, 2);
     border-bottom: 1px solid #ddd;
 }
@@ -300,12 +306,11 @@ a:link {
 #myInput:focus {outline: 1px solid rgb(159, 89, 2);}
 
 .dropdown-content {
+    overflow: auto;
     display: none;
     background-color: #f6f6f6;
     margin-left: 32px;
-    /* min-width: 30px; */
-    max-width: 227px;
-    overflow: auto;
+    max-width: 237px;
     border: 1px solid #ddd;
 }
 
@@ -316,12 +321,9 @@ a:link {
     display: block;
 }
 
-/* .dropdown-item a:hover {background-color: rgb(221, 221, 221);} */
-
 .show {display: block;}
 
 .dropdown-item {
-    /* border: 1px solid rgb(70, 68, 64); */
     margin: 3px;
 }
 
@@ -333,6 +335,61 @@ span.search:hover {
     background-color: #ddd;
 }
 
+.searchbar {
+    min-width: 268px;
+    max-width: 268px;
+    overflow: hidden;
+}
+
+input.searchbar {
+    margin-left: 32px;
+    margin-top: 18px;
+    width: 230px;
+}
+
+.searchitem {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+a.searchitem {
+    position: absolute;
+    display: block;
+    width: 190px;
+    height: 100px;
+}
+
+.searchwrapper {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+.searchavatar {
+    display: flex;
+    height: 53px;
+    width: 53px;
+    margin-right: 0px;
+}
+
+image.searchavatar {
+    height: 53px;
+    width: 53px;
+}
+
+.searchtext {
+    display: flex;
+    justify-content: end;
+    text-align: right;
+    padding-top:-50px;
+    margin-left: 0px;
+    height: 53px;
+    width: 100%;
+}
+
+/* Notifications bell/bar */
 .notifications {
     text-align: right;
 }
