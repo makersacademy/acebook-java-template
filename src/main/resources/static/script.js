@@ -1,3 +1,14 @@
+// This is so search bar doesn't close when clicking on user
+// var safeToBlur;
+
+// function setSafeToBlurTrue() {
+//   safeToBlur = true;
+// }
+// function setNotSafeToBlurTrue() {
+//   safeToBlur = false;
+// }
+
+// For opening and closing tabs on friends page
 function openTab(event, tabName) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -35,3 +46,24 @@ function cleanFriendsOfFriends() {
     div.remove();
   }
 }
+<<<<<<< HEAD
+=======
+
+// Make tool tip appear on mouse hover
+var tooltipSpan = document.getElementById('tooltip-span');
+window.onmousemove = function (e) {
+  var x = e.clientX,
+      y = e.clientY;
+  tooltipSpan.style.top = (y + 20) + 'px';
+  tooltipSpan.style.left = (x + 20) + 'px';
+};
+
+function getSearchDropdown() {
+  function show() {
+    document.getElementById("searchDropdown").classList.toggle("show");
+  }
+  // if (onmouseup) {
+    setTimeout(show, 120);
+  // }
+}
+>>>>>>> main

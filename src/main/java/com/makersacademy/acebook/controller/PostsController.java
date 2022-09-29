@@ -8,6 +8,7 @@ import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.repository.CommentRepository;
+import com.makersacademy.acebook.services.FriendsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +33,9 @@ public class PostsController {
     
     @Autowired
     LikeRepository likerepository;
+
+    @Autowired
+    FriendsService friendsService;
 
     @Autowired
     CommentRepository comrepository;
@@ -61,6 +65,13 @@ public class PostsController {
         Iterable<Comment> comments = comrepository.findAll();
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+
+        // Get friends service (for friends methods)
+        model.addAttribute("friendsservice", friendsService);
+        // Get user object
+        model.addAttribute("user", new User());
+        // Get non-blocked users (for search bar)
+        model.addAttribute("allusers", userRepository.getNonBlockedUsers(ID));
 
         return "posts/index";
     }
