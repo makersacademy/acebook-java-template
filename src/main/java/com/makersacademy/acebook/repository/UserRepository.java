@@ -53,9 +53,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
   // Can either use this or .save with a FriendshipRepository
   // @Modifying annotation is for queries that don't return a result set
+  @Transactional
   @Modifying
-  @Query(value = "INSERT INTO friends (requester_id, requestee_id, request_status) VALUES (?1, ?2, 'pending')", nativeQuery = true)
-  void addFriendRequest(Long requesterId, Long requesteeId);
+  @Query(value = "INSERT INTO friends (requester_id, requestee_id, request_status, low_id, high_id) VALUES (?1, ?2, 'pending', ?3, ?4)", nativeQuery = true)
+  void addFriendRequest(Long requesterId, Long requesteeId, Long lowId, Long highId);
 
   // For update/delete custom queries, need @Transactional annotation
   @Transactional

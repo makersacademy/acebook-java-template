@@ -57,10 +57,11 @@ public class PostsController {
         model.addAttribute("likes", likes);
         model.addAttribute("like", new Post());
 
-
-        // Get non-blocked users (for search bar)
+        // Get friends service (for friends methods)
         model.addAttribute("friendsservice", friendsService);
+        // Get user object
         model.addAttribute("user", new User());
+        // Get non-blocked users (for search bar)
         model.addAttribute("allusers", userRepository.getNonBlockedUsers(ID));
 
         return "posts/index";

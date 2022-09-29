@@ -5,6 +5,7 @@
         <meta charset="UTF-8"/>
         <title>Winklevoss</title>
         <link rel="stylesheet" href="/main.css" />
+        <script type="text/javascript" src="/script.js"></script>
     </head>
     <body>
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
@@ -16,15 +17,34 @@
             <nav> <!-- nav bar - subject to change -->
                 <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
                 <a href="/posts"><p>Posts</p></a>
-                <a href="/profile"><p>Profile</p></a>
+                <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
                 <a><p>My Wall</p></a>
                 <a href="/friends"><p>Friends</p></a>
                 <!-- <a href="/groups"><p>Groups</p></a> -->
                 <!-- <a href="/events"><p>Events</p></a> -->
                 <a href="/messages"><p>Messages</p></a>
-                <form>
-                  <input style="margin-left: 42px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
-                </form>
+                <div title="Search users">
+                  <div style="min-width: 268px; max-width: 268px; overflow: hidden;">
+                  <input style="margin-left: 32px; margin-top: 18px; width: 230px;" type="text" placeholder="Search..." id="myInput" class="search" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+                  </div>
+                  <!-- Search dropdown menu -->
+                  <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
+                      <div th:each="user: ${allusers}" class="dropdown-item">
+                          <span class="search">
+                          <div style="display: flex; flex-direction: row; gap: 0px;">
+                              <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
+                                  <img style="height: 53px;" src="default-avatar.jpeg"><a th:href="'/profile/' + ${user.username}">
+                              </div>
+                              <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
+                                  <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
+                                  <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
+                                  <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
+                              </div>
+                          </div>
+                          </span>
+                      </div>
+                  </div>
+              </div>
                 <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
                 <div class="logout">
                   <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
