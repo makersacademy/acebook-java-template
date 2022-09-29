@@ -1,12 +1,5 @@
-// This is so search bar doesn't close when clicking on user
-// var safeToBlur;
-
-// function setSafeToBlurTrue() {
-//   safeToBlur = true;
-// }
-// function setNotSafeToBlurTrue() {
-//   safeToBlur = false;
-// }
+// import jQuery from "jquery";
+// window.$ = window.jQuery = jQuery;
 
 // For opening and closing tabs on friends page
 function openTab(event, tabName) {
@@ -60,23 +53,30 @@ function getSearchDropdown() {
   function show() {
     document.getElementById("searchDropdown").classList.toggle("show");
   }
-  // if (onmouseup) {
-    setTimeout(show, 120);
-  // }
+  setTimeout(show, 120);
 }
 
 function filterFunction() {
   var input, filter, ul, li, a, i;
+  var inputCount = document.getElementById("myInput").value.length;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   div = document.getElementById("searchDropdown");
   a = div.getElementsByClassName("searchwrapper");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
+  div.style.display = "none";
+  if (inputCount > 0) {
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        div.style.display = "";
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
     }
   }
+}
+
+function scrollSearches() {
+
 }
