@@ -26,9 +26,19 @@ nav {
     overflow: hidden;
 }
 
+/* Razvan's */
+/* .container { */
+    /* max-width: 1140px; */
+    /* margin: auto; */
+}
+
 .container {
-    max-width: 1140px;
-    margin: auto;
+    height: 100%;
+    border: 5px solid rgb(159, 89, 2);
+    background-color: rgb(251, 211, 136);
+    margin-left: -8px;
+    margin-right: -8px;
+    overflow: hidden;
 }
 
 button.with-margin {
@@ -67,15 +77,6 @@ button.with-margin {
 body {
     padding-top: 25px;
     background-color: rgb(70, 68, 64);
-}
-
-.container {
-    height: 100%;
-    border: 5px solid rgb(159, 89, 2);
-    background-color: rgb(251, 211, 136);
-    margin-left: -8px;
-    margin-right: -8px;
-    overflow: hidden;
 }
 
 .posts-main {
