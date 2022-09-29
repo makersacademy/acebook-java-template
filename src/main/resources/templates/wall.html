@@ -24,17 +24,21 @@
                 <div class="searchbar">
                     <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
                 </div>
-                <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content">
+                <div id="searchDropdown" class="dropdown-content">
                     <div th:each="user: ${allusers}" class="dropdown-item">
                         <span class="search">
                             <div class="searchwrapper">
-                                <div class="searchavatar" th:href="'/profile/' + ${user.username}">
-                                    <img class="searchavatar" th:src="@{/default-avatar.jpeg}"><a th:href="'/profile/' + ${user.username}">
+                                <a class="searchitem" th:href="'/profile/' + ${user.username}"></a>
+                                <div class="searchavatar">
+                                    <img class="searchavatar" th:src="@{/default-avatar.jpeg}">
+                                    <p style="margin-left: 11px; margin-top: 18.5px;" th:text="${user.username}" class="search"></p></a>
                                 </div>
-                                <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
-                                    <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
-                                    <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
-                                    <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
+                                <div class="searchtext">
+                                    <a th:href="'/profile/' + ${user.username}">
+                                    <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}">Status: Friends</p>
+                                    <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">Status: Pending</p>
+                                    <p class="search">View Profile</p>
+                                    </a>
                                 </div>
                             </div>
                         </span>

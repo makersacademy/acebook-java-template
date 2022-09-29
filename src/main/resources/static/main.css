@@ -66,6 +66,13 @@ p.search {
     font-size: 14px;
 }
 
+p.searchtext {
+    margin-top: -1px;
+    padding-right: -59px;
+    margin-bottom: -50px;
+    font-size: 14px;
+}
+
 /* Gets rid of underline for hyperlinks */
 a:link {
     text-decoration: none;
@@ -291,9 +298,6 @@ button.with-margin {
 /* Below is for dropdown menus */
 #myInput {
     box-sizing: border-box;
-    background-image: url('searchicon.png');
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
     font-size: 10px;
     border: 2px solid rgb(159, 89, 2);
     border-bottom: 1px solid #ddd;
@@ -305,9 +309,8 @@ button.with-margin {
     overflow: auto;
     display: none;
     background-color: #f6f6f6;
-    /* padding-top: -10px; */
     margin-left: 32px;
-    max-width: 227px;
+    max-width: 237px;
     border: 1px solid #ddd;
 }
 
@@ -345,23 +348,45 @@ input.searchbar {
 }
 
 .searchitem {
-    display: flex; flex-direction: row; gap: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+a.searchitem {
+    position: absolute;
+    display: block;
+    width: 190px;
+    height: 100px;
 }
 
 .searchwrapper {
-    display: flex; flex-direction: row; gap: 0px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
 }
 
 .searchavatar {
     display: flex;
     height: 53px;
-    width: 20px;
+    width: 53px;
     margin-right: 0px;
 }
 
 image.searchavatar {
     height: 53px;
     width: 53px;
+}
+
+.searchtext {
+    display: flex;
+    justify-content: end;
+    text-align: right;
+    padding-top:-50px;
+    margin-left: 0px;
+    height: 53px;
+    width: 100%;
 }
 
 /* Notifications bell/bar */
