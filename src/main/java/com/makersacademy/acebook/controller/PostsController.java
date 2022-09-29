@@ -26,6 +26,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.io.*;
@@ -72,8 +73,20 @@ public class PostsController {
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll(Sort.by(Sort.Direction.DESC, "id")); // filtering by id
         // User user = userRepository.findById(post.getUser_id()).get();\
+        List<User> friends = userRepository.findFriends(getUserId());
+        List<Post> filteredPosts = new ArrayList<Post>();
+
+        posts.forEach(filteredPosts::add);
+        List<Long> friendId = new ArrayList<Long>();
+
+        for (User friend : friends){
+            friendId.add(friend.getId());
+        }
+
+        filteredPosts.removeIf(post -> !friendId.contains(post.getUser_id()) && post.getUser_id() != getUserId());
+
         model.addAttribute("repo", repository);
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", filteredPosts);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
