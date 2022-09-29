@@ -41,7 +41,7 @@ public class FriendsController {
 
  @GetMapping("/friends")
  public String friends(Model model) {
-  Iterable<Object[]> friends = repository.findFriends(getUserId());
+  Iterable<User> friends = userRepository.findFriends(getUserId());
   model.addAttribute("friends", friends);
   model.addAttribute("friend", new Friend());
   return "friends";
