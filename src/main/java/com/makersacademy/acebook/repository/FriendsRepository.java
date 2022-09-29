@@ -10,7 +10,7 @@ import com.makersacademy.acebook.model.User;
 
 public interface FriendsRepository extends CrudRepository<Friend, Long> {
 
- @Query(value = "SELECT users.username, friends.request_to FROM users INNER JOIN friends ON users.id = friends.request_to WHERE request_from = ?1", nativeQuery = true)
+ @Query(value = "SELECT users.id FROM users INNER JOIN friends ON users.id = friends.request_to WHERE request_from = ?1", nativeQuery = true)
  Iterable<BigInteger> pendingFriends(Long request_from);
 
  // @Query(value = "SELECT users.username, likes.formatted_date,
@@ -20,7 +20,8 @@ public interface FriendsRepository extends CrudRepository<Friend, Long> {
  @Query(value = "SELECT friends.id request_id, users.username FROM users INNER JOIN friends ON users.id = friends.request_from WHERE friends.request_to = ?1 AND friends.status_code = FALSE", nativeQuery = true)
  Iterable<Object[]> pendingFriendsTo(Long request_to);
 
- @Query(value = "SELECT users.username FROM users INNER JOIN friends ON users.id = friends.request_from WHERE friends.status_code = TRUE AND friends.request_to = 6 UNION SELECT users.username FROM users INNER JOIN friends ON users.id = friends.request_to WHERE friends.status_code = TRUE AND friends.request_from = 6", nativeQuery = true)
+ @Query(value = "SELECT users.username FROM users INNER JOIN friends ON users.id = friends.request_from WHERE friends.status_code = TRUE AND friends.request_to = ?1 UNION SELECT users.username FROM users INNER JOIN friends ON users.id = friends.request_to WHERE friends.status_code = TRUE AND friends.request_from = ?1", nativeQuery = true)
  Iterable<Object[]> findFriends(Long userid);
 
+ void deleteById(Long requestId);
 }
