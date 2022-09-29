@@ -1,26 +1,7 @@
 -- This file must be named 'data.sql' and will be used to populate test database when using @Entity (JPA) for tests
 
--- This is seed data for users table
-TRUNCATE TABLE "users" RESTART IDENTITY CASCADE;
-
--- These are the unencrypted passwords:
-
--- INSERT INTO "users" ("username", "password", "enabled") VALUES
--- ('Benjamin', 'helloworld78', 'true'),
--- ('Chris', '12345678@', 'true'),
--- ('Sophia', 'Fabulous44', 'true'),
--- ('Xiaoyu', 'tekkenrules99', 'true'),
--- ('Walter White', 'ihatemywife123', 'true'),
--- ('Timothy', 'timtamareyum123', 'true'),
--- ('Dave The Rave', 'illegalusernamelul55', 'true'),
--- ('Yasmin', 'QuEeNyAsMiN01', 'true'),
--- ('Scarlet', 'istomponurcorpse777', 'true'),
--- ('Aoife', 'itspronouncedeefa!!!', 'true'),
--- ('Eoin', 'itspronouncedowen!!!', 'true'),
--- ('Mario', 'itsamemario!', 'true');
-
 -- These are the encrypted passwords:
-
+-- This is seed data for users table
 INSERT INTO "users" ("username", "password", "enabled") VALUES
 ('Benjamin', '$2a$10$Q2SOVeeMsS12GcQfYGma6OwlAT/MeYO3QHIgOCCBWOBDU0q0EKHY6', 'true'),
 ('Chris', '$2a$10$psnEupfHrjS.oV5dQAy2yuVopl2K.6ComU2o5HDVgz47IMbyXJjwK', 'true'),
@@ -34,6 +15,16 @@ INSERT INTO "users" ("username", "password", "enabled") VALUES
 ('Aoife', '$2a$10$4XYHuQmKp4R5/ZCXRakQauGPQ40B2S0zP6udL0oKc3DzFB09ldj46', 'true'),
 ('Eoin', '$2a$10$rxnvRWqMnkDlV/smgj6aHe77ET3HB9rC.4kZGUf7Uqm.Oputl2Am6', 'true'),
 ('Mario', '$2a$10$248UWI9RG4m.pXbWhTlZ4eGW51E1vUuLRfmIZV2thqOjefFbXkcIa', 'true');
+
+-- This is seed data for posts table
+TRUNCATE TABLE "posts" RESTART IDENTITY CASCADE;
+
+INSERT INTO "posts" ("title", "content", "time_posted", "user_id") VALUES
+('Title 1', 'Content 1', '2022-09-27 14:13:41.531', '1'),
+('Title 2', 'Content 2', '2022-09-27 14:13:41.531', '2'),
+('Title 3', 'Content 3', '2022-09-27 14:13:41.531', '3'),
+('Title 3', 'Content 3', '2022-09-27 14:13:41.531', '2'),
+('Title 3', 'Content 3', '2022-09-27 14:13:41.531', '1');
 
 -- This is seed data for friends table
 TRUNCATE TABLE "friends" RESTART IDENTITY CASCADE;
@@ -68,3 +59,12 @@ INSERT INTO "authorities" ("username", "authority") VALUES
 ('Aoife', 'ROLE_USER'),
 ('Eoin', 'ROLE_USER'),
 ('Mario', 'ROLE_USER');
+
+-- This is seed data for comments table
+TRUNCATE TABLE "comments" RESTART IDENTITY CASCADE;
+
+INSERT INTO "comments" ("content", "userid", "postid", "time_posted") VALUES
+('You look nice', '1', '1', '2022-09-27 14:13:41.531'),
+('Very nice post', '1', '1', '2022-09-27 14:15:41.531'),
+('Could not agree more with you!', '1', '1', '2022-09-25 14:13:41.531'),
+('I think I would have done the same in your shoes.', '3', '1', '2022-09-24 14:13:45.551');
