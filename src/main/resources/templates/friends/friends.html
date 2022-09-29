@@ -9,18 +9,42 @@
     </head>
     <body>
       <nav> <!-- nav bar - subject to change -->
-        <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+        <div class="logowrapper">
+          <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
+        </div>
         <a href="/posts"><p>Posts</p></a>
-        <a href="/profile"><p>Profile</p></a>
+        <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
         <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
         <a><p>Friends</p></a>
         <!-- <a href="/groups"><p>Groups</p></a> -->
         <!-- <a href="/events"><p>Events</p></a> -->
         <a href="/messages"><p>Messages</p></a>
-        <form>
-          <input style="margin-left: 42px; margin-top: 15px; width: 230px;" type="search" placeholder="Search">
-        </form>
-        <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
+        <div title="Search users">
+          <div style="min-width: 268px; max-width: 268px; overflow: hidden;">
+          <input style="margin-left: 32px; margin-top: 18px; width: 230px;" type="text" placeholder="Search..." id="myInput" class="search" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+          </div>
+          <!-- Search dropdown menu -->
+          <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
+              <div th:each="user: ${allusers}" class="dropdown-item">
+                  <span class="search">
+                  <div style="display: flex; flex-direction: row; gap: 0px;">
+                      <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
+                          <img style="height: 53px;" src="default-avatar.jpeg"><a th:href="'/profile/' + ${user.username}">
+                      </div>
+                      <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
+                          <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
+                          <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
+                          <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
+                      </div>
+                  </div>
+                  </span>
+              </div>
+          </div>
+        </div>
+        <div style="min-width: 100px;" class ="notifications">
+          <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
+        </div>
+        <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; src="default-avatar.jpeg"></a>
         <div class="logout">
           <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
           <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
@@ -143,15 +167,15 @@
             <div id="0" class="icons-container">
               <ul th:each="friend: ${friendsfriends}">
                 <div th:id="${friend.id}" class="icon">
-                  <span th:text="${mutualfriendsservice.setId(friend.id)}"></span>
+                  <span th:text="${friendsservice.setId(friend.id)}"></span>
                   <li th:text="${friend.username}" />
                   <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
                   <p style="margin: 0px;">Mutual Friends:</p>
-                  <span th:text="${mutualfriendsservice.resetCount()}"></span>
-                  <ul th:each="friend: ${mutualfriendsservice.getMutualFriends(id, friend.id)}">
-                    <span th:unless="${mutualfriendsservice.getRequestStatus(friend.id, id) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(id, friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'blocked' or mutualfriendsservice.getRequestStatus(friend.id, mutualfriendsservice.getId()) == 'pending'} or ${mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'blocked' or mutualfriendsservice.getRequestStatus(mutualfriendsservice.getId(), friend.id) == 'pending'}">
+                  <span th:text="${friendsservice.resetCount()}"></span>
+                  <ul th:each="friend: ${friendsservice.getMutualFriends(id, friend.id)}">
+                    <span th:unless="${friendsservice.getRequestStatus(friend.id, id) == 'blocked' or friendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${friendsservice.getRequestStatus(id, friend.id) == 'blocked' or friendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'blocked' or friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'pending'} or ${friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'blocked' or friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'pending'}">
                       <li th:text="${friend.username}" />
-                      <li th:text="${mutualfriendsservice.incrementCount()}" />
+                      <li th:text="${friendsservice.incrementCount()}" />
                     </span>
                   </ul>
                   <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
@@ -166,7 +190,7 @@
                     <button class="with-margin" type="submit">Block</button>
                   </form>
                   <!-- Below is the syntax for putting thymeleaf expressions in javascript - this div delete method and the th:unless check above are a compromise for handling the complexity of friends of friends (need to check status between 2nd party and 3rd party) SQL would be unmanageable -->
-                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${mutualfriendsservice.getId()}]], [[${mutualfriendsservice.getCount()}]]*/);</script>
+                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${friendsservice.getId()}]], [[${friendsservice.getCount()}]]*/);</script>
                 </div>
               </ul>
             </div><br>

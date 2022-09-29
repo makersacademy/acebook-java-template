@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import com.makersacademy.acebook.services.MutualFriendsService;
+import com.makersacademy.acebook.services.FriendsService;
 
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.model.Friendship;
@@ -27,14 +27,14 @@ public class FriendsController {
   FriendshipRepository friendshipRepository;
 
   @Autowired
-  MutualFriendsService mutualFriendsService;
+  FriendsService friendsService;
 
   @GetMapping("/friends")
   public String friends(Model model, HttpSession session) {
     // Get (session) user ID
-    Long userID = Long.parseLong(session.getAttribute("id").toString());
-    model.addAttribute("id", userID);
-    User currentUser = userRepository.findById(userID).get();
+    Long userId = Long.parseLong(session.getAttribute("id").toString());
+    model.addAttribute("id", userId);
+    User currentUser = userRepository.findById(userId).get();
     model.addAttribute("currentuser", currentUser);
 
     ///
@@ -44,13 +44,18 @@ public class FriendsController {
 
     ///
 
+    // Get all users (for search bar)
+    model.addAttribute("allusers", userRepository.getNonBlockedUsers(userId));
+
+    ///
+
     // Add MutualFriends service (to call methods in TL)
-    model.addAttribute("mutualfriendsservice", mutualFriendsService);
+    model.addAttribute("friendsservice", friendsService);
 
     ///
 
     // Get friends
-    Iterable<User> friends = userRepository.getFriends(userID);
+    Iterable<User> friends = userRepository.getFriends(userId);
     // Count friends, only return if not 0. Send count to TL for "You haven't made any friends yet." message conditional
     int friendCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
@@ -61,7 +66,7 @@ public class FriendsController {
     ///
 
     // Get incoming friend requests
-    Iterable<User> incomingReqs = userRepository.getIncomingFriendRequests(userID);
+    Iterable<User> incomingReqs = userRepository.getIncomingFriendRequests(userId);
     // Count incoming requests, only return if not 0. Send count to TL for "No incoming requests" message conditional
     int inReqCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
@@ -72,7 +77,7 @@ public class FriendsController {
     ///
 
     // Get outgoing friend requests
-    Iterable<User> outgoingReqs = userRepository.getOutgoingFriendRequests(userID);
+    Iterable<User> outgoingReqs = userRepository.getOutgoingFriendRequests(userId);
     // Count outgoing requests, only return if not 0. Send count to TL for "No outgoing requests" message conditional
     int outReqCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
@@ -83,7 +88,7 @@ public class FriendsController {
     ///
 
     // Get new users (strangers for browse users)
-    Iterable<User> strangers = userRepository.getStrangers(userID);
+    Iterable<User> strangers = userRepository.getStrangers(userId);
     // Count strangers, only return if not 0. Send count to TL for "No outgoing requests" message conditional
     int strangerCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
@@ -94,7 +99,7 @@ public class FriendsController {
     ///
 
     // Get friends of friends (potential connections)
-    Iterable<User> friendsOfFriends = userRepository.getFriendsOfFriends(userID);
+    Iterable<User> friendsOfFriends = userRepository.getFriendsOfFriends(userId);
     // Count friends of friends, only return if not 0. Send count to TL for "No outgoing requests" message conditional
     int friendsOfFriendsCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")
@@ -105,7 +110,7 @@ public class FriendsController {
     ///
 
     // Get users blocked by current user (blocked users)
-    Iterable<User> blockedUsers = userRepository.getBlockedUsers(userID);
+    Iterable<User> blockedUsers = userRepository.getBlockedUsers(userId);
     // Count blocked users, only return if not 0. Send count to TL for "No blocked users" message conditional
     int blockedUsersCount = 0;
     // (Need user for enhanced for loop, even though it "is not used")

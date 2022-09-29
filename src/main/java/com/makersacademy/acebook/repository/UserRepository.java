@@ -48,11 +48,15 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value = "SELECT DISTINCT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND friends.request_status = 'blocked'", nativeQuery = true)
   Iterable<User> getBlockedUsers(Long userId);
 
+  @Query(value = "SELECT DISTINCT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND friends.request_status != 'blocked'", nativeQuery = true)
+  Iterable<User> getNonBlockedUsers(Long userId);
+
   // Can either use this or .save with a FriendshipRepository
   // @Modifying annotation is for queries that don't return a result set
+  @Transactional
   @Modifying
-  @Query(value = "INSERT INTO friends (requester_id, requestee_id, request_status) VALUES (?1, ?2, 'pending')", nativeQuery = true)
-  void addFriendRequest(Long requesterId, Long requesteeId);
+  @Query(value = "INSERT INTO friends (requester_id, requestee_id, request_status, low_id, high_id) VALUES (?1, ?2, 'pending', ?3, ?4)", nativeQuery = true)
+  void addFriendRequest(Long requesterId, Long requesteeId, Long lowId, Long highId);
 
   // For update/delete custom queries, need @Transactional annotation
   @Transactional
