@@ -18,3 +18,8 @@ function openTab(event, tabName) {
   document.getElementById(tabName).style.display = "block";
   event.currentTarget.className += "active";
 }
+// Used For DM functionality
+// Focus search form
+$("#js-show-search-form").click(function(e){
+  $(e.target).closest("form").find("input").focus();
+});

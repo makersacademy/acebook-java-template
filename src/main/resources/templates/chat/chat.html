@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Winklevoss</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="chat-container">
+              <div class="message">
+                <img class="avatar" src="https://placeimg.com/50/50/people?1">
+                <div class="datetime">23/03/2016 20:40</div>
+                <p>A message text</p>
+              </div>
+              <div class="message">
+                <img class="avatar" src="https://placeimg.com/50/50/people?2">
+                <div class="datetime">23/03/2016 20:40</div>
+                <p>A message text</p>
+              </div>
+            </div>
+            <form class="send-message-form">
+              <input type="text" placeholder="Your message">
+              <button type="submit">Send</button>
+            </form>
+          </div>
+    </body>
+</html>   

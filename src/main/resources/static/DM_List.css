@@ -1,0 +1,150 @@
+html, body {
+    font-family: sans-serif;
+    background-color:#de7c04c9;
+    width: 125%;
+    height: 100%;
+    margin: 0;
+    padding-top: 30px;
+  }
+  
+  #friend-list { 
+    display:block;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: 100%;
+    align-content: center;
+  }
+
+  ul {
+    display:inline-block;
+  }
+  li {
+    display:inline;
+    padding:0 50%; /* try adjusting the side % to give a feel of center aligned.*/
+  }
+  .friend {
+    width: 300px;
+    height: 60px;
+    background: #de7c04c9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-style: solid;
+  }
+  
+  .friend img {
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+    border: 2px solid rgb(150, 150, 150);
+    object-fit: cover;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+  }
+  
+  .friend .name {
+    font-size: 18px;
+  }
+  li  {
+    background: #de7c04c9;
+    display: inline-block;
+  }
+  .container{
+    border-style: solid;
+    border-width: 5px;
+    margin: auto;
+    width: 26%;
+    height: auto;
+    padding: 30px;
+    
+  }
+  
+  .friend.selected {
+    background: #43A047;
+    color: rgb(255, 255, 255);
+  }
+  
+  .friend.selected img {
+    border-color:#de7c04c9;
+  }
+  
+  .friend:not(.selected):hover {
+    background: #9a3e01;
+  }
+
+  @import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
+  html,
+  body {
+    font-family: 'Roboto Mono', monospace;
+    height: 100%;
+  }
+  
+  .text {
+    font-weight: 100;
+    font-size: 20px;
+    color: #000000;
+  }
+  .dud {
+    color: #757575;
+  }
+  
+  * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.body1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+.text {
+    position: relative;
+}
+
+.text::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    bottom: 0px;
+    right: 0px;
+    height: 2px;
+    background: rgb(255, 255, 255);
+    animation: animLine 0.5s steps(4) infinite;
+}
+
+@keyframes animLine {
+    0%,
+    75% {
+        opacity: 1;
+    }
+    76%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.text .string {
+    font: 55px Arial, sans-serif;
+    position: relative;
+    color: rgb(5, 0, 0);
+    animation: animText 10s steps(18) infinite;
+    overflow: hidden;
+}
+
+@keyframes animText {
+    0%,
+    90%,
+    100% {
+        width: 0px;
+    }
+    30%,
+    60% {
+        width: 410px;
+    }
+}
