@@ -3,7 +3,12 @@
         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
-        <title>Profile - Winklevoss</title>
+        <span th:if="${id == user.id}">
+            <title>My Profile - Winklevoss</title>
+        </span>
+        <span th:if="${id != user.id}">
+            <title th:text="${user.username} + '\'s Profile - Winklevoss'"></title>
+        </span>
         <link rel="stylesheet" href="/main.css" />
         <script type="text/javascript" src="/script.js"></script>
     </head>
@@ -31,12 +36,12 @@
                 <div class="searchbar">
                     <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
                 </div>
-                <div id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
+                <div id="searchDropdown" class="dropdown-content">
                     <div th:each="user: ${allusers}" class="dropdown-item">
                         <span class="search">
                             <div class="searchwrapper">
-                                <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
-                                    <img style="height: 53px;" th:src="@{/default-avatar.jpeg}"><a th:href="'/profile/' + ${user.username}">
+                                <div class="searchavatar" th:href="'/profile/' + ${user.username}">
+                                    <img class="searchavatar" th:src="@{/default-avatar.jpeg}"><a th:href="'/profile/' + ${user.username}">
                                 </div>
                                 <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
                                     <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>

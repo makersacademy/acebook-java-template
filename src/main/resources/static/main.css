@@ -352,6 +352,18 @@ input.searchbar {
     display: flex; flex-direction: row; gap: 0px;
 }
 
+.searchavatar {
+    display: flex;
+    height: 53px;
+    width: 20px;
+    margin-right: 0px;
+}
+
+image.searchavatar {
+    height: 53px;
+    width: 53px;
+}
+
 /* Notifications bell/bar */
 .notifications {
     text-align: right;
