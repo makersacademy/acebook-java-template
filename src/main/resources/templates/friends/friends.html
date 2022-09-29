@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
         <title>Friends - Winklevoss</title>
@@ -8,254 +8,254 @@
         <script type="text/javascript" src="/script.js"></script>
     </head>
     <body>
-      <nav> <!-- nav bar - subject to change -->
-        <div class="logowrapper">
-          <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" src="orangeandbrown.png" alt="placeholder"></a>
-        </div>
-        <a href="/posts"><p>Posts</p></a>
-        <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
-        <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
-        <a><p>Friends</p></a>
-        <!-- <a href="/groups"><p>Groups</p></a> -->
-        <!-- <a href="/events"><p>Events</p></a> -->
-        <a href="/messages"><p>Messages</p></a>
-        <div title="Search users">
-          <div style="min-width: 268px; max-width: 268px; overflow: hidden;">
-          <input style="margin-left: 32px; margin-top: 18px; width: 230px;" type="text" placeholder="Search..." id="myInput" class="search" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
-          </div>
-          <!-- Search dropdown menu -->
-          <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
-              <div th:each="user: ${allusers}" class="dropdown-item">
-                  <span class="search">
-                  <div style="display: flex; flex-direction: row; gap: 0px;">
-                      <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
-                          <img style="height: 53px;" src="default-avatar.jpeg"><a th:href="'/profile/' + ${user.username}">
-                      </div>
-                      <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
-                          <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
-                          <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
-                          <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
-                      </div>
-                  </div>
-                  </span>
-              </div>
-          </div>
-        </div>
-        <div style="min-width: 100px;" class ="notifications">
-          <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
-        </div>
-        <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; src="default-avatar.jpeg"></a>
-        <div class="logout">
-          <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
-          <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
-        </div>
-        <div class="logout">
-          <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
-            <p><input type="submit" id="Logout" value="Logout"/></p>
-          </form>
-        </div>
-      </nav>
 
-      <div class="container">
-        <div class="title">
-          <h1>Friends</h1>
-        </div>
-
-        <!-- Tab links -->
-        <div class="tab">
-          <button class="tablinks" onclick="openTab(event, 'Friends')" id="defaultOpen">Your Friends</button>
-          <button class="tablinks" onclick="openTab(event, 'Requests-Received')">Requests Received</button>
-          <button class="tablinks" onclick="openTab(event, 'Requests-Sent')">Requests Pending</button>
-          <button class="tablinks" onclick="openTab(event, 'Potential-Connections')">People You Might Know</button>
-          <button class="tablinks" onclick="openTab(event, 'Browse-Users')">Browse New Users</button>
-          <button class="tablinks" onclick="openTab(event, 'Blocked-Users')">Blocked Users</button>
-        </div>
-
-        <!-- Tab content -->
-        <div id="Friends" class="tabcontent">
-          <h3>Friends</h3>
-          <span th:if="${friendcount == 0}">
-            <p>You don't have any friends yet.</p>
-          </span>
-          <span th:if="${friendcount &gt; 0}">
-            <p>You have <span th:text="${friendcount}"></span> friend<span th:if="${friendcount &gt; 1}">s</span>.</p>
-            <div class="icons-container">
-              <ul th:each="friend: ${friends}">
-                <div class="icon">
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="unfriend">
-                    <button class="with-margin" type="submit">Unfriend</button><br>
-                  </form>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="block">
-                    <button class="with-margin" type="submit">Block</button>
-                  </form>
-                </div>
-              </ul>
+        <nav> <!-- Taskbar -->
+            <div class="logowrapper">
+                <a href="/"><img class="logo" src="orangeandbrown.png" alt="Winklevoss Logo"></a>
             </div>
-          </span>
-        </div>
-
-        <div id="Requests-Received" class="tabcontent">
-          <h3>Incoming Friend Requests</h3>
-          <span th:if="${incount == 0}">
-            <p>You currently have no incoming requests.</p>
-          </span>
-          <span th:if="${incount &gt; 0}">
-            <p>You have <span th:text="${incount}"></span> incoming friend request<span th:if="${incount &gt; 1}">s</span>.</p>
-            <div class="icons-container">
-              <ul th:each="friend: ${inreqs}">
-                <div class="icon">
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="accept">
-                    <button class="with-margin" type="submit">Accept</button>
-                  </form>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="cancel">
-                    <button class="with-margin" type="submit">Reject</button>
-                  </form>
+            <!-- Text Links -->
+            <a href="/posts"><p>Posts</p></a>
+            <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
+            <a th:href="'/wall/' + ${id}"><p>My Wall</p></a>
+            <a><p>Friends</p></a>
+            <a href="/messages"><p>Messages</p></a>
+            <!-- Search bar -->
+            <div title="Search users">
+                <div class="searchbar">
+                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
                 </div>
-              </ul>
-            </div><br>
-          </span>
-        </div>
-
-        <div id="Requests-Sent" class="tabcontent">
-          <h3>Outgoing Friend Requests</h3>
-          <span th:if="${outcount == 0}">
-            <p>You currently have no outgoing requests.</p>
-          </span>
-          <span th:if="${outcount &gt; 0}">
-            <p>You have <span th:text="${outcount}"></span> pending friend request<span th:if="${outcount &gt; 1}">s</span>.</p>
-            <div class="icons-container">
-              <ul th:each="friend: ${outreqs}">
-                <div class="icon">
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <input type="hidden" name= "response" value="cancel">
-                  <button class="with-margin" type="submit">Cancel</button>
-                  </form>
+                <div id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
+                    <div class="dropdown-item" th:each="user: ${allusers}">
+                        <span class="search">
+                            <div class="searchwrapper">
+                                <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
+                                    <img style="height: 53px;" src="default-avatar.jpeg"><a th:href="'/profile/' + ${user.username}">
+                                </div>
+                                <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
+                                    <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
+                                    <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
+                                    <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
                 </div>
-              </ul>
+            </div>
+            <!-- Notification bell -->
+            <div style="min-width: 100px;" class ="notifications">
+                <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
+            </div>
+            <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; src="default-avatar.jpeg"></a>
+            <!-- (Delete with MVP!!!) Debug user ID display -->
+            <div class="logout">
+                <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+                <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+            </div>
+            <!-- Logout button -->
+            <div class="logout">
+                <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+                    <p><input type="submit" id="Logout" value="Logout"/></p>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="title">
+                <h1>Friends</h1>
+            </div>
+
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'Friends')" id="defaultOpen">Your Friends</button>
+                <button class="tablinks" onclick="openTab(event, 'Requests-Received')">Requests Received</button>
+                <button class="tablinks" onclick="openTab(event, 'Requests-Sent')">Requests Pending</button>
+                <button class="tablinks" onclick="openTab(event, 'Potential-Connections')">People You Might Know</button>
+                <button class="tablinks" onclick="openTab(event, 'Browse-Users')">Browse New Users</button>
+                <button class="tablinks" onclick="openTab(event, 'Blocked-Users')">Blocked Users</button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="Friends" class="tabcontent">
+                <h3>Friends</h3>
+                <span th:if="${friendcount == 0}">
+                    <p>You don't have any friends yet.</p>
+                </span>
+                <span th:if="${friendcount &gt; 0}">
+                    <p>You have <span th:text="${friendcount}"></span> friend<span th:if="${friendcount &gt; 1}">s</span>.</p>
+                    <div class="icons-container">
+                        <ul th:each="friend: ${friends}">
+                            <div class="icon">
+                                <li th:text="${friend.username}" />
+                                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="unfriend">
+                                    <button class="with-margin" type="submit">Unfriend</button><br>
+                                </form>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="block">
+                                    <button class="with-margin" type="submit">Block</button>
+                                </form>
+                            </div>
+                        </ul>
+                    </div>
+                </span>
+            </div>
+
+            <div id="Requests-Received" class="tabcontent">
+                <h3>Incoming Friend Requests</h3>
+                <span th:if="${incount == 0}">
+                    <p>You currently have no incoming requests.</p>
+                </span>
+                <span th:if="${incount &gt; 0}">
+                    <p>You have <span th:text="${incount}"></span> incoming friend request<span th:if="${incount &gt; 1}">s</span>.</p>
+                    <div class="icons-container">
+                        <ul th:each="friend: ${inreqs}">
+                            <div class="icon">
+                                <li th:text="${friend.username}" />
+                                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="accept">
+                                    <button class="with-margin" type="submit">Accept</button>
+                                </form>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="cancel">
+                                    <button class="with-margin" type="submit">Reject</button>
+                                </form>
+                            </div>
+                        </ul>
+                    </div><br>
+                </span>
+            </div>
+
+            <div id="Requests-Sent" class="tabcontent">
+                <h3>Outgoing Friend Requests</h3>
+                <span th:if="${outcount == 0}">
+                    <p>You currently have no outgoing requests.</p>
+                </span>
+                <span th:if="${outcount &gt; 0}">
+                    <p>You have <span th:text="${outcount}"></span> pending friend request<span th:if="${outcount &gt; 1}">s</span>.</p>
+                    <div class="icons-container">
+                        <ul th:each="friend: ${outreqs}">
+                            <div class="icon">
+                                <li th:text="${friend.username}" />
+                                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                <input type="hidden" name= "requesterId" th:value="${id}">
+                                <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                <input type="hidden" name= "response" value="cancel">
+                                <button class="with-margin" type="submit">Cancel</button>
+                                </form>
+                            </div>
+                        </ul>
+                    </div><br>
+                </span>
+            </div>
+
+            <div id="Potential-Connections" class="tabcontent">
+                <h3>People You Might Know</h3>
+                <span th:if="${friendsfriendscount == 0}">
+                    <p>No recommendations.</p>
+                </span>
+                <!-- Don't delete below <p> - need it for friends of friends -->
+                <p id="P1"></p>
+                <span th:if="${friendsfriendscount &gt; 0}">
+                    <div id="0" class="icons-container">
+                        <ul th:each="friend: ${friendsfriends}">
+                            <div th:id="${friend.id}" class="icon">
+                                <span th:text="${friendsservice.setId(friend.id)}"></span>
+                                <li th:text="${friend.username}" />
+                                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                                <p style="margin: 0px;">Mutual Friends:</p>
+                                <span th:text="${friendsservice.resetCount()}"></span>
+                                <ul th:each="friend: ${friendsservice.getMutualFriends(id, friend.id)}">
+                                    <span th:unless="${friendsservice.getRequestStatus(friend.id, id) == 'blocked' or friendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${friendsservice.getRequestStatus(id, friend.id) == 'blocked' or friendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'blocked' or friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'pending'} or ${friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'blocked' or friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'pending'}">
+                                        <li th:text="${friend.username}" />
+                                        <li th:text="${friendsservice.incrementCount()}" />
+                                    </span>
+                                </ul>
+                                <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <button class="with-margin" type="submit">Send Friend Request</button><br>
+                                </form>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="block">
+                                    <button class="with-margin" type="submit">Block</button>
+                                </form>
+                                <!-- Below is the syntax for putting thymeleaf expressions in javascript - this div delete method and the th:unless check above are a compromise for handling the complexity of friends of friends (need to check status between 2nd party and 3rd party) SQL would be unmanageable -->
+                                <script th:inline="javascript">deleteNoMutualDiv(/*[[${friendsservice.getId()}]], [[${friendsservice.getCount()}]]*/);</script>
+                            </div>
+                        </ul>
+                    </div><br>
+                </span>
+            </div>
+
+            <div id="Browse-Users" class="tabcontent">
+                <h3>Browse New Users</h3>
+                <span th:if="${strangercount == 0}">
+                    <p>Oh, wow. There are no more new users to meet! Imagine that!</p>
+                </span>
+                <span th:if="${strangercount &gt; 0}">
+                    <div class="icons-container">
+                    <ul th:each="friend: ${strangers}">
+                        <div class="icon">
+                        <li th:text="${friend.username}" />
+                        <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                        <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name= "requesterId" th:value="${id}">
+                            <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                            <button class="with-margin" type="submit">Send Friend Request</button><br>
+                        </form>
+                        <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name= "requesterId" th:value="${id}">
+                            <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                            <input type="hidden" name= "response" value="block">
+                            <button class="with-margin" type="submit">Block</button>
+                        </form>
+                        </div>
+                    </ul>
+                    </div><br>
+                </span>
+            </div>
+
+            <div id="Blocked-Users" class="tabcontent">
+                <h3>Blocked Users</h3>
+                <span th:if="${blockedcount == 0}">
+                    <p>No blocked users.</p>
+                </span>
+                <span th:if="${blockedcount &gt; 0}">
+                    <div class="icons-container">
+                        <ul th:each="friend: ${blockedusers}">
+                            <div class="icon">
+                                <li th:text="${friend.username}" />
+                                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
+                                <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name= "requesterId" th:value="${id}">
+                                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
+                                    <input type="hidden" name= "response" value="unblock">
+                                    <button class="with-margin" type="submit">Unblock</button><br>
+                                </form>
+                            </div>
+                        </ul>
+                    </div><br>
+                </span>
             </div><br>
-          </span>
-        </div>
+        </div> <!-- End of container -->
 
-        <div id="Potential-Connections" class="tabcontent">
-          <h3>People You Might Know</h3>
-          <span th:if="${friendsfriendscount == 0}">
-            <p>No recommendations.</p>
-          </span>
-          <!-- Don't delete below <p> - need it for friends of friends -->
-          <p id="P1"></p>
-          <span th:if="${friendsfriendscount &gt; 0}">
-            <div id="0" class="icons-container">
-              <ul th:each="friend: ${friendsfriends}">
-                <div th:id="${friend.id}" class="icon">
-                  <span th:text="${friendsservice.setId(friend.id)}"></span>
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <p style="margin: 0px;">Mutual Friends:</p>
-                  <span th:text="${friendsservice.resetCount()}"></span>
-                  <ul th:each="friend: ${friendsservice.getMutualFriends(id, friend.id)}">
-                    <span th:unless="${friendsservice.getRequestStatus(friend.id, id) == 'blocked' or friendsservice.getRequestStatus(friend.id, id) == 'pending'} or ${friendsservice.getRequestStatus(id, friend.id) == 'blocked' or friendsservice.getRequestStatus(id, friend.id) == 'pending'} or ${friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'blocked' or friendsservice.getRequestStatus(friend.id, friendsservice.getId()) == 'pending'} or ${friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'blocked' or friendsservice.getRequestStatus(friendsservice.getId(), friend.id) == 'pending'}">
-                      <li th:text="${friend.username}" />
-                      <li th:text="${friendsservice.incrementCount()}" />
-                    </span>
-                  </ul>
-                  <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <button class="with-margin" type="submit">Send Friend Request</button><br>
-                  </form>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="block">
-                    <button class="with-margin" type="submit">Block</button>
-                  </form>
-                  <!-- Below is the syntax for putting thymeleaf expressions in javascript - this div delete method and the th:unless check above are a compromise for handling the complexity of friends of friends (need to check status between 2nd party and 3rd party) SQL would be unmanageable -->
-                  <script th:inline="javascript">deleteNoMutualDiv(/*[[${friendsservice.getId()}]], [[${friendsservice.getCount()}]]*/);</script>
-                </div>
-              </ul>
-            </div><br>
-          </span>
-        </div>
-
-        <div id="Browse-Users" class="tabcontent">
-          <h3>Browse New Users</h3>
-          <span th:if="${strangercount == 0}">
-            <p>Oh, wow. There are no more new users to meet! Imagine that!</p>
-          </span>
-          <span th:if="${strangercount &gt; 0}">
-            <div class="icons-container">
-              <ul th:each="friend: ${strangers}">
-                <div class="icon">
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends/request}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <button class="with-margin" type="submit">Send Friend Request</button><br>
-                  </form>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name= "requesterId" th:value="${id}">
-                    <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                    <input type="hidden" name= "response" value="block">
-                    <button class="with-margin" type="submit">Block</button>
-                  </form>
-                </div>
-              </ul>
-            </div><br>
-          </span>
-        </div>
-
-        <div id="Blocked-Users" class="tabcontent">
-          <h3>Blocked Users</h3>
-          <span th:if="${blockedcount == 0}">
-            <p>No blocked users.</p>
-          </span>
-          <span th:if="${blockedcount &gt; 0}">
-            <div class="icons-container">
-              <ul th:each="friend: ${blockedusers}">
-                <div class="icon">
-                  <li th:text="${friend.username}" />
-                  <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100"><br>
-                  <form action="#" th:action="@{/friends}" method="POST" onsubmit="return confirm('Are you sure?');">
-                  <input type="hidden" name= "requesterId" th:value="${id}">
-                  <input type="hidden" name= "requesteeId" th:value="${friend.id}">
-                  <input type="hidden" name= "response" value="unblock">
-                  <button class="with-margin" type="submit">Unblock</button><br>
-                  </form>
-                </div>
-              </ul>
-            </div><br>
-          </span>
-        </div>
-
-        <br><a href="/posts">Back to Posts</a>
-
-      </div>
-
-      <script>
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-        cleanFriendsOfFriends();
-      </script>
+        <script>
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+            cleanFriendsOfFriends();
+        </script>
     </body>
 </html>

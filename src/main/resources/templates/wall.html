@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
         <meta charset="UTF-8"/>
         <title>Winklevoss</title>
@@ -8,61 +8,63 @@
         <script type="text/javascript" src="/script.js"></script>
     </head>
     <body>
+
+        <nav> <!-- Taskbar -->
+            <div class="logowrapper">
+              <a href="/"><img class="logo" th:src="@{/orangeandbrown.png}" alt="Winklevoss Logo"></a>
+            </div>
+            <!-- Text Links -->
+            <a href="/posts"><p>Posts</p></a>
+            <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
+            <a><p>My Wall</p></a>
+            <a href="/friends"><p>Friends</p></a>
+            <a href="/messages"><p>Messages</p></a>
+            <!-- Search bar -->
+            <div title="Search users">
+                <div class="searchbar">
+                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+                </div>
+                <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
+                    <div th:each="user: ${allusers}" class="dropdown-item">
+                        <span class="search">
+                            <div class="searchwrapper">
+                                <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
+                                    <img style="height: 53px;" th:src="@{/default-avatar.jpeg}"><a th:href="'/profile/' + ${user.username}">
+                                </div>
+                                <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
+                                    <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
+                                    <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
+                                    <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Notification bell -->
+            <div style="min-width: 100px;" class ="notifications">
+                <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
+            </div>
+            <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; th:src="@{/default-avatar.jpeg}"></a>
+            <!-- (Delete with MVP!!!) Debug user ID display -->
+            <div class="logout">
+                <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
+                <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
+            </div>
+            <!-- Logout button -->
+            <div class="logout">
+                <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
+                    <p><input type="submit" id="Logout" value="Logout"/></p>
+                </form>
+            </div>
+        </nav>
+
         <div class="container"> <!-- Added container div for positioning body content - can move around -->
 
             <div class="title">
                 <h1>Wall</h1>
             </div>
             
-            <nav> <!-- nav bar - subject to change -->
-                <div class="logowrapper">
-                  <a href="/"><img style="height: 90px; margin-top: -22px; margin-right: 50px; overflow-y: hidden;" th:src="@{/orangeandbrown.png}" alt="placeholder"></a>
-                </div>
-                <a href="/posts"><p>Posts</p></a>
-                <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><p>Profile</p></a>
-                <a><p>My Wall</p></a>
-                <a href="/friends"><p>Friends</p></a>
-                <!-- <a href="/groups"><p>Groups</p></a> -->
-                <!-- <a href="/events"><p>Events</p></a> -->
-                <a href="/messages"><p>Messages</p></a>
-                <div title="Search users">
-                  <div style="min-width: 268px; max-width: 268px; overflow: hidden;">
-                  <input style="margin-left: 32px; margin-top: 18px; width: 230px;" type="text" placeholder="Search..." id="myInput" class="search" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
-                  </div>
-                  <!-- Search dropdown menu -->
-                  <div style="padding-top: -10px;" id="searchDropdown" class="dropdown-content" onmousedown="document.getElementById('myInput').click()">
-                      <div th:each="user: ${allusers}" class="dropdown-item">
-                          <span class="search">
-                          <div style="display: flex; flex-direction: row; gap: 0px;">
-                              <div th:href="'/profile/' + ${user.username}" style="display: flex; height: 53px; width: 20px; margin-right: 0px;" th:class="${user.id} + 'A'" onmousedown="document.getElementById('myInput').click()">
-                                  <img style="height: 53px;" th:src="@{/default-avatar.jpeg}"><a th:href="'/profile/' + ${user.username}">
-                              </div>
-                              <div style="display: flex; justify-content: end; overflow: hidden; padding-top:-50px; height: 53px; width: 100%; margin-left: 0px;" th:class="${user.id} + 'B'">
-                                  <p style="position: absolute; left: 1; top: 1; margin-left: -50px; margin-top: 6px;" th:text="${user.username}" class="search"></p></a>
-                                  <p style="padding-top: -7px; padding-top: 4px; padding-right: 10px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}" class="search">Status: Friends</p>
-                                  <p style="padding-top: -7px;" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}" class="search">Status: Request Pending</p>
-                              </div>
-                          </div>
-                          </span>
-                        </div>
-                    </div>
-                </div>
-                <div style="min-width: 100px;" class ="notifications">
-                  <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
-                </div>
-                <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; th:src="@{/default-avatar.jpeg}"></a>
-                <div class="logout">
-                  <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
-                  <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
-                </div>
-                <div class="logout">
-                  <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">
-                    <p><input type="submit" id="Logout" value="Logout"/></p>
-                  </form>
-                </div>
-              </nav>
-        
-
             <h2 style="text-align:center;">
             <ul th:each="user: ${users}" th:if="${user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
                 <li th:text="${user.username} + '`s wall'" style="font-size:x-large;font-weight: bold;"><!--<p th:each="user: ${users}" th:if="${user.id.equals(1L)}">
