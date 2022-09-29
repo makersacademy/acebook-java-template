@@ -84,4 +84,17 @@ public class FriendsController {
   }
   return new RedirectView("/friends");
  }
+
+ @RequestMapping("/request/declineFriend")
+ @ResponseBody
+ public RedirectView declineFriendRequest(@RequestParam("requestid") Long request_id) {
+  try {
+
+   repository.deleteById(request_id);
+
+  } catch (Exception e) {
+   System.out.println(e);
+  }
+  return new RedirectView("/friends");
+ }
 }
