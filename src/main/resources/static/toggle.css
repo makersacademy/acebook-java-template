@@ -1,0 +1,53 @@
+light theme colors html {
+  /* background-color: rgb(187, 23, 65); */
+  --bg: #fcfcfc;
+  --bg-panel: #eeeeee; /*box container*/
+  --color-headings: #9a00b5; /*heading*/
+  --color-text: #ffffff; /*paragraph*/
+}
+/* dark theme colors */
+html[data-theme='dark'] {
+  --bg: rgb(187, 23, 65);
+  --bg-panel: #b300ff;
+  --color-headings: #00adb5;
+  --color-text: #fffefe;
+}
+body {
+  background-color: var(--bg);
+}
+
+/* checkbox toggler */
+.toggle_input[type='checkbox'] {
+  visibility: hidden;
+}
+#toggle_label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 52px;
+  height: 27px;
+  background: grey;
+  float: right;
+  border-radius: 100px;
+  position: relative;
+}
+#toggle_label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+.toggle_input:checked + #toggle_label {
+  background: var(--color-headings);
+}
+.toggle_input:checked + #toggle_label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+#toggle_label:active:after {
+  width: 45px;
+}

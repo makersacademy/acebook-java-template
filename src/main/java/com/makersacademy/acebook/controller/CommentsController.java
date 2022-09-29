@@ -4,6 +4,8 @@ import java.lang.ProcessBuilder.Redirect;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 
@@ -112,6 +114,7 @@ public class CommentsController {
         // System.out.println(nComments);
         try {
             List<Object[]> comments = commentRepository.getUsersByPostid(postid); // all users on this post
+            Collections.reverse(comments);
             model.addAttribute("comments", comments);
             model.addAttribute("postid", postid);
             model.addAttribute("comment", new Comment());

@@ -12,6 +12,10 @@
   border-radius: 10px;
 }
 
+.display_block {
+  display: inline-flex;
+}
+
 textarea {
   display: block;
   width: 250px;
@@ -25,11 +29,11 @@ textarea {
 
 .img_upload_icon:hover {
   cursor: pointer;
-  content: "\F429";
+  content: '\F429';
 }
 
 .img_upload_icon:hover::before {
-  content: "\F429";
+  content: '\F429';
 }
 
 .image-upload {
@@ -49,7 +53,7 @@ textarea {
 }
 
 .post_btns {
-  padding: 0 0 0 45px;
+  padding: 0 0 0 15px;
 }
 
 /* POSTS - VIEW */
@@ -92,24 +96,24 @@ i {
 }
 
 .img-comment:hover::before {
-  content: "\F252";
+  content: '\F252';
 }
 
 .img-comment:hover {
-  content: "\F253";
+  content: '\F253';
 }
 
 .img-like:hover::before {
-  content: "\F415";
+  content: '\F415';
 }
 
 .img-like:hover {
   color: red;
-  content: "\F417";
+  content: '\F417';
 }
 
 .img-out:hover::before {
-  content: "\F52D";
+  content: '\F52D';
 }
 
 .img-out:hover {
@@ -215,7 +219,7 @@ button {
 button::before,
 button::after {
   background: #0064d0;
-  content: "";
+  content: '';
   position: absolute;
   z-index: -1;
   border-radius: 3.5px;
@@ -428,7 +432,7 @@ a.one:hover {
 
 .title_comments {
   text-align: center;
-  font-family: ;
+  /* font-family: ; */
 }
 
 /* ---------------------------------------------------------------------------------------- */
@@ -450,4 +454,3 @@ a.one:hover {
   text-align: center;
   padding: 50px;
 }
-

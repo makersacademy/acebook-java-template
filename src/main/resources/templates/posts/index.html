@@ -22,12 +22,14 @@
 
     </style>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="toggle.css" />
+    <link rel="stylesheet" href="animation.css" />
     <title>Acebook</title>
   </head>
   <body> 
     <!-- NAV BAR -->
     <nav class="navbar navbar-expand-sm bg-light">
-      <a class="navbar-brand" href="#">HALO | </a>
+      <a class="navbar-brand" id="genNew" href="#">HALO | </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -76,15 +78,22 @@
         </a>
       </div>
   </nav>
-    
-      
+
       <!-- CREATE A POST -->
       <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
           <div class="container" style="margin-bottom:1rem;margin-top:1rem;">
               <div class="row">
                   <div class="col-sm">
                       <div id='creator' class="form_post_create card text-dark bg-light mb-3" style="max-width: 18rem;">
-                          <div class="card-header">CREATE A HALO:</div>
+                        <div class="card-header" id='animation_container'>
+                            CREATE A #
+                            <div id=flip>
+                              <div><div>POST</div></div>
+                              <div><div>HALO</div></div>
+                              <div><div>PEEP</div></div>
+                            </div>
+                          </div>
+                          <!-- <div class="card-header">CREATE A HALO:</div> -->
                           <div class="card-body">
                               <textarea id="content" maxlength="140" type="text" minlength="1" pattern=".*\S+.*" placeholder="What's happening?" th:field="*{content}" title="This field is required" required></textarea>
                               <div class="post_btns">
@@ -151,8 +160,15 @@
     </div>
 
     <div class="credit_links">
-      <a href="https://github.com/hakareem/acebook-halo" rel="noopener">GitHub</a>
-      <p>© Harith Kareem, Sebastian Chu, James Beaumont, Philip White & Nuhu Sulemana</p>
+      <a href="https://github.com/hakareem/acebook-halo" rel="noopener">GitHub </a>
+      <!-- <div class="box">
+      <span>
+      <form>
+      <input class='toggle_input' onclick="toggle(this.form)" id="checkbox" name="checkbox" type="checkbox" /><label id='toggle_label' for="checkbox">Toggle</label>
+      </form>
+      </span>    
+      </div>   -->
+    <p>© Harith Kareem, Sebastian Chu, James Beaumont, Philip White & Nuhu Sulemana</p>
     </div>
 
     <!-- SCRIPTS -->
@@ -171,5 +187,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="app.js"></script>
   </body>
 </html>
