@@ -48,7 +48,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
   @Query(value = "SELECT DISTINCT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND friends.request_status = 'blocked'", nativeQuery = true)
   Iterable<User> getBlockedUsers(Long userId);
 
-  @Query(value = "SELECT * FROM users EXCEPT SELECT DISTINCT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND friends.request_status = 'blocked'", nativeQuery = true)
+  @Query(value = "SELECT * FROM users WHERE id != ?1 EXCEPT SELECT DISTINCT users.* FROM users JOIN friends ON friends.requestee_id = users.id WHERE friends.requester_id = ?1 AND friends.request_status = 'blocked'", nativeQuery = true)
   Iterable<User> getNonBlockedUsers(Long userId);
 
   // Can either use this or .save with a FriendshipRepository
