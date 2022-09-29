@@ -46,10 +46,10 @@
                         </div>
                     </div>
                 </div>
-                <div class ="notifications">
-
+                <div style="min-width: 100px;" class ="notifications">
+                    <img style="height: 44px;" th:src="@{/notificationsbell.png}"/>
                 </div>
-                <img style="margin-top: 5px; margin-left: 50px;"; src="default-avatar.jpeg">
+                <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; src="default-avatar.jpeg"></a>
                 <div class="logout">
                 <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
                 <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>

@@ -227,3 +227,7 @@ span.search {
 span.search:hover {
     background-color: #ddd;
 }
+
+.notifications {
+    text-align: right;
+}
