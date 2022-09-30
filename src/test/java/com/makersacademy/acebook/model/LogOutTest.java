@@ -45,8 +45,8 @@ public class LogOutTest {
     driver.findElement(By.id("username")).sendKeys("ash");
     driver.findElement(By.id("password")).sendKeys("123");
     driver.findElement(By.className("submit-btn")).click();
-
     driver.findElement(By.id("Logout")).click();
+    // This confirms added "Are you sure?" alert window
     driver.switchTo().alert().accept();
     Assert.assertEquals("Sign In", driver.getTitle());
   }
