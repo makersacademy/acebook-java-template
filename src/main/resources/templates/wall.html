@@ -72,23 +72,11 @@
             
             <h2 style="text-align:center;">
             <ul th:each="user: ${users}" th:if="${user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
-                <li th:text="${user.username} + '`s wall'" style="font-size:x-large;font-weight: bold;"><!--<p th:each="user: ${users}" th:if="${user.id.equals(1L)}">
-                    <p th:value="${user.id} + '`s wall'">
+                <li th:text="${user.username} + '\'s wall'" style="font-size:x-large;font-weight: bold;"><!--<p th:each="user: ${users}" th:if="${user.id.equals(1L)}">
+                    <p th:value="${user.id} + '\'s wall'">
                     </p> -->
                 </ul>
             </h2>
-            <div class="logout">
-                <!-- // Show user ID and username for debugging -->
-                <p style="margin-right: 68px;" th:text="'user ID = ' + ${id}"></p>
-                <!-- Uncomment to see full session user object -->
-                <!-- <p th:text="'current user = ' + ${currentuser}"></p> -->
-              </div>
-            
-            <div class="logout">
-                <form action="/logout" method="get">
-                    <p><input type="submit" id="Logout" value="Logout" /></p>
-                </form>
-            </div>
 
             <ul th:each="post: ${posts}" th:if="${post.user.id.toString().equals(#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/')+1))}">
                 <div class="myPosts">
