@@ -52,10 +52,10 @@
             </div>
             <a th:href="'/profile/' + ${friendsservice.findById(id).username}"><img style="height: 39px; margin-top: 5px;"; th:src="@{/default-avatar.jpeg}"></a>
             <!-- (Delete with MVP!!!) Debug user ID display -->
-            <div class="logout">
+            <!-- <div class="logout"> -->
                 <!-- // Show user ID and username for debugging (has to go above logout button or it will cover it) -->
-                <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p>
-            </div>
+                <!-- <p style="margin-top: 60px; background-color: rgb(222, 124, 4);" th:text="'User ID: ' + ${id}"></p> -->
+            <!-- </div> -->
             <!-- Logout button -->
             <div class="logout">
                 <form action="/logout" method="get" onsubmit="return confirm('Are you sure?');">

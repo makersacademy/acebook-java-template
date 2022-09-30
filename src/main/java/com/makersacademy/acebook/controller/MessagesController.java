@@ -51,6 +51,9 @@ public class MessagesController {
     model.addAttribute("friend", new User());
     // Get friends
     Iterable<com.makersacademy.acebook.model.User> friends = userRepository.getFriends(userID);
+    // Add friendsservice
+    model.addAttribute("friendsservice", friendsService);
+
     // Count friends, only return if not 0. Send count to TL for "You haven't made
     // any friends yet." message conditional
     int friendCount = 0;
