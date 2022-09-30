@@ -34,7 +34,7 @@
             <!-- Search bar -->
             <div title="Search users">
                 <div class="searchbar">
-                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown()" onblur="getSearchDropdown()">
+                    <input class="searchbar" type="text" placeholder="Search..." id="myInput" onfocus="getSearchDropdown(); filterFunction()" onblur="getSearchDropdown()" onkeyup="filterFunction()">
                 </div>
                 <div id="searchDropdown" class="dropdown-content">
                     <div th:each="user: ${allusers}" class="dropdown-item">
@@ -47,6 +47,7 @@
                                 </div>
                                 <div class="searchtext">
                                     <a th:href="'/profile/' + ${user.username}">
+                                    <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == null}">Status: Strangers</p>
                                     <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted'}">Status: Friends</p>
                                     <p class="searchtext" th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">Status: Pending</p>
                                     <p class="search">View Profile</p>
@@ -76,90 +77,142 @@
         </nav>
 
         <div class="container">
-            <div class="title">
-                <h1>Profile</h1>
+            <div class="profilewrapper">
+                <div class="title">
+                    <h1>Profile</h1>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <!-- This does nothing currently but to encase things for editing own profile -->
+                </div>
+
+                <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="margin-top: 8px; margin-bottom: 8px; padding-left: 7px;" th:text="${user.username}"></h2>
+                </div>
+
+                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100">
+
+                <!-- For current user's profile -->
+                <span th:if="${id == user.id}">
+                    <form action="" method="post">
+                        <input type="file" name="img">
+                        <input type="submit" name="save" value="Save">
+                    </form>
+                    <!-- <p>Change profile picture</p> -->
+                </span>
+
+                <!-- For another user's profile -->
+                <span th:unless="${id == user.id}">
+                    <span th:if="${friendsservice.getRequestStatus(id, user.id) == null and friendsservice.getRequestStatus(user.id, id) == null}">
+                        <p th:text="'Send ' + ${user.username} + ' a Friend request?'"></p>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="request">
+                            <button class="with-margin" type="submit">Request</button>
+                        </form>
+                    </span>
+
+                    <span th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted' or friendsservice.getRequestStatus(user.id, id) == 'accepted'}">
+                        <p th:text="'You are friends with ' + ${user.username}"></p>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="unfriend">
+                            <button class="with-margin" type="submit">Unfriend</button>
+                        </form>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="block">
+                            <button class="with-margin" type="submit">Block</button>
+                        </form>
+                    </span>
+
+                    <span th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">
+                        <p th:text="'You are waiting for ' + ${user.username} + '\'s friend confirmation'"></p>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="cancel">
+                            <button class="with-margin" type="submit">Cancel</button>
+                        </form>
+                    </span>
+
+                    <span th:if="${friendsservice.getRequestStatus(user.id, id) == 'pending'}">
+                        <p th:text="'You have a friend request from ' + ${user.username}"></p>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="accept">
+                            <button class="with-margin" type="submit">Accept</button>
+                        </form>
+                        <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="requesterId" th:value="${id}">
+                            <input type="hidden" name="requesteeId" th:value="${user.id}">
+                            <input type="hidden" name="response" value="reject">
+                            <button class="with-margin" type="submit">Reject</button>
+                        </form>
+                    </span>
+                </span>
+
+                <!-- Details section -->
+                <h2 style="font-size: 20px;">About me:</h2>
+                <ul>
+                <li class="profile">Interests:</li>
+                <li th:text="${friendsservice.findById(user.id).getInterests()}"></li>
+                <span th:if="${id == user.id}">
+                    <button id="interests-button" onclick="toggleProfileEdit('edit-interests')">Edit</button>
+                    <form id="edit-interests" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                        <textarea name="content"></textarea>
+                        <input type="hidden" name="username" th:value="${user.username}">
+                        <input type="hidden" name="column" value="interests">
+                        <button type="submit">Submit</button>
+                    </form>
+                </span>
+                <li class="profile">Education:</li>
+                <li th:text="${friendsservice.findById(user.id).getEducation()}"></li>
+                <span th:if="${id == user.id}">
+                    <button id="education-button" onclick="toggleProfileEdit('edit-education')">Edit</button>
+                    <form id="edit-education" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                        <textarea name="content"></textarea>
+                        <input type="hidden" name="username" th:value="${user.username}">
+                        <input type="hidden" name="column" value="education">
+                        <button type="submit">Submit</button>
+                    </form>
+                </span>
+                <li class="profile">Occupation:</li>
+                <li th:text="${friendsservice.findById(user.id).getOccupation()}"></li>
+                <span th:if="${id == user.id}">
+                    <button id="occupation-button" onclick="toggleProfileEdit('edit-occupation')">Edit</button>
+                    <form id="edit-occupation" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                        <textarea name="content"></textarea>
+                        <input type="hidden" name="username" th:value="${user.username}">
+                        <input type="hidden" name="column" value="occupation">
+                        <button type="submit">Submit</button>
+                    </form>
+                </span>
+                <li class="profile">Location:</li>
+                <li th:text="${friendsservice.findById(user.id).getLocation()}"></li>
+                <span th:if="${id == user.id}">
+                    <button id="location-button" onclick="toggleProfileEdit('edit-location')">Edit</button>
+                    <form id="edit-location" action="#" th:action="@{'/profile/' + ${user.username}}" method="POST">
+                        <textarea name="content"></textarea>
+                        <input type="hidden" name="username" th:value="${user.username}">
+                        <input type="hidden" name="column" value="location">
+                        <button type="submit">Submit</button>
+                    </form>
+                </span>
+                </ul>
             </div>
-
-            <div sec:authorize="isAuthenticated()">
-                <!-- This does nothing currently but to encase things for editing own profile -->
-            </div>
-
-            <h2 th:text="${user.username}"></h2>
-
-            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="placeholder" width="100" height="100">
-
-            <!-- For current user's profile -->
-            <span th:if="${id == user.id}">
-                <form action="" method="post">
-                    <input type="file" name="img">
-                    <input type="submit" name="save" value="Save">
-                </form>
-                <p>Change profile picture</p>
-            </span>
-
-            <!-- For another user's profile -->
-            <span th:unless="${id == user.id}">
-                <span th:if="${friendsservice.getRequestStatus(id, user.id) == null and friendsservice.getRequestStatus(user.id, id) == null}">
-                    <p th:text="'Send ' + ${user.username} + ' a Friend request?'"></p>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="request">
-                        <button class="with-margin" type="submit">Request</button>
-                    </form>
-                </span>
-
-                <span th:if="${friendsservice.getRequestStatus(id, user.id) == 'accepted' or friendsservice.getRequestStatus(user.id, id) == 'accepted'}">
-                    <p th:text="'You are friends with ' + ${user.username}"></p>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="unfriend">
-                        <button class="with-margin" type="submit">Unfriend</button>
-                    </form>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="block">
-                        <button class="with-margin" type="submit">Block</button>
-                    </form>
-                </span>
-
-                <span th:if="${friendsservice.getRequestStatus(id, user.id) == 'pending'}">
-                    <p th:text="'You are waiting for ' + ${user.username} + '\'s friend confirmation'"></p>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="cancel">
-                        <button class="with-margin" type="submit">Cancel</button>
-                    </form>
-                </span>
-
-                <span th:if="${friendsservice.getRequestStatus(user.id, id) == 'pending'}">
-                    <p th:text="'You have a friend request from ' + ${user.username}"></p>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="accept">
-                        <button class="with-margin" type="submit">Accept</button>
-                    </form>
-                    <form action="#" th:action="@{'/profile/' + ${user.username} + '/request'}" method="POST" onsubmit="return confirm('Are you sure?');">
-                        <input type="hidden" name="requesterId" th:value="${id}">
-                        <input type="hidden" name="requesteeId" th:value="${user.id}">
-                        <input type="hidden" name="response" value="reject">
-                        <button class="with-margin" type="submit">Reject</button>
-                    </form>
-                </span>
-            </span>
-
-            <!-- Details section -->
-            <h2>About me:</h2>
-            <ul>
-            <li class="profile">Name:</li>
-            <li class="profile">Education:</li>
-            <li class="profile">Occupation:</li>
-            <li class="profile">Location:</li>
-            </ul>
         </div> <!-- End of container -->
+        <span th:if="${id == user.id}">
+            <script>
+                document.getElementById("interests-button").click();
+                document.getElementById("education-button").click();
+                document.getElementById("occupation-button").click();
+                document.getElementById("location-button").click();
+            </script>
+        </span>
     </body>
 </html>

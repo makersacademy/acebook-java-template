@@ -1,12 +1,5 @@
-// This is so search bar doesn't close when clicking on user
-// var safeToBlur;
-
-// function setSafeToBlurTrue() {
-//   safeToBlur = true;
-// }
-// function setNotSafeToBlurTrue() {
-//   safeToBlur = false;
-// }
+// import jQuery from "jquery";
+// window.$ = window.jQuery = jQuery;
 
 // For opening and closing tabs on friends page
 function openTab(event, tabName) {
@@ -60,7 +53,35 @@ function getSearchDropdown() {
   function show() {
     document.getElementById("searchDropdown").classList.toggle("show");
   }
-  // if (onmouseup) {
-    setTimeout(show, 120);
-  // }
+  setTimeout(show, 120);
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  var inputCount = document.getElementById("myInput").value.length;
+  var input = document.getElementById("myInput");
+  var filter = input.value.toUpperCase();
+  var div = document.getElementById("searchDropdown");
+  var a = div.getElementsByClassName("searchwrapper");
+  div.style.display = "none";
+  if (inputCount > 0) {
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        div.style.display = "";
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function toggleProfileEdit(profileDetailsColumn) {
+  var editField = document.getElementById(profileDetailsColumn);
+  if (editField.style.display == "") {
+    editField.style.display = "none";
+  } else if (editField.style.display == "none") {
+    editField.style.display = "";
+  }
 }
