@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,6 +27,8 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        Date date = new Date();
+        post.setTime_posted(date);
         repository.save(post);
         return new RedirectView("/posts");
     }
