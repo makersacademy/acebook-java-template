@@ -12,18 +12,21 @@ import lombok.Data;
 @Entity
 @Table(name = "POSTS")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private Long user_id;
+    private int likes;
 
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, int likes) {
         this.content = content;
+        this.likes = 0;
     }
     public String getContent() { return this.content; }
+    public int getLikes() {return this.likes;}
     public void setContent(String content) { this.content = content; }
-
+    public void setLikes(int likes) { this.likes = 0; }
 }
