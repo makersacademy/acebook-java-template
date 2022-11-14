@@ -26,7 +26,15 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        repository.save(post);
-        return new RedirectView("/posts");
+        // if the post content is empty
+        if (post.content.isEmpty()){
+            // return the /post route
+            return new RedirectView("/posts");
+        } else {
+            // else
+            repository.save(post);
+            return new RedirectView("/posts");
+        }
+        // end 
     }
 }
