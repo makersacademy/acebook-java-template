@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 public class PostsController {
@@ -19,7 +20,24 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
-        model.addAttribute("posts", posts);
+        
+        //int entries_length = (int) repository.count();
+        //entries_length--;
+
+        //reversing posts to get newest first
+        List<Post> postsToList = new ArrayList<>();
+        for(Post p: posts) {
+            postsToList.add(p);
+        }
+
+        int sizeOfList = postsToList.size();
+        List<Post> reversedPosts = new ArrayList<>();
+
+        for (int i = 1; i<=sizeOfList;i++) {
+            reversedPosts.add(postsToList.get(sizeOfList-i));
+        }
+
+        model.addAttribute("posts", reversedPosts);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
