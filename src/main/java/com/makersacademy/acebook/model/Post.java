@@ -18,6 +18,17 @@ public class Post {
     private String content;
     private Long user_id;
     private int likes;
+    private Timestamp time_created;
+
+    @Column(name="time_created")			//database column name? (time_created?)
+	
+	public void setTimeCreated(Timestamp time_created) {
+        this.time_created = time_created; 
+    }
+
+    public void addLikes() {
+        likes++;
+    }
 
     public Post() {}
 

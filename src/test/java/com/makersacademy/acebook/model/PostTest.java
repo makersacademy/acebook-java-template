@@ -8,21 +8,24 @@ import org.junit.Test;
 
 public class PostTest {
 
-	@Data
-	@Entity
-	@Table(name = "posts")
-
 	private Post post = new Post("hello", 0);
-
-	@Column(name="time_created")			//database column name? (time_created?)
-	private Timestamp time_created;
-
-	public void setTimeCreated(Timestamp time_created) {this.time_created = time_created; }
-
 
 	@Test
 	public void postHasContent() {
 		assertThat(post.getContent(), containsString("hello"));
+	}
+
+	@Test 
+	public void test_InitialNumberofLikes() {
+		Post post = new Post();
+    	assertEquals(post.getLikes(), 0);
+  }
+
+  	@Test
+	public void test_AddstoLikesCounter() {
+		Post post = new Post();			
+		post.addLikes();
+		assertEquals(post.getLikes(), 1);
 	}
 
 
