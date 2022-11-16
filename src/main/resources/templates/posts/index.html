@@ -21,6 +21,7 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}"></li>
+        <li th:text="${post.time_posted}" />
     </ul>
     <p content="${test}"></p>
 
