@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+  <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>Signup</title>
+      <meta charset="UTF-8" />
+      <title>Signup</title>
+      <link href="/signup.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-            <p>Username: <input type="text" th:field="*{username}" /></p>
-            <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+      <div class="container">
+        <form class="form-signup" action="#" th:action="@{/users}" th:object="${user}" method="post">
+        <h2 class="form-signup-heading">Please sign up</h2>
+          <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" th:field="*{username}" class="form-control" placeholder="Username" required autofocus/></p>
+          <p>
+            <label for="username" class="sr-only">Password</label>
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required autofocus/></p>
+          <p>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" id="submit" />
+            <input class="btn btn-lg btn-primary btn-block" type="reset" value="Reset" />
+          </p>
         </form>
+      </div>
     </body>
+  </html>
 </html>
