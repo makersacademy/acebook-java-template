@@ -20,7 +20,7 @@ public class Post {
     private Long id;
     private String content;
     private Date time_posted;
-    // private String user_id;
+    private Integer user_id;
 
     public Post() {}
 
@@ -33,7 +33,7 @@ public class Post {
     public Date getTime_posted() { return this.time_posted; }
     public void setTime_posted(Date time_posted) { this.time_posted = time_posted; }
 
-    // public String getUser_id() { return this.user_id; }
-    // public void setUser_id(String user_id) { this.user_id = user_id; }
+    public Integer getUser_id() { return this.user_id; }
+    public void setUser_id(Integer user_id) { this.user_id = user_id; }
 
 }

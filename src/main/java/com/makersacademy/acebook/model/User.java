@@ -25,7 +25,8 @@ public class User {
         this.enabled = TRUE;
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Long id) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.enabled = TRUE;
@@ -39,6 +40,7 @@ public class User {
 
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
+    public Long getId() { return this.id; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
 }
