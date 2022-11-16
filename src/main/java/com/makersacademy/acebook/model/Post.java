@@ -17,7 +17,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String content;
     private Date time_posted;
     private Integer user_id;
@@ -27,13 +27,14 @@ public class Post {
     public Post(String content) {
         this.content = content;
     }
+
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 
     public Date getTime_posted() { return this.time_posted; }
     public void setTime_posted(Date time_posted) { this.time_posted = time_posted; }
 
+
     public Integer getUser_id() { return this.user_id; }
     public void setUser_id(Integer user_id) { this.user_id = user_id; }
-
 }
