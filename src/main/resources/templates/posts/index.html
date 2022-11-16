@@ -20,8 +20,9 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}"></li>
-        <li th:text="${post.time_posted}"></li>
+        <li th:text="${post.content}" />
+        <li th:text="${post.time_posted}" />
+        <li th:text="${post.user_id}" />
         <li th:text="${allLikes.get(post.id)}"></li>
     </ul>
 
