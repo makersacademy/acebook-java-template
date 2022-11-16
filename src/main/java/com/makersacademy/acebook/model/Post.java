@@ -1,5 +1,8 @@
 package com.makersacademy.acebook.model;
 
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +18,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+    public String content;
     private Long user_id;
     private int likes;
     private Timestamp time_created;
