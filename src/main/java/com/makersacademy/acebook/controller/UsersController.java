@@ -39,6 +39,6 @@ public class UsersController {
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
-        return new RedirectView("/loging");
+        return new RedirectView("/login");
     }
 }

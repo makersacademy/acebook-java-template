@@ -1,6 +1,8 @@
 package com.makersacademy.acebook.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,13 +23,10 @@ public class Post {
     public String content;
     private Long user_id;
     private int likes;
-    private Timestamp time_created;
+    private Date time_created;
 
     @Column(name="time_created")			//database column name? (time_created?)
 	
-	public void setTimeCreated(Timestamp time_created) {
-        this.time_created = time_created; 
-    }
 
     public void addLikes() {
         likes++;
@@ -43,4 +42,6 @@ public class Post {
     public int getLikes() {return this.likes;}
     public void setContent(String content) { this.content = content; }
     public void setLikes(int likes) { this.likes = 0; }
+    public void setUserId(Long userId){ this.user_id = userId; }
+    public void setDate(Date timeStamp){ this.time_created = timeStamp; }
 }

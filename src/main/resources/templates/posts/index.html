@@ -35,6 +35,9 @@
     <div class="posts">
     <ul th:each="post: ${posts}">
       <li th:text="${post.content}">
+        <li th:text="${post.time_created}">
+          <li th:text="${post.user_id}">
+        
     </ul>
 </div>
 </div>
