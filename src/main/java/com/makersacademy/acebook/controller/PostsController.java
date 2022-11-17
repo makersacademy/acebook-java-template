@@ -2,6 +2,8 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.Reply;
+import com.makersacademy.acebook.repository.ReplyRepository;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -24,6 +26,8 @@ import java.util.HashMap;
 public class PostsController {
 
     @Autowired
+    ReplyRepository reply_repo;
+    @Autowired
     PostRepository prepository;
     @Autowired
     UserRepository urepository;
@@ -40,8 +44,6 @@ public class PostsController {
 
         Iterable<Post> posts = prepository.findAll();
         
-        //int entries_length = (int) repository.count();
-        //entries_length--;
         List<Post> postsToList = new ArrayList<>();
 
         // get all likes for each post
@@ -68,8 +70,14 @@ public class PostsController {
             reversedPosts.add(postsToList.get(sizeOfList-i));
         }
 
+
+        //Replies stuff here
+        Iterable<Reply> replies = reply_repo.findAll();
+
         model.addAttribute("posts", reversedPosts);
         model.addAttribute("post", new Post());
+        model.addAttribute("replies", replies);
+        model.addAttribute("reply", new Reply());
         model.addAttribute("like", new Like());
         model.addAttribute("allLikes", allLikes);
         model.addAttribute("postsUserHasLiked", postsUserHasLiked);
@@ -89,4 +97,6 @@ public class PostsController {
         prepository.save(post);
         return new RedirectView("/posts");
     }
+
+    
 }

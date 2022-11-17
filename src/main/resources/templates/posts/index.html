@@ -19,11 +19,16 @@
         <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
-        <li th:text="${post.time_posted}" />
-        <li th:text="${post.user_id}" />
-        <li th:text="${allLikes.get(post.id)}"></li>
+    <p> Current test data: 
+        <p th:text="${test_content}"></p>
+        <p th:text="${test_post_id}"></p>
+    </p>
+
+    <ul class="one-full-post" th:each="post: ${posts}">
+        <div class="post-content">
+            <li  th:text="${post.content}"></li>
+            <li class="post-time" th:text="${post.time_posted}"></li>
+        </div>
         <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
             <input type="hidden" th:value="${post.id}" name="post_id" />
             <div th:switch="${postsUserHasLiked.get(post.id)}">
@@ -31,6 +36,32 @@
                 <input th:case="false" type="submit" value="Like" />
             </div>
         </form>
+        
+        <!-- Creating input box-->
+
+        <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
+            <div style="display:flex;">
+                <input type="hidden" name="post_id" th:value = "${post.id}" />
+                <p>Reply: <input type="text" name="content" /></p>
+                <!--
+                    th:value = "${post.content}" 
+                    Used to put custom value into input box
+                -->
+                <p ></p>
+                
+                <p><input type="submit" value="Submit" /></p>
+            </div>
+        </form>
+
+        <ul th:each="reply: ${replies}">
+            <div th:if="${reply.post_id == post.id}">
+                <div class="post-content">
+                    <li  th:text="${reply.content}"></li>
+                    <li class="post-time" th:text="${reply.time_posted}"></li>
+                </div>
+            </div>
+        </ul>
+        
     </ul>
 
     </body>
