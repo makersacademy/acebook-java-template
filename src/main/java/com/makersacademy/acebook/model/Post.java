@@ -21,6 +21,7 @@ public class Post {
     private String content;
     private Date time_posted;
     private Integer user_id;
+    private String username;
 
     public Post() {}
 
@@ -37,4 +38,7 @@ public class Post {
 
     public Integer getUser_id() { return this.user_id; }
     public void setUser_id(Integer user_id) { this.user_id = user_id; }
+
+    public String getUsername() { return this.username; }
+    public void setUsername(String username) { this.username = username; }
 }
