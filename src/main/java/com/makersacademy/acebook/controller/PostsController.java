@@ -31,7 +31,13 @@ public class PostsController {
     LikeRepository lrepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
+        // user id
+        String userName = principal.getName();
+        Optional<User> currentUser = urepository.findByUsername(userName);
+        User user = currentUser.get();
+        Long userIdLong = user.getId();
+
         Iterable<Post> posts = prepository.findAll();
         
         //int entries_length = (int) repository.count();
@@ -40,12 +46,17 @@ public class PostsController {
 
         // get all likes for each post
         HashMap<Long, Integer> allLikes = new HashMap<Long, Integer>();
+        // save which ones the user has liked
+        HashMap<Long, Boolean> postsUserHasLiked = new HashMap<Long, Boolean>();
         for(Post p: posts) {
             allLikes.put(
                 p.getId(),
                 lrepository.findAllByPost(p.getId()).size()
             );
-            
+            postsUserHasLiked.put(
+                p.getId(),
+                lrepository.hasLiked(p.getId(), userIdLong)
+            );
             postsToList.add(p);
         }
         System.out.println(allLikes);
@@ -59,7 +70,9 @@ public class PostsController {
 
         model.addAttribute("posts", reversedPosts);
         model.addAttribute("post", new Post());
+        model.addAttribute("like", new Like());
         model.addAttribute("allLikes", allLikes);
+        model.addAttribute("postsUserHasLiked", postsUserHasLiked);
         return "posts/index";
     }
 
