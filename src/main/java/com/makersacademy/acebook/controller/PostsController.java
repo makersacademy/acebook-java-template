@@ -1,7 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.Reply;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.ReplyRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,10 @@ public class PostsController {
 
     @Autowired
     PostRepository repository;
+    @Autowired
+    ReplyRepository reply_repo;
+    String testing_content ="Original";
+    int testing_post_id;
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -38,8 +45,20 @@ public class PostsController {
             reversedPosts.add(postsToList.get(sizeOfList-i));
         }
 
+
+        //Replies stuff here
+        Iterable<Reply> replies = reply_repo.findAll();
+
         model.addAttribute("posts", reversedPosts);
         model.addAttribute("post", new Post());
+
+        model.addAttribute("replies", replies);
+        model.addAttribute("reply", new Reply());
+        
+
+
+        model.addAttribute("test_post_id", testing_post_id);
+        model.addAttribute("test_content", testing_content);
         return "posts/index";
     }
 
@@ -50,4 +69,6 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    
 }

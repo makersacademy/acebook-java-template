@@ -8,3 +8,23 @@
     text-align: left;
     margin-bottom: 0.5rem;;
 }
+
+ul {
+    list-style-type:none;
+}
+
+.post-content {
+    padding:10px;
+    border:1px solid #999;
+    display:flex;
+    gap:20px;
+}
+
+.post-time {
+    margin-left:auto;
+}
+
+.one-full-post {
+    padding:10px;
+    border:1px solid #999;
+}
