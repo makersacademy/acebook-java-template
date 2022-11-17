@@ -5,8 +5,14 @@
       <meta charset="UTF-8" />
       <title>Signup</title>
       <link href="/signup.css" rel="stylesheet" type="text/css" />
+      <link href="/navbar.css" rel="stylesheet"/>
     </head>
     <body>
+      <div class="topnav">
+        <a class="active" href="/posts">Home</a>
+        <a href="/users/new">Sign Up</a>
+        <a href="/logon">Sign In</a>
+      </div>
       <div class="container">
         <form class="form-signup" action="#" th:action="@{/users}" th:object="${user}" method="post">
         <h2 class="form-signup-heading">Please sign up</h2>
