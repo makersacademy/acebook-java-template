@@ -94,6 +94,7 @@ public class PostsController {
         Integer userId = userIdLong.intValue();
         post.setTime_posted(date);
         post.setUser_id(userId);
+        post.setUsername(userName);
         prepository.save(post);
         return new RedirectView("/posts");
     }
