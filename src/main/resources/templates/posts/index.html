@@ -7,8 +7,14 @@
     <meta charset="UTF-8" />
     <title>Acebook</title>
     <link href="/posts.css" rel="stylesheet" type="text/css" />
+    <link href="/navbar.css" rel="stylesheet"/>
   </head>
   <body>
+    <div class="topnav">
+      <a class="active" href="/posts">Home</a>
+      <a href="/users/new">Sign Up</a>
+      <a href="/logon">Sign In</a>
+    </div>
     <div class="container">
     <div class="form-signup">
     <h2 class="posts-heading">Posts</h2>
@@ -28,7 +34,10 @@
     </form>
     <div class="posts">
     <ul th:each="post: ${posts}">
-      <li th:text="${post.content}" />
+      <li th:text="${post.content}">
+        <li th:text="${post.time_created}">
+          <li th:text="${post.user_id}">
+        
     </ul>
 </div>
 </div>
