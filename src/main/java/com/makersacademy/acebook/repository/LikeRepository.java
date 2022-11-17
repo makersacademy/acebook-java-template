@@ -38,28 +38,26 @@ public interface LikeRepository extends CrudRepository<Like, Long> {
 
     // toggle like
     public default void toggleLike(Long postId, Long userId) {
-        if(postId!=null){
-            // if row with these ids exists, remove
-            // if not add
-            Boolean hasLiked = false;
-            Like cachedLike = new Like();
-            Iterable<Like> allLikeRows = this.findAll();
-            for(Like l: allLikeRows) {
-                if(l.getUser_id() == userId && l.getPost_id() == postId){
-                    cachedLike = l;
-                    hasLiked = true;
-                }
+        // if row with these ids exists, remove
+        // if not add
+        Boolean hasLiked = false;
+        Like cachedLike = new Like();
+        Iterable<Like> allLikeRows = this.findAll();
+        for(Like l: allLikeRows) {
+            if(l.getUser_id() == userId && l.getPost_id() == postId){
+                cachedLike = l;
+                hasLiked = true;
             }
-            // adding or removing
-            if(hasLiked){
-                // remove
-                this.delete(cachedLike);
-            }else{
-                // add
-                cachedLike.setPost_id(postId);
-                cachedLike.setUser_id(userId);
-                this.save(cachedLike);
-            }
+        }
+        // adding or removing
+        if(hasLiked){
+            // remove
+            this.delete(cachedLike);
+        }else{
+            // add
+            cachedLike.setPost_id(postId);
+            cachedLike.setUser_id(userId);
+            this.save(cachedLike);
         }
     }
 }
