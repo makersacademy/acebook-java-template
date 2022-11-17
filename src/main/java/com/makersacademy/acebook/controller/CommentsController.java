@@ -3,6 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
@@ -24,50 +25,52 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class PostsController {
+public class CommentsController {
 
     @Autowired
-    PostRepository postRepository;
+    CommentRepository commentRepository;
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/posts")
+    @Autowired
+    PostRepository postRepository;
+
+    // @GetMapping("/posts")
+    // public String index(Model model) {
+    //     Iterable<Post> posts = commentRepository.findAll();
+    //     model.addAttribute("posts", posts);
+    //     model.addAttribute("post", new Post());
+    //     return "posts/index";
+    // }
+
+    @GetMapping("/comments")
     public String index(Model model) {
-        Iterable<Post> posts = postRepository.findAll();
-        model.addAttribute("posts", posts);
-        model.addAttribute("post", new Post());
-        //model.addAttribute("comment", new Comment());
-        return "posts/index";
+        Iterable<Comment> comments = commentRepository.findAll();
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+        return "comments/index";
     }
 
-    @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        // org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @PostMapping("/comments")
+    public String create(@ModelAttribute Comment comment, Principal principal) {
 
         // get the current user
         String name = principal.getName();
         Optional<User> currentUser = userRepository.findByUsername(name); 
         User userObj = currentUser.get(); 
         Long userId = userObj.getId();
-        post.setUserId(userId);
-        System.out.println(userId);
-        Date timeStamp = new Date();
-        post.setDate(timeStamp);
-        // get his/her id
-        // create setter in model post to set user_id
-        // get the date of today
-        // create setter method in the model to set the timestamp
-        // if the post content is empty
+        comment.setUserId(userId);
 
-        if (post.content.isEmpty()){
+        System.out.println(comment);
+
+        if (comment.content.isEmpty()){
             // return the /post route
-            return new RedirectView("/posts");
+            return ("posts/index");
         } else {
             // else
-            postRepository.save(post);
-            return new RedirectView("/posts");
+            commentRepository.save(comment);
+            return "comments/index";
         }
         
         // end 

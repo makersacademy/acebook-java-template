@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link href="/posts.css" rel="stylesheet" type="text/css" />
+    <link href="/navbar.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <ul th:each="comment: ${comments}">
+       <li th:text="${comment.content}">
+    </ul>
+
+  </body>
+</html>
