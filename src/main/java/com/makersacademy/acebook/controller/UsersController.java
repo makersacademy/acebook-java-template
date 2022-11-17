@@ -4,12 +4,18 @@ import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+
+import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -32,5 +38,23 @@ public class UsersController {
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
+    }
+
+    // @GetMapping("/users/")
+    // public String profile(Model model) {
+    //     model.addAttribute("user", new User());
+    //     return "users/new";
+    // }
+
+    @RequestMapping(value="/users/{username}")
+    public String profile(Model model, @PathVariable("username") String username, Principal principal){
+        // String userName = principal.getName();
+        Optional<User> profileUser = userRepository.findByUsername(username);
+        User user = profileUser.get();
+        Long userIdLong = user.getId();
+        Integer userId = userIdLong.intValue();
+        model.addAttribute("user_id", userId);
+        model.addAttribute("username", username);
+        return "users/profile";
     }
 }

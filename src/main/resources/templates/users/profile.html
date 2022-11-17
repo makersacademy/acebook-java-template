@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Signup</title>
+    </head>
+    <body>
+      <h1 th:text="${username}"></h1>
+
+      <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
+        <input type="hidden" th:value="${user_id}" name="to_user" />
+        <input type="submit" value="Add friend">
+        <!-- <div th:switch="${postsUserHasLiked.get(post.id)}">
+            <input th:case="true" style="background-color:blue;color:white;" type="submit" value="Added!" />
+            <input th:case="false" type="submit" value="Add friend" />
+        </div> -->
+    </form>
+  </body>
+</html>
