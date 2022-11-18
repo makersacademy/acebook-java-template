@@ -19,7 +19,7 @@
         <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
     </form>
 
-    <p> Current test data: 
+    <p> Current test data:
         <p th:text="${test_content}"></p>
         <p th:text="${test_post_id}"></p>
     </p>
@@ -39,7 +39,7 @@
                 <input th:case="false" type="submit" value="Like" />
             </div>
         </form>
-        
+
         <!-- Creating input box-->
 
         <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
@@ -47,11 +47,11 @@
                 <input type="hidden" name="post_id" th:value = "${post.id}" />
                 <p>Reply: <input type="text" name="content" /></p>
                 <!--
-                    th:value = "${post.content}" 
+                    th:value = "${post.content}"
                     Used to put custom value into input box
                 -->
                 <p ></p>
-                
+
                 <p><input type="submit" value="Submit" /></p>
             </div>
         </form>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </ul>
-        
+
     </ul>
 
     </body>
