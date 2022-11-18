@@ -28,6 +28,7 @@
         <div class="post-content">
             <li  th:text="${post.content}"></li>
             <li th:text="${post.username}" />
+            <img th:src="${post.image}" />
             <li th:text="${allLikes.get(post.id)}"> Likes</li>
             <li class="post-time" th:text="${post.time_posted}"></li>
         </div>
