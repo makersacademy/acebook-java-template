@@ -4,17 +4,85 @@
     <head>
         <meta charset="UTF-8">
         <title>Signup</title>
+        <link rel="stylesheet" href="/profile.css">
     </head>
     <body>
-      <h1 th:text="${username}"></h1>
+      <h1 th:text="${profile_username}"></h1>
 
-      <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
-        <input type="hidden" th:value="${user_id}" name="to_user" />
-        <input type="submit" value="Add friend">
-        <!-- <div th:switch="${postsUserHasLiked.get(post.id)}">
-            <input th:case="true" style="background-color:blue;color:white;" type="submit" value="Added!" />
-            <input th:case="false" type="submit" value="Add friend" />
-        </div> -->
-    </form>
+      <div th:switch="${profile_username==my_username}">
+        <div th:case="false">
+          <!-- profile is not the user's, shows friend request button -->
+          <div th:switch="${friend_repository.hasRequested(my_id,profile_id) || friend_repository.hasRequested(profile_id,my_id)}">
+            <div th:case="false">
+              <!-- request does not exist -->
+              <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
+                <input type="hidden" th:value="${profile_id}" name="to_user" />
+                <input type="submit" value="Add friend">
+              </form>
+            </div>
+            <div th:case="true">
+              <!-- request exists -->
+              <div th:switch="${friend_repository.findRequest(my_id,profile_id).getFromUser()==my_id}">
+                <div th:case="true">
+                  <!-- user has sent the request -->
+                  <div th:switch="${friend_repository.findRequest(my_id,profile_id).getConfirmed()!=1}">
+                    <div th:case="true">
+                      <!-- request has not been confirmed -->
+                      <input type="submit" value="Pending" disabled="disabled">
+                    </div>
+                    <div th:case="false">
+                      <!-- request has been confirmed -->
+                      <p>You're friends!</p>
+                    </div>
+                  </div>
+                </div>
+                <div th:case="false">
+                  <!-- user did not send the request -->
+                  <div th:switch="${friend_repository.findRequest(profile_id,my_id).getConfirmed()!=1}">
+                    <div th:case="true">
+                      <!-- request has not been confirmed -->
+                      <input type="submit" value="Pending" disabled="disabled">
+                    </div>
+                    <div th:case="false">
+                      <!-- request has been confirmed -->
+                      <p>You're friends!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div th:case="true" class="friends">
+          <!-- profile is the user's, shows friend request list -->
+          <div class="my-friends">
+            <h2>Your friends</h2>
+            <ul th:each="friend: ${my_friends}">
+              <li>
+                <div th:switch="${user_repository.findById(friend.getFromUser()).get().getUsername()!=my_username}">
+                  <p th:case="true"><span th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></span></p>
+                  <p th:case="false"><span th:text="${user_repository.findById(friend.getToUser()).get().getUsername()}"></span></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="friend-requests">
+            <h2>Friend requests</h2>
+            <ul th:each="friend: ${my_friend_requests}">
+              <li>
+                <p th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></p>
+                <form action="#" th:action="@{/friends/accept}" th:object="${friend}" method="post">
+                  <input type="hidden" th:value="${friend.getId()}" name="id" />
+                  <input type="submit" value="Accept" style="background-color:cyan;">
+                </form>
+                <form action="#" th:action="@{/friends/reject}" th:object="${friend}" method="post">
+                  <input type="hidden" th:value="${friend.getId()}" name="id" />
+                  <input type="submit" value="Reject" style="background-color:red;color:white;">
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
   </body>
 </html>

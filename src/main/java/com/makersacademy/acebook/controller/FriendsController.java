@@ -28,10 +28,6 @@ public class FriendsController {
 
     @PostMapping("/friends")
     public RedirectView sendFriendRequest(@ModelAttribute Friend friend, Principal principal) {
-        // split sent string
-        //String sentString = friend.getToUser();
-        //String[] arrOfStr = sentString.split("+", 2);
-        // things
         String userName = principal.getName();
         Optional<User> currentUser = urepository.findByUsername(userName);
         User user = currentUser.get();
@@ -43,6 +39,25 @@ public class FriendsController {
         User toUser = toUserOptional.get();
         String toUserName = toUser.getUsername();
         return new RedirectView(String.format("/users/%s",toUserName));
+    }
+
+    @PostMapping("/friends/accept")
+    public RedirectView acceptFriendRequest(@ModelAttribute Friend friend, Principal principal) {
+        String userName = principal.getName();
+        Long friend_id = friend.getId();
+        Optional<Friend> requestOptional = friendRepository.findById(friend_id);
+        Friend request = requestOptional.get();
+        request.setConfirmed(1);
+        friendRepository.save(request);
+        return new RedirectView(String.format("/users/%s",userName));
+    }
+
+    @PostMapping("/friends/reject")
+    public RedirectView rejectFriendRequest(@ModelAttribute Friend friend, Principal principal) {
+        String userName = principal.getName();
+        Long friend_id = friend.getId();
+        friendRepository.deleteById(friend_id);
+        return new RedirectView(String.format("/users/%s",userName));
     }
 
 }
