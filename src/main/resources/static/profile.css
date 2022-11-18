@@ -1,0 +1,11 @@
+.friends {
+  display: flex;
+}
+
+
+.my-friends,.friend-requests{
+  margin: 10px;
+  height:200px;
+  width:200px;
+  overflow-y:scroll;
+}
