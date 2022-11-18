@@ -42,18 +42,20 @@ public class CommentsController {
     //     model.addAttribute("posts", posts);
     //     model.addAttribute("post", new Post());
     //     return "posts/index";
-    // }
+    // }x§
 
     @GetMapping("/comments")
     public String index(Model model) {
         Iterable<Comment> comments = commentRepository.findAll();
+        // System.out.println(comments);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
+        // model.addAttribute("post_id", post_id);
         return "comments/index";
     }
 
     @PostMapping("/comments")
-    public String create(@ModelAttribute Comment comment, Principal principal) {
+    public RedirectView create(@ModelAttribute Comment comment, Principal principal) {
 
         // get the current user
         String name = principal.getName();
@@ -62,15 +64,19 @@ public class CommentsController {
         Long userId = userObj.getId();
         comment.setUserId(userId);
 
-        System.out.println(comment);
+       
 
         if (comment.content.isEmpty()){
             // return the /post route
-            return ("posts/index");
+            // return ("posts/index");
+            return new RedirectView("/comments");
+
         } else {
             // else
             commentRepository.save(comment);
-            return "comments/index";
+            // return "comments/index";
+            return new RedirectView("/comments");
+
         }
         
         // end 

@@ -38,14 +38,14 @@
             <p th:text="${post.content}">
             <p th:text="${post.time_created}">
             <p th:text="${post.user_id}">
-              <p th:text="${post.id}"></p>
+            <p th:text="${post.id}"></p>
             
               <form action="#" th:action="@{/comments}" th:object="${post}" method="post">
                 <p>Content: 
                   <label for="content" class="sr-only">Content</label>
                   <input type="text" class="form-control" th:field="*{content}" /></p>
                 <p>
-                  <input type="text" class="form-control" th:value="${post.id}" th:field="*{post_id}"/>
+                  <input type="hidden" class="form-control" th:value="${post.id}" th:attr="name='post_id'"/>
                   <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />
                 </p>
               </form>

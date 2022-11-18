@@ -44,4 +44,6 @@ public class Post {
     public void setLikes(int likes) { this.likes = 0; }
     public void setUserId(Long userId){ this.user_id = userId; }
     public void setDate(Date timeStamp){ this.time_created = timeStamp; }
+    public Long getId(){ return this.id; }
+
 }

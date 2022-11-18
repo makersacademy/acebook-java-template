@@ -41,6 +41,21 @@ public class PostsController {
         return "posts/index";
     }
 
+    @GetMapping("/posts/{id}")
+    public String show(@PathVariable Long id, Model model){
+        Optional<Post> objPost = postRepository.findById(id);
+      
+        model.addAttribute("posts", objPost);
+        // model.addAttribute("post", new Post());
+       System.out.println( model.addAttribute("post", new Post()));
+        return "posts/show";
+    }
+
+
+    private RedirectView RedirectView(String string) {
+        return null;
+    }
+
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +67,7 @@ public class PostsController {
         User userObj = currentUser.get(); 
         Long userId = userObj.getId();
         post.setUserId(userId);
-        System.out.println(userId);
+        // System.out.println(userId);
         Date timeStamp = new Date();
         post.setDate(timeStamp);
         // get his/her id
