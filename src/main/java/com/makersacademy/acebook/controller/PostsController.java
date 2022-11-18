@@ -1,6 +1,6 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Comment;
+
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -44,10 +44,10 @@ public class PostsController {
     @GetMapping("/posts/{id}")
     public String show(@PathVariable Long id, Model model){
         Optional<Post> objPost = postRepository.findById(id);
-      
-        model.addAttribute("posts", objPost);
-        // model.addAttribute("post", new Post());
-       System.out.println( model.addAttribute("post", new Post()));
+        Post post = objPost.get();
+        System.out.println(post);
+        model.addAttribute("posts", post);
+        model.addAttribute("post", new Post());
         return "posts/show";
     }
 
