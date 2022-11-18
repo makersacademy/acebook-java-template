@@ -19,7 +19,7 @@ public class Friend {
   private long id;
   private long to_user;
   private long from_user;
-  private Integer confirmed;
+  private Integer confirmed = 0;
 
 
   public Friend() {}
