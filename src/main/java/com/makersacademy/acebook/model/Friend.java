@@ -24,11 +24,6 @@ public class Friend {
 
   public Friend() {}
 
-  // public Friend(long to_user, long from_user) {
-  //     this.to_user = to_user;
-  //     this.from_user = from_user;
-  // }
-
   public long getToUser() { return this.to_user; }
   public void setToUser(long to_user) { this.to_user = to_user; }
 

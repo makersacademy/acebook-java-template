@@ -46,6 +46,13 @@ public class UsersController {
         return "users/new";
     }
 
+    @GetMapping("/users")
+    public String index(Model model) {
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("all_users", users);
+        return "users/index";
+    }
+
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
         userRepository.save(user);
@@ -53,12 +60,6 @@ public class UsersController {
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
     }
-
-    // @GetMapping("/users/")
-    // public String profile(Model model) {
-    //     model.addAttribute("user", new User());
-    //     return "users/new";
-    // }
 
     @RequestMapping(value="/users/{username}")
     public String profile(Model model, @PathVariable("username") String username, Principal principal){
