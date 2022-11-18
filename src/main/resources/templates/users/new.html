@@ -6,9 +6,60 @@
         <title>Signup</title>
     </head>
     <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+        <form action="#" th:action="@{/users}" th:object="${user}" method="post" enctype="multipart/form-data">
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
+
+            <div>
+                <label>Photo: </label>
+                <input type="hidden" name="image" id="base64-data-input" />
+                <div id="file-uploader-container">
+                    <script>
+                        window.addEventListener("load", (event) => {
+                            const fileUploaderContainer = document.getElementById("file-uploader-container");
+                            const fileInput = document.getElementById("file-upload-input");
+                            const base64DataInput = document.getElementById("base64-data-input");
+                            fileInput.onchange = function(){
+                                let reader = new FileReader();
+                                reader.readAsDataURL(fileInput.files[0]);
+                                reader.onload = function(e) {
+                                    // get the data from the upload input
+                                    const imageSrc = e.target.result;
+                                    // draw onto a canvas
+                                    let cv = document.createElement("canvas");
+                                    cv.setAttribute("width","100px");
+                                    cv.setAttribute("height","100px");
+                                    let cvtx = cv.getContext("2d");
+                                    let ti = new Image();
+                                    ti.src = imageSrc;
+                                    ti.onload = function(){
+                                        // crop the image nicely
+                                        let nw = 100;
+                                        let nh = 100*(ti.naturalHeight/ti.naturalWidth);
+                                        if(nh < 100){
+                                            nh = 100;
+                                            nw = 100*(ti.naturalWidth/ti.naturalHeight);
+                                        }
+                                        cvtx.drawImage(ti,0,0,nw,nh);
+                                        // extract final base64 data
+                                        const exp = cv.toDataURL();
+                                        // set form input to have it as a value
+                                        base64DataInput.value=exp;
+                                        // remove the file input
+                                        fileInput.remove();
+                                        // show the image to the user
+                                        ti.src=exp;
+                                        ti.className="preview-photo";
+                                        fileUploaderContainer.appendChild(ti);
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                    <input type="file" id="file-upload-input" accept="image/*">
+                </div>
+            </div>
+            
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
     </body>

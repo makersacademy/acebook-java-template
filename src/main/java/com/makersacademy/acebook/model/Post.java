@@ -22,6 +22,7 @@ public class Post {
     private Date time_posted;
     private Integer user_id;
     private String username;
+    private String image;
 
     public Post() {}
 
@@ -41,4 +42,7 @@ public class Post {
 
     public String getUsername() { return this.username; }
     public void setUsername(String username) { this.username = username; }
+
+    public String getImage() { return this.image; }
+    public void setImage(String image) { this.image = image; }
 }
