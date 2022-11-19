@@ -1,10 +1,4 @@
 <h1>show page</h1>
+<p th:text="${post.content}">
 
-<div th:each="post: ${posts}">
-   
-      <p th:text="${post.content}"></p>
-      <p th:text="${post.time_created}"></p>
-      <p th:text="${post.user_id}"></p>
-      <p th:text="${post.id}"></p>
  
-</div>

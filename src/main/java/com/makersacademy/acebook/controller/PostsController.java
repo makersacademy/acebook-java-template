@@ -45,9 +45,8 @@ public class PostsController {
     public String show(@PathVariable Long id, Model model){
         Optional<Post> objPost = postRepository.findById(id);
         Post post = objPost.get();
-        System.out.println(post);
-        model.addAttribute("posts", post);
-        model.addAttribute("post", new Post());
+        model.addAttribute("post", post);
+        // model.addAttribute("post", new Post());
         return "posts/show";
     }
 
