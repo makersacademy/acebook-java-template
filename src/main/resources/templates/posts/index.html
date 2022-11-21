@@ -32,15 +32,15 @@
           <input class="btn btn-lg btn-primary btn-block" type="reset" value="Reset" />
         </p>
       </form>
-      <div class="posts">
-        <ul th:each="post: ${posts}">
+      <div>
+        <ul class="posts" th:each="post: ${posts}">
           <li>
             <p th:text="${post.content}">
             <p th:text="${post.time_created}">
             <p th:text="${post.user_id}">
             <p th:text="${post.id}"></p>
             
-              <form action="#" th:action="@{/comments}" th:object="${post}" method="post">
+              <form class="post-item" action="#" th:action="@{/comments}" th:object="${post}" method="post">
                 <p>Content: 
                   <label for="content" class="sr-only">Content</label>
                   <input type="text" class="form-control" th:field="*{content}" /></p>

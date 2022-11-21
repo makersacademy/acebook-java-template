@@ -1,3 +1,33 @@
-<h1>show page</h1>
-<p th:text="${post.content}">
-
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link href="/posts.css" rel="stylesheet" type="text/css" />
+    <link href="/navbar.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" href="/posts">Home</a>
+      <a href="/users/new">Sign Up</a>
+      <a href="/logon">Sign In</a>
+    </div>
+    <div class="container form-signup" sec:authorize="isAuthenticated()">
+      <h2 class="posts-heading">
+        Post by <span class="name" sec:authentication="name"></span>
+      </h2>
+      <div class="posts container form-signup">
+        <p th:text="${post.content}"></p>
+        <p class="time_created" th:text="${post.time_created}"></p>
+        <p>Comments:</p>
+        <p th:each="comment: ${comments}">
+          <li th:text="${comment.content}"></li>
+          <li th:text="${comment.post_id}"></li>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
