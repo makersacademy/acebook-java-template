@@ -8,6 +8,8 @@
     </head>
     <body>
 
+        <div class="header" th:replace="common/navbar::headernavfragment"></div>
+
         <h1>Users</h1>
         <ul th:each="user: ${all_users}">
             <li>
