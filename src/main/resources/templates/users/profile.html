@@ -20,14 +20,28 @@
           </div>
         </div>
         <div th:case="true">
-          <h3>Update Your Personal Information:</h3>
-          <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
-            <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
-            <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
-            <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
-            <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
-            <p><input type="submit" value="Submit" id="submit"/></p>
-          </form>
+          <div th:switch="${profile_info_optional.isPresent()}">
+            <div th:case="true">
+              <h3>Update Your Personal Information:</h3>
+              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
+                <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
+                <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
+                <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
+                <p><input type="submit" value="Submit" id="submit"/></p>
+              </form>
+            </div>
+            <div th:case="false">
+              <h3>Add Your Personal Information:</h3>
+              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                <p>Nickname: <input type="text" name="nickname"  /></p>
+                <p>About Me: <textarea type="text" name="bio"  ></textarea></p>
+                <p>Pronouns: <input type="text" name="pronouns" /></p>
+                <p>Birthday: <input type="date" name="birthday" /></p>
+                <p><input type="submit" value="Submit" id="submit"/></p>
+              </form>
+            </div>
+          </div>
         </div>
       <div>
 
