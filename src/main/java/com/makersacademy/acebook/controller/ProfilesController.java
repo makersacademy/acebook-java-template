@@ -28,6 +28,7 @@ public class ProfilesController {
         Optional<User> currentUser = urepository.findByUsername(userName);
         User user = currentUser.get();
         Long userIdLong = user.getId();
+        prepository.deleteById(userIdLong);
         profileModel.setUserId(userIdLong);
         prepository.save(profileModel);
         return new RedirectView(String.format("/users/%s", userName));

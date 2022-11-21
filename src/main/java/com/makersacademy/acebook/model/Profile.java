@@ -1,6 +1,6 @@
 package com.makersacademy.acebook.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ public class Profile {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private long user_id;
+  private long userId;
   private String bio;
   private String pronouns;
   private Date birthday;
@@ -27,17 +27,17 @@ public class Profile {
 
   public Profile() {}
 
-  public Profile(long id, long user_id, String bio, String pronouns, Date birthday, String nickname) {
+  public Profile(long id, long userId, String bio, String pronouns, Date birthday, String nickname) {
     this.id = id;
-    this.user_id = user_id;
+    this.userId = userId;
     this.bio = bio;
     this.pronouns = pronouns;
     this.birthday = birthday;
     this.nickname = nickname;
   }
 
-  public long getUserId() { return this.user_id; }
-  public void setUserId(long user_id) { this.user_id = user_id; }
+  public long getUserId() { return this.userId; }
+  public void setUserId(long userId) { this.userId = userId; }
 
   public String getBio() { return this.bio; }
   public void setBio(String bio) { this.bio = bio; }
