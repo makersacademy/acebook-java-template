@@ -17,7 +17,7 @@
               <!-- request does not exist -->
               <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
                 <input type="hidden" th:value="${profile_id}" name="to_user" />
-                <input type="submit" value="Add friend">
+                <input id="add-friend-button" type="submit" value="Add friend">
               </form>
             </div>
             <div th:case="true">
@@ -28,11 +28,11 @@
                   <div th:switch="${friend_repository.findRequest(my_id,profile_id).getConfirmed()!=1}">
                     <div th:case="true">
                       <!-- request has not been confirmed -->
-                      <input type="submit" value="Pending" disabled="disabled">
+                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
                     </div>
                     <div th:case="false">
                       <!-- request has been confirmed -->
-                      <p>You're friends!</p>
+                      <p id="is-friends">You're friends!</p>
                     </div>
                   </div>
                 </div>
@@ -41,11 +41,11 @@
                   <div th:switch="${friend_repository.findRequest(profile_id,my_id).getConfirmed()!=1}">
                     <div th:case="true">
                       <!-- request has not been confirmed -->
-                      <input type="submit" value="Pending" disabled="disabled">
+                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
                     </div>
                     <div th:case="false">
                       <!-- request has been confirmed -->
-                      <p>You're friends!</p>
+                      <p id="is-friends">You're friends!</p>
                     </div>
                   </div>
                 </div>
@@ -60,8 +60,8 @@
             <ul th:each="friend: ${my_friends}">
               <li>
                 <div th:switch="${user_repository.findById(friend.getFromUser()).get().getUsername()!=my_username}">
-                  <p th:case="true"><span th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></span></p>
-                  <p th:case="false"><span th:text="${user_repository.findById(friend.getToUser()).get().getUsername()}"></span></p>
+                  <p th:case="true"><span id="friend-name" th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></span></p>
+                  <p th:case="false"><span id="friend-name" th:text="${user_repository.findById(friend.getToUser()).get().getUsername()}"></span></p>
                 </div>
               </li>
             </ul>
@@ -70,14 +70,14 @@
             <h2>Friend requests</h2>
             <ul th:each="friend: ${my_friend_requests}">
               <li>
-                <p th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></p>
+                <p id="friend-request-name" th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></p>
                 <form action="#" th:action="@{/friends/accept}" th:object="${friend}" method="post">
                   <input type="hidden" th:value="${friend.getId()}" name="id" />
-                  <input type="submit" value="Accept" style="background-color:cyan;">
+                  <input id="accept-request-button" type="submit" value="Accept" style="background-color:cyan;">
                 </form>
                 <form action="#" th:action="@{/friends/reject}" th:object="${friend}" method="post">
                   <input type="hidden" th:value="${friend.getId()}" name="id" />
-                  <input type="submit" value="Reject" style="background-color:red;color:white;">
+                  <input id="reject-request-button" type="submit" value="Reject" style="background-color:red;color:white;">
                 </form>
               </li>
             </ul>

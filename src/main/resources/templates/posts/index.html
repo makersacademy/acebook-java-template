@@ -137,14 +137,14 @@
             <li  th:text="${post.content}"></li>
             <li th:text="${post.username}" />
             <img th:src="${post.image}" />
-            <li th:text="${allLikes.get(post.id)}"> Likes</li>
+            <li th:text="${allLikes.get(post.id)}" id="post-like-count"> Likes</li>
             <li class="post-time" th:text="${post.time_posted}"></li>
         </div>
         <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
             <input type="hidden" th:value="${post.id}" name="post_id" />
             <div th:switch="${postsUserHasLiked.get(post.id)}">
-                <input th:case="true" style="background-color:blue;color:white;" type="submit" value="Liked!" />
-                <input th:case="false" type="submit" value="Like" />
+                <input th:case="true" style="background-color:blue;color:white;" type="submit" value="Liked!" id="like-button" />
+                <input th:case="false" type="submit" value="Like" id="like-button" />
             </div>
         </form>
 
