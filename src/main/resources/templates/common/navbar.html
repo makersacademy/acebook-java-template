@@ -2,6 +2,7 @@
     <body>
         <div class="header" th:fragment="headernavfragment">
             <link rel="stylesheet" href="/main.css" />
+            <script src="/main.js" defer></script>
             <div class="Logo">
                 <a href="/">
                     <img src="/logo.png" height="45px">
@@ -14,7 +15,7 @@
                     <p><a href="/posts/">Posts</a></p>
                     <p><a href="/users/">Users</a></p>
                     <p><a href="/users/me">Profile</a></p>
-                    <img src="/users/myphoto" height="30px">
+                    <img id="my-photo" src="about:blank" height="30px">
                     <p><a href="/logout">Logout</a></p>
                 </div>
             </div>
