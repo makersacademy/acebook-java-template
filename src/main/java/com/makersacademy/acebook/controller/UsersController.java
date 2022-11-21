@@ -34,9 +34,13 @@ public class UsersController {
         return "/logon";
     }
 
+
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
         userRepository.save(user);
+        System.out.println("we are in the post request");
+        System.out.println(user);
+
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");

@@ -15,35 +15,24 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "POSTS")
-public class Post {
+@Table(name = "COMMENTS")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String content;
     private Long user_id;
-    private int likes;
-    private Date time_created;
+    private Long post_id;
 
-    @Column(name="time_created")			//database column name? (time_created?)
-	
+    public Comment() {}
 
-    public void addLikes() {
-        likes++;
-    }
-
-    public Post() {}
-
-    public Post(String content, int likes) {
+    public Comment(String content) {
         this.content = content;
-        this.likes = 0;
+
     }
     public String getContent() { return this.content; }
-    public int getLikes() {return this.likes;}
     public void setContent(String content) { this.content = content; }
-    public void setLikes(int likes) { this.likes = 0; }
     public void setUserId(Long userId){ this.user_id = userId; }
-    public void setDate(Date timeStamp){ this.time_created = timeStamp; }
-    public Long getId(){ return this.id; }
+    public void setPostId(Long postId){ this.post_id = postId; }
 
 }

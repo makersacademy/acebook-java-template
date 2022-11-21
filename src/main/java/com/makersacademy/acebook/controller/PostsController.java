@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -36,7 +37,22 @@ public class PostsController {
         Iterable<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        //model.addAttribute("comment", new Comment());
         return "posts/index";
+    }
+
+    @GetMapping("/posts/{id}")
+    public String show(@PathVariable Long id, Model model){
+        Optional<Post> objPost = postRepository.findById(id);
+        Post post = objPost.get();
+        model.addAttribute("post", post);
+        // model.addAttribute("post", new Post());
+        return "posts/show";
+    }
+
+
+    private RedirectView RedirectView(String string) {
+        return null;
     }
 
     @PostMapping("/posts")
@@ -50,7 +66,7 @@ public class PostsController {
         User userObj = currentUser.get(); 
         Long userId = userObj.getId();
         post.setUserId(userId);
-        System.out.println(userId);
+        // System.out.println(userId);
         Date timeStamp = new Date();
         post.setDate(timeStamp);
         // get his/her id
