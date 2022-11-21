@@ -27,27 +27,20 @@ public class UsersController {
         return "users/new";
     }
 
-    @GetMapping("/logon")
+    @GetMapping("/login")
     public String signin(Model model) {
         return "/logon";
     }
 
-    @GetMapping("/error")
-    public String error(Model model) {
-        return "/error";
-    }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user, Model model) {
-        try {
-            userRepository.save(user);
-            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-            authoritiesRepository.save(authority);
-            return new RedirectView("/login");
-        } catch (Exception e) {
-            System.out.printf("HERE IS THE ERROR: %s", e.getLocalizedMessage());
-            model.addAttribute("error_message", "Login failed");
-            return new RedirectView("/error");
-        }
+    public RedirectView signup(@ModelAttribute User user) {
+        userRepository.save(user);
+        System.out.println("we are in the post request");
+        System.out.println(user);
+
+        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+        authoritiesRepository.save(authority);
+        return new RedirectView("/login");
     }
 }
