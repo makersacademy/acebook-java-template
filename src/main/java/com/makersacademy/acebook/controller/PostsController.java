@@ -92,9 +92,11 @@ public class PostsController {
         User user = currentUser.get();
         Long userIdLong = user.getId();
         Integer userId = userIdLong.intValue();
+        String image = user.getImage();
         post.setTime_posted(date);
         post.setUser_id(userId);
         post.setUsername(userName);
+        post.setImage(image);
         prepository.save(post);
         return new RedirectView("/posts");
     }
