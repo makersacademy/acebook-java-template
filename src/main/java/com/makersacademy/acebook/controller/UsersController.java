@@ -8,6 +8,9 @@ import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.ProfileRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Bean;
 
 import antlr.StringUtils;
 
@@ -44,6 +47,18 @@ public class UsersController {
     @Autowired
     ProfileRepository profileRepository;
 
+    
+
+    //@Bean BCryptPasswordEncoder bCryptPasswordEncoder() {
+    //  return new BCryptPasswordEncoder();
+    //}
+
+    //@Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping("/users/new")
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -59,6 +74,20 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
+
+      
+
+        //String username = user.getUsername();
+        //String password = user.getPassword();
+        //Long id = user.getId();
+        //String image = user.getImage();
+        //String encrypted_password = bCryptPasswordEncoder.encode(password);
+        //user.setPassword(encrypted_password);
+        
+        //String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        //System.out.println(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
@@ -114,4 +143,20 @@ public class UsersController {
 
         return "users/profile";
     }
+
+    static public String hash_password(String password) {
+      char[] list_of_characters = new char[password.length()];
+
+      for (int i = 0; i < password.length();i++) {
+          char current_letter = password.charAt(i);
+          int letter = (int) current_letter;
+          letter = letter + 1;
+          char encrypted_letter = (char) letter;
+          list_of_characters[i] = encrypted_letter;
+
+      }
+
+      String result = new String(list_of_characters);
+      return result;
+  }
 }
