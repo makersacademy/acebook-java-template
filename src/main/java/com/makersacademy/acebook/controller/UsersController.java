@@ -5,8 +5,6 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +32,22 @@ public class UsersController {
         return "/logon";
     }
 
+    @GetMapping("/error")
+    public String error(Model model) {
+        return "/error";
+    }
+
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
-        userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
-        return new RedirectView("/login");
+    public RedirectView signup(@ModelAttribute User user, Model model) {
+        try {
+            userRepository.save(user);
+            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+            authoritiesRepository.save(authority);
+            return new RedirectView("/login");
+        } catch (Exception e) {
+            System.out.printf("HERE IS THE ERROR: %s", e.getLocalizedMessage());
+            model.addAttribute("error_message", "Login failed");
+            return new RedirectView("/error");
+        }
     }
 }

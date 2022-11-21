@@ -7,12 +7,18 @@
     <meta charset="UTF-8" />
     <title>Acebook</title>
     <link href="/posts.css" rel="stylesheet" type="text/css" />
-    <link href="/navbar.css" rel="stylesheet"/>
+    <link href="/navbar.css" rel="stylesheet" />
   </head>
   <body>
-    <ul th:each="comment: ${comments}">
-       <li th:text="${comment.content}">
-    </ul>
-
+    <div class="topnav">
+      <a class="active" href="/posts">Home</a>
+      <a href="/users/new">Sign Up</a>
+      <a href="/logon">Sign In</a>
+    </div>
+    <div>
+      <ul class="posts container form-signup" th:each="comment: ${comments}">
+        <li th:text="${comment.content}"></li>
+      </ul>
+    </div>
   </body>
 </html>
