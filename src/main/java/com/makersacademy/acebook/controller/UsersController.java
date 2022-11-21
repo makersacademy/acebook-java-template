@@ -29,7 +29,7 @@ public class UsersController {
         return "users/new";
     }
 
-    @GetMapping("/logon")
+    @GetMapping("/login")
     public String signin(Model model) {
         return "/logon";
     }
