@@ -89,7 +89,10 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
+        if (principal == null) {
+          return "redirect:/login";
+        }
         Iterable<User> users = urepository.findAll();
         model.addAttribute("all_users", users);
         return "users/index";
@@ -105,6 +108,9 @@ public class UsersController {
 
     @RequestMapping(value="/users/{username}")
     public String profile(Model model, @PathVariable("username") String username, Principal principal){
+        if (principal == null) {
+          return "redirect:/login";
+        }
         String currentUserName = principal.getName();
         Optional<User> currentUser = urepository.findByUsername(currentUserName);
         User me = currentUser.get();
