@@ -20,7 +20,7 @@ public class Post {
     private long id;
     private String content;
     private Date time_posted;
-    private Integer user_id;
+    private Integer userId;
     private String username;
     private String image;
 
@@ -37,8 +37,8 @@ public class Post {
     public void setTime_posted(Date time_posted) { this.time_posted = time_posted; }
 
 
-    public Integer getUser_id() { return this.user_id; }
-    public void setUser_id(Integer user_id) { this.user_id = user_id; }
+    public Integer getUser_id() { return this.userId; }
+    public void setUser_id(Integer userId) { this.userId = userId; }
 
     public String getUsername() { return this.username; }
     public void setUsername(String username) { this.username = username; }
