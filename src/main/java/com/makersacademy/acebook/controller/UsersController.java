@@ -29,10 +29,11 @@ public class UsersController {
         return "users/new";
     }
 
-    // @GetMapping("/logon")
-    // public String signin(Model model) {
-    //     return "/logon";
-    // }
+    @GetMapping("/login")
+    public String signin(Model model) {
+        return "/logon";
+    }
+
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
