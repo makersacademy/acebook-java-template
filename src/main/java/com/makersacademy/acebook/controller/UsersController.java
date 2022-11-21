@@ -11,6 +11,9 @@ import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.ProfileRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Bean;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.ReplyRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
@@ -67,6 +70,18 @@ public class UsersController {
     @Autowired
     LikeRepository lrepository;
 
+    
+
+    //@Bean BCryptPasswordEncoder bCryptPasswordEncoder() {
+    //  return new BCryptPasswordEncoder();
+    //}
+
+    //@Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping("/users/new")
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -100,6 +115,8 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         urepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
@@ -200,4 +217,20 @@ public class UsersController {
 
         return "users/profile";
     }
+
+    static public String hash_password(String password) {
+      char[] list_of_characters = new char[password.length()];
+
+      for (int i = 0; i < password.length();i++) {
+          char current_letter = password.charAt(i);
+          int letter = (int) current_letter;
+          letter = letter + 1;
+          char encrypted_letter = (char) letter;
+          list_of_characters[i] = encrypted_letter;
+
+      }
+
+      String result = new String(list_of_characters);
+      return result;
+  }
 }
