@@ -41,6 +41,9 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postRepository.findAll();
+        Iterable<User> users = userRepository.findAll();
+
+        
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         //model.addAttribute("comment", new Comment());
@@ -57,6 +60,9 @@ public class PostsController {
 
         Post post = objPost.get();
         model.addAttribute("post", post);
+        
+        Optional<User> name = userRepository.findById(post.getUser_id());
+        model.addAttribute("name", name.get().getUsername());
 
         for (Comment c: comments) {
             if (c.getPost_id() == id) {

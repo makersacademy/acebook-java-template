@@ -170,10 +170,13 @@ input {
 .posts {
   background-color: #fff;
   border-radius: 0.25rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .time_created {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   text-align: right;
   margin-top: 30px;
+  margin-right: 10px;
 }

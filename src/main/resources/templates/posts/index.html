@@ -36,9 +36,10 @@
         <ul class="posts" th:each="post: ${posts}">
           <li>
             <p th:text="${post.content}">
-            <p th:text="${post.time_created}">
+            <p class="time_created" th:text="${post.time_created}">
             <p th:text="${post.user_id}">
-            <p th:text="${post.id}"></p>
+            <p th:text="${post.id}">
+            <p><a th:href="@{/posts/{id}(id=${post.id})}">See all comments</a></p>
             
               <form class="post-item" action="#" th:action="@{/comments}" th:object="${post}" method="post">
                 <p>Content: 
