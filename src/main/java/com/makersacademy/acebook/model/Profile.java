@@ -27,6 +27,15 @@ public class Profile {
 
   public Profile() {}
 
+  public Profile(long id, long user_id, String bio, String pronouns, Date birthday, String nickname) {
+    this.id = id;
+    this.user_id = user_id;
+    this.bio = bio;
+    this.pronouns = pronouns;
+    this.birthday = birthday;
+    this.nickname = nickname;
+  }
+
   public long getUserId() { return this.user_id; }
   public void setUserId(long user_id) { this.user_id = user_id; }
 
