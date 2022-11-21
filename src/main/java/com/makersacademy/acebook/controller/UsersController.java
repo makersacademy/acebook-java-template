@@ -50,6 +50,12 @@ public class UsersController {
         return "users/new";
     }
 
+    @GetMapping("/users/me")
+    public RedirectView me(Principal principal) {
+      String currentUserName = principal.getName();
+      return new RedirectView(String.format("/users/%s",currentUserName));
+    }
+
     @GetMapping("/users")
     public String index(Model model) {
         Iterable<User> users = userRepository.findAll();
