@@ -14,7 +14,7 @@
         <ul th:each="user: ${all_users}">
             <li>
                 <img th:src="${user.image}">
-                <a th:href='${"users/" + user.username}'><p th:text="${user.username}"></p></a>
+                <a th:href='${user.username}'><p th:text="${user.username}"></p></a>
             </li>
         </ul>
 
