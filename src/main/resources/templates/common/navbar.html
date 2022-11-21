@@ -11,8 +11,10 @@
                 <!-- <a th:href="${authentication.getPrincipal().getName()}"> -->
                 <div sec:authorize="isAuthenticated()">
                     <!-- is logged in -->
+                    <p><a href="/posts/">Posts</a></p>
+                    <p><a href="/users/">Users</a></p>
                     <p><a href="/users/me">Profile</a></p>
-                    <p>Signed in as <span sec:authentication="name"></span></p>
+                    <img src="/users/myphoto" height="30px">
                     <p><a href="/logout">Logout</a></p>
                 </div>
             </div>
