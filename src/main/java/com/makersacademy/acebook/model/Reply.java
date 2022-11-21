@@ -20,6 +20,8 @@ public class Reply {
     private String content;
     private Date time_posted;
     private int post_id;
+    private Integer user_id;
+    private String username;
 
     public Reply() {}
 
@@ -34,5 +36,11 @@ public class Reply {
 
     public int getPost_id() { return this.post_id; }
     public void setPost_id(int post_id) { this.post_id = post_id; }
+
+    public Integer getUser_id() { return this.user_id; }
+    public void setUser_id(Integer user_id) { this.user_id = user_id; }
+
+    public String getUsername() { return this.username; }
+    public void setUsername(String username) { this.username = username; }
 
 }
