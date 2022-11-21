@@ -29,8 +29,9 @@ html {
     margin-bottom:2%;
 
 }
-.header .header-links p{
+.header .header-links p,.header .header-links img{
     display:inline-block;
+    vertical-align: middle;
     margin:0px 5px;
 }
 
