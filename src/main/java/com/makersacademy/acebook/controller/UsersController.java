@@ -3,13 +3,15 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.model.Friend;
+import com.makersacademy.acebook.model.Profile;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.FriendRepository;
+import com.makersacademy.acebook.repository.ProfileRepository;
 
 import antlr.StringUtils;
 
 import java.io.IOException;
-import com.makersacademy.acebook.repository.FriendRepository;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -39,6 +41,8 @@ public class UsersController {
     FriendRepository friendRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    ProfileRepository profileRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -74,21 +78,28 @@ public class UsersController {
         Long userIdLong = user.getId();
         Integer userId = userIdLong.intValue();
 
+        Optional<Profile> profileInfoOptional = profileRepository.findByUserId(userIdLong);
+        if (profileInfoOptional.isPresent()) {
+          Profile profileInfo = profileInfoOptional.get();
+          model.addAttribute("profile_info", profileInfo);
+        }
+
+
         List<Friend> friendRequestsToList = new ArrayList<>();
         List<Friend> myFriends = new ArrayList<>();
         Iterable<Friend> all_friend_requests = friendRepository.findAll();
         for(Friend f: all_friend_requests){
-            if(f.getToUser()==myUserId || f.getFromUser()==myUserId){
-                if(f.getConfirmed()!=1){
-                    // is a request
-                    if(f.getFromUser()!=myUserId) {
-                      friendRequestsToList.add(f);
-                    }
-                }else{
-                    // is confirmed as a friend
-                    myFriends.add(f);
-                }
+          if(f.getToUser()==myUserId || f.getFromUser()==myUserId){
+            if(f.getConfirmed()!=1){
+              // is a request
+              if(f.getFromUser()!=myUserId) {
+                friendRequestsToList.add(f);
+              }
+            }else{
+              // is confirmed as a friend
+              myFriends.add(f);
             }
+          }
         }
 
         model.addAttribute("profile_id", userId);
@@ -97,8 +108,9 @@ public class UsersController {
         model.addAttribute("my_username", currentUserName);
         model.addAttribute("my_friend_requests", friendRequestsToList);
         model.addAttribute("my_friends", myFriends);
-        model.addAttribute("user_repository",userRepository);
-        model.addAttribute("friend_repository",friendRepository);
+        model.addAttribute("user_repository", userRepository);
+        model.addAttribute("friend_repository", friendRepository);
+        model.addAttribute("profile_info_optional", profileInfoOptional);
 
         return "users/profile";
     }
