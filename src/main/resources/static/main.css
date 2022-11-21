@@ -4,6 +4,10 @@
     box-sizing:border-box;
 }
 
+html {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
 .posts-main {
     border-collapse: collapse;
 }
@@ -17,14 +21,17 @@
 
 .header {
     background: white;
-    padding-top:2vh;
-    padding-bottom:2vh;
+    padding:15px 0px;
     padding-inline:5%;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     display:flex;
     justify-content: space-between;
     margin-bottom:2%;
 
+}
+.header .header-links p{
+    display:inline-block;
+    margin:0px 5px;
 }
 
 .Logo {

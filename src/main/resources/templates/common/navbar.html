@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <div class="header" th:fragment="headernavfragment">
+            <link rel="stylesheet" href="/main.css" />
+            <div class="Logo">
+                <a href="/">
+                    <img src="/logo.png" height="45px">
+                </a>
+            </div>
+            <div class="header-links">
+                <!-- <a th:href="${authentication.getPrincipal().getName()}"> -->
+                <div sec:authorize="isAuthenticated()">
+                    <!-- is logged in -->
+                    <p><a href="/users/me">Profile</a></p>
+                    <p>Signed in as <span sec:authentication="name"></span></p>
+                    <p><a href="/logout">Logout</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

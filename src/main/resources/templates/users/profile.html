@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/profile.css">
     </head>
     <body>
+      <div class="header" th:replace="common/navbar::headernavfragment"></div>
       <h1 th:text="${profile_username}"></h1>
       <div th:switch="${profile_username==my_username}">
         <div th:case="false">
