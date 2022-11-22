@@ -16,17 +16,18 @@ html {
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: left;
-    margin-bottom: 0.5rem;;
+    margin-bottom: 0.5rem;
 }
 
 .header {
-    background: white;
+    background-color: rgb(220, 240, 248);
     padding:15px 0px;
     padding-inline:5%;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    /* border-bottom: 1px solid rgba(0,0,0,0.1); */
     display:flex;
     justify-content: space-between;
     margin-bottom:2%;
+    box-shadow:  0 0 10px rgba(0,0,0,0.2);
 
 }
 .header .header-links p,.header .header-links img{
@@ -216,7 +217,7 @@ ul {
     padding:10px;
     border:1px solid #999;
     display:flex;
-    gap:20px;   
+    gap:20px;
 }
 
 .post-time {
@@ -229,3 +230,7 @@ ul {
     padding:10px;
     border:1px solid #999;
 }*/
+
+.nav-img {
+  border-radius: 50%;
+}

@@ -9,23 +9,32 @@
         <script src="index_script.js" defer></script>
     </head>
     <body>
-    <div class="header" th:replace="common/navbar::headernavfragment"></div>
-    <div class="container">
-      <div class="personal-info-card">
-        <img src="/cover_photo.png" class="cover-photo">
-        <div class="personal-info">
-          <div th:switch="${profile_username==my_username}" class="personal-words">
-            <h1 th:text="${profile_username}" class="username"></h1>
-            <div th:case="false">
-              <div th:switch="${profile_info_optional.isPresent()}">
-                <div th:case="true">
-                  <p th:text="${profile_info.nickname}"></p>
-                  <p th:text="${profile_info.bio}"></p>
-                  <p th:text="${profile_info.pronouns}"></p>
-                  <p th:text="${profile_info.birthday}"></p>
+      <div class="header" th:replace="common/navbar::headernavfragment">
+      </div>
+
+        <div class="container">
+          <div class="personal-info-card">
+            <img src="/cover_photo.png" class="cover-photo">
+            <div class="personal-info">
+              <div th:switch="${profile_username==my_username}" class="personal-words">
+                <div th:switch='${profile_info.nickname == empty || profile_info.nickname == ""}'>
+                  <div th:case="true">
+                    <h1 th:text='${"@" + profile_username}' class="username"></h1>
+                  </div>
+                  <div th:case="false">
+                    <h1 th:text="${profile_info.nickname}" class="username"></h1>
+                    <h1 th:text='${"@" + profile_username}'class="username-both"></h1>
+                  </div>
+                </div>
+              <div th:case="false">
+                <div th:switch="${profile_info_optional.isPresent()}">
+                  <div class="others-info" th:case="true">
+                    <div class="info-individual"><p class="info-labels">Pronouns: </p><p class="info-words" th:text='${profile_info.pronouns}'></p></div>
+                    <div class="info-individual"><p class="info-labels">Birthday: </p><p class="info-words" th:text='${profile_info.birthday}'></p></div>
+                    <div class="info-individual"><p class="info-labels">About Me: </p><p class="info-words" th:text='${profile_info.bio}'></p></div>
+                  </div>
                 </div>
               </div>
-            </div>
             <div th:case="true" class="form-container">
               <div th:switch="${profile_info_optional.isPresent()}">
                 <div th:case="true">
@@ -36,7 +45,7 @@
                       <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
                       <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
                     </div>
-                    <p><input type="submit" value="Submit" id="submit"/></p>
+                    <p><input class="profile-submit-btn" type="submit" value="Submit" id="submit"/></p>
                   </form>
                 </div>
                 <div th:case="false">
@@ -54,49 +63,43 @@
             </div>
           </div>
           <img th:src="${profile_user.image}" class="user-image">
-        </div>
-      </div>
-
-
-
-
-      <div th:switch="${profile_username==my_username}">
-        <div th:case="false">
-          <!-- profile is not the user's, shows friend request button -->
-          <div th:switch="${friend_repository.hasRequested(my_id,profile_id) || friend_repository.hasRequested(profile_id,my_id)}">
+          <div th:switch="${profile_username==my_username}">
             <div th:case="false">
-              <!-- request does not exist -->
-              <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
-                <input type="hidden" th:value="${profile_id}" name="to_user" />
-                <input id="add-friend-button" type="submit" value="Add friend">
-              </form>
-            </div>
-            <div th:case="true">
-              <!-- request exists -->
-              <div th:switch="${friend_repository.findRequest(my_id,profile_id).getFromUser()==my_id}">
-                <div th:case="true">
-                  <!-- user has sent the request -->
-                  <div th:switch="${friend_repository.findRequest(my_id,profile_id).getConfirmed()!=1}">
-                    <div th:case="true">
-                      <!-- request has not been confirmed -->
-                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
-                    </div>
-                    <div th:case="false">
-                      <!-- request has been confirmed -->
-                      <p id="is-friends">You're friends!</p>
-                    </div>
-                  </div>
-                </div>
+              <div th:switch="${friend_repository.hasRequested(my_id,profile_id) || friend_repository.hasRequested(profile_id,my_id)}">
                 <div th:case="false">
-                  <!-- user did not send the request -->
-                  <div th:switch="${friend_repository.findRequest(profile_id,my_id).getConfirmed()!=1}">
+                  <!-- request does not exist -->
+                  <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
+                    <input type="hidden" th:value="${profile_id}" name="to_user" />
+                    <input id="add-friend-button" type="submit" value="Add friend">
+                  </form>
+                </div>
+                <div th:case="true">
+                  <!-- request exists -->
+                  <div th:switch="${friend_repository.findRequest(my_id,profile_id).getFromUser()==my_id}">
                     <div th:case="true">
-                      <!-- request has not been confirmed -->
-                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
+                      <!-- user has sent the request -->
+                      <div th:switch="${friend_repository.findRequest(my_id,profile_id).getConfirmed()!=1}">
+                        <div th:case="true">
+                          <!-- request has not been confirmed -->
+                          <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
+                        </div>
+                        <div th:case="false">
+                          <!-- request has been confirmed -->
+                          <p id="is-friends">You're friends!</p>
+                        </div>
+                      </div>
                     </div>
                     <div th:case="false">
-                      <!-- request has been confirmed -->
-                      <p id="is-friends">You're friends!</p>
+                      <!-- user did not send the request -->
+                        <div th:switch="${friend_repository.findRequest(profile_id,my_id).getConfirmed()!=1}">
+                      <div th:case="true">
+                        <!-- request has not been confirmed -->
+                        <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
+                      </div>
+                      <div th:case="false">
+                        <!-- request has been confirmed -->
+                        <p id="is-friends">You're friends!</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -104,6 +107,53 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+      <div th:switch="${profile_username==my_username}">
+        <!-- <div th:case="false">
+           profile is not the user's, shows friend request button
+          <div th:switch="${friend_repository.hasRequested(my_id,profile_id) || friend_repository.hasRequested(profile_id,my_id)}">
+            <div th:case="false">
+               request does not exist
+              <form action="#" th:action="@{/friends}" th:object="${friend}" method="post">
+                <input type="hidden" th:value="${profile_id}" name="to_user" />
+                <input id="add-friend-button" type="submit" value="Add friend">
+              </form>
+            </div>
+            <div th:case="true">
+               request exists
+              <div th:switch="${friend_repository.findRequest(my_id,profile_id).getFromUser()==my_id}">
+                <div th:case="true">
+                   user has sent the request
+                  <div th:switch="${friend_repository.findRequest(my_id,profile_id).getConfirmed()!=1}">
+                    <div th:case="true">
+                       request has not been confirmed
+                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
+                    </div>
+                    <div th:case="false">
+                       request has been confirmed
+                      <p id="is-friends">You're friends!</p>
+                    </div>
+                  </div>
+                </div>
+                <div th:case="false">
+                   user did not send the request
+                  <div th:switch="${friend_repository.findRequest(profile_id,my_id).getConfirmed()!=1}">
+                    <div th:case="true">
+                       request has not been confirmed
+                      <input id="add-friend-button" type="submit" value="Pending" disabled="disabled">
+                    </div>
+                    <div th:case="false">
+                       request has been confirmed
+                      <p id="is-friends">You're friends!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
         <div th:case="true" class="friends">
           <!-- profile is the user's, shows friend request list -->
           <div class="my-friends">

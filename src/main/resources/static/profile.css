@@ -20,6 +20,7 @@
   margin-bottom: 100px;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  background-color: rgb(220, 240, 248);
 }
 
 .personal-info-card > .cover-photo {
@@ -30,9 +31,9 @@
 
 .user-image {
   position: absolute;
-  right: 480px;
-  top: -60px;
-  width: 120px;
+  left: 35px;
+  top: -90px;
+  width: 160px;
   border-radius: 50%;
 }
 
@@ -50,9 +51,17 @@
 
 .username {
   position: absolute;
-  right: 390px;
+  left: 210px;
   top: 0px;
 }
+
+.username-both {
+  position: absolute;
+  left: 210px;
+  top: 40px;
+  font-size: small;
+}
+
 
 .form-container {
   padding-top: 65px;
@@ -82,19 +91,43 @@
 .form-inline textarea {
   vertical-align: middle;
   margin: 5px 10px 5px 0;
+  margin-right: 0px;
   padding: 10px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
+  width: 350px;
 }
 
 .profile-submit-btn {
   vertical-align: middle;
   margin: 5px 10px 5px 0;
   padding: 10px;
-  background-color: #fff;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
   border: 1px solid #ddd;
   border-radius: 10px;
   text-align: center;
   width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.others-info {
+  position: absolute;
+  left: 70px;
+  top: 90px;
+  font-size: large;
+}
+
+.info-words {
+  margin-left: 10px;
+}
+
+.info-labels {
+  font-weight: bold;
+}
+
+.info-individual {
+  display: flex;
+  margin: 10px;
 }
