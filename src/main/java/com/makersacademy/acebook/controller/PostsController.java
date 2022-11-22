@@ -9,9 +9,11 @@ import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import ch.qos.logback.classic.pattern.SyslogStartConverter;
+import net.bytebuddy.TypeCache.Sort;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.aspectj.weaver.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,9 +41,22 @@ public class PostsController {
     UserRepository userRepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
-        Iterable<Post> posts = postRepository.findAll();
-        model.addAttribute("posts", posts);
+    public String index(Model model) {//Sort.by(Sort.Direction.DESC, "colName"
+       Iterable<Post> posts = postRepository.findAll();
+       List<Post> listOfPost = new ArrayList<>();
+    //    converting iterable into a list
+       for (Post post : posts) { // code block to be executed
+            listOfPost.add(post);
+        }
+        // getting the size of array
+        int postsArraySize = listOfPost.size();
+    //    reversing the array
+        List<Post> reversedPost = new ArrayList<>();
+        for (int i = postsArraySize -1 ; i >= 0; i--) {
+           reversedPost.add(listOfPost.get(i));
+        }
+        System.out.println(reversedPost);
+        model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
         //model.addAttribute("comment", new Comment());
         return "posts/index";
