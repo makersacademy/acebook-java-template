@@ -5,23 +5,13 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
-        <script src="/index_script.js" defer></script>
+        <script src="index_script.js" defer></script>
     </head>
     <body>
         <div class="header" th:replace="common/navbar::headernavfragment"></div>
         <div class="body-wrapper">
-            
-            <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                <div class="main-input-div">
-                    <input class="main-input" type="text" placeholder="The new Twitter" th:field="*{content}" />
-                </div>
-                <div class="submit-btn">
-                    <input class="button main-btn flex-center" type="submit" value="Post" id="submit"/>
-                    <input class="button cancel flex-center" type="reset" value="Cancel" />
-                </div>
-            </form>
 
-            <div class="individual-post" th:each="post: ${posts}">
+            <div class="individual-post">
                 <div class="main-post">
                     <div class="post-header">
                         <div class="post-header-left">
@@ -110,40 +100,3 @@
         </div>
     </body>
 </html>
-
-<!--
-        <div class="post-content">
-            <li  th:text="${post.content}"></li>
-            <li th:text="${post.username}" />
-            <img th:src="${post.image}" />
-            <li th:text="${allLikes.get(post.id)}" id="post-like-count"> Likes</li>
-            <li class="post-time" th:text="${post.time_posted}"></li>
-        </div>
-        <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
-            <input type="hidden" th:value="${post.id}" name="post_id" />
-            <div th:switch="${postsUserHasLiked.get(post.id)}">
-                <input th:case="true" style="background-color:blue;color:white;" type="submit" value="Liked!" id="like-button" />
-                <input th:case="false" type="submit" value="Like" id="like-button" />
-            </div>
-        </form>
-
-        <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
-            <div style="display:flex;">
-                <input type="hidden" name="post_id" th:value = "${post.id}" />
-                <p>Reply: <input type="text" name="content" /></p>
-                <p ></p>
-
-                <p><input type="submit" value="Submit" /></p>
-            </div>
-        </form>
-
-        <ul th:each="reply: ${replies}">
-            <div th:if="${reply.post_id == post.id}">
-                <div class="post-content">
-                    <li  th:text="${reply.content}"></li>
-                    <li class="post-time" th:text="${reply.time_posted}"></li>
-                </div>
-            </div>
-        </ul>
-        -->
-
