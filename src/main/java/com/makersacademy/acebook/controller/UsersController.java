@@ -43,15 +43,29 @@ public class UsersController {
         return "/logon";
     }
 
+    @GetMapping("/errorUser")
+    public String errorUsername(Model model) {
+        return "/errorUser";
+    }
+
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
-        userRepository.save(user);
-        System.out.println("we are in the post request");
-        System.out.println(user);
+        Optional<User> username = userRepository.findByUsername(user.getUsername());
 
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authoritiesRepository.save(authority);
+        if (username.isPresent() == true) {
+            return new RedirectView("/errorUser");
+        }
+        else {
+            userRepository.save(user);
+            System.out.println("we are in the post request");
+            System.out.println(user);
+    
+            Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+            authoritiesRepository.save(authority);
+            
+        }
+
         return new RedirectView("/login");
     }
 
