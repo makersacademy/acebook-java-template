@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <div th:text="${post.content}"></div>
+                        <div th:utext="${post.content}"></div>
                     </div>
                     <div class="post-footer">
                         <div class="post-footer-left flex-center">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <div th:text="${reply.content}"></div>
+                        <div th:utext="${reply.content}"></div>
                     </div>
                     <div class="post-footer">
                         <div class="post-footer-left flex-center">
