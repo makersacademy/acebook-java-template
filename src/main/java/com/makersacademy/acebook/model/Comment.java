@@ -24,15 +24,21 @@ public class Comment {
     private Long user_id;
     private Long post_id;
 
-    public Comment() {}
+    public Comment(String string, Long user_id, Long post_id) {}
 
     public Comment(String content) {
         this.content = content;
 
     }
+    public Comment() {
+    }
+
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public void setUserId(Long userId){ this.user_id = userId; }
     public void setPostId(Long postId){ this.post_id = postId; }
+    public Long getPostID(){return this.post_id;}
+    public Long getUserID(){return this.user_id;}
+
 
 }
