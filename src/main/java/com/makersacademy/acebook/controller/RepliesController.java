@@ -38,6 +38,7 @@ public class RepliesController {
         reply.setContent(HtmlUtils.htmlEscape(reply.getContent()));
         reply.setTime_posted(date);
         reply.setUser_id(userId);
+        // Is Username meant to be commented out?
         reply.setUsername(userName);
 
         repository.save(reply);
