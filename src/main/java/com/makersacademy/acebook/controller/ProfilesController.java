@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.HtmlUtils;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -24,17 +25,21 @@ public class ProfilesController {
 
     @PostMapping("/profiles")
     public RedirectView create(@ModelAttribute Profile profileModel, Principal principal) {
-        String userName = principal.getName();
-        Optional<User> currentUser = urepository.findByUsername(userName);
-        User user = currentUser.get();
-        Long userIdLong = user.getId();
-        Optional<Profile> profileOptional = prepository.findByUserId(userIdLong);
-        if (profileOptional.isPresent()) {
-          Profile profile = profileOptional.get();
-          prepository.delete(profile);
-        }
-        profileModel.setUserId(userIdLong);
-        prepository.save(profileModel);
-        return new RedirectView(String.format("/users/%s", userName));
+      profileModel.setBio(HtmlUtils.htmlEscape(profileModel.getBio()));
+      profileModel.setNickname(HtmlUtils.htmlEscape(profileModel.getNickname()));
+      profileModel.setPronouns(HtmlUtils.htmlEscape(profileModel.getPronouns()));
+
+      String userName = principal.getName();
+      Optional<User> currentUser = urepository.findByUsername(userName);
+      User user = currentUser.get();
+      Long userIdLong = user.getId();
+      Optional<Profile> profileOptional = prepository.findByUserId(userIdLong);
+      if (profileOptional.isPresent()) {
+        Profile profile = profileOptional.get();
+        prepository.delete(profile);
+      }
+      profileModel.setUserId(userIdLong);
+      prepository.save(profileModel);
+      return new RedirectView(String.format("/users/%s", userName));
     }
 }
