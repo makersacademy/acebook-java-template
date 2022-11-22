@@ -9,6 +9,7 @@ import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,14 @@ public class UsersController {
             }
         }
 
+        List<Post> reversedPosts = new ArrayList<>();
+
+        for (int i = relatedPosts.size() -1 ; i >= 0; i--) {
+            reversedPosts.add(relatedPosts.get(i));
+         }
+
         model.addAttribute("username", user.get().getUsername());
-        model.addAttribute("posts", relatedPosts);
+        model.addAttribute("posts", reversedPosts);
         model.addAttribute("post", new Post());
         return "/users/profile_page";
     }
