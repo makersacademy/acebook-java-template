@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.HtmlUtils;
 
 import java.security.Principal;
 import java.util.Date;
@@ -93,6 +94,7 @@ public class PostsController {
         Long userIdLong = user.getId();
         Integer userId = userIdLong.intValue();
         String image = user.getImage();
+        post.setContent(HtmlUtils.htmlEscape(post.getContent()));
         post.setTime_posted(date);
         post.setUser_id(userId);
         post.setUsername(userName);
