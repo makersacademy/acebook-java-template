@@ -7,5 +7,6 @@ CREATE TABLE profiles (
   bio VARCHAR(250),
   pronouns text,
   birthday date,
-  nickname text
+  nickname text,
+  cover_image text
 );

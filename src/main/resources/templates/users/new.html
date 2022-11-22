@@ -52,6 +52,9 @@
                                         // show the image to the user
                                         ti.src=exp;
                                         ti.className="preview-photo";
+                                        ti.onload = function(){
+                                            console.log("done");
+                                        }
                                         fileUploaderContainer.appendChild(ti);
                                     }
                                 }

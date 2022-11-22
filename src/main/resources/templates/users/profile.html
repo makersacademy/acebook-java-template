@@ -22,6 +22,7 @@
         <div th:case="false">
           <div th:switch="${profile_info_optional.isPresent()}">
             <div th:case="true">
+              <img th:src="${profile_info.cover_image}">
               <p th:text="${profile_info.nickname}"></p>
               <p th:text="${profile_info.bio}"></p>
               <p th:text="${profile_info.pronouns}"></p>
@@ -32,12 +33,20 @@
         <div th:case="true">
           <div th:switch="${profile_info_optional.isPresent()}">
             <div th:case="true">
+              <img th:src="${profile_info.cover_image}">
               <h3>Update Your Personal Information:</h3>
               <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
                 <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
                 <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
                 <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
                 <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
+                <div>
+                  <label>New cover image: </label>
+                  <input type="hidden" name="cover_image" id="base64-data-input" th:value="${profile_info.cover_image}" />
+                  <div id="file-uploader-container">
+                      <input type="file" id="file-upload-input" accept="image/*">
+                  </div>
+                </div>
                 <p><input type="submit" value="Submit" id="submit"/></p>
               </form>
             </div>
@@ -48,6 +57,13 @@
                 <p>About Me: <textarea type="text" name="bio"  ></textarea></p>
                 <p>Pronouns: <input type="text" name="pronouns" /></p>
                 <p>Birthday: <input type="date" name="birthday" /></p>
+                <div>
+                  <label>New cover image: </label>
+                  <input type="hidden" name="cover_image" id="base64-data-input" />
+                  <div id="file-uploader-container">
+                      <input type="file" id="file-upload-input" accept="image/*">
+                  </div>
+                </div>
                 <p><input type="submit" value="Submit" id="submit"/></p>
               </form>
             </div>
