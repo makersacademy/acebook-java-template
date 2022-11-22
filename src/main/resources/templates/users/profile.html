@@ -6,7 +6,14 @@
         <title>Signup</title>
         <link rel="stylesheet" href="/profile.css">
         <link rel="stylesheet" href="/main.css" />
-        <script src="index_script.js" defer></script>
+        <!-- <script src="/index_script.js" defer></script> -->
+        <script>
+          function confirmDeletePost(element){
+            if(confirm("Are you sure?")){
+              document.getElementById(element.getAttribute("post-id")+"-form").submit();
+            }
+          }
+        </script>
     </head>
     <body>
       <div class="header" th:replace="common/navbar::headernavfragment"></div>
@@ -157,7 +164,17 @@
               </div>
               <div class="post-footer-right flex-center">
                   <div>
-                      <button class="reply-btn button main-btn">Reply</button>
+                    <a th:href="${'/posts/'+post.id}">
+                      <button style="width:100px" class="reply-btn button main-btn">View post</button>
+                    </a>
+                  </div>
+                  <div th:switch="${post.username==my_username}">
+                    <div th:case="true">
+                      <form th:id="${post.id+'-form'}" action="#" th:action="@{/posts/delete}" th:object="${post}" method="post">
+                        <input type="hidden" th:value="${post.id}" name="id" />
+                      </form>
+                      <button style="width:100px" class="reply-btn button main-btn" th:post-id="${post.id}" onclick="confirmDeletePost(this)" type="submit">Delete post</button>
+                    </div>
                   </div>
               </div>
           </div>
@@ -172,7 +189,7 @@
               </form>
           </div>
       </div>
-      <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
+      <!-- <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
           <div class="post-header">
               <div class="post-header-left">
                   <div class="profile-picture flex-center">profile pic</div>
@@ -210,7 +227,7 @@
                   </div>
               </form>
           </div>
-      </div>
+      </div> -->
       </div>
   </body>
 </html>

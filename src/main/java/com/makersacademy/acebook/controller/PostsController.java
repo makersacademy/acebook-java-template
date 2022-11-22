@@ -103,5 +103,21 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+    @PostMapping("/posts/delete")
+    public RedirectView delete(@ModelAttribute Post post, Principal principal) {
+        String userName = principal.getName();
+        Optional<User> currentUser = urepository.findByUsername(userName);
+        User user = currentUser.get();
+        Long userIdLong = user.getId();
+        Integer userId = userIdLong.intValue();
+
+        Optional<Post> PostOptional = prepository.findById(post.getId());
+        Post thePost = PostOptional.get();
+        if(thePost.getUser_id() == userId){
+            prepository.deleteById(post.getId());
+        }
+        return new RedirectView("/users/me");
+    }
+
     
 }
