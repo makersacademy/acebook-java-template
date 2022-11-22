@@ -234,3 +234,35 @@ ul {
 .nav-img {
   border-radius: 50%;
 }
+
+.form-btn {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  margin-top: 0;
+  padding: 10px;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.form-btn-pending {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  margin-top: 0;
+  padding: 10px;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.form-btn:hover {
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(7, 72, 151));
+}

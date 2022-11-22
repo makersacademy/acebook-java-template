@@ -1,18 +1,25 @@
 .friends {
-  display: flex;
+  width: max-content;
+  margin: auto;
 }
 
 
 .my-friends,.friend-requests{
-  margin: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
   height:200px;
-  width:200px;
   overflow-y:scroll;
+  background-color: rgb(220, 240, 248);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  width: 100%;
 }
 
 .container {
-  margin: auto;
-  width: 950px;
+  /* margin-left: 3vw;
+  margin-right: 3vw; */
+  margin: 3vw;
 }
 
 .personal-info-card {
@@ -21,6 +28,7 @@
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   background-color: rgb(220, 240, 248);
+  /* max-width: 900px; */
 }
 
 .personal-info-card > .cover-photo {
@@ -52,13 +60,13 @@
 .username {
   position: absolute;
   left: 210px;
-  top: 0px;
+  top: 10px;
 }
 
 .username-both {
   position: absolute;
   left: 210px;
-  top: 40px;
+  top: 50px;
   font-size: small;
 }
 
@@ -131,3 +139,13 @@
   display: flex;
   margin: 10px;
 }
+
+.friends-div {
+  position: absolute;
+  right: 20px;
+}
+
+/* .flex-info-friends {
+  display: flex;
+  width: 1100px;
+} */
