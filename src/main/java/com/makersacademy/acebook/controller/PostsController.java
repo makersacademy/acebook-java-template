@@ -15,7 +15,6 @@ import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.weaver.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +42,13 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {//Sort.by(Sort.Direction.DESC, "colName"
        Iterable<Post> posts = postRepository.findAll();
+        Iterable<User> users = userRepository.findAll();
+
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+        Long currentUserId = userRepository.findByUsername(currentUsername).get().getId();
+
+        model.addAttribute("currentUserId", currentUserId);
        List<Post> listOfPost = new ArrayList<>();
     //    converting iterable into a list
        for (Post post : posts) { // code block to be executed
@@ -58,6 +64,7 @@ public class PostsController {
         System.out.println(reversedPost);
         model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
+        model.addAttribute("users", users);
         //model.addAttribute("comment", new Comment());
         return "posts/index";
     }
@@ -72,6 +79,9 @@ public class PostsController {
 
         Post post = objPost.get();
         model.addAttribute("post", post);
+        
+        Optional<User> name = userRepository.findById(post.getUser_id());
+        model.addAttribute("name", name.get().getUsername());
 
         for (Comment c: comments) {
             if (c.getPost_id() == id) {
