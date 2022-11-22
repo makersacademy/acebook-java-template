@@ -9,3 +9,92 @@
   width:200px;
   overflow-y:scroll;
 }
+
+.container {
+  margin: auto;
+  width: 950px;
+}
+
+.personal-info-card {
+  height: 550px;
+  margin-bottom: 100px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.personal-info-card > .cover-photo {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.user-image {
+  position: absolute;
+  right: 480px;
+  top: -60px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.personal-info {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.personal-words {
+  margin: auto;
+}
+
+.username {
+  position: absolute;
+  right: 390px;
+  top: 0px;
+}
+
+.form-container {
+  padding-top: 65px;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.form-inline textarea {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.profile-submit-btn {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+}

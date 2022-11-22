@@ -9,44 +9,55 @@
         <script src="index_script.js" defer></script>
     </head>
     <body>
-      <div class="header" th:replace="common/navbar::headernavfragment"></div>
-      <h1 th:text="${profile_username}"></h1>
-      <div th:switch="${profile_username==my_username}">
-        <div th:case="false">
-          <div th:switch="${profile_info_optional.isPresent()}">
-            <div th:case="true">
-              <p th:text="${profile_info.nickname}"></p>
-              <p th:text="${profile_info.bio}"></p>
-              <p th:text="${profile_info.pronouns}"></p>
-              <p th:text="${profile_info.birthday}"></p>
-            </div>
-          </div>
-        </div>
-        <div th:case="true">
-          <div th:switch="${profile_info_optional.isPresent()}">
-            <div th:case="true">
-              <h3>Update Your Personal Information:</h3>
-              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
-                <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
-                <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
-                <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
-                <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
-                <p><input type="submit" value="Submit" id="submit"/></p>
-              </form>
-            </div>
+    <div class="header" th:replace="common/navbar::headernavfragment"></div>
+    <div class="container">
+      <div class="personal-info-card">
+        <img src="/cover_photo.png" class="cover-photo">
+        <div class="personal-info">
+          <div th:switch="${profile_username==my_username}" class="personal-words">
+            <h1 th:text="${profile_username}" class="username"></h1>
             <div th:case="false">
-              <h3>Add Your Personal Information:</h3>
-              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
-                <p>Nickname: <input type="text" name="nickname"  /></p>
-                <p>About Me: <textarea type="text" name="bio"  ></textarea></p>
-                <p>Pronouns: <input type="text" name="pronouns" /></p>
-                <p>Birthday: <input type="date" name="birthday" /></p>
-                <p><input type="submit" value="Submit" id="submit"/></p>
-              </form>
+              <div th:switch="${profile_info_optional.isPresent()}">
+                <div th:case="true">
+                  <p th:text="${profile_info.nickname}"></p>
+                  <p th:text="${profile_info.bio}"></p>
+                  <p th:text="${profile_info.pronouns}"></p>
+                  <p th:text="${profile_info.birthday}"></p>
+                </div>
+              </div>
+            </div>
+            <div th:case="true" class="form-container">
+              <div th:switch="${profile_info_optional.isPresent()}">
+                <div th:case="true">
+                  <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                    <div class="form-inline">
+                      <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
+                      <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
+                      <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
+                      <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
+                    </div>
+                    <p><input type="submit" value="Submit" id="submit"/></p>
+                  </form>
+                </div>
+                <div th:case="false">
+                  <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                    <div class="form-inline">
+                      <p>Nickname: <input type="text" name="nickname"  /></p>
+                      <p>Pronouns: <input type="text" name="pronouns" /></p>
+                      <p>Birthday: <input type="date" name="birthday" /></p>
+                      <p>About Me: <textarea type="text" name="bio"  ></textarea></p>
+                    </div>
+                    <p><input class="profile-submit-btn" type="submit" value="Submit" id="submit"/></p>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
+          <img th:src="${profile_user.image}" class="user-image">
         </div>
-      <div>
+      </div>
+
+
 
 
       <div th:switch="${profile_username==my_username}">
@@ -128,7 +139,7 @@
       <h1>My Posts</h1>
 
       <div class="individual-post" th:each="post: ${posts}">
-      <div class="main-post">
+        <div class="main-post">
           <div class="post-header">
               <div class="post-header-left">
                   <div class="profile-picture flex-center"><img th:src="${post.image}" /></div>
@@ -152,8 +163,7 @@
                           </div>
                       </form>
                   </div>
-                  <div th:text="${allLikes.get(post.id)}">
-                  </div>
+                  <div th:text="${allLikes.get(post.id)}"></div>
               </div>
               <div class="post-footer-right flex-center">
                   <div>
@@ -171,8 +181,8 @@
                   </div>
               </form>
           </div>
-      </div>
-      <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
+        </div>
+        <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
           <div class="post-header">
               <div class="post-header-left">
                   <div class="profile-picture flex-center">profile pic</div>
@@ -186,31 +196,32 @@
               <div th:text="${reply.content}"></div>
           </div>
           <div class="post-footer">
-              <div class="post-footer-left flex-center">
-                  <div>
-                      LIKE BTN
-                  </div>
-                  <div>
-                      3 LIKES
-                  </div>
-              </div>
-              <div class="post-footer-right flex-center">
-                  <div>
-                      <button class="reply-btn button main-btn">Reply</button>
-                  </div>
-              </div>
+            <div class="post-footer-left flex-center">
+                <div>
+                    LIKE BTN
+                </div>
+                <div>
+                    3 LIKES
+                </div>
+            </div>
+            <div class="post-footer-right flex-center">
+                <div>
+                    <button class="reply-btn button main-btn">Reply</button>
+                </div>
+            </div>
           </div>
           <div class="reply">
-              <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
-                  <div class="flex-center" style="margin-top:10px">
-                      <input type="hidden" name="post_id" th:value = "${post.id}" />
-                      <input class="main-input" type="text" name="content" />
+            <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
+              <div class="flex-center" style="margin-top:10px">
+                  <input type="hidden" name="post_id" th:value = "${post.id}" />
+                  <input class="main-input" type="text" name="content" />
 
-                      <p><input class="button reply-btn" type="submit" value="Post" /></p>
-                  </div>
-              </form>
+                  <p><input class="button reply-btn" type="submit" value="Post" /></p>
+              </div>
+            </form>
           </div>
+        </div>
       </div>
-      </div>
+    </div>
   </body>
 </html>

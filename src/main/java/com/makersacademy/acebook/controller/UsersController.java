@@ -253,6 +253,7 @@ public class UsersController {
         model.addAttribute("user_repository", urepository);
         model.addAttribute("friend_repository", friendRepository);
         model.addAttribute("profile_info_optional", profileInfoOptional);
+        model.addAttribute("profile_user", user);
 
         return "users/profile";
     }
