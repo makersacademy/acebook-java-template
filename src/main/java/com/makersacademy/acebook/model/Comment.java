@@ -24,13 +24,11 @@ public class Comment {
     private Long user_id;
     private Long post_id;
 
-    public Comment(String string, Long user_id, Long post_id) {}
+    public Comment() {}
 
     public Comment(String content) {
         this.content = content;
 
-    }
-    public Comment() {
     }
 
     public String getContent() { return this.content; }
