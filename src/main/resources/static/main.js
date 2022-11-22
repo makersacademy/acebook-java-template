@@ -114,48 +114,61 @@ function AjaxReady(){
     console.log("Ajax is ready");
 }
 
-function SetupProfileImageUploader(){
-    const Dimensions = [300,100];
+function SetupProfileImageUploader(path){
+    let Dimensions = [300,100];
+    if(path[2]=="new"){
+        Dimensions[0]=100;
+    }
     const fileUploaderContainer = document.getElementById("file-uploader-container");
-    const fileInput = document.getElementById("file-upload-input");
-    const base64DataInput = document.getElementById("base64-data-input");
-    fileInput.onchange = function(){
-        let reader = new FileReader();
-        reader.readAsDataURL(fileInput.files[0]);
-        reader.onload = function(e) {
-            // get the data from the upload input
-            const imageSrc = e.target.result;
-            // draw onto a canvas
-            let cv = document.createElement("canvas");
-            cv.setAttribute("width",Dimensions[0]+"px");
-            cv.setAttribute("height",Dimensions[1]+"px");
-            let cvtx = cv.getContext("2d");
-            let ti = new Image();
-            ti.src = imageSrc;
-            ti.onload = function(){
-                // crop the image nicely
-                let nw = Dimensions[0];
-                let nh = Dimensions[0]*(ti.naturalHeight/ti.naturalWidth);
-                console.log(nw,nh);
-                cvtx.drawImage(ti,0,-(nh*0.5),nw,nh);
-                console.log("drawn");
-                // extract final base64 data
-                const exp = cv.toDataURL();
-                // set form input to have it as a value
-                base64DataInput.value=exp;
-                // remove the file input
-                //fileInput.remove();
-                // show the image to the user
-                ti.src=exp;
-                ti.className="preview-photo";
+    if(fileUploaderContainer !== null){
+        const fileInput = document.getElementById("file-upload-input");
+        const base64DataInput = document.getElementById("base64-data-input");
+        fileInput.onchange = function(){
+            let reader = new FileReader();
+            reader.readAsDataURL(fileInput.files[0]);
+            reader.onload = function(e) {
+                // get the data from the upload input
+                const imageSrc = e.target.result;
+                // draw onto a canvas
+                let cv = document.createElement("canvas");
+                cv.setAttribute("width",Dimensions[0]+"px");
+                cv.setAttribute("height",Dimensions[1]+"px");
+                let cvtx = cv.getContext("2d");
+                let ti = new Image();
+                ti.src = imageSrc;
                 ti.onload = function(){
-                console.log("done");
+                    // crop the image nicely
+                    let nw = Dimensions[0];
+                    let nh = Dimensions[0]*(ti.naturalHeight/ti.naturalWidth);
+                    if(nh < Dimensions[1]){
+                        nw = Dimensions[1]*(ti.naturalWidth/ti.naturalHeight);
+                        nh = Dimensions[1];
+                    }
+                    console.log(nw,nh);
+                    let hOffset = -(nh*0.5);
+                    if(nh <= Dimensions[1]){
+                        hOffset = 0;
+                    }
+                    cvtx.drawImage(ti,0,hOffset,nw,nh);
+                    console.log("drawn");
+                    // extract final base64 data
+                    const exp = cv.toDataURL();
+                    // set form input to have it as a value
+                    base64DataInput.value=exp;
+                    // remove the file input
+                    //fileInput.remove();
+                    // show the image to the user
+                    ti.src=exp;
+                    ti.className="preview-photo";
+                    ti.onload = function(){
+                    console.log("done");
+                    }
+                    fileUploaderContainer.appendChild(ti);
                 }
-                fileUploaderContainer.appendChild(ti);
             }
         }
+        console.log("Profile image uploader setup");
     }
-    console.log("Profile image uploader setup");
 }
 
 function SetupAll(){
@@ -164,7 +177,7 @@ function SetupAll(){
     SetReplyButtons();
     const path = window.location.pathname.split("/");
     if(path[1]=="users" && path.length > 2){
-        SetupProfileImageUploader();
+        SetupProfileImageUploader(path);
     }
 }
 
