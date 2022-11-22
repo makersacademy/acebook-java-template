@@ -38,12 +38,15 @@ public class Post {
         this.content = content;
         this.likes = 0;
     }
-    public String getContent() { return this.content; }
-    public int getLikes() {return this.likes;}
+    //setters
     public void setContent(String content) { this.content = content; }
     public void setLikes(int likes) { this.likes = 0; }
     public void setUserId(Long userId){ this.user_id = userId; }
     public void setDate(Date timeStamp){ this.time_created = timeStamp; }
+    //getters
     public Long getId(){ return this.id; }
+    public String getContent() { return this.content; }
+    public int getLikes() {return this.likes;}
+    public Date getDate(){return this.time_created;}
 
 }
