@@ -15,6 +15,7 @@ import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.weaver.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +65,6 @@ public class PostsController {
         System.out.println(reversedPost);
         model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
-        model.addAttribute("users", users);
         //model.addAttribute("comment", new Comment());
         return "posts/index";
     }
@@ -79,9 +79,6 @@ public class PostsController {
 
         Post post = objPost.get();
         model.addAttribute("post", post);
-        
-        Optional<User> name = userRepository.findById(post.getUser_id());
-        model.addAttribute("name", name.get().getUsername());
 
         for (Comment c: comments) {
             if (c.getPost_id() == id) {
