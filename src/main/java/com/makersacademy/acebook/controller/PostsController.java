@@ -41,7 +41,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {//Sort.by(Sort.Direction.DESC, "colName"
-       Iterable<Post> posts = postRepository.findAll();
+        Iterable<Post> posts = postRepository.findAll();
         Iterable<User> users = userRepository.findAll();
 
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -49,9 +49,9 @@ public class PostsController {
         Long currentUserId = userRepository.findByUsername(currentUsername).get().getId();
 
         model.addAttribute("currentUserId", currentUserId);
-       List<Post> listOfPost = new ArrayList<>();
+        List<Post> listOfPost = new ArrayList<>();
     //    converting iterable into a list
-       for (Post post : posts) { // code block to be executed
+        for (Post post : posts) { // code block to be executed
             listOfPost.add(post);
         }
         // getting the size of array
