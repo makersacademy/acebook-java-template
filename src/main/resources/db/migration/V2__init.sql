@@ -13,7 +13,7 @@ CREATE TABLE posts (
 CREATE TABLE comments (
   id bigserial PRIMARY KEY,
   content varchar(250) NOT NULL,
-  user_id bigint NOT NULL,
+  user_id bigint,
   post_id bigint,
   constraint fk_user_id foreign key(user_id) references users(id)
  -- constraint fk_post_id foreign key(post_id) references posts(id)
