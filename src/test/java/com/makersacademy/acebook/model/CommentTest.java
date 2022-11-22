@@ -19,10 +19,6 @@ public class CommentTest {
         comment.setUserId(user_id);
     }
 
-    @After
-    public void tearDown() {
-    }
-
 	@Test
 	public void commentHasContent() {
 		assertThat(comment.getContent(), containsString("first comment"));
