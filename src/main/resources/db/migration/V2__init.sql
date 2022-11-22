@@ -21,15 +21,15 @@ CREATE TABLE comments (
 
 
 INSERT INTO posts(content, likes, user_id, time_created)
-VALUES('THIS IS A CONTENT', 0, 2, '2022/11/19');
+VALUES('THIS IS A CONTENT', 0, 2, '2022/11/01');
 INSERT INTO posts(content, likes, user_id, time_created)
-VALUES('post 1', 0, 1, '2022/11/19');
+VALUES('post 1', 0, 1, '2022/11/05');
 INSERT INTO posts(content, likes, user_id, time_created)
-VALUES('post 2', 0, 3, '2022/11/19');
+VALUES('post 2', 0, 3, '2022/11/10');
 INSERT INTO posts(content, likes, user_id, time_created)
-VALUES('post 3', 0, 4, '2022/11/19');
+VALUES('post 3', 0, 4, '2022/11/15');
 INSERT INTO posts(content, likes, user_id, time_created)
-VALUES('post 4', 0, 5, '2022/11/19');
+VALUES('post 4', 0, 5, '2022/11/18');
 
 
 INSERT INTO comments(content, user_id, post_id)
