@@ -29,6 +29,6 @@ public class LikesController {
         User user = currentUser.get();
         Long userIdLong = user.getId();
         lrepository.toggleLike(likeModel.getPost_id(), userIdLong);
-        return new RedirectView("/posts");
+        return new RedirectView("/posts/" + likeModel.getPost_id());
     }
 }

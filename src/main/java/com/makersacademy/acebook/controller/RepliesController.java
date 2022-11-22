@@ -43,7 +43,7 @@ public class RepliesController {
 
         repository.save(reply);
 
-        return new RedirectView("/posts");
+        return new RedirectView("/posts/" + reply.getPost_id());
     }
     
 }
