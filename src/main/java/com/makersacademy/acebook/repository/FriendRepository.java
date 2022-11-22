@@ -25,4 +25,15 @@ public interface FriendRepository extends CrudRepository<Friend, Long> {
         }
         return friendRequest;
     }
-}
+    
+    // public default Friend numFriends(Long fromUser, Long toUser){
+    //     Iterable<Friend> num_of_friends = this.findAll();
+    //     int num = 0;
+    //     for(Friend f: num_of_friends) {
+    //         if (f.getId() > num){
+    //             num = (int) f.getId();
+    //         }
+    //         }
+    //     }
+
+    }

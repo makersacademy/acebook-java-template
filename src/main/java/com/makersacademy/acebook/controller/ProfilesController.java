@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Profile;
+import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.ProfileRepository;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -21,6 +22,7 @@ public class ProfilesController {
     UserRepository urepository;
     @Autowired
     ProfileRepository prepository;
+   
 
     @PostMapping("/profiles")
     public RedirectView create(@ModelAttribute Profile profileModel, Principal principal) {
@@ -35,6 +37,7 @@ public class ProfilesController {
         }
         profileModel.setUserId(userIdLong);
         prepository.save(profileModel);
+
         return new RedirectView(String.format("/users/%s", userName));
     }
 }
