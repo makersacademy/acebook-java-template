@@ -11,7 +11,7 @@
         <div class="header" th:replace="common/navbar::headernavfragment"></div>
         <div class="body-wrapper">
 
-            <div class="individual-post">
+            <div th:id="${'post-wrapper-'+post.id}" class="individual-post">
                 <div class="main-post">
                     <div class="post-header">
                         <div class="post-header-left">

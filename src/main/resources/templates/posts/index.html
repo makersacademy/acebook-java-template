@@ -21,7 +21,7 @@
                 </div>
             </form>
 
-            <div class="individual-post" th:each="post: ${posts}">
+            <div th:id="${'post-wrapper-'+post.id}" class="individual-post" th:each="post: ${posts}">
                 <div class="main-post">
                     <div class="post-header">
                         <div class="post-header-left">
