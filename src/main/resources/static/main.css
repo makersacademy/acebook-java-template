@@ -210,7 +210,7 @@ ul {
 .user-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     overflow-x: scroll;
     white-space: nowrap;
     
