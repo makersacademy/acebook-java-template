@@ -64,7 +64,7 @@ function AjaxReady(){
             FormButton.innerHTML = "<img src='/loading-tiny.gif' height='25px'>";
 
             e.preventDefault();
-            
+
             let data = {};
             for (let i = 0; i < Elements.length; i++) {
                 const Element = Elements[i];
@@ -145,10 +145,11 @@ function SetupProfileImageUploader(path){
                         nh = Dimensions[1];
                     }
                     console.log(nw,nh);
-                    let hOffset = -(nh*0.5);
+                    let hOffset=0;
+                    /*let hOffset = -(nh*0.5);
                     if(nh <= Dimensions[1]){
                         hOffset = 0;
-                    }
+                    }*/
                     cvtx.drawImage(ti,0,hOffset,nw,nh);
                     console.log("drawn");
                     // extract final base64 data
