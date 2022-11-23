@@ -23,7 +23,7 @@
 }
 
 .personal-info-card {
-  height: 550px;
+  height: 600px;
   margin-bottom: 100px;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -150,6 +150,7 @@
   margin: 5px 5px 5px 0;
   padding: 0;
   background-color: rgba(0, 0, 0, 0);
+  background-image: none;
   border: none;
   border-radius: 10px;
   text-align: center;
@@ -181,4 +182,12 @@
 a {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.cover-photo-div {
+  height: 300px;
+  overflow: hidden;
+  background-image: url("/cover_photo.png");
+  background-size: cover;
+  background-position: center;
 }
