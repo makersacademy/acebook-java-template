@@ -55,11 +55,22 @@ public class PostsController {
         for (int i = postsArraySize -1 ; i >= 0; i--) {
            reversedPost.add(listOfPost.get(i));
         }
-        System.out.println(reversedPost);
         model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
         //model.addAttribute("comment", new Comment());
         return "posts/index";
+    }
+
+    @PostMapping("/likes")
+    public RedirectView like(@RequestParam Long post_id){
+        System.out.println(post_id);
+        // find post in the DB
+        Post postToUpdate = postRepository.findById(post_id).get();
+        // update +1 like
+        postToUpdate.addLikes();
+        // save it in the DB
+        postRepository.save(postToUpdate);
+        return new RedirectView("/posts");
     }
 
     @GetMapping("/posts/{id}")
