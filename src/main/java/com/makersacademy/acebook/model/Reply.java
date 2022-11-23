@@ -18,7 +18,7 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private Date time_posted;
+    private String time_posted;
     private int post_id;
     private Integer user_id;
     private String username;
@@ -31,8 +31,8 @@ public class Reply {
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 
-    public Date getTime_posted() { return this.time_posted; }
-    public void setTime_posted(Date time_posted) { this.time_posted = time_posted; }
+    public String getTime_posted() { return this.time_posted; }
+    public void setTime_posted(String time_posted) { this.time_posted = time_posted; }
 
     public int getPost_id() { return this.post_id; }
     public void setPost_id(int post_id) { this.post_id = post_id; }

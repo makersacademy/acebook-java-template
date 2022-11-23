@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.HtmlUtils;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -118,6 +120,7 @@ public class PostsController {
             model.addAttribute("allLikes", allLikes);
             model.addAttribute("postsUserHasLiked", postsUserHasLiked);
             model.addAttribute("post", postBeingViewed);
+            model.addAttribute("user_repository", urepository);
 
             return "/posts/view";
         } else{
@@ -127,7 +130,9 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter new_date = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String new_date_format = date.format(new_date);
         String userName = principal.getName();
         Optional<User> currentUser = urepository.findByUsername(userName);
         User user = currentUser.get();
@@ -135,7 +140,7 @@ public class PostsController {
         Integer userId = userIdLong.intValue();
         String image = user.getImage();
         post.setContent(HtmlUtils.htmlEscape(post.getContent()));
-        post.setTime_posted(date);
+        post.setTime_posted(new_date_format);
         post.setUser_id(userId);
         post.setUsername(userName);
         post.setImage(image);
