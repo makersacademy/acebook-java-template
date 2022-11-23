@@ -33,7 +33,7 @@
       <div>
         <ul class="posts" th:each="post: ${posts}">
           <li>
-            <p><a class="name" th:href="@{/users/{id}(id=${users[post.user_id - 1].id})}"><span th:text="${users[post.user_id - 1].username}"></span></a></p>
+            <p><a class="name" th:href="@{/users/{id}(id=${users[post.user_id-1].id})}"><span th:text="${users[post.user_id-1].username}"></span></a></p>
             <p th:text="${post.content}">
             <p class="time_created" th:text="${post.time_created}">
             <p th:text="${post.user_id}">

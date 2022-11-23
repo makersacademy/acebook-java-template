@@ -62,9 +62,9 @@ public class PostsController {
         for (int i = postsArraySize -1 ; i >= 0; i--) {
            reversedPost.add(listOfPost.get(i));
         }
-        System.out.println(reversedPost);
         model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
+        model.addAttribute("users", users);
         //model.addAttribute("comment", new Comment());
         return "posts/index";
     }
