@@ -1,11 +1,184 @@
 .friends {
-  display: flex;
+  width: max-content;
+  margin: auto;
 }
 
 
 .my-friends,.friend-requests{
-  margin: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
   height:200px;
-  width:200px;
   overflow-y:scroll;
+  background-color: rgb(220, 240, 248);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  width: 100%;
+}
+
+.container {
+  /* margin-left: 3vw;
+  margin-right: 3vw; */
+  margin: 3vw;
+}
+
+.personal-info-card {
+  height: 550px;
+  margin-bottom: 100px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  background-color: rgb(220, 240, 248);
+  /* max-width: 900px; */
+}
+
+.personal-info-card > .cover-photo {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.user-image {
+  position: absolute;
+  left: 35px;
+  top: -90px;
+  width: 160px;
+  border-radius: 50%;
+}
+
+.personal-info {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.personal-words {
+  margin: auto;
+}
+
+.username {
+  position: absolute;
+  left: 210px;
+  top: 10px;
+}
+
+.username-both {
+  position: absolute;
+  left: 210px;
+  top: 50px;
+  font-size: small;
+}
+
+
+.form-container {
+  padding-top: 65px;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input, input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.form-inline textarea, textarea {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  margin-right: 0px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 350px;
+}
+
+.profile-submit-btn, button {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.others-info {
+  position: absolute;
+  left: 70px;
+  top: 90px;
+  font-size: large;
+}
+
+.info-words {
+  margin-left: 10px;
+}
+
+.info-labels {
+  font-weight: bold;
+}
+
+.info-individual {
+  display: flex;
+  margin: 10px;
+}
+
+.friends-div {
+  position: absolute;
+  right: 20px;
+}
+
+.reject-btn {
+  vertical-align: middle;
+  margin: 5px 5px 5px 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  font-size: larger;
+}
+
+.reject-btn:hover {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.request-flex {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-left: 5px;
+  border-bottom: rgba(7, 72, 151, 0.381) 1px solid;
+}
+
+#friend-request-name, .friend-name-class {
+  font-size: 1.3em;
+}
+
+.friend-name-class {
+  margin: 5px;
+  padding: 5px;
+}
+
+a {
+  padding: 0 !important;
+  margin: 0 !important;
 }

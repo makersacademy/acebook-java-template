@@ -16,17 +16,18 @@ html {
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: left;
-    margin-bottom: 0.5rem;;
+    margin-bottom: 0.5rem;
 }
 
 .header {
-    background: white;
+    background-color: rgb(220, 240, 248);
     padding:15px 0px;
     padding-inline:5%;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    /* border-bottom: 1px solid rgba(0,0,0,0.1); */
     display:flex;
     justify-content: space-between;
     margin-bottom:2%;
+    box-shadow:  0 0 10px rgba(0,0,0,0.2);
 
 }
 .header .header-links p,.header .header-links img{
@@ -170,7 +171,7 @@ ul {
 }
 
 .like-btn-active {
-    background-color:blue;
+    background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
     color:white;
     margin-top:1%;
     width:64px;
@@ -216,7 +217,7 @@ ul {
     padding:10px;
     border:1px solid #999;
     display:flex;
-    gap:20px;   
+    gap:20px;
 }
 
 .post-time {
@@ -229,3 +230,39 @@ ul {
     padding:10px;
     border:1px solid #999;
 }*/
+
+.nav-img {
+  border-radius: 50%;
+}
+
+.form-btn {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  margin-top: 0;
+  padding: 10px;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.form-btn-pending {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  margin-top: 0;
+  padding: 10px;
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  color: rgb(13, 201, 241);
+  font-size: larger;
+}
+
+.form-btn:hover {
+  background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(7, 72, 151));
+}
