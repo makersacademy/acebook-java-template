@@ -5,18 +5,40 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+
+        
     </head>
     <body>
 
         <div class="header" th:replace="common/navbar::headernavfragment"></div>
+        <div class="logo-size">
+            <img src="/logo3.png">
+            <div class="align">
+                <p class="font">Make New Connections</p>
+            </div>
+        </div>
 
-        <h1>Users</h1>
+    <div class= "user-card">
         <ul th:each="user: ${all_users}">
-            <li>
-                <img th:src="${user.image}">
-                <a th:href='${user.username}'><p th:text="${user.username}"></p></a>
-            </li>
+            <div class= "card">
+                <img th:src="${user.image}" style="width:100%"/> 
+                <a th:href='${user.username}'><h1 class = "w3-serif" th:text="${user.username}"></h1></a>
+                <li class="align">
+                    <p th:text= "${numOfFriends}"></p>
+                    <p th:text=  Friends></p>
+                    <p><button>Add Friend</button></p>
+            </div>
+                </li>
         </ul>
+            
+    </div>
 
     </body>
 </html>
+

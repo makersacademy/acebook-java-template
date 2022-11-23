@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Profile;
+import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.ProfileRepository;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -25,6 +26,7 @@ public class ProfilesController {
 
     @PostMapping("/profiles")
     public RedirectView create(@ModelAttribute Profile profileModel, Principal principal) {
+
       profileModel.setBio(HtmlUtils.htmlEscape(profileModel.getBio()));
       profileModel.setNickname(HtmlUtils.htmlEscape(profileModel.getNickname()));
       profileModel.setPronouns(HtmlUtils.htmlEscape(profileModel.getPronouns()));

@@ -95,12 +95,21 @@ public class UsersController {
           return "redirect:/login";
         }
         Iterable<User> users = urepository.findAll();
+        Iterable<Friend> friends = friendRepository.findAll();
+        int num_of_friends = 0;
+        for(Friend f: friends){
+          if (f.getConfirmed() == 1){
+            num_of_friends = num_of_friends + 1;
+
+          }
+        }
+        model.addAttribute("numOfFriends", num_of_friends);
         model.addAttribute("all_users", users);
         return "users/index";
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
+    public RedirectView signup(@ModelAttribute User user, Principal principal) {
         user.setUsername(HtmlUtils.htmlEscape(user.getUsername()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         urepository.save(user);
@@ -179,6 +188,7 @@ public class UsersController {
         for (int i = 1; i<=sizeOfList;i++) {
             reversedPosts.add(postsToList.get(sizeOfList-i));
         }
+
 
         //Replies stuff here
         Iterable<Reply> replies = reply_repo.findAll();
