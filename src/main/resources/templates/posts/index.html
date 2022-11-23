@@ -12,15 +12,13 @@
   <body>
     <div class="topnav">
       <a class="active" href="/posts">Home</a>
-      <a href="/users/new">Sign Up</a>
-      <a href="/logon">Sign In</a>
     </div>
     <div class="container">
       <div class="form-signup">
       <h2 class="posts-heading">Posts</h2>
 
       <div sec:authorize="isAuthenticated()">
-        Signed in as <span class="name" sec:authentication="name"></span>
+        Signed in as <a th:href="@{/users/{id}(id=${currentUserId})}"><span class="name" sec:authentication="name"></span></a>
       </div>
 
       <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
@@ -35,11 +33,12 @@
       <div>
         <ul class="posts" th:each="post: ${posts}">
           <li>
+            <p><a class="name" th:href="@{/users/{id}(id=${users[post.user_id - 1].id})}"><span th:text="${users[post.user_id - 1].username}"></span></a></p>
             <p th:text="${post.content}">
-            <p th:text="${post.time_created}">
+            <p class="time_created" th:text="${post.time_created}">
             <p th:text="${post.user_id}">
-            <p th:text="${post.id}"></p>
-            <p th:text="${post.likes likes}" >
+
+            <p th:text="${post.likes}" >
               <strong>likes</strong>
 
             <form class="post-item" action="#" th:action="@{/comments}" th:object="${post}" method="post">
@@ -51,6 +50,10 @@
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />
               </p>
             </form>
+
+        
+            <p><a th:href="@{/posts/{id}(id=${post.id})}">See all comments</a></p>
+
             
             <form class="post-item" action="#" th:action="@{/likes}" th:object="${post}" method="post">
   

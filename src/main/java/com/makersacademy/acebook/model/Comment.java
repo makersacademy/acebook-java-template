@@ -30,9 +30,16 @@ public class Comment {
         this.content = content;
 
     }
-    public String getContent() { return this.content; }
+
+    //setters
     public void setContent(String content) { this.content = content; }
     public void setUserId(Long userId){ this.user_id = userId; }
     public void setPostId(Long postId){ this.post_id = postId; }
+
+    //getters
+    public String getContent() { return this.content; }
+    public Long getPostID(){return this.post_id;}
+    public Long getUserID(){return this.user_id;}
+
 
 }

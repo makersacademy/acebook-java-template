@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Acebook</title>
+    <link href="/posts.css" rel="stylesheet" type="text/css" />
+    <link href="/navbar.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" href="/posts">Home</a>
+    </div>
+    <div class="container">
+      <div class="form-signup">
+      <h2 class="posts-heading"><span class="name" th:text="${username}"></span>'s Profile</h2>
+
+      <div sec:authorize="isAuthenticated()">
+        Signed in as <span class="name" sec:authentication="name"></span>
+      </div>
+      <div>
+        <ul class="posts" th:each="post: ${posts}">
+          <li>
+            <p th:text="${username}">
+            <p th:text="${post.content}">
+            <p class="time_created" th:text="${post.time_created}">
+            <p th:text="${post.user_id}">
+            <p th:text="${post.id}">
+            <p><a th:href="@{/posts/{id}(id=${post.id})}">See all comments</a></p>
+            
+              <form class="post-item" action="#" th:action="@{/comments}" th:object="${post}" method="post">
+                <p>Content: 
+                  <label for="content" class="sr-only">Content</label>
+                  <input type="text" class="form-control" th:field="*{content}" /></p>
+                <p>
+                  <input type="hidden" class="form-control" th:value="${post.id}" th:attr="name='post_id'"/>
+                  <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />
+                </p>
+              </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
