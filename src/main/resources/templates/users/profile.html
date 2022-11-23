@@ -24,7 +24,7 @@
         <style>
           .flex-info-friends {
             display: flex;
-            width: 1100px;
+            /* width: 1100px; */
           }
         </style>
       </div>
@@ -161,11 +161,11 @@
           </div>
         </div>
 
-        <div th:switch="${profile_username==my_username}">
+        <div class="friends-div-space" th:switch="${profile_username==my_username}">
           <div th:case="true" class="friends">
             <!-- profile is the user's, shows friend request list -->
             <div class="friend-requests">
-              <h2>Friend requests</h2>
+              <h2 class="text-center">Friend requests</h2>
               <ul th:each="friend: ${my_friend_requests}">
                 <li>
                   <div class="request-flex">
@@ -183,7 +183,7 @@
               </ul>
             </div>
             <div class="my-friends">
-              <h2>Your friends</h2>
+              <h2 class="text-center">Your friends</h2>
               <ul th:each="friend: ${my_friends}">
                 <div class="request-flex">
                   <li>
@@ -199,13 +199,13 @@
         </div>
       </div>
 
-      <h1>Posts</h1>
+      <h1 style="margin:20px;">Posts</h1>
 
       <div th:id="${'post-wrapper-'+post.id}" class="individual-post" th:each="post: ${posts}">
         <div class="main-post">
             <div class="post-header">
               <div class="post-header-left">
-                  <div class="profile-picture flex-center"><img th:src="${post.image}" /></div>
+                  <div class="profile-picture flex-center"><img th:src="${post.image}" style="width:100%; margin:0;" /></div>
                   <div class="flex-center" th:text="${post.username}"></div>
               </div>
               <div class="post-header-right flex-center">
@@ -239,7 +239,7 @@
                     <form th:id="${post.id+'-form'}" action="#" th:action="@{/posts/delete}" th:object="${post}" method="post">
                       <input type="hidden" th:value="${post.id}" name="id" />
                     </form>
-                    <button style="width:100px" class="reply-btn button main-btn" th:post-id="${post.id}" onclick="confirmDeletePost(this)" type="submit">Delete post</button>
+                    <button style="width:150px" class="reply-btn button main-btn" th:post-id="${post.id}" onclick="confirmDeletePost(this)" type="submit">Delete post</button>
                   </div>
                 </div>
               </div>

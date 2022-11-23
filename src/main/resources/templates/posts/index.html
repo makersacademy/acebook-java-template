@@ -17,7 +17,7 @@
                 </div>
                 <div class="submit-btn">
                     <input class="button main-btn flex-center" type="submit" value="Post" id="submit"/>
-                    <input class="button cancel flex-center" type="reset" value="Cancel" />
+                    <input class="button cancel flex-center" type="reset" value="Clear" />
                 </div>
             </form>
 
@@ -25,7 +25,7 @@
                 <div class="main-post">
                     <div class="post-header">
                         <div class="post-header-left">
-                            <div class="profile-picture flex-center"><img th:src="${post.image}" /></div>
+                            <div class="profile-picture flex-center img-center"><img class="flex-center" style="width:100%; margin:0;" th:src="${post.image}" /></div>
                             <div class="flex-center" th:text="${post.username}"></div>
                         </div>
                         <div class="post-header-right flex-center">
@@ -41,7 +41,7 @@
                                 <form action="#" th:action="@{/likes}" th:object="${like}" method="post">
                                     <input type="hidden" th:value="${post.id}" name="post_id" />
                                     <div th:switch="${postsUserHasLiked.get(post.id)}">
-                                        <input class="like-btn-active" th:case="true" type="submit" value="Liked!" />
+                                        <input class="like-btn-active" th:case="true" type="submit" value="👍" />
                                         <input class="like-btn-inactive" th:case="false" type="submit" value="Like" />
                                     </div>
                                 </form>
@@ -51,11 +51,17 @@
                         </div>
                         <div class="post-footer-right flex-center">
                             <div>
-                                <button class="reply-btn button main-btn">Reply</button>
+                                <form th:action='${"/posts/"+post.id}' method="post">
+                                    <input type="hidden" th:value="${post.id}" name="post_id" />
+                                    <input type="submit" class="show-replies-btn button" value="Show replies" />
+                                </form>
+                            </div>
+                            <div>
+                                <button class="reply-btn button main-btn" th:id="${post.id}">Reply</button>
                             </div>
                         </div>
                     </div>
-                    <div class="reply">
+                    <div class="reply" th:id="${'reply-form-'+post.id}">
                         <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
                             <div class="flex-center" style="margin-top:10px">
                                 <input type="hidden" name="post_id" th:value = "${post.id}" />
@@ -65,8 +71,12 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- <input class="button reply-btn" type="Show comments" value="Post" /> -->
+
+                    
                 </div>
-                <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
+                <!-- <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
                     <div class="post-header">
                         <div class="post-header-left">
                             <div class="profile-picture flex-center">profile pic</div>
@@ -81,19 +91,13 @@
                     </div>
                     <div class="post-footer">
                         <div class="post-footer-left flex-center">
-                            <div>
-                                LIKE BTN
-                            </div>
-                            <div>
-                                3 LIKES
-                            </div>
                         </div>
                         <div class="post-footer-right flex-center">
                             <div>
                                 <button class="reply-btn button main-btn">Reply</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="reply">
                         <form action="#" th:action="@{/posts/reply}" th:object="${reply}" method="post">
                             <div class="flex-center" style="margin-top:10px">

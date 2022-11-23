@@ -92,20 +92,19 @@ a:hover {
 }
 
 .button {
-    margin-top:1%;
     padding:1% 2%;
     border-radius:20px;
 }
-
 .cancel {
+    font-size: larger;
+    margin:5px;
     border:none;
     background:none;
-    margin-inline:2px;
-}
-.cancel:hover {
-    margin-inline:0px;
-    border:2px inset black;
-    background:none;
+    vertical-align: middle;
+    background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));    
+    text-align: center;
+    color: rgb(13, 201, 241);
+    
 }
 
 ul {
@@ -114,12 +113,12 @@ ul {
 
 .individual-post {
     width:100%;
-    border:1px solid black;
     border-radius:10px;
     padding:3%;
+    background:rgb(220, 240, 248);
+    box-shadow:  0 0 10px rgba(0,0,0,0.2);
 }
 .main-post {
-    border:1px solid black;
     padding:1%;
     display:flex;
     flex-direction:column;
@@ -127,12 +126,10 @@ ul {
 
 .post-header {
     display:flex;
-    border:1px solid black;
     justify-content:space-between;
 }
 
 .post-header-left {
-    margin-left:10px;
     display:flex;
     gap: 20px;
 }
@@ -152,10 +149,11 @@ ul {
 }
 
 .post-content {
-    border:1px solid black;
     margin:1rem 0%;
-    padding:1%;
+    padding: 15px;
     display:flex;
+    background:white;
+    border-radius:20px;
 }
 
 .post-footer {
@@ -174,8 +172,6 @@ ul {
     background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
     color:white;
     margin-top:1%;
-    width:64px;
-    height:32px;
     border-radius:20px;
 }
 
@@ -191,20 +187,18 @@ ul {
 
 .post-footer-right {
     margin-right:10px;
-    width:10%;
     height:10%;
     display:flex;
     gap: 20px;
 }
 
 .replies-post {
-    border:1px solid black;
     margin: 1rem 0rem 1rem 2rem;
     padding:1%;
 }
 
 .reply-btn {
-    width:64px;
+    width:80px;
     height:32px;
 
 }
@@ -266,3 +260,25 @@ ul {
 .form-btn:hover {
   background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(7, 72, 151));
 }
+
+
+.show-replies-btn {
+
+    width:132px;
+    height:32px;
+
+}
+
+.profile-submit-btn, button {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-image: linear-gradient(to top right, rgb(7, 72, 151), rgb(61, 106, 170));
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    color: rgb(13, 201, 241);
+    font-size: larger;
+  }
+  

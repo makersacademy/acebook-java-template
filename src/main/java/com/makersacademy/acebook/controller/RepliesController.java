@@ -6,6 +6,8 @@ import com.makersacademy.acebook.repository.ReplyRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 import com.makersacademy.acebook.model.User;
@@ -28,7 +30,9 @@ public class RepliesController {
 
     @PostMapping("/posts/reply")
     public RedirectView createReply(@ModelAttribute Reply reply, Principal principal) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter new_date = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String new_date_format = date.format(new_date);
         String userName = principal.getName();
         Optional<User> currentUser = urepository.findByUsername(userName);
         User user = currentUser.get();
@@ -36,7 +40,7 @@ public class RepliesController {
         Integer userId = userIdLong.intValue();
 
         reply.setContent(HtmlUtils.htmlEscape(reply.getContent()));
-        reply.setTime_posted(date);
+        reply.setTime_posted(new_date_format);
         reply.setUser_id(userId);
         // Is Username meant to be commented out?
         reply.setUsername(userName);

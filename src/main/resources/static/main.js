@@ -19,7 +19,9 @@ function SetReplyButtons(){
     console.log("Reply buttons set");
 }
 function ReplyButtonFunction(e) {
-    const ReplyWrapper = e.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("reply")[0];
+    console.log(e.currentTarget.getAttribute("id"));
+    const ReplyWrapper = document.getElementById('reply-form-'+e.currentTarget.getAttribute("id"));
+    console.log(ReplyWrapper);
     ReplyWrapper.style.display = 'flex';
     ReplyWrapper.querySelector(".main-input").focus();
 }
@@ -86,22 +88,24 @@ function AjaxReady(){
                 if(XHR.responseText.includes("error")){
                     const parsed = JSON.parse(XHR.responseText);
                     alert(parsed.error);
-                    FormButton.innerHTML = cachedButtonTxt;
                 }
                 if(XHR.readyState == 4 && XHR.status == 200) {
                     let htmlObject = document.createElement('html');
                     htmlObject.innerHTML = XHR.responseText;
 
-                    if(FormAction == "/likes" || FormAction == "/posts/reply"){
+                    if(FormAction == "/likes" || (FormAction.split("/")[1]=="posts" && FormAction!=="/posts")){
                         const ElementId = "#post-wrapper-"+data.post_id;
                         const newElement = htmlObject.querySelector(ElementId);
                         const currentElement = document.querySelector(ElementId);
+                        FormButton.innerHTML = cachedButtonTxt;
                         const cachedFooter = currentElement.querySelector(".post-footer-right.flex-center").innerHTML;
                         currentElement.innerHTML=newElement.innerHTML;
                         currentElement.querySelector(".post-footer-right.flex-center").innerHTML=cachedFooter;
                     }else{
                         document.getElementsByTagName("body")[0].innerHTML=htmlObject.getElementsByTagName("body")[0].innerHTML;
                     }
+
+
                     SetupAll();
                 }
             }
