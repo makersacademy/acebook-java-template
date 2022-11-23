@@ -1,17 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <title>Signup</title>
-      <link rel="stylesheet" href="/profile.css">
-      <link rel="stylesheet" href="/main.css" />
-      <script src="index_script.js" defer></script>
-  </head>
-  <body>
-    <div class="header" th:replace="common/navbar::headernavfragment">
-      <!-- indentation comment -->
-    </div>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Signup</title>
+        <link rel="stylesheet" href="/profile.css">
+        <link rel="stylesheet" href="/main.css" />
+        <!-- <script src="/index_script.js" defer></script> -->
+        <script>
+          function confirmDeletePost(element){
+            if(confirm("Are you sure?")){
+              document.getElementById(element.getAttribute("post-id")+"-form").submit();
+            }
+          }
+        </script>
+    </head>
+    <body>
+      <div class="header" th:replace="common/navbar::headernavfragment"></div>
+      <h1 th:text="${profile_username}"></h1>
+      <div th:switch="${profile_username==my_username}">
+        <div th:case="false">
+          <div th:switch="${profile_info_optional.isPresent()}">
+            <div th:case="true">
+              <img th:src="${profile_info.cover_image}">
+              <p th:text="${profile_info.nickname}"></p>
+              <p th:text="${profile_info.bio}"></p>
+              <p th:text="${profile_info.pronouns}"></p>
+              <p th:text="${profile_info.birthday}"></p>
+            </div>
+          </div>
+        </div>
+        <div th:case="true">
+          <div th:switch="${profile_info_optional.isPresent()}">
+            <div th:case="true">
+              <img th:src="${profile_info.cover_image}">
+              <h3>Update Your Personal Information:</h3>
+              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                <p>Nickname: <input type="text" name="nickname" th:value="${profile_info.nickname}" /></p>
+                <p>About Me: <textarea type="text" name="bio" th:text="${profile_info.bio}" ></textarea></p>
+                <p>Pronouns: <input type="text" name="pronouns" th:value="${profile_info.pronouns}"/></p>
+                <p>Birthday: <input type="date" name="birthday" th:value="${profile_info.birthday}"/></p>
+                <div>
+                  <label>New cover image: </label>
+                  <input type="hidden" name="cover_image" id="base64-data-input" th:value="${profile_info.cover_image}" />
+                  <div id="file-uploader-container">
+                      <input type="file" id="file-upload-input" accept="image/*">
+                  </div>
+                </div>
+                <p><input type="submit" value="Submit" id="submit"/></p>
+              </form>
+            </div>
+            <div th:case="false">
+              <h3>Add Your Personal Information:</h3>
+              <form action="#" th:action="@{/profiles}" th:object="${profile}" method="post">
+                <p>Nickname: <input type="text" name="nickname"  /></p>
+                <p>About Me: <textarea type="text" name="bio"  ></textarea></p>
+                <p>Pronouns: <input type="text" name="pronouns" /></p>
+                <p>Birthday: <input type="date" name="birthday" /></p>
+                <div>
+                  <label>New cover image: </label>
+                  <input type="hidden" name="cover_image" id="base64-data-input" />
+                  <div id="file-uploader-container">
+                      <input type="file" id="file-upload-input" accept="image/*">
+                  </div>
+                </div>
+                <p><input type="submit" value="Submit" id="submit"/></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      <div>
 
     <div th:switch="${profile_username==my_username}">
       <div th:case="true">
@@ -170,8 +229,8 @@
 
       <h1>Posts</h1>
 
-      <div class="individual-post" th:each="post: ${posts}">
-        <div class="main-post">
+      <div th:id="${'post-wrapper-'+post.id}" class="individual-post" th:each="post: ${posts}">
+      <div class="main-post">
           <div class="post-header">
               <div class="post-header-left">
                   <div class="profile-picture flex-center"><img th:src="${post.image}" /></div>
@@ -199,7 +258,17 @@
               </div>
               <div class="post-footer-right flex-center">
                   <div>
-                      <button class="reply-btn button main-btn">Reply</button>
+                    <a th:href="${'/posts/'+post.id}">
+                      <button style="width:100px" class="reply-btn button main-btn">View post</button>
+                    </a>
+                  </div>
+                  <div th:switch="${post.username==my_username}">
+                    <div th:case="true">
+                      <form th:id="${post.id+'-form'}" action="#" th:action="@{/posts/delete}" th:object="${post}" method="post">
+                        <input type="hidden" th:value="${post.id}" name="id" />
+                      </form>
+                      <button style="width:100px" class="reply-btn button main-btn" th:post-id="${post.id}" onclick="confirmDeletePost(this)" type="submit">Delete post</button>
+                    </div>
                   </div>
               </div>
           </div>
@@ -213,8 +282,8 @@
                   </div>
               </form>
           </div>
-        </div>
-        <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
+      </div>
+      <!-- <div class="replies-post" th:each="reply: ${replies}" th:if="${reply.post_id == post.id}">
           <div class="post-header">
               <div class="post-header-left">
                   <div class="profile-picture flex-center">profile pic</div>
@@ -252,7 +321,7 @@
               </div>
             </form>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </body>

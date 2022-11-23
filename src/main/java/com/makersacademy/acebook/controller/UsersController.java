@@ -11,34 +11,17 @@ import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.ProfileRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.context.annotation.Bean;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.ReplyRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 
-import antlr.StringUtils;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-import java.util.Base64;
-import java.net.http.HttpHeaders;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,19 +29,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -106,38 +79,12 @@ public class UsersController {
       return new RedirectView(String.format("/users/%s",currentUserName));
     }
 
-    // @RequestMapping(value = "/users/myphoto", produces = MediaType.APPLICATION_JSON_VALUE)
-    // public String myPhoto(Model model,Principal principal) throws FileNotFoundException {
-    //     String currentUserName = principal.getName();
-    //     Optional<User> currentUser = urepository.findByUsername(currentUserName);
-    //     User me = currentUser.get();
-    //     String photoUrl = me.getImage();
-
-    //     // model.addAttribute("content", photoUrl);
-    //     // return "common/display";
-    //     return photoUrl;
-    // }
-    // @PostMapping(value = "/users/myphoto", produces = MediaType.IMAGE_PNG_VALUE)
-    // @ResponseBody
-    // public ResponseTransfer responsePngContent(Principal principal) {
-    //   String currentUserName = principal.getName();
-    //   Optional<User> currentUser = urepository.findByUsername(currentUserName);
-    //   User me = currentUser.get();
-    //   String photoUrl = me.getImage();
-    //   return new ResponseTransfer(photoUrl);
-    // }
     @GetMapping("/users/myphotoraw")
     void manual(Principal principal,HttpServletResponse response) throws IOException {
       String currentUserName = principal.getName();
       Optional<User> currentUser = urepository.findByUsername(currentUserName);
       User me = currentUser.get();
       String photoUrl = me.getImage();
-
-      // String partSeparator = ",";
-      // String encodedImg = photoUrl.split(partSeparator)[1];
-      // byte[] decodedImg = Base64.getDecoder().decode(encodedImg.getBytes(StandardCharsets.UTF_8));
-
-      //response.setHeader("Content-Type", "image/png");
       response.getWriter().println(photoUrl);
     }
 
@@ -154,7 +101,7 @@ public class UsersController {
 
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
-
+        user.setUsername(HtmlUtils.htmlEscape(user.getUsername()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         urepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");

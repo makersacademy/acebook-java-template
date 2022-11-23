@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.HtmlUtils;
 
 
 
@@ -34,13 +35,15 @@ public class RepliesController {
         Long userIdLong = user.getId();
         Integer userId = userIdLong.intValue();
 
+        reply.setContent(HtmlUtils.htmlEscape(reply.getContent()));
         reply.setTime_posted(date);
         reply.setUser_id(userId);
-        //reply.setUsername(userName);
+        // Is Username meant to be commented out?
+        reply.setUsername(userName);
 
         repository.save(reply);
 
-        return new RedirectView("/posts");
+        return new RedirectView("/posts/" + reply.getPost_id());
     }
     
 }
