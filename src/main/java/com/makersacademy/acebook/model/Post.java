@@ -1,10 +1,13 @@
 package com.makersacademy.acebook.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
@@ -19,10 +22,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String content;
-    private Date time_posted;
+    private String time_posted;
     private Integer userId;
     private String username;
     private String image;
+
+    @OneToMany(mappedBy = "post_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies;
+
+    @OneToMany(mappedBy = "post_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
 
     public Post() {}
 
@@ -33,8 +42,8 @@ public class Post {
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 
-    public Date getTime_posted() { return this.time_posted; }
-    public void setTime_posted(Date time_posted) { this.time_posted = time_posted; }
+    public String getTime_posted() { return this.time_posted; }
+    public void setTime_posted(String time_posted) { this.time_posted = time_posted; }
 
 
     public Integer getUser_id() { return this.userId; }
