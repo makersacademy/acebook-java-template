@@ -29,15 +29,23 @@
           <img src="/cover_photo.png" class="cover-photo">
           <div class="personal-info">
             <div th:switch="${profile_username==my_username}" class="personal-words">
-              <div th:switch='${profile_info.nickname == empty || profile_info.nickname == ""}'>
+              <div th:switch="${profile_info_optional.isPresent()}">
                 <div th:case="true">
-                  <h1 th:text='${"@" + profile_username}' class="username"></h1>
+                  <div th:switch='${profile_info.nickname == empty || profile_info.nickname == ""}'>
+                    <div th:case="true">
+                      <h1 th:text='${"@" + profile_username}' class="username"></h1>
+                    </div>
+                    <div th:case="false">
+                      <h1 th:text="${profile_info.nickname}" class="username"></h1>
+                      <h1 th:text='${"@" + profile_username}'class="username-both"></h1>
+                    </div>
+                  </div>
                 </div>
                 <div th:case="false">
-                  <h1 th:text="${profile_info.nickname}" class="username"></h1>
-                  <h1 th:text='${"@" + profile_username}'class="username-both"></h1>
+                  <h1 th:text='${"@" + profile_username}' class="username"></h1>
                 </div>
               </div>
+
               <div th:case="false">
                 <div th:switch="${profile_info_optional.isPresent()}">
                   <div class="others-info" th:case="true">
@@ -110,7 +118,7 @@
                           </div>
                           <div th:case="false">
                             <!-- request has been confirmed -->
-                            <p id="is-friends">You're friends!</p>
+                            <p style="font-size: 75px;" id="is-friends">🤝</p>
                           </div>
                         </div>
                       </div>
@@ -129,27 +137,31 @@
               <h2>Friend requests</h2>
               <ul th:each="friend: ${my_friend_requests}">
                 <li>
-                  <p id="friend-request-name" th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></p>
-                  <form action="#" th:action="@{/friends/accept}" th:object="${friend}" method="post">
-                    <input type="hidden" th:value="${friend.getId()}" name="id" />
-                    <input id="accept-request-button" type="submit" value="Accept" style="background-color:cyan;">
-                  </form>
-                  <form action="#" th:action="@{/friends/reject}" th:object="${friend}" method="post">
-                    <input type="hidden" th:value="${friend.getId()}" name="id" />
-                    <input id="reject-request-button" type="submit" value="Reject" style="background-color:red;color:white;">
-                  </form>
+                  <div class="request-flex">
+                    <a th:href='${user_repository.findById(friend.getFromUser()).get().getUsername()}'><p id="friend-request-name" th:text='${"@" + user_repository.findById(friend.getFromUser()).get().getUsername()}'></p></a>
+                    <form action="#" th:action="@{/friends/accept}" th:object="${friend}" method="post">
+                      <input type="hidden" th:value="${friend.getId()}" name="id" />
+                      <input id="accept-request-button" type="submit" value="✅" class="reject-btn">
+                    </form>
+                    <form action="#" th:action="@{/friends/reject}" th:object="${friend}" method="post">
+                      <input type="hidden" th:value="${friend.getId()}" name="id" />
+                      <input id="reject-request-button" type="submit" value="❌" class="reject-btn">
+                    </form>
+                  </div>
                 </li>
               </ul>
             </div>
             <div class="my-friends">
               <h2>Your friends</h2>
               <ul th:each="friend: ${my_friends}">
-                <li>
-                  <div th:switch="${user_repository.findById(friend.getFromUser()).get().getUsername()!=my_username}">
-                    <p th:case="true"><span id="friend-name" th:text="${user_repository.findById(friend.getFromUser()).get().getUsername()}"></span></p>
-                    <p th:case="false"><span id="friend-name" th:text="${user_repository.findById(friend.getToUser()).get().getUsername()}"></span></p>
-                  </div>
-                </li>
+                <div class="request-flex">
+                  <li>
+                    <div th:switch="${user_repository.findById(friend.getFromUser()).get().getUsername()!=my_username}">
+                      <a th:href='${user_repository.findById(friend.getFromUser()).get().getUsername()}'><p th:case="true" class="friend-name-class"><span id="friend-name" th:text='${"@" + user_repository.findById(friend.getFromUser()).get().getUsername()}'></span></p></a>
+                      <a th:href='${user_repository.findById(friend.getToUser()).get().getUsername()}'><p th:case="false" class="friend-name-class"><span id="friend-name" th:text='${"@" + user_repository.findById(friend.getToUser()).get().getUsername()}'></span></p></a>
+                    </div>
+                  </li>
+                </div>
               </ul>
             </div>
           </div>
