@@ -215,18 +215,19 @@ ul {
 .user-card {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    overflow-x: scroll;
+    white-space: nowrap;
+    
 }
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    max-width: 300px;
+    min-width: 275px;
     margin: auto;
     text-align: center;
-}
-
-.title{
-    color: grey;
-    font-size: 18px;
+    border-radius: 15px;
+    display: inline-block;
 }
 
 button{
@@ -261,6 +262,40 @@ button:hover, a:hover{
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.logo-size{
+    text-align: center;
+    justify-content: space-between;
+
+}
+
+.logo-size img{
+    /* border-radius: 10px; */
+    height: 300px;
+    width:100%;
+    
+}
+
+.logo-size div{
+    /* border: solid gray; */
+    background-color: lightblue;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+}
+
+.box{
+    text-align: center;
+    border-radius: 10px;
+    border: 10px solid gray;
+    height: 150px; 
+}
+
+.font{
+    font-family: 'Noto Serif', serif;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px rgb(65, 141, 171);
+}
 /*.post-content {
     padding:10px;
     border:1px solid #999;
