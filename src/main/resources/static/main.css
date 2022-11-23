@@ -215,7 +215,7 @@ ul {
 .user-card {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     overflow-x: scroll;
     white-space: nowrap;
     
@@ -236,7 +236,7 @@ button{
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #000;
+    background-color: lightblue;
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -280,7 +280,7 @@ button:hover, a:hover{
     background-color: lightblue;
     margin-left: auto;
     margin-right: auto;
-    height: 50px;
+    height: 30px;
 }
 
 .box{
