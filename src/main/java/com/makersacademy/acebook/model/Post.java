@@ -19,7 +19,7 @@ import lombok.Data;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
     public String content;
     private Long user_id;
     private int likes;
