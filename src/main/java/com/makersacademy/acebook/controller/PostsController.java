@@ -64,6 +64,7 @@ public class PostsController {
         }
         model.addAttribute("posts", reversedPost);
         model.addAttribute("post", new Post());
+        model.addAttribute("users", users);
         //model.addAttribute("comment", new Comment());
         return "posts/index";
     }
