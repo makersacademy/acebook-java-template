@@ -28,7 +28,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/posts").hasRole("USER")
                 .antMatchers("/users").permitAll()
-                .and().formLogin();
+                .and().formLogin()
+                // Added in stuff below to specify a login page.
+                .loginPage("/login")
+                .failureUrl("/login-error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login");
     }
 
     @Bean
