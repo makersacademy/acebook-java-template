@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class PostsController {
@@ -19,7 +21,10 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
-        model.addAttribute("posts", posts);
+        List<Post> reverseOrderPost = StreamSupport.stream(posts.spliterator(), false)
+                .sorted(Comparator.comparing(Post::getId).reversed())
+                .collect(Collectors.toList());
+        model.addAttribute("posts", reverseOrderPost);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
