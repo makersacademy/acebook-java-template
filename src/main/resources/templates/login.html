@@ -11,7 +11,7 @@
         <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
         <label for="password">Password</label>:
         <input type="password" id="password" name="password" /> <br />
-        <input type="submit" value="Log in" />
+        <input type="submit" value="Log in" id="submit"/>
     </form>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
 </body>
