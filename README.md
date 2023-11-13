@@ -104,3 +104,19 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 
 * [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
+# Zi-Tong's guide to running this on a kinda-of rooted Google-owned chromebook :coolsunglasses:
+## Ideally...
+- Try using podman (cooler, non-root version of docker)
+## If this doesn't work...
+- In the chromeOS linux dev environment install all the boring stuff (java17, postgres15, etc.)
+  - Note: for postgres to work you have to run sudo su postgres, set the password = e.g. password
+  - It takes you into a new environment and then you can run psql happy days :)
+  - Then add in your local application-dev.properties (.gitignore your special one)
+    - spring.datasource.username=postgres
+      spring.datasource.password=password
+- Install chromedriver (keep an eye on version) and mv to same place directory recommended in this project
+- Install the MATCHING Chrome version (onto your linux distro)
+  - Go to google.com/chrome and look at linux for latest
+  - In my case I had to go hunting for a cached version of chrome to match with my outdated chromedriver
+  - My fans got pretty loud running this old version of chrome... but it worked...
+- Do the normal readme stuff above :)
