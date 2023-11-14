@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Optional;
 
 @Controller
 public class UsersController {
@@ -32,5 +36,16 @@ public class UsersController {
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
+    }
+
+    @GetMapping("/users/{id}")
+    public ModelAndView show(@PathVariable Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElse(null);
+        ModelAndView modelAndView = new ModelAndView("/users/show");
+        modelAndView.addObject("user", user);
+        System.out.println("This is an OBJECT!!!!!!");
+        System.out.println(user);
+        return modelAndView;
     }
 }
