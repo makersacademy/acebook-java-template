@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="navbar">
+    <header>
+        <h2>Acebook</h2>
+    </header>
+    <nav>
+        <a th:href="@{/}">Posts</a>
+        <a th:href="@{/Profile}">Profile</a>
+        <a th:href="@{/logout}">Logout</a>
+        <!-- Add more links as needed -->
+        <div id="navbar-username" sec:authorize="isAuthenticated()">
+            Signed in as <span sec:authentication="name"></span>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

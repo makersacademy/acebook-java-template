@@ -7,21 +7,20 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
     <h1>Posts</h1>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
         <p>Content: <input type="text" th:field="*{content}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+    <ul th:each="i: ${#numbers.sequence(posts.size() -1, 0, -1)}">
+        <li th:text="${posts[i].content}" />
     </ul>
+
 
     </body>
 </html>
