@@ -10,4 +10,10 @@ public class HomeController {
 	public RedirectView index() {
 		return new RedirectView("/posts");
 	}
+
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 }
+
