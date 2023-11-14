@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-    public List<Comment> findCommentByPost_id(Long post_id);
+    //public List<Comment> findCommentByPost_id(Long post_id);
+    // ^ idk why but this doesn't work
 }
