@@ -2,7 +2,7 @@ package com.makersacademy.aceboook.controller;
 
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-import jdk.internal.org.xml.sax.Locator;
+//import jdk.internal.org.xml.sax.Locator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
