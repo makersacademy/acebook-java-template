@@ -8,7 +8,7 @@ import org.junit.Test;
 public class CommentTest {
 
     private Post post = new Post("This is a post.");
-    private Comment comment = new Comment(1L, post.getId(), "I like your post!");
+    private Comment comment = new Comment("Ariane", post.getId(), "I like your post!");
 
     @Test
     public void commentHasContent() {
