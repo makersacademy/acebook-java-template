@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <head lang="en">
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
@@ -11,12 +11,18 @@
     <div class="header">
         <div th:href="${session.containsKey('user_id')}">
             <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-                <img src="" alt="Profile Image">
+                <img src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" width="20" height="20" alt="Profile Image">
             </a>
         </div>
     <div class="menu-right">
         <a href="/friends">Friends</a>
         <a href="/posts">Timeline</a>
+
+        <form action="#" th:action="@{/handleFriendRequest/" th:object="${friend}" method="post">
+            <p>Requester id: <input type="number" value="${user_id}" th:field="*{requester_id}" /></p>
+            <p>Receiver id: <input type="number"  value="'5'"th:field="*{receiver_id}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
 
         <!-- Conditional Rendering based on session -->
         <div th:if="${session.containsKey('user_id')}">
@@ -29,7 +35,7 @@
     </div>
 </div>
 
-    <h1 th:text="'Welcome to your profile ' + ${user.username}"></h1>
+    <h1 th:text="${user.username} + '\'s Profile'"></h1>
 
 </body>
 </html>

@@ -44,8 +44,6 @@ public class UsersController {
         User user = optionalUser.orElse(null);
         ModelAndView modelAndView = new ModelAndView("/users/show");
         modelAndView.addObject("user", user);
-        System.out.println("This is an OBJECT!!!!!!");
-        System.out.println(user);
         return modelAndView;
     }
 
