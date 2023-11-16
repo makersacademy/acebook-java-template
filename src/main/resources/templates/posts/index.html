@@ -8,6 +8,25 @@
     </head>
     <body>
 
+    <div class="header">
+        <a href="/profile" class="profile_image">
+            <img src="" alt="Profile Image">
+        </a>
+        <div class="menu-right">
+            <a href="/friends">Friends</a>
+            <a href="/posts">Timeline</a>
+
+            <!-- Conditional Rendering based on session -->
+            <div th:if="${session.containsKey('user_id')}">
+                <a href="/logout">Sign Out</a>
+            </div>
+            <div th:unless="${session.containsKey('user_id')}">
+                <a href="/login">Log In</a>
+                <a href="/register">Register</a>
+            </div>
+        </div>
+    </div>
+
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">

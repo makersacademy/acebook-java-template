@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your Profile</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title th:text="${user.username} + '\'s Profile'"></title>
+    <link rel="stylesheet" href="/main.css"/>
 </head>
 <body>
-    <h1>Welcome to your profile!</h1>
-    <p th:text="${user.username}"></p>
+
+    <div class="header">
+        <div th:href="${session.containsKey('user_id')}">
+            <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
+                <img src="" alt="Profile Image">
+            </a>
+        </div>
+    <div class="menu-right">
+        <a href="/friends">Friends</a>
+        <a href="/posts">Timeline</a>
+
+        <!-- Conditional Rendering based on session -->
+        <div th:if="${session.containsKey('user_id')}">
+            <a href="/logout">Sign Out</a>
+        </div>
+        <div th:unless="${session.containsKey('user_id')}">
+            <a href="/login">Log In</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</div>
+
+    <h1 th:text="'Welcome to your profile ' + ${user.username}"></h1>
+
 </body>
 </html>
+
