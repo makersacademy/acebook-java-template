@@ -28,7 +28,7 @@ public class Comment {
     public String getUsername() { return this.username; }
     public void setUsername(String username) { this.username = username; }
     public Long getPostId() { return this.postId; }
-    public void setPostId(Long post_id) { this.postId = postId; }
+    public void setPostId(Long postId) { this.postId = postId; }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 }
