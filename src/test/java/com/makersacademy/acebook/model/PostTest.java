@@ -18,9 +18,9 @@ public class PostTest {
 		assertThat(post.getContent(), containsString("hello"));
 	}
 
-//	@Test
-//	public void postHasContent() {
-//		assertThat(post.getContent(), containsString("hello"));
-//	}
-//
+	@Test
+	public void postHasU() {
+		assertThat(post.getContent(), containsString("hello"));
+	}
+
 }
