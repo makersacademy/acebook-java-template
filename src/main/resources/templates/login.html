@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
 <head>
-    <title tiles:fragment="title">Messages : Create</title>
+    <title tiles:fragment="title">Please log in</title>
 </head>
 <body>
 <div tiles:fragment="content">
@@ -24,7 +24,7 @@
     </form>
     <form name="f" th:action="@{/users/new}" method="get">
         <div>
-            <button type="submit" class="btn">Sign up</button>
+            <button id="sign-up-btn" type="submit" class="btn">Sign up</button>
         </div>
     </form>
 </div>
