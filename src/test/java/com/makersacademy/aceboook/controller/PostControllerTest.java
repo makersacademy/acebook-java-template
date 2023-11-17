@@ -48,8 +48,8 @@ public class PostControllerTest {
     @Test
     public void testNewPostIsAtTheTopOfList() {
         driver.get("http://localhost:8080/login");
-        driver.findElement(By.id("username")).sendKeys("testing");
-        driver.findElement(By.id("password")).sendKeys("password3");
+        driver.findElement(By.id("username")).sendKeys("test_user");
+        driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
         driver.findElement(By.id("content")).sendKeys("New Post");
         driver.findElement(By.id("submit")).click();
