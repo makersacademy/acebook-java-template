@@ -40,12 +40,10 @@ public class User {
         this.enabled = enabled;
     }
 
-<<<<<<< HEAD
-=======
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     public Long getId() { return this.id; }
->>>>>>> 8179f0c (Add user_id to new post)
+
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
 }
