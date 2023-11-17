@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
+import lombok.Getter;
 
 import static java.lang.Boolean.TRUE;
 
@@ -17,7 +18,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Getter
     private String username;
+    @Getter
     private String password;
     private boolean enabled;
 
@@ -37,8 +40,6 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
 }

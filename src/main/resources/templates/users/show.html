@@ -18,11 +18,11 @@
         <a href="/friends">Friends</a>
         <a href="/posts">Timeline</a>
 
-        <form action="#" th:action="@{/handleFriendRequest/" th:object="${friend}" method="post">
-            <p>Requester id: <input type="number" value="${user_id}" th:field="*{requester_id}" /></p>
-            <p>Receiver id: <input type="number"  value="'5'"th:field="*{receiver_id}" /></p>
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+        <div th:if="${!isCurrentUser}">
+            <button>Friend Request</button>
+        </div>
+        <p th:text="${user.id}"></p>
+        <p th:text="${currentUser.id}"></p>
 
         <!-- Conditional Rendering based on session -->
         <div th:if="${session.containsKey('user_id')}">
@@ -39,4 +39,3 @@
 
 </body>
 </html>
-

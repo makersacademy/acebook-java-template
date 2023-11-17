@@ -31,6 +31,6 @@ public class Friend {
     }
 
     public void setRequesterId(Long requester_id) { this.requester_id = requester_id; }
-    public void setReceiver_id(Long receiver_id) { this.receiver_id = receiver_id; }
+    public void setReceiverId(Long receiver_id) { this.receiver_id = receiver_id; }
 
 }

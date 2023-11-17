@@ -15,11 +15,16 @@ public class FriendController {
     @Autowired
     FriendRepository friendRepository;
 
-    @PostMapping("/handleFriendRequest/{receiver_id}")
-    public RedirectView create(@ModelAttribute Friend friend, Long receiver_id) {
-        friendRepository.save(friend);
-        RedirectView redirectView = new RedirectView("users/show");
-        redirectView.addStaticAttribute("receiver_id", receiver_id);
-        return redirectView;
+    @PatchMapping("/users/friend")
+    public String showForm(Model model) {
+        model.addAttribute("friend", new Friend());
+        return "form";
+    }
+
+    @PostMapping("/handleFriendRequest")
+    public String create(@ModelAttribute Friend friend) {
+        System.out.println(friend.getRequester_id());
+        System.out.println(friend.getReceiver_id());
+        return "success";
     }
 }
