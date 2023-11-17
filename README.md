@@ -120,3 +120,14 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
   - In my case I had to go hunting for a cached version of chrome to match with my outdated chromedriver
   - My fans got pretty loud running this old version of chrome... but it worked...
 - Do the normal readme stuff above :)
+
+# Zi-Tong's guide to running this on VSCODE/Docker dev containers
+- Build container
+- Enter postgresql password (postgres) into cli prompt
+- Change application-dev properties:
+    ```
+    spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+    spring.datasource.username=postgres
+    spring.datasource.password=postgres
+    ```
+- Run mvn build commands :)
