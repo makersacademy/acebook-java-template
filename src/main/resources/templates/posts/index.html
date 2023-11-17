@@ -18,7 +18,9 @@
 
             <!-- Conditional Rendering based on session -->
             <div th:if="${session.containsKey('user_id')}">
-                <a href="/logout">Sign Out</a>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
             </div>
             <div th:unless="${session.containsKey('user_id')}">
                 <a href="/login">Log In</a>
