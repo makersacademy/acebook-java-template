@@ -60,12 +60,13 @@ public class PostControllerTest {
         String newPost = postList.get(0).getText();
 
         Assert.assertEquals("New Post", newPost);
+    }
 
     @Test
     public void testNewPostHasUserIdAssigned() {
         driver.get("http://localhost:8080/login");
-        driver.findElement(By.id("username")).sendKeys("testing");
-        driver.findElement(By.id("password")).sendKeys("password3");
+        driver.findElement(By.id("username")).sendKeys("test_user");
+        driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("content")));
@@ -74,7 +75,7 @@ public class PostControllerTest {
         List<Post> posts = postRepository.findAllByOrderByTimestampDesc();
         Post latestPost = posts.get(0);
         Long userId = latestPost.getUserId();
-        Long expected = 12L;
+        Long expected = 4L;
         Assert.assertEquals(expected, userId);
     }
 }

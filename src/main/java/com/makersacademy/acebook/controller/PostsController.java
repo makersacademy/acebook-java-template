@@ -21,14 +21,9 @@ import java.util.Optional;
 public class PostsController {
 
     @Autowired
-<<<<<<< HEAD
     PostRepository postRepository;
-
-=======
-    PostRepository repository;
     @Autowired
     UserRepository userRepository;
->>>>>>> 8179f0c (Add user_id to new post)
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -42,14 +37,10 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         post.setTimestamp(Timestamp.valueOf(timeStamp));
-<<<<<<< HEAD
-        postRepository.save(post);
-=======
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
         post.setUserId(principalUser.getId());
-        repository.save(post);
->>>>>>> 8179f0c (Add user_id to new post)
+        postRepository.save(post);
         return new RedirectView("/posts");
     }
 }
