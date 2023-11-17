@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -59,13 +62,23 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    public ModelAndView show(@PathVariable Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        User user = optionalUser.orElse(null);
+    public ModelAndView show(@PathVariable Long id, Principal principal) {
+        Optional<User> pageUser = userRepository.findById(id);
+        User user = pageUser.orElse(null);
+
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+
         ModelAndView modelAndView = new ModelAndView("/users/show");
+        modelAndView.addObject("currentUser", principalUser);
         modelAndView.addObject("user", user);
-        System.out.println("This is an OBJECT!!!!!!");
-        System.out.println(user);
+
+        if (principal.getName().equals(Objects.requireNonNull(user).getUsername())) {
+            modelAndView.addObject("isCurrentUser", true);
+        } else {
+            modelAndView.addObject("isCurrentUser", false);
+        }
+
         return modelAndView;
     }
 }

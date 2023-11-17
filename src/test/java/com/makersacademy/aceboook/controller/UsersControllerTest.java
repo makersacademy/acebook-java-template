@@ -2,7 +2,6 @@ package com.makersacademy.aceboook.controller;
 
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-//import jdk.internal.org.xml.sax.Locator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,12 +34,14 @@ public class UsersControllerTest {
         driver.close();
     }
 
-//    @Test
-//    public void usersCanReadUsername() {
-//        driver.get("localhost:8080/users/3");
-//        String username = driver.getTitle();
-//        Assert.assertEquals("tom", username);
-//    }
+    @Test
+    public void usersCanReadUsername() {
+        driver.get("localhost:8080/users/3");
+        WebElement pElement = driver.findElement(By.tagName("p"));
+        String pText = pElement.getText();
+        Assert.assertEquals("zak ", pText);
+
+    }
 
 //    @Test
 //    public void successfulSignUpRedirectsToSignIn() {
