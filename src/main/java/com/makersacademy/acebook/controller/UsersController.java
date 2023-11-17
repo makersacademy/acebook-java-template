@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Objects;
+import java.util.ArrayList;
 import java.util.Optional;
+
+import static java.lang.Boolean.valueOf;
 
 @Controller
 public class UsersController {
@@ -34,7 +38,23 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
+    public RedirectView signup(@ModelAttribute User user, RedirectAttributes attributes) {
+
+        String usernameErrorMsg = "Please enter a username";
+        String passwordErrorMsg = "Please enter a password";
+
+        if (user.getUsername().trim().isEmpty() && user.getPassword().trim().isEmpty()){
+            attributes.addAttribute("usernameError", usernameErrorMsg);
+            attributes.addAttribute("passwordError", passwordErrorMsg);
+            return new RedirectView("/users/new");
+        } else if (user.getPassword().trim().isEmpty()) {
+            attributes.addAttribute("passwordError", passwordErrorMsg);
+            return new RedirectView("/users/new");
+        } else if (user.getUsername().trim().isEmpty()) {
+            attributes.addAttribute("usernameError", usernameErrorMsg);
+            return new RedirectView("/users/new");
+        }
+
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);

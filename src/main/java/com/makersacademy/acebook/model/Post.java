@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import lombok.Data;
 import lombok.Getter;
 
+import java.sql.Timestamp;
+
 @Data
 @Entity
 @Table(name = "POSTS")
@@ -20,12 +22,23 @@ public class Post {
     @Getter
     private String content;
 
+    @Getter
+    private Timestamp timestamp;
+
+    @Getter
+    private Long userId;
+
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, Timestamp timestamp, Long userId) {
         this.content = content;
+        this.timestamp = timestamp;
+        this.userId = userId;
     }
-
     public void setContent(String content) { this.content = content; }
+
+    public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
+
+    public void setUserId(Long userId) { this.userId = userId; }
 
 }
