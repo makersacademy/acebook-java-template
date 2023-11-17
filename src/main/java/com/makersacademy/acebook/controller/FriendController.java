@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Friend;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +16,17 @@ public class FriendController {
     @Autowired
     FriendRepository friendRepository;
 
-    @PatchMapping("/users/friend")
-    public String showForm(Model model) {
-        model.addAttribute("friend", new Friend());
-        return "form";
+    @GetMapping("/users/friend")
+    public ModelAndView showFriends(Model model) {
+        ModelAndView modelAndView = new ModelAndView("/users/friend");
+        modelAndView.addObject("friend", new Friend());
+        return modelAndView;
     }
 
     @PostMapping("/handleFriendRequest")
-    public String create(@ModelAttribute Friend friend) {
-        System.out.println(friend.getRequester_id());
-        System.out.println(friend.getReceiver_id());
-        return "success";
+    public RedirectView create(@ModelAttribute Friend friend) {
+        Friend newFriend = new Friend(friend.getRequester_id(), friend.getReceiver_id(), "PENDING");
+        friendRepository.save(newFriend);
+        return new RedirectView("/users/friend");
     }
 }

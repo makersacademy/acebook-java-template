@@ -19,7 +19,9 @@
         <a href="/posts">Timeline</a>
 
         <div th:if="${!isCurrentUser}">
-            <button>Friend Request</button>
+            <form action="@{/handleFriendRequest/{userId}(userId=${user.id})}">
+                <button type="submit">Friend Request</button>
+            </form>
         </div>
         <p th:text="${user.id}"></p>
         <p th:text="${currentUser.id}"></p>
