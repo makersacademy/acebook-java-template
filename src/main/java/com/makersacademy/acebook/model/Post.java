@@ -1,12 +1,7 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
-import javax.persistence.GenerationType;
 import lombok.Data;
 
 import java.util.List;
@@ -23,6 +18,8 @@ public class Post {
     private String content;
     @Transient
     private List<Comment> comments;
+    @Lob
+    private String image;
 
     public Post() {}
 
@@ -34,4 +31,8 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public List<Comment> getComments() { return this.comments; }
     public void setComments(List<Comment> comments) {this.comments = comments; }
+
+    public String getImage() { return image; }
+
+    public void setImage(String image) { this.image = image; }
 }
