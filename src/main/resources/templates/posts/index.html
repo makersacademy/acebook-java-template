@@ -21,8 +21,11 @@
     <ul th:each="i: ${#numbers.sequence(posts.size() -1, 0, -1)}">
         <li>
             <p th:text="${posts[i].content}" /></p>
-            <img alt="" th:src="*{'data:image/jpeg;base64,'+{posts[i].image}}"
-                 style="width: 100px; height: 100px;" />
+            <div th:switch="${posts[i].image}">
+                <p th:case="null"></p>
+                <img th:case="*" alt="" th:src="*{'data:image/jpeg;base64,'+{posts[i].image}}"
+                                 style="width: 100px; height: 100px;" />
+            </div>
             <!-- Display comments for each post -->
             <ul th:each="comment: ${posts[i].comments}">
                 <li th:text="${comment.content}" />
