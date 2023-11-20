@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <ul>
+    <li class="requests" th:each="user : ${friendRequests}" th:text="${user.getUsername()}"></li>
+    <button>Accept</button>
+    <button>Deny</button>
+  </ul>
+
+  <hr />
+  <ul>
+    <li>friend one</li>
+    <li>friend two</li>
+    <li>friend three</li>
+  </ul>
+
+</body>
+</html>
