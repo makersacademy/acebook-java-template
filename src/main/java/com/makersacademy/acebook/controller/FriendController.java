@@ -58,13 +58,14 @@ public class FriendController {
         }
 
         ArrayList<User> friends = new ArrayList<>();
-        for (Friend friend : userRequests) {
+        for (Friend friend : acceptedRequests) {
             Optional<User> optionalUser = userRepository.findById(friend.getRequester_id());
-            User friendRequest = optionalUser.orElse(null);
-            friendRequests.add(friendRequest);
+            User acceptedRequest = optionalUser.orElse(null);
+            friends.add(acceptedRequest);
         }
 
         modelAndView.addObject("friendRequests", friendRequests);
+        modelAndView.addObject("friends", friends);
         return modelAndView;
     }
 

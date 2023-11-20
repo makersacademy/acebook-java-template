@@ -20,9 +20,7 @@
 
   <hr />
   <ul>
-    <li>friend one</li>
-    <li>friend two</li>
-    <li>friend three</li>
+    <li th:each="friend : ${friends}" th:text="${friend.getUsername()}"></li>
   </ul>
 
 </body>
