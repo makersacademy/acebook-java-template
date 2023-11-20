@@ -17,13 +17,36 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private Long likes = 0L; // Add this field
 
-    public Post() {}
+    public Post() {
+
+    }
 
     public Post(String content) {
         this.content = content;
+        this.likes = 0L;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
 
+    // Getter and Setter for likes
+    public Long getLikes() {
+        return likes;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
+    }
+
+    // Getter and Setter for content
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

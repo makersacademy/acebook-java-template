@@ -16,9 +16,19 @@
         <p>Content: <input type="text" th:field="*{content}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+    <ul th:each="postItem : ${posts}">
+        <li>
+            <span th:text="${postItem.id}"></span>
+            <span th:text="${postItem.content}"></span>
+            <span th:text="${postItem.likes != null ? 'Likes: ' + postItem.likes : 'No likes'}"></span>
 
-    <ul th:each="i: ${#numbers.sequence(posts.size() -1, 0, -1)}">
-        <li th:text="${posts[i].content}" />
+            <!-- Using a variable for the post ID -->
+            <th:block th:with="postId=${postItem.id}">
+                <form th:action="@{/posts/like/} + ${postItem.id}" th:object="${post}" method="post">
+                    <button type="submit">Like</button>
+                </form>
+            </th:block>
+        </li>
     </ul>
 
 
