@@ -78,4 +78,25 @@ public class PostControllerTest {
         Long expected = 4L;
         Assert.assertEquals(expected, userId);
     }
+
+    @Test
+    public void testCommentButtonNavigatesToPostPageFromPosts() {
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("username")).sendKeys("test_user");
+        driver.findElement(By.id("password")).sendKeys("password22");
+        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("comment")).click();
+        WebElement pElement = driver.findElement(By.tagName("p"));
+        String pText = pElement.getText();
+        Assert.assertEquals("Post content", pText);
+
+    }
+//    @Test
+//    public void testPostPageShowsPostAndListOfComments() {
+//        driver.get("http://localhost:8080/login");
+//        driver.findElement(By.id("username")).sendKeys("test_user");
+//        driver.findElement(By.id("password")).sendKeys("password22");
+//        driver.findElement(By.id("submit")).click();
+//
+//    }
 }

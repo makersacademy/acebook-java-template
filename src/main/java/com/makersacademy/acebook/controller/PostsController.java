@@ -43,4 +43,13 @@ public class PostsController {
         postRepository.save(post);
         return new RedirectView("/posts");
     }
+
+    @GetMapping("/posts/{id}")
+    public String show(Long id, Model model) {
+        Optional<Post> post = postRepository.findById(id);
+        Post currentPost = post.orElse(null);
+        System.out.println(currentPost);
+        model.addAttribute("post", currentPost);
+        return "posts/show";
+    }
 }
