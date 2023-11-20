@@ -29,11 +29,11 @@
                 <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
                 <input type="hidden" name="receiver_id" th:value="${user.id}" />
 
-                <div th:if="${userRequest ne null}">
-                    <button onclick="sendFriendRequest()" th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : (userRequest.getStatus() == 'PENDING' ? 'Request Sent' : 'Send Friend Request')}"></button>
+                <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                    <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
                 </div>
 
-                <div th:if="${userRequest == null}">
+                <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
                     <button onclick="sendFriendRequest()">Send Friend Request</button>
                 </div>
 

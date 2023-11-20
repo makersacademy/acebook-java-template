@@ -11,12 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FriendRepository extends CrudRepository<Friend, Long>  {
-    List<Friend> findByStatus(String status);
+    @Query("SELECT f FROM Friend f WHERE f.receiverId = :receiverId AND f.status = :status")
+    List<Friend> findByStatusAndReceiverId(@Param("receiverId") Long receiverId, @Param("status") String status);
+
+    @Query("SELECT f FROM Friend f WHERE f.requesterId = :requesterId OR f.receiverId = :receiverId")
+    List<Friend> findByRequesterIdOrReceiverId(@Param("requesterId") Long requesterId, @Param("receiverId") Long receiverId);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Friend f SET f.status = :newValue WHERE f.requesterId = :requesterId")
-    void updateStatusById(@Param("requesterId") Long id, @Param("newValue") String newValue);
+    @Query("UPDATE Friend f SET f.status = :status WHERE f.requesterId = :requesterId AND f.receiverId = :receiverId")
+    void updateStatusByRequesterIdAndReceiverId(@Param("requesterId") Long requesterId,
+                                                @Param("receiverId") Long receiverId, @Param("status") String status);
 
-    Iterable<Friend> findAllByRequesterId(Long requesterId);
 }

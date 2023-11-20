@@ -11,7 +11,7 @@
       <span th:text="${user.getUsername()}"></span>
 
       <form th:action="@{/handleFriendConfirmation}" method="post">
-        <input type="hidden" th:name="userId" th:value="${user.getId()}" />
+        <input type="hidden" name="requesterId" th:value="${user.id}" />
         <button type="submit" name="action" value="accept">Accept</button>
         <button type="submit" name="action" value="deny">Deny</button>
       </form>

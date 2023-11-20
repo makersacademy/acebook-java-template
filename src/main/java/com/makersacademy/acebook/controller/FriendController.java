@@ -42,19 +42,12 @@ public class FriendController {
         User principalUser = currentUser.orElse(null);
 
         assert principalUser != null;
-        List<Friend> pendingRequests = friendRepository.findByStatus("PENDING");
-        List<Friend> acceptedRequests = friendRepository.findByStatus("ACCEPTED");
-
-        ArrayList<Friend> userRequests = new ArrayList<>();
-        for (Friend friend : pendingRequests) {
-            if (Objects.equals(friend.getReceiverId(), principalUser.getId())) {
-                userRequests.add(friend);
-            }
-        }
+        List<Friend> pendingRequests = friendRepository.findByStatusAndReceiverId(principalUser.getId(), "PENDING");
+        List<Friend> acceptedRequests = friendRepository.findByStatusAndReceiverId(principalUser.getId(), "ACCEPTED");
 
         ArrayList<User> friendRequests = new ArrayList<>();
-        for (Friend friend : userRequests) {
-            Optional<User> optionalUser = userRepository.findById(friend.getReceiverId());
+        for (Friend friend : pendingRequests) {
+            Optional<User> optionalUser = userRepository.findById(friend.getRequesterId());
             User friendRequest = optionalUser.orElse(null);
             friendRequests.add(friendRequest);
         }
@@ -87,11 +80,15 @@ public class FriendController {
 
     @PostMapping("/handleFriendConfirmation")
     public String handleConfirmation(@RequestParam("action") String action,
-                                 @RequestParam("userId") Long userId) {
+                                 @RequestParam("requesterId") Long requesterId, Principal principal) {
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User receiverId = currentUser.orElse(null);
+        assert receiverId != null;
+
         if ("accept".equals(action)) {
-            friendRepository.updateStatusById(userId, "ACCEPTED");
+            friendRepository.updateStatusByRequesterIdAndReceiverId(requesterId, receiverId.getId(), "ACCEPTED");
         } else if ("deny".equals(action)) {
-            friendRepository.updateStatusById(userId, "DENIED");
+            friendRepository.updateStatusByRequesterIdAndReceiverId(requesterId, receiverId.getId(), "DENIED");
         }
 
         return "redirect:/friends";

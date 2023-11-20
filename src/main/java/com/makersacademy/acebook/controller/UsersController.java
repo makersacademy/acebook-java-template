@@ -73,23 +73,21 @@ public class UsersController {
 
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
+        assert principalUser != null;
 
         ModelAndView modelAndView = new ModelAndView("/users/show");
         modelAndView.addObject("currentUser", principalUser);
         modelAndView.addObject("user", user);
 
-        assert principalUser != null;
-        Iterable<Friend> userRequests = friendRepository.findAllByRequesterId(principalUser.getId());
+        Iterable<Friend> userRequests = friendRepository.findByRequesterIdOrReceiverId(principalUser.getId(), principalUser.getId());
 
         for (Friend friend : userRequests) {
-            if (Objects.equals(friend.getReceiverId(), id)) {
+            if (Objects.equals(friend.getReceiverId(), id) || Objects.equals(friend.getRequesterId(), id)) {
                 modelAndView.addObject("userRequest", friend);
+                break;
             } else {
                 modelAndView.addObject("userRequest", null);
             }
-
-            System.out.println(id);
-            System.out.println(friend.getReceiverId());
         }
 
         if (principal.getName().equals(Objects.requireNonNull(user).getUsername())) {
