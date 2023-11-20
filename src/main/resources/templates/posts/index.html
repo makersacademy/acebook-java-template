@@ -35,14 +35,15 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
         <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <form action="#" th:action="@{/posts/{post.id}}" th:object="${post}" method="get">
-            <li th:text="${post.content}" />
+    <ul th:each="currentPost: ${posts}">
+        <form action="#" th:action="@{/post/{id}(id=${currentPost.id})}" method="get">
+            <li th:text="${currentPost.content}" />
+            <p th:text="${currentPost.id}"></p>
             <p><input type="submit" id="comment" value="Comment" /> <input type="submit" id="like" value="Like" /></p>
         </form>
     </ul>

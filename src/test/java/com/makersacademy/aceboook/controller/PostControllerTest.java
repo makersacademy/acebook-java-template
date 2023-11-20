@@ -85,12 +85,35 @@ public class PostControllerTest {
         driver.findElement(By.id("username")).sendKeys("test_user");
         driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("content")).sendKeys("Testing Comment Button");
+        driver.findElement(By.id("submit")).click();
         driver.findElement(By.id("comment")).click();
         WebElement pElement = driver.findElement(By.tagName("p"));
         String pText = pElement.getText();
-        Assert.assertEquals("Post content", pText);
+        Assert.assertEquals("Testing Comment Button", pText);
 
     }
+
+    @Test
+    public void testAddCommentReflectedInCommentsList() {
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("username")).sendKeys("test_user");
+        driver.findElement(By.id("password")).sendKeys("password22");
+        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("comment")).click();
+        driver.findElement(By.id("addComment")).sendKeys("Here is my new comment!");
+        driver.findElement(By.id("submitComment")).click();
+
+        WebElement commentsUL = driver.findElement(By.tagName("ul"));
+        List<WebElement> commentsLI = commentsUL.findElements(By.tagName("li"));
+        String comment = commentsLI.get(0).getText();
+
+        Assert.assertEquals("Here is my new comment!", comment);
+
+    }
+
+
+
 //    @Test
 //    public void testPostPageShowsPostAndListOfComments() {
 //        driver.get("http://localhost:8080/login");
