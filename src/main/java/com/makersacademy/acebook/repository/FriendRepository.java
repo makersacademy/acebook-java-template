@@ -15,6 +15,8 @@ public interface FriendRepository extends CrudRepository<Friend, Long>  {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Friend f SET f.status = :newValue WHERE f.requester_id = :requester_id")
-    void updateStatusById(@Param("requester_id") Long id, @Param("newValue") String newValue);
+    @Query("UPDATE Friend f SET f.status = :newValue WHERE f.requesterId = :requesterId")
+    void updateStatusById(@Param("requesterId") Long id, @Param("newValue") String newValue);
+
+    Iterable<Friend> findAllByRequesterId(Long requesterId);
 }

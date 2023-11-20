@@ -5,6 +5,8 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,21 +47,21 @@ public class FriendController {
 
         ArrayList<Friend> userRequests = new ArrayList<>();
         for (Friend friend : pendingRequests) {
-            if (Objects.equals(friend.getReceiver_id(), principalUser.getId())) {
+            if (Objects.equals(friend.getReceiverId(), principalUser.getId())) {
                 userRequests.add(friend);
             }
         }
 
         ArrayList<User> friendRequests = new ArrayList<>();
         for (Friend friend : userRequests) {
-            Optional<User> optionalUser = userRepository.findById(friend.getRequester_id());
+            Optional<User> optionalUser = userRepository.findById(friend.getReceiverId());
             User friendRequest = optionalUser.orElse(null);
             friendRequests.add(friendRequest);
         }
 
         ArrayList<User> friends = new ArrayList<>();
         for (Friend friend : acceptedRequests) {
-            Optional<User> optionalUser = userRepository.findById(friend.getRequester_id());
+            Optional<User> optionalUser = userRepository.findById(friend.getRequesterId());
             User acceptedRequest = optionalUser.orElse(null);
             friends.add(acceptedRequest);
         }
@@ -70,10 +72,17 @@ public class FriendController {
     }
 
     @PostMapping("/handleFriendRequest")
-    public RedirectView create(@ModelAttribute Friend friend) {
-        Friend newFriend = new Friend(friend.getRequester_id(), friend.getReceiver_id(), "PENDING");
-        friendRepository.save(newFriend);
-        return new RedirectView("/users/friend");
+    public RedirectView handleFriendRequest(@RequestParam("requester_id") Long requesterId,
+                                            @RequestParam("receiver_id") Long receiverId, Principal principal) {
+
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        assert principalUser != null;
+
+        Friend friendRequest = new Friend(requesterId, receiverId, "PENDING");
+        friendRepository.save(friendRequest);
+
+        return new RedirectView("/users/" + receiverId);
     }
 
     @PostMapping("/handleFriendConfirmation")

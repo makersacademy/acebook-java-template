@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,6 +33,8 @@ public class UsersController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    FriendRepository friendRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -72,6 +77,20 @@ public class UsersController {
         ModelAndView modelAndView = new ModelAndView("/users/show");
         modelAndView.addObject("currentUser", principalUser);
         modelAndView.addObject("user", user);
+
+        assert principalUser != null;
+        Iterable<Friend> userRequests = friendRepository.findAllByRequesterId(principalUser.getId());
+
+        for (Friend friend : userRequests) {
+            if (Objects.equals(friend.getReceiverId(), id)) {
+                modelAndView.addObject("userRequest", friend);
+            } else {
+                modelAndView.addObject("userRequest", null);
+            }
+
+            System.out.println(id);
+            System.out.println(friend.getReceiverId());
+        }
 
         if (principal.getName().equals(Objects.requireNonNull(user).getUsername())) {
             modelAndView.addObject("isCurrentUser", true);
