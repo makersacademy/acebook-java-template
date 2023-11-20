@@ -12,19 +12,23 @@
     <h1>Posts</h1>
 
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <p>Content: <input type="text" name="content" th:field="*{content}" /></p>
+        <p>Image: <input type ="file" name="file"/></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="i: ${#numbers.sequence(posts.size() -1, 0, -1)}">
         <li>
             <p th:text="${posts[i].content}" /></p>
-
+            <img alt="" th:src="*{'data:image/jpeg;base64,'+{posts[i].image}}"
+                 style="width: 100px; height: 100px;" />
             <!-- Display comments for each post -->
             <ul th:each="comment: ${posts[i].comments}">
                 <li th:text="${comment.content}" />
             </ul>
+
+
 
             <!-- Form for adding comments -->
             <form action="@{/addComment}" th:action="@{/addComment}" th:object="${comment}" method="post">
