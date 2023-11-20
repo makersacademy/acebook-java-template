@@ -22,7 +22,7 @@
         <li>
             <p th:text="${posts[i].content}" /></p>
             <div th:switch="${posts[i].image}">
-                <p th:case="null"></p>
+                <p th:case="''"></p>
                 <img th:case="*" alt="" th:src="*{'data:image/jpeg;base64,'+{posts[i].image}}"
                                  style="width: 100px; height: 100px;" />
             </div>
