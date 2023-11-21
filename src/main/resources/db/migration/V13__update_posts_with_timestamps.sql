@@ -4,7 +4,7 @@ set
     timestamp = '2023-11-14 11:13:24',
     user_id = 3
 where
-    content = 'Second post';
+        content = 'Second post';
 
 
 update
@@ -13,7 +13,7 @@ set
     timestamp = '2023-11-15 11:13:24',
     user_id = 10
 where
-    content = 'fourth post';
+        content = 'fourth post';
 
 
 update
@@ -22,7 +22,7 @@ set
     timestamp = '2023-11-16 11:13:24',
     user_id = 11
 where
-    content = 'third post';
+        content = 'third post';
 
 
 update
@@ -31,7 +31,7 @@ set
     timestamp = '2023-11-10 11:13:24',
     user_id = 12
 where
-    content = 'sixth post';
+        content = 'sixth post';
 
 
 update
@@ -40,5 +40,5 @@ set
     timestamp = '2023-11-09 11:13:24',
     user_id = 14
 where
-    content = 'fifth post';
+        content = 'fifth post';
 
