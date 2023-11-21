@@ -5,6 +5,12 @@
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
     <link rel="stylesheet" href="/main.css"/>
+
+    <script>
+        function sendFriendRequest() {
+            document.getElementById('friendRequestForm').submit();
+        }
+    </script>
 </head>
 <body>
 
@@ -19,10 +25,21 @@
         <a href="/posts">Timeline</a>
 
         <div th:if="${!isCurrentUser}">
-            <form action="@{/handleFriendRequest/{userId}(userId=${user.id})}">
-                <button type="submit">Friend Request</button>
+            <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
+                <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
+                <input type="hidden" name="receiver_id" th:value="${user.id}" />
+
+                <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                    <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                </div>
+
+                <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
+                    <button onclick="sendFriendRequest()">Send Friend Request</button>
+                </div>
+
             </form>
         </div>
+
         <p th:text="${user.id}"></p>
         <p th:text="${currentUser.id}"></p>
 

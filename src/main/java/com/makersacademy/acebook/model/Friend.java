@@ -19,22 +19,22 @@ public class Friend {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Getter
-    private Long requester_id;
+    private Long requesterId;
     @Getter
-    private Long receiver_id;
+    private Long receiverId;
     @Getter
     private String status;
 
     public Friend() {}
 
     public Friend(Long requester_id, Long receiver_id, String status) {
-        this.requester_id = requester_id;
-        this.receiver_id = receiver_id;
+        this.requesterId = requester_id;
+        this.receiverId = receiver_id;
         this.status = status;
     }
 
-    public void setRequesterId(Long requester_id) { this.requester_id = requester_id; }
-    public void setReceiverId(Long receiver_id) { this.receiver_id = receiver_id; }
+    public void setRequesterId(Long requester_id) { this.requesterId = requester_id; }
+    public void setReceiverId(Long receiver_id) { this.receiverId = receiver_id; }
     public void setStatus(String status) { this.status = status; }
 
 }
