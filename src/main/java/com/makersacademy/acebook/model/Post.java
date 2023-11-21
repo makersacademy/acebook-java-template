@@ -41,14 +41,4 @@ public class Post {
     public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
 
     public void setUserId(Long userId) { this.userId = userId; }
-
-    @Override
-    public String toString() {
-        return "MyClass{" +
-                "value=" + content +
-                "timestamp" + timestamp +
-                "userId" + userId +
-                '}';
-    }
-
 }

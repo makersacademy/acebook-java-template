@@ -36,16 +36,16 @@ public class PostsController {
         ArrayList<HashMap<Post, User>> postsAndPosters = new ArrayList<>();
 
         for (Post post : posts) {
-            HashMap<Post, User> hashMap = new HashMap<>();
+            HashMap<Post, User> entry = new HashMap<>();
 
-            Optional<User> user = userRepository.findById(post.getUserId());
-            User poster = user.orElse(null);
+            Optional<User> optionalUser = userRepository.findById(post.getUserId());
+            User poster = optionalUser.orElse(null);
 
-            hashMap.put(post, poster);
-            postsAndPosters.add(hashMap);
+            entry.put(post, poster);
+            postsAndPosters.add(entry);
         }
 
-        System.out.println(postsAndPosters);
+//        System.out.println(postsAndPosters);
 
         model.addAttribute("postsAndPosters", postsAndPosters);
         model.addAttribute("newPost", new Post());

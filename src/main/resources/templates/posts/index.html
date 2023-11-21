@@ -40,21 +40,21 @@
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="entry: ${postsAndPosters}">
-        <li>
-            <div>
-                <p th:text="${entry.value.getUsername()}"></p> <!-- Assuming User has a username property -->
-            </div>
-            <div>
-                <p th:text="${entry.key.content}"></p> <!-- Assuming Post has a content property -->
-            </div>
-            <form action="#" th:action="@{/post/{id}(id=${entry.key.id})}" method="get">
-                <p>
-                    <input type="submit" id="comment" value="Comment" />
-                    <input type="submit" id="like" value="Like" />
-                </p>
-            </form>
-        </li>
+    <ul th:each="map, stat : ${postsAndPosters}">
+        <ul th:each="entry : ${map.entrySet()}">
+            <li>
+                <p th:text="${entry.getValue().getUsername()}"></p>
+                <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
+                <p th:text="${entry.getKey().getContent()}"></p>
+                <p th:text="${entry.getKey().getTimestamp()}"></p>
+                <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                    <p>
+                        <input type="submit" id="comment" value="Comment" />
+                        <input type="submit" id="like" value="Like" />
+                    </p>
+                </form>
+            </li>
+        </ul>
     </ul>
 
     </body>
