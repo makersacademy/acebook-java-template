@@ -1,5 +1,7 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
@@ -29,7 +31,7 @@ public class PostsController {
     public String index(Model model) {
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
         model.addAttribute("posts", posts);
-        model.addAttribute("post", new Post());
+        model.addAttribute("newPost", new Post());
         return "posts/index";
     }
 
@@ -42,5 +44,42 @@ public class PostsController {
         post.setUserId(principalUser.getId());
         postRepository.save(post);
         return new RedirectView("/posts");
+    }
+
+    @GetMapping("/post/{id}")
+    public String show(@PathVariable Long id, Model model) {
+
+        Optional<Post> post = postRepository.findById(id);
+        Post currentPost = post.orElse(null);
+        model.addAttribute("currentPost", currentPost);
+
+        Comment newComment = new Comment();
+        model.addAttribute("newComment", newComment);
+
+        return "posts/show";
+    }
+
+    @PostMapping("/post/{id}")
+    public ModelAndView createComment(@PathVariable Long id, @ModelAttribute Comment comment, Principal principal) {
+
+//        to make a new comment for a post:
+//        comment content, post_id, user_id
+        comment.setPostId(id);
+
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        comment.setUserId(principalUser.getId());
+
+
+
+
+
+
+
+
+        ModelAndView modelAndView = new ModelAndView("/post/{id}");
+        modelAndView.addObject("comment", new Comment());
+        return modelAndView;
+
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Data
 @Entity
 @Table(name = "COMMENTS")
@@ -17,6 +18,10 @@ public class Comment {
     private String comment;
     private Long postId;
     private Long userId;
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "id")
+//    private Post post;
 
     public Comment() {};
 

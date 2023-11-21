@@ -1,15 +1,12 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.Getter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,6 +16,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Getter
     private String content;
 
@@ -27,6 +25,10 @@ public class Post {
 
     @Getter
     private Long userId;
+
+//    @Getter
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postId", cascade = CascadeType.ALL)
+//    private List<Comment> commentList;
 
     public Post() {}
 
@@ -40,5 +42,6 @@ public class Post {
     public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
 
     public void setUserId(Long userId) { this.userId = userId; }
+
 
 }

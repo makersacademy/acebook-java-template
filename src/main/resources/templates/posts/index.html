@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
+    <head>
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
@@ -35,13 +35,17 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
         <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+    <ul th:each="currentPost: ${posts}">
+        <form action="#" th:action="@{/post/{id}(id=${currentPost.id})}" method="get">
+            <li th:text="${currentPost.content}" />
+            <p th:text="${currentPost.id}"></p>
+            <p><input type="submit" id="comment" value="Comment" /> <input type="submit" id="like" value="Like" /></p>
+        </form>
     </ul>
 
     </body>
