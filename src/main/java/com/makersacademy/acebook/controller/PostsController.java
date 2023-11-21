@@ -4,6 +4,7 @@ import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PostsController {
     PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -60,26 +64,30 @@ public class PostsController {
     }
 
     @PostMapping("/post/{id}")
-    public ModelAndView createComment(@PathVariable Long id, @ModelAttribute Comment comment, Principal principal) {
+    public RedirectView createComment(@PathVariable Long id, @ModelAttribute Comment comment, Principal principal) {
+
+
 
 //        to make a new comment for a post:
 //        comment content, post_id, user_id
+
+//        actual comment property should be set on the Comment object via the form
+//        Long.parseLong(id);
+//        Long.valueOf(String id).longValue();
+//        set post_id:
         comment.setPostId(id);
 
+//        set user_id:
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
         comment.setUserId(principalUser.getId());
 
+//        get visibility:
+        System.out.println(comment);
 
+        commentRepository.save(comment);
 
-
-
-
-
-
-        ModelAndView modelAndView = new ModelAndView("/post/{id}");
-        modelAndView.addObject("comment", new Comment());
-        return modelAndView;
+        return new RedirectView("/posts");
 
     }
 }

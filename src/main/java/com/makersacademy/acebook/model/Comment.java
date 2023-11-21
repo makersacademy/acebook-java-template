@@ -20,7 +20,7 @@ public class Comment {
     private Long userId;
 
 //    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id")
+//    @JoinColumn(name = "post_id")
 //    private Post post;
 
     public Comment() {};
