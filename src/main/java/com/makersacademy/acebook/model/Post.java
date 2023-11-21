@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @Entity
@@ -43,5 +42,13 @@ public class Post {
 
     public void setUserId(Long userId) { this.userId = userId; }
 
+    @Override
+    public String toString() {
+        return "MyClass{" +
+                "value=" + content +
+                "timestamp" + timestamp +
+                "userId" + userId +
+                '}';
+    }
 
 }
