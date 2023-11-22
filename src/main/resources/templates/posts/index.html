@@ -41,20 +41,31 @@
     </form>
 
     <ul th:each="map, stat : ${postsAndPosters}">
-        <ul th:each="entry : ${map.entrySet()}">
-            <li>
-                <p th:text="${entry.getValue().getUsername()}"></p>
-                <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
-                <p th:text="${entry.getKey().getContent()}"></p>
-                <p th:text="${entry.getKey().getTimestamp()}"></p>
-                <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
-                    <p>
-                        <input type="submit" id="comment" value="Comment" />
-                        <input type="submit" id="like" value="Like" />
-                    </p>
-                </form>
-            </li>
-        </ul>
+        <li>
+            <!-- User info -->
+            <p th:text="${map.user.getUsername()}"></p>
+            <img th:src="${map.user.getImageUrl()}" width="20" height="20" />
+
+            <!-- Post Content -->
+            <p th:text="${map.post.getContent()}"></p>
+            <p th:text="${map.post.getTimestamp()}"></p>
+
+            <!-- Display likes information -->
+<!--            <p>Likes: <span th:text="${#lists.size(map.likes)}"></span></p>-->
+<!--            <div th:each="like: ${map.likes}">-->
+<!--                <p th:text="${like.userId}"></p>-->
+<!--            </div>-->
+
+            <!-- Form for commenting -->
+            <form action="#" th:action="@{/post/{id}(id=${map.post.getId()})}" method="get">
+                <input type="submit" id="comment" value="Comment" />
+            </form>
+
+            <!-- Form for liking -->
+            <form action="#" th:action="@{/handleLike/{id}(id=${map.post.getId()})}" method="post">
+                <input type="submit" id="like" th:value="'Like ' + ${map.likes.get(0)}" />
+            </form>
+        </li>
     </ul>
 
     </body>
