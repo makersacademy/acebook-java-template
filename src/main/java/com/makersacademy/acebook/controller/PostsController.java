@@ -17,8 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PostsController {
@@ -29,10 +28,30 @@ public class PostsController {
     UserRepository userRepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        assert principalUser != null;
+
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-        model.addAttribute("posts", posts);
+        ArrayList<HashMap<Post, User>> postsAndPosters = new ArrayList<>();
+
+        for (Post post : posts) {
+            HashMap<Post, User> entry = new HashMap<>();
+
+            Optional<User> optionalUser = userRepository.findById(post.getUserId());
+            User poster = optionalUser.orElse(null);
+
+            entry.put(post, poster);
+            postsAndPosters.add(entry);
+        }
+
+//        System.out.println(postsAndPosters);
+
+        model.addAttribute("postsAndPosters", postsAndPosters);
         model.addAttribute("newPost", new Post());
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
+
         return "posts/index";
     }
 

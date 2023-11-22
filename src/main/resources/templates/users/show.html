@@ -5,13 +5,19 @@
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
     <link rel="stylesheet" href="/main.css"/>
+
+    <script>
+        function sendFriendRequest() {
+            document.getElementById('friendRequestForm').submit();
+        }
+    </script>
 </head>
 <body>
 
     <div class="header">
         <div th:href="${session.containsKey('user_id')}">
             <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-                <img src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" width="20" height="20" alt="Profile Image">
+                <img th:src="${currentUser.getImageUrl()}" width="20" height="20" alt="Profile Image">
             </a>
         </div>
     <div class="menu-right">
@@ -19,10 +25,21 @@
         <a href="/posts">Timeline</a>
 
         <div th:if="${!isCurrentUser}">
-            <form action="@{/handleFriendRequest/{userId}(userId=${user.id})}">
-                <button type="submit">Friend Request</button>
+            <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
+                <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
+                <input type="hidden" name="receiver_id" th:value="${user.id}" />
+
+                <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                    <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                </div>
+
+                <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
+                    <button onclick="sendFriendRequest()">Send Friend Request</button>
+                </div>
+
             </form>
         </div>
+
         <p th:text="${user.id}"></p>
         <p th:text="${currentUser.id}"></p>
 

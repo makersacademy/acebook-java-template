@@ -10,7 +10,7 @@
 
     <div class="header">
         <a th:href="@{/users/{'user_id'}}" class="profile_image">
-            <img src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" width="20" height="20" alt="Profile Image">
+            <img th:src="@{${profilePicture}}" width="20" height="20" alt="Profile Image">
         </a>
         <div class="menu-right">
             <a href="/friends">Friends</a>
@@ -40,14 +40,21 @@
         <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
-
-<!--Display each existing post -->
-    <ul th:each="currentPost: ${posts}">
-        <form action="#" th:action="@{/post/{id}(id=${currentPost.id})}" method="get">
-            <li th:text="${currentPost.content}" />
-            <p th:text="${currentPost.id}"></p>
-            <p><input type="submit" id="comment" value="Comment" /> <input type="submit" id="like" value="Like" /></p>
-        </form>
+    <ul th:each="map, stat : ${postsAndPosters}">
+        <ul th:each="entry : ${map.entrySet()}">
+            <li>
+                <p th:text="${entry.getValue().getUsername()}"></p>
+                <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
+                <p th:text="${entry.getKey().getContent()}"></p>
+                <p th:text="${entry.getKey().getTimestamp()}"></p>
+                <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                    <p>
+                        <input type="submit" id="comment" value="Comment" />
+                        <input type="submit" id="like" value="Like" />
+                    </p>
+                </form>
+            </li>
+        </ul>
     </ul>
 
     </body>
