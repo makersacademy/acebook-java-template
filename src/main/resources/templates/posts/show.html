@@ -13,8 +13,14 @@
         <p>Comment: <input type="text" id="addComment" name="comment" th:field="*{comment}" /></p>
         <p><input type="submit" id="submitComment" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
-    <ul th:each="comment: ${comments}">
-        <li th:text="${comment.comment}" ></li>
+    <ul th:each="entry: ${commentsAndOwners.entrySet()}">
+        <li>
+            <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20"/>
+            <span th:text="${entry.getValue().getUsername()}"></span>
+            <p th:text="${entry.getKey().getComment()}"></p>
+        </li>
+
+
     </ul>
 </body>
 </html>

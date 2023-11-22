@@ -42,7 +42,7 @@
     </form>
     <ul th:each="map, stat : ${postsAndPosters}">
         <ul th:each="entry : ${map.entrySet()}">
-            <li>
+            <li> (post, poster)
                 <p th:text="${entry.getValue().getUsername()}"></p>
                 <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
                 <p id="postContent" th:text="${entry.getKey().getContent()}"></p>
