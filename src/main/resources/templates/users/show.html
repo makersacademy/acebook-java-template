@@ -15,14 +15,14 @@
 <body>
 
     <div class="header">
-        <div th:href="${session.containsKey('user_id')}">
-            <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-                <img th:src="${currentUser.getImageUrl()}" width="45" height="45" alt="Profile Image">
-            </a>
-        </div>
+        <a th:href="@{/users/{'user_id'}}" class="profile-image">
+            <div class="header-title" sec:authorize="isAuthenticated()">
+                <strong>Acebook</strong>
+            </div>
+        </a>
         <div class="menu-right">
-            <a href="/friends">Friends</a>
             <a href="/posts">Timeline</a>
+            <a href="/friends">Friends</a>
 
             <!-- Conditional Rendering based on session -->
             <div th:if="${session.containsKey('user_id')}">
@@ -34,31 +34,34 @@
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
             </div>
+            <a th:href="@{/users/{'user_id'}}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                </div>
+            </a>
         </div>
     </div>
 
-    <h1 th:text="${user.username} + '\'s Profile'"></h1>
-    <div th:href="${session.containsKey('user_id')}">
-        <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-            <img th:src="${currentUser.getImageUrl()}" width="20" height="20" alt="Profile Image">
-        </a>
-    </div>
+    <div class="profile-container">
+        <div class="user-profile-heading">
+            <img th:src="${user.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <h1 th:text="${user.username} + '\'s Profile'" class="user-profile-title"></h1>
 
-    <div th:if="${!isCurrentUser}">
-        <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
-            <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
-            <input type="hidden" name="receiver_id" th:value="${user.id}" />
+            <div th:if="${!isCurrentUser}" class="user-profile-request-btn">
+                <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
+                    <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
+                    <input type="hidden" name="receiver_id" th:value="${user.id}" />
 
-            <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
-                <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                    <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                        <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                    </div>
+
+                    <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
+                        <button onclick="sendFriendRequest()">Send Friend Request</button>
+                    </div>
+                </form>
             </div>
-
-            <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
-                <button onclick="sendFriendRequest()">Send Friend Request</button>
-            </div>
-
-        </form>
-
+        </div>
     </div>
 
 </body>

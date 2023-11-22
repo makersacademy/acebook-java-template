@@ -50,7 +50,7 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    public ModelAndView show(@PathVariable Long id, Principal principal) {
+    public ModelAndView show(@PathVariable Long id, Principal principal, Model model) {
         Optional<User> pageUser = userRepository.findById(id);
         User user = pageUser.orElse(null);
 
@@ -79,6 +79,9 @@ public class UsersController {
             modelAndView.addObject("isCurrentUser", false);
         }
 
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
+
         return modelAndView;
     }
+
 }

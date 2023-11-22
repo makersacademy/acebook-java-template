@@ -9,15 +9,14 @@
     <body>
 
     <div class="header">
-        <a th:href="@{/users/{'user_id'}}" class="profile_image">
+        <a th:href="@{/users/{'user_id'}}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
-                <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
-                Welcome to Acebook <span sec:authentication="name"></span>
+                <strong>Acebook</strong>
             </div>
         </a>
         <div class="menu-right">
-            <a href="/friends">Friends</a>
             <a href="/posts">Timeline</a>
+            <a href="/friends">Friends</a>
 
             <!-- Conditional Rendering based on session -->
             <div th:if="${session.containsKey('user_id')}">
@@ -29,11 +28,22 @@
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
             </div>
+            <a th:href="@{/users/{'user_id'}}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                </div>
+            </a>
         </div>
     </div>
 
+    <a th:href="@{/users/{'user_id'}}" class="profile-image">
+        <div class="header-title" sec:authorize="isAuthenticated()">
+            Welcome <span sec:authentication="name" class="header-title-name"></span>!
+        </div>
+    </a>
+
     <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="contentForm">
-        <textarea type="text" cols="70" rows="10" placeholder="Enter a post..." id="content" th:field="*{content}"></textarea>
+        <textarea type="text" cols="70" rows="10" placeholder="Write a post..." id="content" th:field="*{content}"></textarea>
 
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
