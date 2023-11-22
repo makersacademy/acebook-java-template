@@ -28,9 +28,6 @@ public class PostsController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    CommentRepository commentRepository;
-
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
@@ -74,26 +71,5 @@ public class PostsController {
         return "posts/show";
     }
 
-    @PostMapping("/post/addComment")
-    public RedirectView createComment(@ModelAttribute Comment newComment) {
 
-        commentRepository.save(newComment);
-        System.out.println("HEREEEEEEEEEEEEE");
-        System.out.println("HEREEEEEEEEEEEEE");
-        System.out.println("HEREEEEEEEEEEEEE");
-        System.out.println("HEREEEEEEEEEEEEE");
-        System.out.println(newComment);
-
-//        set user_id:
-//        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
-//        User principalUser = currentUser.orElse(null);
-//        newComment.setUserId(principalUser.getId());
-
-//        get visibility:
-        System.out.println("PRINT OBJECT OUT AGAIN: ");
-        commentRepository.save(newComment);
-
-        return new RedirectView("/posts");
-
-    }
 }
