@@ -51,21 +51,14 @@ public class PostsController {
     }
 
     @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model, Principal principal) {
+    public String show(@PathVariable Long id, Model model) {
 
         Optional<Post> post = postRepository.findById(id);
         Post currentPost = post.orElse(null);
         model.addAttribute("currentPost", currentPost);
 
-        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
-        User principalUser = currentUser.orElse(null);
-        model.addAttribute("userID", principalUser.getId());
-
+//        create new comment object
         Comment commentObj = new Comment();
-        commentObj.setComment("This is our test comment content");
-        commentObj.setPostId(1L);
-        commentObj.setUserId(2L);
-        System.out.println(commentObj);
         model.addAttribute("newComment", commentObj);
 
         return "posts/show";
