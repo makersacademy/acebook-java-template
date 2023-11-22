@@ -55,11 +55,9 @@ public class CommentControllerTest {
         driver.findElement(By.id("addComment")).sendKeys("Here is my new comment!");
         driver.findElement(By.id("submitComment")).click();
 
-        WebElement commentsUL = driver.findElement(By.tagName("ul"));
-        System.out.println(commentsUL.getText());
-        List<WebElement> commentsLI = commentsUL.findElements(By.tagName("li"));
-        System.out.println(commentsLI);
-        String comment = commentsLI.get(commentsLI.size() - 1).getText();
+        WebElement ul = driver.findElement(By.tagName("ul"));;
+        List<WebElement> commentsList = ul.findElements(By.tagName("li"));
+        String comment = commentsList.get(0).getText();
 
         Assert.assertEquals("Here is my new comment!", comment);
 
