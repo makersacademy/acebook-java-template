@@ -10,13 +10,11 @@
 <!--    Form to add a comment to post -->
     <form action="#" th:action="@{/post/addComment}" th:object="${newComment}" method="post">
         <input type="hidden" name="postId" th:value="${currentPost.id}"/>
-        <p>Comment: <input type="text" name="comment" th:field="*{comment}" /></p>
-        <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Comment: <input type="text" id="addComment" name="comment" th:field="*{comment}" /></p>
+        <p><input type="submit" id="submitComment" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
-    <ul>
-        <li>Comment 1</li>
-        <li>Comment 2</li>
-        <li>Comment 3</li>
+    <ul th:each="comment: ${comments}">
+        <li th:text="${comment.comment}" ></li>
     </ul>
 </body>
 </html>

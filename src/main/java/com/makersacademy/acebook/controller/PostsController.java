@@ -50,19 +50,4 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-    @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
-
-        Optional<Post> post = postRepository.findById(id);
-        Post currentPost = post.orElse(null);
-        model.addAttribute("currentPost", currentPost);
-
-//        create new comment object
-        Comment commentObj = new Comment();
-        model.addAttribute("newComment", commentObj);
-
-        return "posts/show";
-    }
-
-
 }
