@@ -17,7 +17,7 @@
     <div class="header">
         <div th:href="${session.containsKey('user_id')}">
             <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-                <img src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" width="20" height="20" alt="Profile Image">
+                <img th:src="${currentUser.getImageUrl()}" width="20" height="20" alt="Profile Image">
             </a>
         </div>
     <div class="menu-right">
