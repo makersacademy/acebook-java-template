@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -30,6 +30,9 @@ public class CommentController {
 
     @GetMapping("/post/{id}")
     public String show(@PathVariable Long id, Model model) {
+
+        HashMap<Comment, User> commentsAndOwners = new HashMap<>();
+
 //        get post
         Optional<Post> post = postRepository.findById(id);
         Post currentPost = post.orElse(null);
@@ -43,6 +46,15 @@ public class CommentController {
         Iterable<Comment> comments = commentRepository.findAllByPostId(id);
         model.addAttribute("comments", comments);
 
+        for (Comment comment : comments) {
+            Optional<User> commentOwner = userRepository.findById(comment.getUserId());
+            User user = commentOwner.orElse(null);
+            commentsAndOwners.put(comment, user);
+        }
+        System.out.println(commentsAndOwners);
+        model.addAttribute("commentsAndOwners", commentsAndOwners);
+
+
         return "posts/show";
     }
 
@@ -52,10 +64,6 @@ public class CommentController {
 //        Get userID
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
-
-        System.out.println(comment);
-        System.out.println(postId);
-        System.out.println(principalUser.getId());
 
         Comment newComment = new Comment(comment, postId, principalUser.getId());
 

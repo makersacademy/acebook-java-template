@@ -42,7 +42,7 @@
             <li class ="listed">
                 <p th:text="${entry.getValue().getUsername()}"></p>
                 <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
-                <p th:text="${entry.getKey().getContent()}"></p>
+                <p id="postContent" th:text="${entry.getKey().getContent()}"></p>
                 <p th:text="${entry.getKey().getTimestamp()}"></p>
                 <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
                     <p>
