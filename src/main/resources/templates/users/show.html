@@ -4,7 +4,7 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
-    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/website.css"/>
 
     <script>
         function sendFriendRequest() {
@@ -34,14 +34,11 @@
                 </div>
 
                 <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
-                    <button onclick="sendFriendRequest()">Send Friend Request</button>
+                    <button onclick="sendFriendRequest()"]'>Send Friend Request</button>
                 </div>
 
             </form>
         </div>
-
-        <p th:text="${user.id}"></p>
-        <p th:text="${currentUser.id}"></p>
 
         <!-- Conditional Rendering based on session -->
         <div th:if="${session.containsKey('user_id')}">

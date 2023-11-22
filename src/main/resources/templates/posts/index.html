@@ -4,13 +4,16 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="/website.css"/>
     </head>
     <body>
 
     <div class="header">
         <a th:href="@{/users/{'user_id'}}" class="profile_image">
-            <img th:src="@{${profilePicture}}" width="20" height="20" alt="Profile Image">
+            <div sec:authorize="isAuthenticated()">
+                <img th:src="@{${profilePicture}}" width="35" height="35" alt="Profile Image">
+                <span sec:authentication="name"></span>
+            </div>
         </a>
         <div class="menu-right">
             <a href="/friends">Friends</a>
@@ -29,20 +32,14 @@
         </div>
     </div>
 
-    <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
-
-    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
-        <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
+    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="contentForm">
+        <textarea type="text" cols="70" rows="10" placeholder="Enter a post..." id="content" th:field="*{content}"></textarea>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="map, stat : ${postsAndPosters}">
-        <ul th:each="entry : ${map.entrySet()}">
-            <li>
+        <ul th:each="entry : ${map.entrySet()}" class="postContainer">
+            <li class ="listed">
                 <p th:text="${entry.getValue().getUsername()}"></p>
                 <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
                 <p th:text="${entry.getKey().getContent()}"></p>
