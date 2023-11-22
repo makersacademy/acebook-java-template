@@ -35,11 +35,11 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
+<!--Make a new post-->
     <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
         <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
-
     <ul th:each="map, stat : ${postsAndPosters}">
         <ul th:each="entry : ${map.entrySet()}">
             <li>
