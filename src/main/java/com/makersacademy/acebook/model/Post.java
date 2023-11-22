@@ -26,7 +26,7 @@ public class Post {
     private Long userId;
 
 //    @Getter
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postId", cascade = CascadeType.ALL)
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
 //    private List<Comment> commentList;
 
     public Post() {}

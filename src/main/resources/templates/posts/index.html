@@ -34,9 +34,9 @@
 
     <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="contentForm">
         <textarea type="text" cols="70" rows="10" placeholder="Enter a post..." id="content" th:field="*{content}"></textarea>
+
         <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
-
     <ul th:each="map, stat : ${postsAndPosters}">
         <ul th:each="entry : ${map.entrySet()}" class="postContainer">
             <li class ="listed">
