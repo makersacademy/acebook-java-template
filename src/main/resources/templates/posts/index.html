@@ -10,9 +10,9 @@
 
     <div class="header">
         <a th:href="@{/users/{'user_id'}}" class="profile_image">
-            <div sec:authorize="isAuthenticated()">
-                <img th:src="@{${profilePicture}}" width="35" height="35" alt="Profile Image">
-                <span sec:authentication="name"></span>
+            <div class="header-title" sec:authorize="isAuthenticated()">
+                <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                Welcome to Acebook <span sec:authentication="name"></span>
             </div>
         </a>
         <div class="menu-right">
