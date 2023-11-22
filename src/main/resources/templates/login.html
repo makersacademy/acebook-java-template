@@ -1,10 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/website.css"/>
 <head>
     <title tiles:fragment="title">Please log in</title>
 </head>
 <body>
 <div tiles:fragment="content">
-    <form name="f" th:action="@{/login}" method="post">
+    <form name="f" th:action="@{/login}" method="post" class="userLogin">
         <fieldset>
             <legend>Please Login</legend>
             <div th:if="${param.error}" class="alert alert-error">
@@ -22,9 +23,9 @@
             </div>
         </fieldset>
     </form>
-    <form name="f" th:action="@{/users/new}" method="get">
+    <form name="f" th:action="@{/users/new}" method="get" class="loneSignup">
         <div>
-            <button id="sign-up-btn" type="submit" class="btn">Sign up</button>
+            <button id="sign-up-btn" type="submit" class="btn" style=" margin-left: 350; margin-top: 10px;">Sign up</button>
         </div>
     </form>
 </div>
