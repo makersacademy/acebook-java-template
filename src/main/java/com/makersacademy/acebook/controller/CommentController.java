@@ -43,6 +43,8 @@ public class CommentController {
         Iterable<Comment> comments = commentRepository.findAllByPostId(id);
         model.addAttribute("comments", comments);
 
+
+
         return "posts/show";
     }
 
@@ -52,10 +54,6 @@ public class CommentController {
 //        Get userID
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
-
-        System.out.println(comment);
-        System.out.println(postId);
-        System.out.println(principalUser.getId());
 
         Comment newComment = new Comment(comment, postId, principalUser.getId());
 

@@ -55,7 +55,7 @@ public class PostControllerTest {
         driver.findElement(By.id("submit")).click();
 
         WebElement ul = driver.findElement(By.tagName("ul"));
-        List<WebElement> postList = ul.findElements(By.tagName("li"));
+        List<WebElement> postList = ul.findElements(By.id("postContent"));
 
         String newPost = postList.get(0).getText();
 
@@ -88,9 +88,9 @@ public class PostControllerTest {
         driver.findElement(By.id("content")).sendKeys("Testing Comment Button");
         driver.findElement(By.id("submit")).click();
         driver.findElement(By.id("comment")).click();
-        WebElement pElement = driver.findElement(By.tagName("p"));
-        String pText = pElement.getText();
-        Assert.assertEquals("Testing Comment Button", pText);
+        WebElement h3Element = driver.findElement(By.tagName("h3"));
+        String h3Text = h3Element.getText();
+        Assert.assertEquals("Testing Comment Button", h3Text);
 
     }
 
