@@ -41,6 +41,9 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
+        System.out.println("HEREEEEEEE");
+        System.out.println("HEREEEEEEE");
+        System.out.println(post);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         post.setTimestamp(Timestamp.valueOf(timeStamp));
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
@@ -51,41 +54,44 @@ public class PostsController {
     }
 
     @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model, Principal principal) {
 
         Optional<Post> post = postRepository.findById(id);
         Post currentPost = post.orElse(null);
         model.addAttribute("currentPost", currentPost);
 
-        Comment newComment = new Comment();
-        model.addAttribute("newComment", newComment);
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        model.addAttribute("userID", principalUser.getId());
+
+        Comment commentObj = new Comment();
+        commentObj.setComment("This is our test comment content");
+        commentObj.setPostId(1L);
+        commentObj.setUserId(2L);
+        System.out.println(commentObj);
+        model.addAttribute("newComment", commentObj);
 
         return "posts/show";
     }
 
-    @PostMapping("/post/{id}")
-    public RedirectView createComment(@PathVariable Long id, @ModelAttribute Comment comment, Principal principal) {
+    @PostMapping("/post/addComment")
+    public RedirectView createComment(@ModelAttribute Comment newComment) {
 
-
-
-//        to make a new comment for a post:
-//        comment content, post_id, user_id
-
-//        actual comment property should be set on the Comment object via the form
-//        Long.parseLong(id);
-//        Long.valueOf(String id).longValue();
-//        set post_id:
-        comment.setPostId(id);
+        commentRepository.save(newComment);
+        System.out.println("HEREEEEEEEEEEEEE");
+        System.out.println("HEREEEEEEEEEEEEE");
+        System.out.println("HEREEEEEEEEEEEEE");
+        System.out.println("HEREEEEEEEEEEEEE");
+        System.out.println(newComment);
 
 //        set user_id:
-        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
-        User principalUser = currentUser.orElse(null);
-        comment.setUserId(principalUser.getId());
+//        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+//        User principalUser = currentUser.orElse(null);
+//        newComment.setUserId(principalUser.getId());
 
 //        get visibility:
-        System.out.println(comment);
-
-        commentRepository.save(comment);
+        System.out.println("PRINT OBJECT OUT AGAIN: ");
+        commentRepository.save(newComment);
 
         return new RedirectView("/posts");
 

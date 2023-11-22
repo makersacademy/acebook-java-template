@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
@@ -15,8 +16,11 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     private String comment;
+    @Getter
     private Long postId;
+    @Getter
     private Long userId;
 
 //    @ManyToOne(cascade = CascadeType.ALL)
@@ -31,24 +35,12 @@ public class Comment {
         this.userId = userId;
     }
 
-    public String getComment() {
-        return this.comment;
-    }
-
     public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public Long getPostId() {
-        return this.postId;
-    }
-
     public void setPostId(Long postId) {
         this.postId = postId;
-    }
-
-    public Long getUserId() {
-        return this.userId;
     }
 
     public void setUserId(Long UserId) {
