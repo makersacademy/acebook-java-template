@@ -42,10 +42,10 @@
         </div>
     </div>
 
-    <div class="profile-container">
+    <div class="user-profile-container">
         <div class="user-profile-heading">
             <img th:src="${user.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
-            <h1 th:text="${user.username} + '\'s Profile'" class="user-profile-title"></h1>
+            <h1 th:text="${user.username}" class="user-profile-title"></h1>
 
             <div th:if="${!isCurrentUser}" class="user-profile-request-btn">
                 <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
@@ -61,6 +61,26 @@
                     </div>
                 </form>
             </div>
+        </div>
+
+        <div class="user-profile-timeline">
+            <h3>Posts</h3>
+            <ul th:each="map, stat : ${postsAndPosters}">
+                <ul th:each="entry : ${map.entrySet()}" class="user-profile-posts">
+                    <li class ="user-card-posts">
+                        <p th:text="${entry.getValue().getUsername()}"></p>
+                        <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
+                        <p th:text="${entry.getKey().getContent()}"></p>
+                        <p th:text="${entry.getKey().getTimestamp()}"></p>
+                        <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                            <p>
+                                <input type="submit" id="comment" value="Comment" />
+                                <input type="submit" id="like" value="Like" />
+                            </p>
+                        </form>
+                    </li>
+                </ul>
+            </ul>
         </div>
     </div>
 
