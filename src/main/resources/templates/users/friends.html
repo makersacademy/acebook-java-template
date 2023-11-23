@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
   <link rel="stylesheet" href="/website.css"/>
   <title>Title</title>
 </head>
 <body>
+<div class="header">
+  <a th:href="@{/users/{'user_id'}}" class="profile-image">
+    <div class="header-title" sec:authorize="isAuthenticated()">
+      <strong>Acebook</strong>
+    </div>
+  </a>
+  <div class="menu-right">
+    <a href="/posts">Timeline</a>
+    <a href="/friends">Friends</a>
+
+    <!-- Conditional Rendering based on session -->
+    <div th:if="${session.containsKey('user_id')}">
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+      </form>
+    </div>
+    <div th:unless="${session.containsKey('user_id')}">
+      <a href="/login">Log In</a>
+      <a href="/register">Register</a>
+    </div>
+    <a th:href="@{/users/{'user_id'}}" class="profile-image">
+      <div class="header-title" sec:authorize="isAuthenticated()">
+        <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+      </div>
+    </a>
+  </div>
+</div>
 
   <ul>
     <li class="requests" th:each="user : ${friendRequests}">
@@ -19,7 +46,6 @@
     </li>
   </ul>
 
-  <hr />
   <ul>
     <li th:each="friend : ${friends}" th:text="${friend.getUsername()}"></li>
   </ul>

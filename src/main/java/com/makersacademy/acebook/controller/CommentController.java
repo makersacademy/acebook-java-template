@@ -29,7 +29,7 @@ public class CommentController {
     UserRepository userRepository;
 
     @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model, Principal principal) {
 
         HashMap<Comment, User> commentsAndOwners = new HashMap<>();
 
@@ -46,6 +46,11 @@ public class CommentController {
         Iterable<Comment> comments = commentRepository.findAllByPostId(id);
         model.addAttribute("comments", comments);
 
+        //profile image for user
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        assert principalUser != null;
+
         for (Comment comment : comments) {
             Optional<User> commentOwner = userRepository.findById(comment.getUserId());
             User user = commentOwner.orElse(null);
@@ -53,6 +58,8 @@ public class CommentController {
         }
         System.out.println(commentsAndOwners);
         model.addAttribute("commentsAndOwners", commentsAndOwners);
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
+
 
 
         return "posts/show";
