@@ -18,23 +18,25 @@ public class Post {
 
     @Getter
     private String content;
-
+    @Getter
+    String postPhoto;
     @Getter
     private Timestamp timestamp;
-
     @Getter
     private Long userId;
 
     public Post() {}
 
-    public Post(String content, Timestamp timestamp, Long userId) {
+    public Post(String content, Timestamp timestamp, Long userId, String postPhoto) {
         this.content = content;
         this.timestamp = timestamp;
         this.userId = userId;
+        this.postPhoto = postPhoto;
     }
     public void setContent(String content) { this.content = content; }
 
     public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
 
     public void setUserId(Long userId) { this.userId = userId; }
+    public void setPostPhoto(String postPhoto) { this.postPhoto = postPhoto; }
 }
