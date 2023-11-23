@@ -67,7 +67,7 @@
             <li class ="user-card-posts">
                 <!-- User info -->
                 <a class="profile-with-name" th:href="@{/users/{id}(id=${map.user.getId()})}">
-                    <img th:src="${map.user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : map.user.getImageUrl()}" width="20" height="20" />
+                    <img th:src="${map.user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : map.user.getImageUrl()}" width="40" height="40" />
                     <p th:text="${map.user.getUsername()}"></p>
                 </a>
 
@@ -77,7 +77,6 @@
                     <div th:if="${map.post.getPostPhoto() != '' && map.post.getPostPhoto() != null}">
                         <img th:src="${map.post.getPostPhoto()}" alt="an image" width="400" height="350" />
                     </div>
-                    <p th:text="${map.post.getTimestamp()}"></p>
                 </div>
 
                 <!-- Form for commenting -->

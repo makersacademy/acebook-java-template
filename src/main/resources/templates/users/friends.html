@@ -16,7 +16,6 @@
     </div>
   </a>
   <div class="menu-right">
-    <a href="/posts">Timeline</a>
     <a href="/friends">Friends</a>
 
     <!-- Conditional Rendering based on session -->
@@ -29,7 +28,7 @@
       <a href="/login">Log In</a>
       <a href="/register">Register</a>
     </div>
-    <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
+    <a th:href="@{/users/{id}(id=${currentUser.getId()})}" class="profile-image">
       <div class="header-title" sec:authorize="isAuthenticated()">
         <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
       </div>

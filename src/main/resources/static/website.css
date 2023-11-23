@@ -274,7 +274,7 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     width: 700px;
-    margin: 0px auto;
+    margin: 40px auto;
     list-style: none;
     padding-inline-start: 0px;
 }
@@ -291,10 +291,11 @@ button:hover {
 .posts-content-form {
     max-width: 100%;
     background-color: #f3f3ec;
+    margin-top: 30px;
 }
 
 .posts-content-form #timeline-form-content {
-    width: 93%;
+    width: 94%;
     padding: 20px;
 }
 
