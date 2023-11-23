@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-<head lang="en">
+<head>
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
     <link rel="stylesheet" href="/website.css"/>
@@ -71,9 +71,11 @@
                 <ul th:each="entry : ${map.entrySet()}" class="user-profile-posts">
                     <li class ="user-card-posts">
 
-                        <div class="profile-with-name">
-                            <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
-                            <p th:text="${entry.getValue().getUsername()}"></p>
+                        <div>
+                            <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
+                                <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
+                                <p th:text="${entry.getValue().getUsername()}"></p>
+                            </a>
                         </div>
 
                         <div class="post-content">

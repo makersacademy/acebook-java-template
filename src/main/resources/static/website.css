@@ -122,10 +122,6 @@ textarea{
     list-style: none;
 }
 
-p {
-    margin-bottom: 20px;
-}
-
 input[type="text"],
 input[type="password"],
 input[type="file"] {
@@ -208,7 +204,6 @@ button:hover {
     font-size: 1.8rem;
     border-radius: 50%; /* Make the profile image round */
     object-fit: cover;
-    margin-right: 10px;
     border: 2px solid black;
 }
 
@@ -258,7 +253,7 @@ button:hover {
 }
 
 .profile-with-name:hover {
-    color: #ADD8E6;
+    color: #177b90;
 }
 
 .profile-with-name img {
@@ -315,6 +310,10 @@ button:hover {
     margin-right: 5px;
 }
 
+.post-content {
+    margin-bottom: 20px;
+}
+
 input[type="submit-posts"] {
     background-color: #ADD8E6;
     color: black;
@@ -331,3 +330,50 @@ input[type="submit-posts"]:hover {
     color: white;
 }
 
+.requests {
+    list-style: none;
+    width: 200px;
+    margin: 10px;
+    display: inline-grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.request-profile-with-name {
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.request-profile-with-name:hover {
+    color: #177b90;
+}
+
+.request-profile-with-name img {
+    border-radius: 50%; /* Make the profile image round */
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.request-user-profile-title {
+    display: flex;
+    justify-content: center;
+    max-width: 180px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 20px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.user-profile-with-name:hover {
+    color: #177b90;
+}
+
+.friends-with-requests {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
