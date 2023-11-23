@@ -5,6 +5,22 @@
     <meta charset="UTF-8"/>
     <title>Acebook</title>
     <link rel="stylesheet" href="/website.css"/>
+
+    <script>
+        function handleImage(input) {
+            let file = input.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                document.getElementById("fileData").value = reader.result;
+            };
+
+            reader.onerror = () => {
+                alert(reader.error);
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="header">
@@ -25,11 +41,10 @@
             <div th:unless="${session.containsKey('user_id')}">
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
-
             </div>
             <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
                 <div class="header-title" sec:authorize="isAuthenticated()">
-                    <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
+                    <img th:src="@{${currentUser.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : currentUser.getImageUrl()}}" width="45" height="45" alt="Profile Image">
                 </div>
             </a>
         </div>
@@ -41,8 +56,10 @@
         </div>
 
         <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="posts-content-form">
-            <textarea type="text" rows="10" placeholder="Write a post..." id=timeline-form-content th:field="*{content}"></textarea>
-
+            <textarea type="text" rows="10" placeholder="Write a post..." id=timeline-form-content th:field="*{content}" required></textarea>
+            <label for="postPhoto">Upload a picture</label>
+            <input type="file" id="postPhoto" name="postPhoto" accept="image/*" onChange="handleImage(this)">
+            <input type="hidden" id="fileData" name="fileData" />
             <p class="posts-form-btns"><input type="submit" id="submit-posts" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
@@ -57,6 +74,9 @@
                 <!-- Post Content -->
                 <div class="post-content">
                     <p th:text="${map.post.getContent()}"></p>
+                    <div th:if="${map.post.getPostPhoto() != '' && map.post.getPostPhoto() != null}">
+                        <img th:src="${map.post.getPostPhoto()}" alt="an image" width="400" height="350" />
+                    </div>
                     <p th:text="${map.post.getTimestamp()}"></p>
                 </div>
 
@@ -74,9 +94,5 @@
             </li>
         </ul>
     </div>
-
-
-
-
     </body>
 </html>
