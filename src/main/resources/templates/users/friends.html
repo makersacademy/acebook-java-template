@@ -52,7 +52,8 @@
       <ul>
         <li class="requests" th:each="user : ${friendRequests}">
           <a class="request-profile-with-name" th:href="@{/users/{id}(id=${user.id})}">
-            <img th:src="${user.imageUrl == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : user.imageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <img th:src="${user.imageUrl}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+<!--            <img th:src="${user.imageUrl == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : user.imageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">-->
             <span th:text="${user.username}" class="request-user-profile-title"></span>
           </a>
 
