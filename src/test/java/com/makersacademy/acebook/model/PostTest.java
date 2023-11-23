@@ -11,7 +11,7 @@ public class PostTest {
 
 	Timestamp timestamp = Timestamp.valueOf("2007-09-23 10:10:10.0");;
 
-	private Post post = new Post("hello", timestamp, 1L);
+	private Post post = new Post("hello", timestamp, 1L, "empty");
 
 	@Test
 	public void postHasContent() {

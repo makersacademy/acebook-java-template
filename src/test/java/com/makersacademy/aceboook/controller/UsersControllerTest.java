@@ -36,20 +36,14 @@ public class UsersControllerTest {
 
     @Test
     public void usersCanReadUsername() {
-        driver.get("localhost:8080/users/3");
-        WebElement pElement = driver.findElement(By.tagName("p"));
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("username")).sendKeys("test_user");
+        driver.findElement(By.id("password")).sendKeys("password22");
+        driver.findElement(By.id("submit")).click();
+        driver.get("http://localhost:8080/users/4");
+        WebElement pElement = driver.findElement(By.id("profileUsername"));
         String pText = pElement.getText();
-        Assert.assertEquals("zak ", pText);
+        Assert.assertEquals("Test_User", pText);
 
     }
-
-//    @Test
-//    public void successfulSignUpRedirectsToSignIn() {
-//        driver.get("http://localhost:8080/users/new");
-//        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-//        driver.findElement(By.id("password")).sendKeys("password");
-//        driver.findElement(By.id("submit")).click();
-//        String title = driver.getTitle();
-//        Assert.assertEquals("Please sign in", title);
-//    }
 }

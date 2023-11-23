@@ -1,0 +1,2 @@
+ALTER TABLE POSTS
+ADD COLUMN post_photo TEXT;
