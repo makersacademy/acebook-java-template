@@ -51,12 +51,10 @@ public class PostControllerTest {
         driver.findElement(By.id("username")).sendKeys("test_user");
         driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
-        driver.findElement(By.id("content")).sendKeys("New Post");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("timeline-form-content")).sendKeys("New Post");
+        driver.findElement(By.id("submit-posts")).click();
 
-        WebElement ul = driver.findElement(By.tagName("ul"));
-        List<WebElement> postList = ul.findElements(By.id("postContent"));
-
+        List<WebElement> postList = driver.findElements(By.id("postContent"));
         String newPost = postList.get(0).getText();
 
         Assert.assertEquals("New Post", newPost);
@@ -69,9 +67,9 @@ public class PostControllerTest {
         driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("content")));
-        driver.findElement(By.id("content")).sendKeys("New Post");
-        driver.findElement(By.id("submit")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("timeline-form-content")));
+        driver.findElement(By.id("timeline-form-content")).sendKeys("New Post");
+        driver.findElement(By.id("submit-posts")).click();
         List<Post> posts = postRepository.findAllByOrderByTimestampDesc();
         Post latestPost = posts.get(0);
         Long userId = latestPost.getUserId();
@@ -85,8 +83,8 @@ public class PostControllerTest {
         driver.findElement(By.id("username")).sendKeys("test_user");
         driver.findElement(By.id("password")).sendKeys("password22");
         driver.findElement(By.id("submit")).click();
-        driver.findElement(By.id("content")).sendKeys("Testing Comment Button");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("timeline-form-content")).sendKeys("Testing Comment Button");
+        driver.findElement(By.id("submit-posts")).click();
         driver.findElement(By.id("comment")).click();
         WebElement h3Element = driver.findElement(By.tagName("h3"));
         String h3Text = h3Element.getText();

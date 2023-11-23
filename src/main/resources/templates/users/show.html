@@ -74,7 +74,7 @@
                         <div>
                             <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
                                 <img th:src="${entry.getValue().getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : entry.getValue().getImageUrl()}" width="40" height="40" />
-                                <p th:text="${entry.getValue().getUsername()}"></p>
+                                <p  th:text="${entry.getValue().getUsername()}" id="profileUsername"></p>
                             </a>
                         </div>
 
