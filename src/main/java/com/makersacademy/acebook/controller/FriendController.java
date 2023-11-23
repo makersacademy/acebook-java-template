@@ -35,7 +35,7 @@ public class FriendController {
     }
 
     @GetMapping("/friends")
-    public ModelAndView showRequests(Principal principal) {
+    public ModelAndView showRequests(Principal principal, Model model) {
         ModelAndView modelAndView = new ModelAndView("/users/friends");
 
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
@@ -58,6 +58,8 @@ public class FriendController {
             User acceptedRequest = optionalUser.orElse(null);
             friends.add(acceptedRequest);
         }
+
+
 
         modelAndView.addObject("friendRequests", friendRequests);
         modelAndView.addObject("friends", friends);

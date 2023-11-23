@@ -31,7 +31,7 @@ public class CommentController {
     UserRepository userRepository;
 
     @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model, Principal principal) {
 
 //        get post to display at the top of page
         Optional<Post> post = postRepository.findById(id);
@@ -54,6 +54,12 @@ public class CommentController {
         List<Comment> comments = commentRepository.findAllByPostIdOrderById(id);
         model.addAttribute("comments", comments);
 
+        //profile image for user
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
+        assert principalUser != null;
+
+
 //        for each comment, find the associated user/owner and add both to LinkedHaspMap
         for (Comment comment : comments) {
             Optional<User> commentOwner = userRepository.findById(comment.getUserId());
@@ -62,6 +68,8 @@ public class CommentController {
         }
 //        System.out.println(commentsAndOwners);
         model.addAttribute("commentsAndOwners", commentsAndOwners);
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
+
 
 //        commentsAndOwners = { comment : owner , comment : owner , comment : owner , comment : owner }
 
