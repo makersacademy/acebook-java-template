@@ -55,22 +55,10 @@ public class CommentControllerTest {
         driver.findElement(By.id("addComment")).sendKeys("Here is my new comment!");
         driver.findElement(By.id("submitComment")).click();
 
-        WebElement ul = driver.findElement(By.tagName("ul"));;
-        List<WebElement> commentsList = ul.findElements(By.tagName("li"));
-        String comment = commentsList.get(0).getText();
+        List<WebElement> commentsList = driver.findElements(By.tagName("li"));
+        String comment = commentsList.get(commentsList.size() -1).getText();
 
         Assert.assertEquals("Here is my new comment!", comment);
 
     }
-
-
-
-//    @Test
-//    public void testPostPageShowsPostAndListOfComments() {
-//        driver.get("http://localhost:8080/login");
-//        driver.findElement(By.id("username")).sendKeys("test_user");
-//        driver.findElement(By.id("password")).sendKeys("password22");
-//        driver.findElement(By.id("submit")).click();
-//
-//    }
 }
