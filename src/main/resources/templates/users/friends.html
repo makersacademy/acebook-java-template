@@ -26,13 +26,15 @@
         <a href="/login">Log In</a>
         <a href="/register">Register</a>
       </div>
-      <a th:href="@{/users/{'user_id'}}" class="profile-image">
-        <div class="header-title" sec:authorize="isAuthenticated()">
-          <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
-        </div>
-      </a>
+
+        <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
+          <div class="header-title" sec:authorize="isAuthenticated()">
+            <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+          </div>
+        </a>
     </div>
   </div>
+
   <h6 class="welcome-title">Friends</h6>
   <div class="friends-with-requests">
     <div class="friends-list">

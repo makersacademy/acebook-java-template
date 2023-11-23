@@ -61,6 +61,8 @@ public class FriendController {
 
         modelAndView.addObject("friendRequests", friendRequests);
         modelAndView.addObject("friends", friends);
+        modelAndView.addObject("currentUser", principalUser);
+        modelAndView.addObject("profilePicture", principalUser.getImageUrl());
         return modelAndView;
     }
 
