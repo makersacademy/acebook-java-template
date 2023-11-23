@@ -86,16 +86,21 @@ public class UsersController {
         for (Post post : posts) {
             HashMap<Post, User> entry = new HashMap<>();
 
-            Optional<User> optionalUser = userRepository.findById(user.getId());
+            Optional<User> optionalUser = userRepository.findById(post.getUserId());
             User poster = optionalUser.orElse(null);
 
-            entry.put(post, poster);
-            postsAndPosters.add(entry);
+            if (post.getUserId() == id) {
+                entry.put(post, poster);
+                postsAndPosters.add(entry);
+            }
+
         }
+
 
         model.addAttribute("profilePicture", principalUser.getImageUrl());
         model.addAttribute("postsAndPosters", postsAndPosters);
 
+        System.out.println(postsAndPosters);
         return modelAndView;
     }
 
