@@ -31,16 +31,20 @@ public class CommentController {
     UserRepository userRepository;
 
     @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model, Principal principal) {
 
 //        get post to display at the top of page
         Optional<Post> post = postRepository.findById(id);
         Post currentPost = post.orElse(null);
         model.addAttribute("currentPost", currentPost);
 
+
         Optional<User> postUser = userRepository.findById(currentPost.getUserId());
         User postOwner = postUser.orElse(null);
         model.addAttribute("postOwner", postOwner);
+
+        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
+        User principalUser = currentUser.orElse(null);
 
 
 //        create new comment object to make a new comment using the form
@@ -62,7 +66,8 @@ public class CommentController {
         }
 //        System.out.println(commentsAndOwners);
         model.addAttribute("commentsAndOwners", commentsAndOwners);
-
+        model.addAttribute("currentUser", principalUser);
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
 //        commentsAndOwners = { comment : owner , comment : owner , comment : owner , comment : owner }
 
         return "posts/show";
