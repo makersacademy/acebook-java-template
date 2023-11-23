@@ -1,7 +1,6 @@
 package com.makersacademy.acebook.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Data

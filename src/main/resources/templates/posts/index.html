@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
+    <head>
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
+
+    <div class="header">
+        <a th:href="@{/users/{'user_id'}}" class="profile_image">
+            <img th:src="@{${profilePicture}}" width="20" height="20" alt="Profile Image">
+        </a>
+        <div class="menu-right">
+            <a href="/friends">Friends</a>
+            <a href="/posts">Timeline</a>
+
+            <!-- Conditional Rendering based on session -->
+            <div th:if="${session.containsKey('user_id')}">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </div>
+            <div th:unless="${session.containsKey('user_id')}">
+                <a href="/login">Log In</a>
+                <a href="/register">Register</a>
+            </div>
+        </div>
+    </div>
 
     <h1>Posts</h1>
 
@@ -14,13 +35,26 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
+        <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
+        <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+    <ul th:each="map, stat : ${postsAndPosters}">
+        <ul th:each="entry : ${map.entrySet()}">
+            <li>
+                <p th:text="${entry.getValue().getUsername()}"></p>
+                <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
+                <p th:text="${entry.getKey().getContent()}"></p>
+                <p th:text="${entry.getKey().getTimestamp()}"></p>
+                <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                    <p>
+                        <input type="submit" id="comment" value="Comment" />
+                        <input type="submit" id="like" value="Like" />
+                    </p>
+                </form>
+            </li>
+        </ul>
     </ul>
 
     </body>
