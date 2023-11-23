@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/website.css"/>
+  <title>Friends</title>
+</head>
+<body>
+  
+<div class="header">
+  <a th:href="@{/posts}" class="profile-image">
+    <div class="header-title" sec:authorize="isAuthenticated()">
+      <strong>Acebook</strong>
+    </div>
+  </a>
+  <div class="menu-right">
+    <a href="/friends">Friends</a>
+
+    <!-- Conditional Rendering based on session -->
+    <div th:if="${session.containsKey('user_id')}">
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+      </form>
+    </div>
+    <div th:unless="${session.containsKey('user_id')}">
+      <a href="/login">Log In</a>
+      <a href="/register">Register</a>
+    </div>
+    <a th:href="@{/users/{id}(id=${currentUser.getId()})}" class="profile-image">
+      <div class="header-title" sec:authorize="isAuthenticated()">
+        <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
+      </div>
+    </a>
+  </div>
+</div>
+
+  <h6 class="welcome-title">Friends</h6>
+  <div class="friends-with-requests">
+    <div class="friends-list">
+      <ul>
+        <li th:each="friend : ${friends}" class="requests">
+          <a class="request-profile-with-name" th:href="@{/users/{id}(id=${friend.id})}">
+            <img th:src="${friend.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : friend.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <span th:text="${friend.getUsername()}" class="request-user-profile-title"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="friend-requests">
+      <ul>
+        <li class="requests" th:each="user : ${friendRequests}">
+          <a class="request-profile-with-name" th:href="@{/users/{id}(id=${user.id})}">
+            <img th:src="${user.imageUrl}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+<!--            <img th:src="${user.imageUrl == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : user.imageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">-->
+            <span th:text="${user.username}" class="request-user-profile-title"></span>
+          </a>
+
+          <form th:action="@{/handleFriendConfirmation}" method="post">
+            <input type="hidden" name="requesterId" th:value="${user.id}" />
+            <button type="submit" name="action" value="accept">Accept</button>
+            <button type="submit" name="action" value="deny">Deny</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

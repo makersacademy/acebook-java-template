@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/website.css"/>
+    <title>Acebook</title>
+</head>
+<body>
+
+    <div class="header">
+        <a th:href="@{/posts}" class="profile-image">
+            <div class="header-title" sec:authorize="isAuthenticated()">
+                <strong>Acebook</strong>
+            </div>
+        </a>
+        <div class="menu-right">
+            <a href="/friends">Friends</a>
+
+            <!-- Conditional Rendering based on session -->
+            <div th:if="${session.containsKey('user_id')}">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </div>
+            <div th:unless="${session.containsKey('user_id')}">
+                <a href="/login">Log In</a>
+                <a href="/register">Register</a>
+            </div>
+            <a th:href="@{/users/{id}(id=${principalUser.getId()})}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${principalUser.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : principalUser.getImageUrl()}}" width="45" height="45" alt="Profile Image">
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="posts-timeline">
+        <div class="user-card-posts">
+            <a class="profile-with-name" th:href="@{/users/{id}(id=${postOwner.id})}">
+                <img th:src="${postOwner.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : postOwner.getImageUrl()}" width="40" height="40"/>
+                <span th:text="${postOwner.getUsername()}"></span>
+            </a>
+            <p class="post-content" th:text="${currentPost.content}"></p>
+        </div>
+
+        <!--    Form to add a comment to post -->
+        <form action="#" th:action="@{/post/addComment}" th:object="${newComment}" method="post" class="posts-content-form">
+        <textarea type="text" rows="5" placeholder="Write a comment..." id=timeline-form-content th:field="*{comment}">
+        </textarea>
+            <input type="hidden" name="postId" th:value="${currentPost.id}"/>
+            <p class="posts-form-btns">
+                <input type="submit" id="submitComment" value="Submit"/>
+                <input type="reset" value="Reset"/>
+            </p>
+        </form>
+
+        <h6 class="welcome-title">Comments</h6>
+        <!--List each comment and associated user-->
+        <ul th:each="entry: ${commentsAndOwners.entrySet()}" class="timeline-posts">
+            <li class="user-card-posts">
+                <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
+                        <!--            users image-->
+                    <img th:src="${entry.getValue().getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : entry.getValue().getImageUrl()}" width="40" height="40"/>
+                        <!--            users username-->
+                    <span th:text="${entry.getValue().getUsername()}"></span>
+                        <!--            comment contents-->
+                </a>
+                <p class="post-content" th:text="${entry.getKey().getComment()}"></p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
