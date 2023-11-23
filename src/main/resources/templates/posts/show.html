@@ -11,7 +11,7 @@
 <body>
 
 <div class="header">
-    <a th:href="@{/users/{'user_id'}}" class="profile-image">
+    <a th:href="@{/posts}" class="profile-image">
         <div class="header-title" sec:authorize="isAuthenticated()">
             <strong>Acebook</strong>
         </div>
@@ -30,9 +30,9 @@
             <a href="/login">Log In</a>
             <a href="/register">Register</a>
         </div>
-        <a th:href="@{/users/{'user_id'}}" class="profile-image">
+        <a th:href="@{/users/{id}(id=${principalUser.getId()})}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
-                <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                <img th:src="@{${principalUser.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : principalUser.getImageUrl()}}" width="45" height="45" alt="Profile Image">
             </div>
         </a>
     </div>
@@ -57,7 +57,7 @@
     <ul th:each="entry: ${commentsAndOwners.entrySet()}">
         <li>
 <!--            users image-->
-            <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20"/>
+            <img th:src="${entry.getValue().getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : entry.getValue().getImageUrl()}" width="20" height="20"/>
 <!--            users username-->
             <span th:text="${entry.getValue().getUsername()}"></span>
 <!--            comment contents-->

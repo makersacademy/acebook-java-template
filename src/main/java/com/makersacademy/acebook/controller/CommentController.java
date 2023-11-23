@@ -68,7 +68,7 @@ public class CommentController {
         }
 //        System.out.println(commentsAndOwners);
         model.addAttribute("commentsAndOwners", commentsAndOwners);
-        model.addAttribute("profilePicture", principalUser.getImageUrl());
+        model.addAttribute("principalUser", principalUser);
 
 
 //        commentsAndOwners = { comment : owner , comment : owner , comment : owner , comment : owner }

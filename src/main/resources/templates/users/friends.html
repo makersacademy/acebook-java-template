@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
@@ -10,7 +10,7 @@
 <body>
   
 <div class="header">
-  <a th:href="@{/users/{'user_id'}}" class="profile-image">
+  <a th:href="@{/posts}" class="profile-image">
     <div class="header-title" sec:authorize="isAuthenticated()">
       <strong>Acebook</strong>
     </div>

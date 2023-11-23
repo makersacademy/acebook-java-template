@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "POSTS")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +24,6 @@ public class Post {
 
     @Getter
     private Long userId;
-
-//    @Getter
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
-//    private List<Comment> commentList;
 
     public Post() {}
 

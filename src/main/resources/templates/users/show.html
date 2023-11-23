@@ -38,7 +38,7 @@
             </div>
             <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
                 <div class="header-title" sec:authorize="isAuthenticated()">
-                    <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                    <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
                 </div>
             </a>
         </div>
@@ -46,7 +46,7 @@
 
     <div class="user-profile-container">
         <div class="user-profile-heading">
-            <img th:src="${user.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <img th:src="${user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : user.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
             <h1 th:text="${user.username}" class="user-profile-title"></h1>
 
             <div th:if="${!isCurrentUser}" class="user-profile-request-btn">
@@ -73,7 +73,7 @@
 
                         <div>
                             <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
-                                <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
+                                <img th:src="${entry.getValue().getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : entry.getValue().getImageUrl()}" width="40" height="40" />
                                 <p th:text="${entry.getValue().getUsername()}"></p>
                             </a>
                         </div>

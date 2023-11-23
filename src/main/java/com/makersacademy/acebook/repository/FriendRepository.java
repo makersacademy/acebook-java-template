@@ -22,5 +22,4 @@ public interface FriendRepository extends CrudRepository<Friend, Long>  {
     @Query("UPDATE Friend f SET f.status = :status WHERE f.requesterId = :requesterId AND f.receiverId = :receiverId")
     void updateStatusByRequesterIdAndReceiverId(@Param("requesterId") Long requesterId,
                                                 @Param("receiverId") Long receiverId, @Param("status") String status);
-
 }

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/website.css"/>
 </head>
 <body>
-
     <div class="header">
         <a th:href="@{/posts}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
@@ -30,7 +29,7 @@
             </div>
             <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
                 <div class="header-title" sec:authorize="isAuthenticated()">
-                    <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                    <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
                 </div>
             </a>
         </div>
@@ -47,35 +46,37 @@
             <p class="posts-form-btns"><input type="submit" id="submit-posts" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
-        <ul th:each="map, stat : ${postsAndPosters}">
-            <ul th:each="entry : ${map.entrySet()}" class="timeline-posts">
-                <li class ="user-card-posts">
+        <ul th:each="map, stat : ${postsAndPosters}" class="timeline-posts">
+            <li class ="user-card-posts">
+                <!-- User info -->
+                <a class="profile-with-name" th:href="@{/users/{id}(id=${map.user.getId()})}">
+                    <img th:src="${map.user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : map.user.getImageUrl()}" width="20" height="20" />
+                    <p th:text="${map.user.getUsername()}"></p>
+                </a>
 
-                    <div>
-                        <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}" >
-                            <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
-                            <p th:text="${entry.getValue().getUsername()}"></p>
-                        </a>
-                    </div>
+                <!-- Post Content -->
+                <div class="post-content">
+                    <p th:text="${map.post.getContent()}"></p>
+                    <p th:text="${map.post.getTimestamp()}"></p>
+                </div>
 
-                    <div class="post-content">
-                        <p th:text="${entry.getKey().getContent()}"></p>
-                    </div>
+                <!-- Form for commenting -->
+                <div class="comment-like-btns">
+                    <form action="#" th:action="@{/post/{id}(id=${map.post.getId()})}" method="get">
+                        <input type="submit" id="comment" value="Comment" />
+                    </form>
 
-                    <div class="comment-like-btns">
-                        <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
-                            <p>
-                                <input type="submit" id="comment" value="Comment" class="btn fa-input" />
-                                <input type="submit" id="like" value="Like"/>
-                            </p>
-                        </form>
-                    </div>
-
-                </li>
-            </ul>
+                    <!-- Form for liking -->
+                    <form action="#" th:action="@{/handleLike/{id}(id=${map.post.getId()})}" method="post">
+                        <input type="submit" id="like" th:value="'Like ' + ${map.likes.get(0)}" />
+                    </form>
+                </div>
+            </li>
         </ul>
     </div>
 
 
-</body>
+
+
+    </body>
 </html>
