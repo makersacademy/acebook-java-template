@@ -57,15 +57,19 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
-        System.out.println("HEREEEEEEE");
-        System.out.println("HEREEEEEEE");
-        System.out.println(post);
+
+//        get and set timestamp of post
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         post.setTimestamp(Timestamp.valueOf(timeStamp));
+
+//        get user and set userid of post
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
         post.setUserId(principalUser.getId());
+
+//        save post
         postRepository.save(post);
+
         return new RedirectView("/posts");
     }
 
