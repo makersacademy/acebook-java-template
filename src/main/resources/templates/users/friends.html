@@ -29,15 +29,13 @@
       <a href="/login">Log In</a>
       <a href="/register">Register</a>
     </div>
-    <a th:href="@{/users/{'user_id'}}" class="profile-image">
+    <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
       <div class="header-title" sec:authorize="isAuthenticated()">
-        <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+        <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
       </div>
     </a>
   </div>
 </div>
-
-
 
   <h6 class="welcome-title">Friends</h6>
   <div class="friends-with-requests">
@@ -45,7 +43,7 @@
       <ul>
         <li th:each="friend : ${friends}" class="requests">
           <a class="request-profile-with-name" th:href="@{/users/{id}(id=${friend.id})}">
-            <img th:src="${friend.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <img th:src="${friend.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : friend.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
             <span th:text="${friend.getUsername()}" class="request-user-profile-title"></span>
           </a>
         </li>
