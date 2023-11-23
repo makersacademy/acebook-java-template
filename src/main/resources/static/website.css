@@ -241,3 +241,22 @@ button:hover {
 .user-profile-timeline ul {
     padding-inline-start: 20px;
 }
+
+.user-posts-header {
+    padding-left: 45px;
+}
+
+.profile-with-name {
+    display: flex;
+    align-items: center;
+}
+
+.profile-with-name img {
+    border-radius: 50%; /* Make the profile image round */
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.fa-input {
+    font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

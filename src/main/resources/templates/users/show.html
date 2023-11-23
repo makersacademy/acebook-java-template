@@ -5,6 +5,9 @@
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
     <link rel="stylesheet" href="/website.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/regular.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 
     <script>
         function sendFriendRequest() {
@@ -64,20 +67,30 @@
         </div>
 
         <div class="user-profile-timeline">
-            <h3>Posts</h3>
+            <h3 class="user-posts-header">Posts</h3>
             <ul th:each="map, stat : ${postsAndPosters}">
                 <ul th:each="entry : ${map.entrySet()}" class="user-profile-posts">
                     <li class ="user-card-posts">
-                        <p th:text="${entry.getValue().getUsername()}"></p>
-                        <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
-                        <p th:text="${entry.getKey().getContent()}"></p>
-                        <p th:text="${entry.getKey().getTimestamp()}"></p>
-                        <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
-                            <p>
-                                <input type="submit" id="comment" value="Comment" />
-                                <input type="submit" id="like" value="Like" />
-                            </p>
-                        </form>
+
+                        <div class="profile-with-name">
+                            <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
+                            <p th:text="${entry.getValue().getUsername()}"></p>
+                        </div>
+
+                        <div class="post-content">
+                            <p th:text="${entry.getKey().getContent()}"></p>
+<!--                            <p th:text="${entry.getKey().getTimestamp()}"></p>-->
+                        </div>
+
+                        <div>
+                            <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                                <p>
+                                    <input type="submit" id="comment" value="Comment" class="btn fa-input" />
+                                    <input type="submit" id="like" value="Like"/>
+                                </p>
+                            </form>
+                        </div>
+
                     </li>
                 </ul>
             </ul>

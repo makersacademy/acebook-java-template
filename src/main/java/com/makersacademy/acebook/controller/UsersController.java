@@ -100,7 +100,6 @@ public class UsersController {
         model.addAttribute("profilePicture", principalUser.getImageUrl());
         model.addAttribute("postsAndPosters", postsAndPosters);
 
-        System.out.println(postsAndPosters);
         return modelAndView;
     }
 
