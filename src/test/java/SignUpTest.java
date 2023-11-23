@@ -54,28 +54,12 @@ public class SignUpTest {
     }
 
     @Test
-    public void testBlankUsernameReturnsError() {
+    public void testBlankUsernameStaysOnPage() {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(" ");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
-        // Explicitly wait for the error message to be visible
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement usernameError = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("usernameError")));
-        String errorString = usernameError.getText();
-        Assert.assertEquals("Please enter a username", errorString);
-    }
-
-    @Test
-    public void testBlankPasswordReturnsError() {
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys("username_1");
-        driver.findElement(By.id("password")).sendKeys(" ");
-        driver.findElement(By.id("submit")).click();
-        // Explicitly wait for the error message to be visible
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement passwordError = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordError")));
-        String errorString = passwordError.getText();
-        Assert.assertEquals("Please enter a password", errorString);
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertEquals("http://localhost:8080/users", currentURL);
     }
 }

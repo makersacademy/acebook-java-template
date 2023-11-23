@@ -41,7 +41,7 @@
         </div>
 
         <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="posts-content-form">
-            <textarea type="text" rows="10" placeholder="Write a post..." id=timeline-form-content th:field="*{content}"></textarea>
+            <textarea type="text" rows="10" placeholder="Write a post..." id="timeline-form-content" th:field="*{content}"></textarea>
 
             <p class="posts-form-btns"><input type="submit" id="submit-posts" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
@@ -56,7 +56,7 @@
 
                 <!-- Post Content -->
                 <div class="post-content">
-                    <p th:text="${map.post.getContent()}"></p>
+                    <p id="postContent" th:text="${map.post.getContent()}"></p>
                     <p th:text="${map.post.getTimestamp()}"></p>
                 </div>
 
