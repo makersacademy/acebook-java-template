@@ -51,6 +51,7 @@ public class PostsController {
         model.addAttribute("postsAndPosters", postsAndPosters);
         model.addAttribute("newPost", new Post());
         model.addAttribute("profilePicture", principalUser.getImageUrl());
+        model.addAttribute("currentUser", principalUser);
 
         return "posts/index";
     }
