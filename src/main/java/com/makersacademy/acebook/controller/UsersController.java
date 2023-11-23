@@ -1,13 +1,7 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Authority;
-import com.makersacademy.acebook.model.Friend;
-import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.AuthoritiesRepository;
-import com.makersacademy.acebook.repository.FriendRepository;
-import com.makersacademy.acebook.repository.UserRepository;
-import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +25,8 @@ public class UsersController {
     FriendRepository friendRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    LikeRepository likeRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -79,21 +75,24 @@ public class UsersController {
         }
 
         Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
-        ArrayList<HashMap<Post, User>> postsAndPosters = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> postsAndPosters = new ArrayList<>();
 
         for (Post post : posts) {
-            HashMap<Post, User> entry = new HashMap<>();
+            HashMap<String, Object> entry = new HashMap<>();
 
             Optional<User> optionalUser = userRepository.findById(post.getUserId());
             User poster = optionalUser.orElse(null);
 
-            if (post.getUserId() == id) {
-                entry.put(post, poster);
+            List<Like> postLikes = likeRepository.countByLikeStatusAndPostId(true, post.getId());
+
+            if (Objects.equals(post.getUserId(), id)) {
+                entry.put("post", post);
+                entry.put("user", poster);
+                entry.put("likes", postLikes);
+
                 postsAndPosters.add(entry);
             }
-
         }
-
 
         model.addAttribute("profilePicture", principalUser.getImageUrl());
         model.addAttribute("postsAndPosters", postsAndPosters);
@@ -101,4 +100,12 @@ public class UsersController {
         return modelAndView;
     }
 
+    @PostMapping("/handleNewProfile/{id}")
+    public String handleNewProfile(@RequestParam String fileData, @PathVariable Long id) {
+        if (fileData != null && !fileData.isEmpty()) {
+            userRepository.updateImageUrlByUserId(id, fileData);
+        }
+
+        return "redirect:/users/" + id;
+    }
 }
