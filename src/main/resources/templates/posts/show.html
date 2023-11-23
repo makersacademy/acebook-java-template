@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/website.css"/>
+    <title>Acebook</title>
+</head>
+<body>
+<div class="header">
+    <a th:href="@{/users/{'user_id'}}" class="profile_image">
+        <div sec:authorize="isAuthenticated()">
+            <img th:src="@{${profilePicture}}" width="35" height="35" alt="Profile Image">
+            <span sec:authentication="name"></span>
+        </div>
+    </a>
+    <div class="menu-right">
+        <a href="/friends">Friends</a>
+        <a href="/posts">Timeline</a>
+
+        <!-- Conditional Rendering based on session -->
+        <div th:if="${session.containsKey('user_id')}">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+        <div th:unless="${session.containsKey('user_id')}">
+            <a href="/login">Log In</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</div>
+
+    <p th:text="${currentPost.content}"></p>
+    <form action="#" th:action="@{/post/{id}(id=${currentPost.id})}" th:object="${newComment}" method="post" class="commentForm">
+        <textarea type="text" cols="40" rows="5" placeholder="Enter a comment..." id="comment" th:field="*{comment}">
+        </textarea>
+        <p><input type="submit" id="addComment" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+<!--    Form to add a comment to post -->
+    <form action="#" th:action="@{/post/addComment}" th:object="${newComment}" method="post">
+        <input type="hidden" name="postId" th:value="${currentPost.id}"/>
+        <p>Comment: <input type="text" id="addComment" name="comment" th:field="*{comment}" /></p>
+        <p><input type="submit" id="submitComment" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+    <ul th:each="comment: ${comments}">
+        <li th:text="${comment.comment}" ></li>
+    </ul>
+</body>
+</html>

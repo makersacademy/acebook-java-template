@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/website.css"/>
+  <title>Title</title>
+</head>
+<body>
+
+  <ul>
+    <li class="requests" th:each="user : ${friendRequests}">
+      <span th:text="${user.getUsername()}"></span>
+
+      <form th:action="@{/handleFriendConfirmation}" method="post">
+        <input type="hidden" name="requesterId" th:value="${user.id}" />
+        <button type="submit" name="action" value="accept">Accept</button>
+        <button type="submit" name="action" value="deny">Deny</button>
+      </form>
+    </li>
+  </ul>
+
+  <hr />
+  <ul>
+    <li th:each="friend : ${friends}" th:text="${friend.getUsername()}"></li>
+  </ul>
+
+</body>
+</html>

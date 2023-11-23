@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+html {
+font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f3f3ec;
+    color: black; /* Text color for body */
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #ADD8E6; /* Header background color */
+    color: black; /* Text color for header */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile_image {
+    color: black;
+    text-decoration: none;
+    font-size: 1.8rem;
+    text-transform: capitalize;
+}
+
+.profile_image img {
+    border-radius: 50%; /* Make the profile image round */
+}
+
+
+.menu-right {
+    display: flex;
+    align-items: center;
+}
+
+.menu-right a {
+    color: black; /* Text color for menu links */
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.menu-right form {
+    margin: 0;
+}
+
+.menu-right input[type="submit"] {
+    background-color: #ADD8E6;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.menu-right input[type="submit"]:hover {
+    background-color: #ADD8E6;
+}
+
+.contentForm, .commentForm{
+    max-width: 80%;
+    margin: 3.5rem;
+    padding: 20px;
+    background-color: #f3f3ec;
+}
+
+.userSignup, .userLogin {
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafaf7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+textarea{
+    background-color: #f3f3ec;
+}
+
+.listed {
+    max-width: 30%;
+    margin: 0rem;
+    padding: 20px;
+    background-color: #fafaf7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.postContainer {
+    list-style: none;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: black; /* Text color for input fields */
+}
+
+input[type="submit"],
+input[type="reset"] {
+    background-color: #ADD8E6;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #ADD8E6;
+}
+
+button {
+    background-color: #ADD8E6;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.friendButton {
+    background-color: #ADD8E6;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

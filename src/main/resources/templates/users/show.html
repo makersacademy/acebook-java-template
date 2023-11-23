@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title th:text="${user.username} + '\'s Profile'"></title>
+    <link rel="stylesheet" href="/website.css"/>
+
+    <script>
+        function sendFriendRequest() {
+            document.getElementById('friendRequestForm').submit();
+        }
+    </script>
+</head>
+<body>
+
+    <div class="header">
+        <div th:href="${session.containsKey('user_id')}">
+            <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
+                <img th:src="${currentUser.getImageUrl()}" width="20" height="20" alt="Profile Image">
+            </a>
+        </div>
+    <div class="menu-right">
+        <a href="/friends">Friends</a>
+        <a href="/posts">Timeline</a>
+
+        <div th:if="${!isCurrentUser}">
+            <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
+                <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
+                <input type="hidden" name="receiver_id" th:value="${user.id}" />
+
+                <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                    <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                </div>
+
+                <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
+                    <button onclick="sendFriendRequest()"]'>Send Friend Request</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Conditional Rendering based on session -->
+        <div th:if="${session.containsKey('user_id')}">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+        <div th:unless="${session.containsKey('user_id')}">
+            <a href="/login">Log In</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</div>
+
+    <h1 th:text="${user.username} + '\'s Profile'"></h1>
+
+</body>
+</html>
