@@ -8,61 +8,73 @@
 </head>
 <body>
 
-<div class="header">
-    <a th:href="@{/users/{'user_id'}}" class="profile-image">
-        <div class="header-title" sec:authorize="isAuthenticated()">
-            <strong>Acebook</strong>
-        </div>
-    </a>
-    <div class="menu-right">
-        <a href="/posts">Timeline</a>
-        <a href="/friends">Friends</a>
-
-        <!-- Conditional Rendering based on session -->
-        <div th:if="${session.containsKey('user_id')}">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form>
-        </div>
-        <div th:unless="${session.containsKey('user_id')}">
-            <a href="/login">Log In</a>
-            <a href="/register">Register</a>
-        </div>
-        <a th:href="@{/users/{'user_id'}}" class="profile-image">
+    <div class="header">
+        <a th:href="@{/posts}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
-                <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                <strong>Acebook</strong>
             </div>
         </a>
+        <div class="menu-right">
+            <a href="/friends">Friends</a>
+
+            <!-- Conditional Rendering based on session -->
+            <div th:if="${session.containsKey('user_id')}">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </div>
+            <div th:unless="${session.containsKey('user_id')}">
+                <a href="/login">Log In</a>
+                <a href="/register">Register</a>
+            </div>
+            <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
+                </div>
+            </a>
+        </div>
     </div>
-</div>
 
-<a th:href="@{/users/{'user_id'}}" class="profile-image">
-    <div class="header-title" sec:authorize="isAuthenticated()">
-        Welcome <span sec:authentication="name" class="header-title-name"></span>!
+    <div class="posts-timeline">
+        <div class="welcome-title" sec:authorize="isAuthenticated()">
+            Welcome<span sec:authentication="name" class="header-title-name"></span>!
+        </div>
+
+        <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="posts-content-form">
+            <textarea type="text" rows="10" placeholder="Write a post..." id=timeline-form-content th:field="*{content}"></textarea>
+
+            <p class="posts-form-btns"><input type="submit" id="submit-posts" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+
+        <ul th:each="map, stat : ${postsAndPosters}">
+            <ul th:each="entry : ${map.entrySet()}" class="timeline-posts">
+                <li class ="user-card-posts">
+
+                    <div>
+                        <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}" >
+                            <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
+                            <p th:text="${entry.getValue().getUsername()}"></p>
+                        </a>
+                    </div>
+
+                    <div class="post-content">
+                        <p th:text="${entry.getKey().getContent()}"></p>
+                    </div>
+
+                    <div class="comment-like-btns">
+                        <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                            <p>
+                                <input type="submit" id="comment" value="Comment" class="btn fa-input" />
+                                <input type="submit" id="like" value="Like"/>
+                            </p>
+                        </form>
+                    </div>
+
+                </li>
+            </ul>
+        </ul>
     </div>
-</a>
 
-<form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="contentForm">
-    <textarea type="text" cols="70" rows="10" placeholder="Write a post..." id="content" th:field="*{content}"></textarea>
-
-    <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-<ul th:each="map, stat : ${postsAndPosters}">
-    <ul th:each="entry : ${map.entrySet()}" class="postContainer">
-        <li class ="listed">
-            <p th:text="${entry.getValue().getUsername()}"></p>
-            <img th:src="${entry.getValue().getImageUrl()}" width="20" height="20" />
-            <p th:text="${entry.getKey().getContent()}"></p>
-            <p th:text="${entry.getKey().getTimestamp()}"></p>
-            <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
-                <p>
-                    <input type="submit" id="comment" value="Comment" />
-                    <input type="submit" id="like" value="Like" />
-                </p>
-            </form>
-        </li>
-    </ul>
-</ul>
 
 </body>
 </html>

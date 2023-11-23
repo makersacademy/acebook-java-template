@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
   <link rel="stylesheet" href="/website.css"/>
-  <title>Title</title>
+  <title>Friends</title>
 </head>
 <body>
+  
 <div class="header">
   <a th:href="@{/users/{'user_id'}}" class="profile-image">
     <div class="header-title" sec:authorize="isAuthenticated()">
@@ -34,21 +37,37 @@
   </div>
 </div>
 
-  <ul>
-    <li class="requests" th:each="user : ${friendRequests}">
-      <span th:text="${user.getUsername()}"></span>
 
-      <form th:action="@{/handleFriendConfirmation}" method="post">
-        <input type="hidden" name="requesterId" th:value="${user.id}" />
-        <button type="submit" name="action" value="accept">Accept</button>
-        <button type="submit" name="action" value="deny">Deny</button>
-      </form>
-    </li>
-  </ul>
 
-  <ul>
-    <li th:each="friend : ${friends}" th:text="${friend.getUsername()}"></li>
-  </ul>
+  <h6 class="welcome-title">Friends</h6>
+  <div class="friends-with-requests">
+    <div class="friends-list">
+      <ul>
+        <li th:each="friend : ${friends}" class="requests">
+          <a class="request-profile-with-name" th:href="@{/users/{id}(id=${friend.id})}">
+            <img th:src="${friend.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <span th:text="${friend.getUsername()}" class="request-user-profile-title"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="friend-requests">
+      <ul>
+        <li class="requests" th:each="user : ${friendRequests}">
+          <a class="request-profile-with-name" th:href="@{/users/{id}(id=${user.id})}">
+            <img th:src="${user.imageUrl}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <span th:text="${user.username}" class="request-user-profile-title"></span>
+          </a>
+
+          <form th:action="@{/handleFriendConfirmation}" method="post">
+            <input type="hidden" name="requesterId" th:value="${user.id}" />
+            <button type="submit" name="action" value="accept">Accept</button>
+            <button type="submit" name="action" value="deny">Deny</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-<head lang="en">
+<head>
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
     <link rel="stylesheet" href="/website.css"/>
@@ -18,13 +18,12 @@
 <body>
 
     <div class="header">
-        <a th:href="@{/users/{'user_id'}}" class="profile-image">
+        <a th:href="@{/posts}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
                 <strong>Acebook</strong>
             </div>
         </a>
         <div class="menu-right">
-            <a href="/posts">Timeline</a>
             <a href="/friends">Friends</a>
 
             <!-- Conditional Rendering based on session -->
@@ -37,7 +36,7 @@
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
             </div>
-            <a th:href="@{/users/{'user_id'}}" class="profile-image">
+            <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
                 <div class="header-title" sec:authorize="isAuthenticated()">
                     <img th:src="@{${profilePicture}}" width="45" height="45" alt="Profile Image">
                 </div>
@@ -72,17 +71,18 @@
                 <ul th:each="entry : ${map.entrySet()}" class="user-profile-posts">
                     <li class ="user-card-posts">
 
-                        <div class="profile-with-name">
-                            <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
-                            <p th:text="${entry.getValue().getUsername()}"></p>
+                        <div>
+                            <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
+                                <img th:src="${entry.getValue().getImageUrl()}" width="40" height="40" />
+                                <p th:text="${entry.getValue().getUsername()}"></p>
+                            </a>
                         </div>
 
                         <div class="post-content">
                             <p th:text="${entry.getKey().getContent()}"></p>
-<!--                            <p th:text="${entry.getKey().getTimestamp()}"></p>-->
                         </div>
 
-                        <div>
+                        <div class="comment-like-btns">
                             <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
                                 <p>
                                     <input type="submit" id="comment" value="Comment" class="btn fa-input" />
