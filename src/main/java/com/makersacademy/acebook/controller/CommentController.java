@@ -38,6 +38,11 @@ public class CommentController {
         Post currentPost = post.orElse(null);
         model.addAttribute("currentPost", currentPost);
 
+        Optional<User> postUser = userRepository.findById(currentPost.getUserId());
+        User postOwner = postUser.orElse(null);
+        model.addAttribute("postOwner", postOwner);
+
+
 //        create new comment object to make a new comment using the form
         Comment commentObj = new Comment();
         model.addAttribute("newComment", commentObj);

@@ -33,8 +33,10 @@
         </div>
     </div>
 </div>
-  
-<h3 th:text="${currentPost.content}"></h3>
+<br>
+<img style="margin-left: 20px;" th:src="${postOwner.getImageUrl()}" width="20" height="20"/>
+<span style="margin-left: 10px;" th:text="${postOwner.getUsername()}"></span>
+<h3 style="margin-left: 20px;" th:text="${currentPost.content}"></h3>
  
   <!--    Form to add a comment to post -->
     <form action="#" th:action="@{/post/addComment}" th:object="${newComment}" method="post" class="commentForm">
