@@ -18,13 +18,12 @@
 <body>
 
     <div class="header">
-        <a th:href="@{/users/{'user_id'}}" class="profile-image">
+        <a th:href="@{/posts}" class="profile-image">
             <div class="header-title" sec:authorize="isAuthenticated()">
                 <strong>Acebook</strong>
             </div>
         </a>
         <div class="menu-right">
-            <a href="/posts">Timeline</a>
             <a href="/friends">Friends</a>
 
             <!-- Conditional Rendering based on session -->
@@ -79,10 +78,9 @@
 
                         <div class="post-content">
                             <p th:text="${entry.getKey().getContent()}"></p>
-<!--                            <p th:text="${entry.getKey().getTimestamp()}"></p>-->
                         </div>
 
-                        <div>
+                        <div class="comment-like-btns">
                             <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
                                 <p>
                                     <input type="submit" id="comment" value="Comment" class="btn fa-input" />
