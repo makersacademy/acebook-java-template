@@ -26,6 +26,7 @@
             <div th:unless="${session.containsKey('user_id')}">
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
+
             </div>
             <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
                 <div class="header-title" sec:authorize="isAuthenticated()">
@@ -37,7 +38,7 @@
 
     <div class="posts-timeline">
         <div class="welcome-title" sec:authorize="isAuthenticated()">
-            Welcome<span sec:authentication="name" class="header-title-name"></span>!
+            Welcome <span sec:authentication="name" class="header-title-name"></span>!
         </div>
 
         <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="posts-content-form">
