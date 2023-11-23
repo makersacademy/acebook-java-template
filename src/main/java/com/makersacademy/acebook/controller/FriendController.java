@@ -32,7 +32,7 @@ public class FriendController {
     }
 
     @GetMapping("/friends")
-    public ModelAndView showRequests(Principal principal) {
+    public ModelAndView showRequests(Principal principal, Model model) {
         ModelAndView modelAndView = new ModelAndView("/users/friends");
 
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
@@ -56,8 +56,12 @@ public class FriendController {
             friends.add(acceptedRequest);
         }
 
+
+
         modelAndView.addObject("friendRequests", friendRequests);
         modelAndView.addObject("friends", friends);
+        modelAndView.addObject("currentUser", principalUser);
+        modelAndView.addObject("profilePicture", principalUser.getImageUrl());
         return modelAndView;
     }
 

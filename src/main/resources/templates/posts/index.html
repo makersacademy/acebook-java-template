@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-    <html lang="en" xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/website.css"/>
+</head>
+<body>
     <div class="header">
-        <a th:href="@{/users/{'user_id'}}" class="profile_image">
-            <img th:src="@{${profilePicture}}" width="20" height="20" alt="Profile Image">
+        <a th:href="@{/posts}" class="profile-image">
+            <div class="header-title" sec:authorize="isAuthenticated()">
+                <strong>Acebook</strong>
+            </div>
         </a>
         <div class="menu-right">
             <a href="/friends">Friends</a>
-            <a href="/posts">Timeline</a>
 
             <!-- Conditional Rendering based on session -->
             <div th:if="${session.containsKey('user_id')}">
@@ -25,48 +25,58 @@
             <div th:unless="${session.containsKey('user_id')}">
                 <a href="/login">Log In</a>
                 <a href="/register">Register</a>
+
             </div>
+            <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
+                </div>
+            </a>
         </div>
     </div>
 
-    <h1>Posts</h1>
+    <div class="posts-timeline">
+        <div class="welcome-title" sec:authorize="isAuthenticated()">
+            Welcome <span sec:authentication="name" class="header-title-name"></span>!
+        </div>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
+        <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post" class="posts-content-form">
+            <textarea type="text" rows="10" placeholder="Write a post..." id=timeline-form-content th:field="*{content}"></textarea>
+
+            <p class="posts-form-btns"><input type="submit" id="submit-posts" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+
+        <ul th:each="map, stat : ${postsAndPosters}" class="timeline-posts">
+            <li class ="user-card-posts">
+                <!-- User info -->
+                <a class="profile-with-name" th:href="@{/users/{id}(id=${map.user.getId()})}">
+                    <img th:src="${map.user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : map.user.getImageUrl()}" width="20" height="20" />
+                    <p th:text="${map.user.getUsername()}"></p>
+                </a>
+
+                <!-- Post Content -->
+                <div class="post-content">
+                    <p th:text="${map.post.getContent()}"></p>
+                    <p th:text="${map.post.getTimestamp()}"></p>
+                </div>
+
+                <!-- Form for commenting -->
+                <div class="comment-like-btns">
+                    <form action="#" th:action="@{/post/{id}(id=${map.post.getId()})}" method="get">
+                        <input type="submit" id="comment" value="Comment" />
+                    </form>
+
+                    <!-- Form for liking -->
+                    <form action="#" th:action="@{/handleLike/{id}(id=${map.post.getId()})}" method="post">
+                        <input type="submit" id="like" th:value="'Like ' + ${map.likes.get(0)}" />
+                    </form>
+                </div>
+            </li>
+        </ul>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${newPost}" method="post">
-        <p>Content: <input type="text" id="content" th:field="*{content}" /></p>
-        <p><input type="submit" id="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
 
-    <ul th:each="map, stat : ${postsAndPosters}">
-        <li>
-            <!-- User info -->
-            <p th:text="${map.user.getUsername()}"></p>
-            <img th:src="${map.user.getImageUrl()}" width="20" height="20" />
 
-            <!-- Post Content -->
-            <p th:text="${map.post.getContent()}"></p>
-            <p th:text="${map.post.getTimestamp()}"></p>
-
-            <!-- Display likes information -->
-<!--            <p>Likes: <span th:text="${#lists.size(map.likes)}"></span></p>-->
-<!--            <div th:each="like: ${map.likes}">-->
-<!--                <p th:text="${like.userId}"></p>-->
-<!--            </div>-->
-
-            <!-- Form for commenting -->
-            <form action="#" th:action="@{/post/{id}(id=${map.post.getId()})}" method="get">
-                <input type="submit" id="comment" value="Comment" />
-            </form>
-
-            <!-- Form for liking -->
-            <form action="#" th:action="@{/handleLike/{id}(id=${map.post.getId()})}" method="post">
-                <input type="submit" id="like" th:value="'Like ' + ${map.likes.get(0)}" />
-            </form>
-        </li>
-    </ul>
 
     </body>
 </html>

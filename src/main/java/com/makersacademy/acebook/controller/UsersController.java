@@ -2,10 +2,12 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.Friend;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class UsersController {
@@ -26,6 +29,8 @@ public class UsersController {
     AuthoritiesRepository authoritiesRepository;
     @Autowired
     FriendRepository friendRepository;
+    @Autowired
+    PostRepository postRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -44,7 +49,7 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    public ModelAndView show(@PathVariable Long id, Principal principal) {
+    public ModelAndView show(@PathVariable Long id, Principal principal, Model model) {
         Optional<User> pageUser = userRepository.findById(id);
         User user = pageUser.orElse(null);
 
@@ -73,6 +78,27 @@ public class UsersController {
             modelAndView.addObject("isCurrentUser", false);
         }
 
+        Iterable<Post> posts = postRepository.findAllByOrderByTimestampDesc();
+        ArrayList<HashMap<Post, User>> postsAndPosters = new ArrayList<>();
+
+        for (Post post : posts) {
+            HashMap<Post, User> entry = new HashMap<>();
+
+            Optional<User> optionalUser = userRepository.findById(post.getUserId());
+            User poster = optionalUser.orElse(null);
+
+            if (post.getUserId() == id) {
+                entry.put(post, poster);
+                postsAndPosters.add(entry);
+            }
+
+        }
+
+
+        model.addAttribute("profilePicture", principalUser.getImageUrl());
+        model.addAttribute("postsAndPosters", postsAndPosters);
+
         return modelAndView;
     }
+
 }

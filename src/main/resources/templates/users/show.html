@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-<head lang="en">
+<head>
     <meta charset="UTF-8"/>
     <title th:text="${user.username} + '\'s Profile'"></title>
-    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/website.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/regular.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 
     <script>
         function sendFriendRequest() {
@@ -15,48 +18,84 @@
 <body>
 
     <div class="header">
-        <div th:href="${session.containsKey('user_id')}">
-            <a th:href="@{/users/{userId}(userId=${user.id})}" class="profile_image">
-                <img th:src="${currentUser.getImageUrl()}" width="20" height="20" alt="Profile Image">
+        <a th:href="@{/posts}" class="profile-image">
+            <div class="header-title" sec:authorize="isAuthenticated()">
+                <strong>Acebook</strong>
+            </div>
+        </a>
+        <div class="menu-right">
+            <a href="/friends">Friends</a>
+
+            <!-- Conditional Rendering based on session -->
+            <div th:if="${session.containsKey('user_id')}">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </div>
+            <div th:unless="${session.containsKey('user_id')}">
+                <a href="/login">Log In</a>
+                <a href="/register">Register</a>
+            </div>
+            <a th:href="@{/users/{id}(id=${currentUser.id})}" class="profile-image">
+                <div class="header-title" sec:authorize="isAuthenticated()">
+                    <img th:src="@{${profilePicture == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : profilePicture}}" width="45" height="45" alt="Profile Image">
+                </div>
             </a>
         </div>
-    <div class="menu-right">
-        <a href="/friends">Friends</a>
-        <a href="/posts">Timeline</a>
+    </div>
 
-        <div th:if="${!isCurrentUser}">
-            <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
-                <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
-                <input type="hidden" name="receiver_id" th:value="${user.id}" />
+    <div class="user-profile-container">
+        <div class="user-profile-heading">
+            <img th:src="${user.getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : user.getImageUrl()}" width="180" height="180" alt="Profile Image" class="user-profile-image">
+            <h1 th:text="${user.username}" class="user-profile-title"></h1>
 
-                <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
-                    <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
-                </div>
+            <div th:if="${!isCurrentUser}" class="user-profile-request-btn">
+                <form id="friendRequestForm" action="#" th:action="@{/handleFriendRequest}" method="post">
+                    <input type="hidden" name="requester_id" th:value="${currentUser.id}" />
+                    <input type="hidden" name="receiver_id" th:value="${user.id}" />
 
-                <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
-                    <button onclick="sendFriendRequest()">Send Friend Request</button>
-                </div>
+                    <div th:if="${userRequest != null and userRequest.status != 'DENIED'}">
+                        <p th:text="${userRequest.getStatus() == 'ACCEPTED' ? 'Friends' : 'Request Sent'}"></p>
+                    </div>
 
-            </form>
+                    <div th:if="${userRequest == null or userRequest.status == 'DENIED'}">
+                        <button onclick="sendFriendRequest()">Send Friend Request</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <p th:text="${user.id}"></p>
-        <p th:text="${currentUser.id}"></p>
+        <div class="user-profile-timeline">
+            <h3 class="user-posts-header">Posts</h3>
+            <ul th:each="map, stat : ${postsAndPosters}">
+                <ul th:each="entry : ${map.entrySet()}" class="user-profile-posts">
+                    <li class ="user-card-posts">
 
-        <!-- Conditional Rendering based on session -->
-        <div th:if="${session.containsKey('user_id')}">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form>
-        </div>
-        <div th:unless="${session.containsKey('user_id')}">
-            <a href="/login">Log In</a>
-            <a href="/register">Register</a>
+                        <div>
+                            <a class="profile-with-name" th:href="@{/users/{id}(id=${entry.getValue().getId()})}">
+                                <img th:src="${entry.getValue().getImageUrl() == '' ? 'https://png.pngtree.com/png-clipart/20230408/original/pngtree-cartoon-leaf-illustration-png-image_9036566.png' : entry.getValue().getImageUrl()}" width="40" height="40" />
+                                <p th:text="${entry.getValue().getUsername()}"></p>
+                            </a>
+                        </div>
+
+                        <div class="post-content">
+                            <p th:text="${entry.getKey().getContent()}"></p>
+                        </div>
+
+                        <div class="comment-like-btns">
+                            <form action="#" th:action="@{/post/{id}(id=${entry.getKey().getId()})}" method="get">
+                                <p>
+                                    <input type="submit" id="comment" value="Comment" class="btn fa-input" />
+                                    <input type="submit" id="like" value="Like"/>
+                                </p>
+                            </form>
+                        </div>
+
+                    </li>
+                </ul>
+            </ul>
         </div>
     </div>
-</div>
-
-    <h1 th:text="${user.username} + '\'s Profile'"></h1>
 
 </body>
 </html>

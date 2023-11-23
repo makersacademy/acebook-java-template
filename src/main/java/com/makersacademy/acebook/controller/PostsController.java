@@ -58,46 +58,26 @@ public class PostsController {
         model.addAttribute("postsAndPosters", postsAndPosters);
         model.addAttribute("newPost", new Post());
         model.addAttribute("profilePicture", principalUser.getImageUrl());
+        model.addAttribute("currentUser", principalUser);
 
         return "posts/index";
     }
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Principal principal) {
+
+//        get and set timestamp of post
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         post.setTimestamp(Timestamp.valueOf(timeStamp));
+
+//        get user and set userid of post
         Optional<User> currentUser = userRepository.findByUsername(principal.getName());
         User principalUser = currentUser.orElse(null);
         post.setUserId(principalUser.getId());
+
+//        save post
         postRepository.save(post);
+
         return new RedirectView("/posts");
-    }
-
-    @GetMapping("/post/{id}")
-    public String show(@PathVariable Long id, Model model) {
-
-        Optional<Post> post = postRepository.findById(id);
-        Post currentPost = post.orElse(null);
-        model.addAttribute("currentPost", currentPost);
-
-        Comment newComment = new Comment();
-        model.addAttribute("newComment", newComment);
-
-        return "posts/show";
-    }
-
-    @PostMapping("/post/{id}")
-    public ModelAndView createComment(@PathVariable Long id, @ModelAttribute Comment comment, Principal principal) {
-
-        comment.setPostId(id);
-
-        Optional<User> currentUser = userRepository.findByUsername(principal.getName());
-        User principalUser = currentUser.orElse(null);
-        comment.setUserId(principalUser.getId());
-
-        ModelAndView modelAndView = new ModelAndView("/post/{id}");
-        modelAndView.addObject("comment", new Comment());
-        return modelAndView;
-
     }
 }
