@@ -68,7 +68,6 @@ public class CommentController {
         model.addAttribute("commentsAndOwners", commentsAndOwners);
         model.addAttribute("currentUser", principalUser);
         model.addAttribute("profilePicture", principalUser.getImageUrl());
-//        commentsAndOwners = { comment : owner , comment : owner , comment : owner , comment : owner }
 
         return "posts/show";
     }
