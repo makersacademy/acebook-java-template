@@ -21,10 +21,10 @@ public class FriendshipController {
         friendshipRepository.save(friendship);
     }
 
-    @GetMapping("/requests/{userid}")
-    public Iterable<Friendship> getRequests(@PathVariable("userid") Long userid){
-        return friendshipRepository.findRequestsForUser(userid);
-    }
+//    @GetMapping("/requests/{userid}")
+//    public Iterable<Friendship> getRequests(@PathVariable("userid") Long userid){
+//        return friendshipRepository.findRequestsForUser(userid);
+//    }
 
     @PostMapping("requests/{userid}/{requestid}/{action}")
     public void acceptOrRejectRequest(@PathVariable("action") String action, @PathVariable("userid") Long userid, @PathVariable("requestid") Long requestid){

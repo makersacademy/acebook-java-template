@@ -20,11 +20,11 @@
     <ul th:each="postItem : ${posts}">
         <li>
             <!-- Show content as text or image -->
-            <span th:text="${postItem.id}"></span>
+            
             <span th:text="${postItem.content}"></span>
-            <div th:switch="${posts[i].image}">
+            <div th:switch="${postItem.image}">
                 <p th:case="''"></p>
-                <img th:case="*" alt="" th:src="*{'data:image/jpeg;base64,'+{posts[i].image}}"
+                <img th:case="*" alt="" th:src="*{'data:image/jpeg;base64,'+{postItem.image}}"
                      style="width: 100px; height: 100px;" />
             </div>
             <!-- Show text counter and button -->
@@ -36,14 +36,14 @@
             </th:block>
 
             <!-- Show comments -->
-            <ul th:each="comment: ${posts[i].comments}">
+            <ul th:each="comment: ${postItem.comments}">
                 <li th:text="${comment.content}" />
             </ul>
 
             <!-- Form for adding comments -->
             <form action="@{/addComment}" th:action="@{/addComment}" th:object="${comment}" method="post">
                 <input type="hidden" name="username" th:value="${#authentication.name}" />
-                <input type="hidden" name="postId" th:value="${posts[i].id}" />
+                <input type="hidden" name="postId" th:value="${postItem.id}" />
                 <p>Comment: <input type="text" th:field="*{content}" /></p>
                 <p><input type="submit" value="Add Comment" /></p>
             </form>
