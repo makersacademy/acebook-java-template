@@ -12,22 +12,23 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long user_id;
-    private Long post_id;
+    private String username;
+    @Column(name = "post_id")
+    private Long postId;
     private String content;
 
     public Comment() {}
 
-    public Comment(Long user_id, Long post_id, String content) {
-        this.user_id = user_id;
-        this.post_id = post_id;
+    public Comment(String username, Long postId, String content) {
+        this.username = username;
+        this.postId = postId;
         this.content = content;
     }
 
-    public Long getUserId() { return this.user_id; }
-    public void setUserId(Long user_id) { this.user_id = user_id; }
-    public Long getPostId() { return this.post_id; }
-    public void setPostId(Long post_id) { this.post_id = post_id; }
+    public String getUsername() { return this.username; }
+    public void setUsername(String username) { this.username = username; }
+    public Long getPostId() { return this.postId; }
+    public void setPostId(Long postId) { this.postId = postId; }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
 }
