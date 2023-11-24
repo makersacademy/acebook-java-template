@@ -1,3 +1,4 @@
+
 package com.makersacademy.acebook.model;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -29,3 +30,4 @@ public class CommentTest {
     }
 
 }
+
