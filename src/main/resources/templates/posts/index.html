@@ -53,7 +53,8 @@
 
                 <!-- Show comments -->
                 <ul class="list-unstyled">
-                    <li th:each="comment: ${postItem.comments}" th:text="${comment.content}" />
+                    <li th:each="comment: ${postItem.comments}" 
+                        th:text="${comment.username + ': ' + comment.content}"></li>
                 </ul>
 
                 <!-- Form for adding comments -->
