@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,15 +21,12 @@
         }
 
         nav {
-            background-color: #444;
+            background-color: #333;
             overflow: hidden;
         }
 
         nav a {
-            float: left;
-            display: block;
             color: white;
-            text-align: center;
             padding: 14px 16px;
             text-decoration: none;
         }
@@ -34,19 +35,25 @@
             background-color: #ddd;
             color: black;
         }
+
+        #navbar-username {
+            color: white;
+            padding: 14px 16px;
+        }
     </style>
 </head>
 <body>
 <div th:fragment="navbar">
     <header>
-        <h2>Acebook</h2>
+        <h1>Acebook</h1>
     </header>
-    <nav>
-        <a th:href="@{/}">Posts</a>
-        <a th:href="@{/Profile}">Profile</a>
-        <a th:href="@{/logout}">Logout</a>
-        <!-- Add more links as needed -->
-        <div id="navbar-username" sec:authorize="isAuthenticated()">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/}">Posts</a>
+        <a class="navbar-brand" th:href="@{/Profile}">Profile</a>
+        <a class="navbar-brand" th:href="@{/logout}">Logout</a>
+
+        <!-- Move the signed in part to the right -->
+        <div class="ml-auto" id="navbar-username" sec:authorize="isAuthenticated()">
             Signed in as <span sec:authentication="name"></span>
         </div>
     </nav>

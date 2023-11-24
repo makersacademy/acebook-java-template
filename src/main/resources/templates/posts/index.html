@@ -1,55 +1,78 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
 
-    <h1>Posts</h1>
-
-
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <p>Content: <input type="text" name="content" th:field="*{content}" /></p>
-        <p>Image: <input type ="file" name="file"/></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-    <ul th:each="postItem : ${posts}">
-        <li>
-            <!-- Show content as text or image -->
-            
-            <span th:text="${postItem.content}"></span>
-            <div th:switch="${postItem.image}">
-                <p th:case="''"></p>
-                <img th:case="*" alt="" th:src="*{'data:image/jpeg;base64,'+{postItem.image}}"
-                     style="width: 100px; height: 100px;" />
-            </div>
-            <!-- Show text counter and button -->
-            <span th:text="${postItem.likes != null ? 'Likes: ' + postItem.likes : 'No likes'}"></span>
-            <th:block th:with="postId=${postItem.id}">
-                <form th:action="@{/posts/like/} + ${postItem.id}" th:object="${post}" method="post">
-                    <button type="submit">Like</button>
-                </form>
-            </th:block>
-
-            <!-- Show comments -->
-            <ul th:each="comment: ${postItem.comments}">
-                <li th:text="${comment.content}" />
-            </ul>
-
-            <!-- Form for adding comments -->
-            <form action="@{/addComment}" th:action="@{/addComment}" th:object="${comment}" method="post">
-                <input type="hidden" name="username" th:value="${#authentication.name}" />
-                <input type="hidden" name="postId" th:value="${postItem.id}" />
-                <p>Comment: <input type="text" th:field="*{content}" /></p>
-                <p><input type="submit" value="Add Comment" /></p>
+<div class="container mt-5">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Create a New Post</h5>
+            <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Content:</label>
+                    <input type="text" class="form-control" name="content" th:field="*{content}" />
+                </div>
+                <div class="form-group">
+                    <label>Image:</label>
+                    <input type="file" class="form-control-file" name="file"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
             </form>
+        </div>
+    </div>
+
+    <div class="mt-5"></div>
+    <h2 class="mb-4">Posts</h2>
+
+    <ul class="list-unstyled">
+        <li th:each="postItem : ${posts}" class="media mb-4">
+            <!-- Show content as text or image -->
+
+            <div class="media-body">
+                <h5 class="mt-0" th:text="${postItem.content}"></h5>
+                <img th:if="${not #strings.isEmpty(postItem.image)}"
+                     th:src="'data:image/jpeg;base64,' + ${postItem.image}"
+                     alt="Post Image" class="mr-3" style="width: 100px; height: 100px;">
+                <!-- Show text counter and button -->
+
+                <form th:action="@{/posts/like/} + ${postItem.id}" th:object="${post}" method="post" class="mt-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <span th:text="${postItem.likes != null ? 'Likes: ' + postItem.likes : 'No likes'}"></span>
+                </form>
+
+                <!-- Show comments -->
+                <ul class="list-unstyled">
+                    <li th:each="comment: ${postItem.comments}" th:text="${comment.content}" />
+                </ul>
+
+                <!-- Form for adding comments -->
+                <form action="@{/addComment}" th:action="@{/addComment}" th:object="${comment}" method="post">
+                    <input type="hidden" name="username" th:value="${#authentication.name}" />
+                    <input type="hidden" name="postId" th:value="${postItem.id}" />
+                    <div class="form-group">
+                        <label>Comment:</label>
+                        <input type="text" class="form-control" th:field="*{content}" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
         </li>
     </ul>
+</div>
 
-
-    </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
