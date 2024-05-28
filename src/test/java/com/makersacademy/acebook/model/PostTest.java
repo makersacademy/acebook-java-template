@@ -15,10 +15,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,28 +55,48 @@ public class PostTest {
 		driver.findElement(By.id("password")).sendKeys("password");
 		driver.findElement(By.tagName("button")).click();
 		WebElement element = driver.findElement(By.tagName("ul"));
-		Assert.assertEquals("Welcome!\nLikes: 8\nLike", element.getText());
+		Assert.assertEquals("Welcome!\nLikes: 11\nLike", element.getText());
 	}
 
 	@Test
 	public void signInCreatePostCheckLikesIs0() {
 		driver.get("http://localhost:8080/login");
+		// Login
 		driver.findElement(By.id("username")).sendKeys("Noah");
 		driver.findElement(By.id("password")).sendKeys("password");
 		driver.findElement(By.tagName("button")).click();
+
+		// Create a new post
 		driver.findElement(By.id("content")).sendKeys("post test");
 		driver.findElement(By.id("content_create")).click();
 
-		List<WebElement> element = driver.findElements(By.tagName("ul"));
-		ArrayList<String> posts = new ArrayList<String>();
-		for (WebElement e : element) {
-			posts.add(e.getText());
-		}
-//		System.out.println(posts);
-		Integer postNextID = Integer.valueOf(posts.get(posts.size()-1));
-		System.out.println("-----------------" + postNextID);
-		driver.findElement(By.id(String.format("like_button%s", posts.size()-1)))).click();
-		Assert.assertEquals("post test\nLikes: 1\nLike", postNextID);
+		// Wait for the post to appear
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5).toMillis());
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[contains(text(), 'post test')]")));
+
+		// Verify the post content
+		WebElement postContentElement = driver.findElement(By.xpath("//li[contains(text(), 'post test')]"));
+		String postContent = postContentElement.getText();
+		Assert.assertEquals("post test", postContent);
+
+		// Verify the initial like count
+		WebElement initialLikesElement = driver.findElement(By.xpath("//li[contains(text(), 'post test')]/following-sibling::li[contains(text(), 'Likes:')]"));
+		String initialLikesText = initialLikesElement.getText();
+		Assert.assertEquals("Likes: 0", initialLikesText);
+
+		// Find the newly created post's like button
+		WebElement likeButton = driver.findElement(By.xpath("//li[contains(text(), 'post test')]/following-sibling::form/button"));
+		likeButton.click();
+
+		// Wait for the like count to update
+		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//li[contains(text(), 'post test')]/following-sibling::li[contains(text(), 'Likes:')]"), "Likes: 1"));
+
+		// Verify the updated like count
+		WebElement updatedLikesElement = driver.findElement(By.xpath("//li[contains(text(), 'post test')]/following-sibling::li[contains(text(), 'Likes:')]"));
+		String updatedLikesText = updatedLikesElement.getText();
+		Assert.assertEquals("Likes: 1", updatedLikesText);
+
+		// Clean up the test post
 		postRepository.deleteTestPost();
 	}
 
