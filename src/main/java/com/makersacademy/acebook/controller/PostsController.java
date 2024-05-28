@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostsController {
@@ -26,6 +27,16 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        repository.save(post);
+        return new RedirectView("/posts");
+    }
+
+    @PostMapping("/posts-like")
+    public RedirectView like(@RequestParam("postId") Long postId) {
+        Optional<Post> postOptional = repository.findById(postId);
+        Post post = postOptional.get();
+        System.out.println(post);
+        post.incrementLikeCount();
         repository.save(post);
         return new RedirectView("/posts");
     }

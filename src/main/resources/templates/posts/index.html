@@ -15,12 +15,17 @@
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Content: <input id="content" type="text" th:field="*{content}" /></p>
+        <p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <li th:text="'Likes: ' + ${post.likeCount}" />
+        <form th:action="@{/posts-like}" method="post">
+            <input type="hidden" name="postId" th:value="${post.id}"/>
+            <button type="submit" th:id="'like_button' + ${post.id}">Like</button>
+        </form>
     </ul>
 
     </body>
