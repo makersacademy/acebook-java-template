@@ -1,21 +1,19 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
+import java.util.List;
+import javax.persistence.*;
+
+@Getter
+@Setter
 @Data
 @Entity
 @Table(name = "POSTS")
 public class Post {
-
-    @Getter
-    @Setter
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +23,10 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter @Setter private List<Comment> comments;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     // No-args constructor
     public Post() {}

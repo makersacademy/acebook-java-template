@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     void deleteTestPost();
     public List<Post> findAllByOrderByIdDesc();
     public Post findTopByOrderByIdDesc();
+
+    List<Post> findByUserId(Long userId);
 
 
 }
