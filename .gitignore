@@ -9,3 +9,6 @@ dependency-reduced-pom.xml
 .factorypath
 .project
 .settings/
+/htmlReport/
+qodana.yaml
+.env

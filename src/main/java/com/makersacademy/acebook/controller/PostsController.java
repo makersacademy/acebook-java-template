@@ -5,10 +5,13 @@ import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostsController {
@@ -26,6 +29,15 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        repository.save(post);
+        return new RedirectView("/posts");
+    }
+
+    @PostMapping("/posts-like")
+    public RedirectView like(@RequestParam("postId") Long postId) {
+        Optional<Post> postOptional = repository.findById(postId);
+        Post post = postOptional.get();
+        post.incrementLikeCount();
         repository.save(post);
         return new RedirectView("/posts");
     }
