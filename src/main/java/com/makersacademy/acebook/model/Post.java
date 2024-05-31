@@ -18,6 +18,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String img_url;
     private Integer likeCount = 0;
 
     // No-args constructor
@@ -31,5 +32,5 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public Integer getLikeCount() { return this.likeCount; }
     public void incrementLikeCount() { this.likeCount += 1; }
-
+    public void setImg_url() { this.img_url = img_url; }
 }
