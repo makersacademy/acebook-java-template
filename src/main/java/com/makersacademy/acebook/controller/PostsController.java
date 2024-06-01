@@ -49,17 +49,19 @@ public class PostsController {
     }
 
     @PostMapping("/posts-like")
-    public RedirectView like(@RequestParam("postId") Long postId) {
+    public RedirectView like(@RequestParam("postId") Long postId, @RequestParam(required = false) String fromProfilePage) {
         Optional<Post> postOptional = postRepository.findById(postId);
         Post post = postOptional.get();
         post.incrementLikeCount();
         postRepository.save(post);
+        if ("true".equals(fromProfilePage)) {
+            return new RedirectView("/users/profile");
+        }
         return new RedirectView("/posts");
     }
 
     @PostMapping("/posts-comments")
-    public RedirectView comment(@RequestParam("postId") Long postId, @RequestParam("content") String content) {
-
+    public RedirectView comment(@RequestParam("postId") Long postId, @RequestParam("content") String content, @RequestParam(required = false) String fromProfilePage) {
         Optional<Post> postOptional = postRepository.findById(postId);
         Post post = postOptional.get();
         Comment comment = new Comment();
@@ -69,6 +71,9 @@ public class PostsController {
         comment.setPost(post);
         comment.setUser_id(userRepository.findIdByUsername(currentPrincipleName));
         commentRepository.save(comment);
+        if ("true".equals(fromProfilePage)) {
+            return new RedirectView("/users/profile");
+        }
         return new RedirectView("/posts");
     }
 
