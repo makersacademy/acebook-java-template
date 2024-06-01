@@ -15,7 +15,7 @@
 </div>
 
 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-    <p>Content: <input id="content" type="text" th:field="*{content}" /></p>
+    <p>Content: <input id="content" type="text" placeholder="Write a post..." th:field="*{content}" /></p>
     <p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 
@@ -37,7 +37,7 @@
 
         <form th:action="@{/posts-comments}" method="post">
             <input type="hidden" name="postId" th:value="${post.id}"/>
-            <p>Content: <input th:id="'comment-content' + ${post.id}" type="text" name="content" /></p>
+            <p>Content: <input th:id="'comment-content' + ${post.id}" placeholder="Write a comment..." type="text" name="content" /></p>
             <button type="submit" th:id="'comment_button' + ${post.id}">Comment</button>
         </form>
 
