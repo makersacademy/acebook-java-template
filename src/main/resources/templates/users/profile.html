@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+</head>
+<body>
+<h1>User Profile</h1>
+
+<!-- Display user information -->
+<h2>User Information</h2>
+<p>Username: <span th:text="${user.username}">Username</span></p>
+<p>First Name: <span th:text="${user.firstname}">First Name</span></p>
+<p>Last Name: <span th:text="${user.lastname}">Last Name</span></p>
+<p>Bio: <span th:text="${user.bio}">User Bio</span></p>
+
+<!-- Display user's posts -->
+<h2>User's Posts</h2>
+<ul>
+  <li th:each="post : ${posts}">
+    <span th:text="${post.content}">Post content</span>
+  </li>
+</ul>
+
+<!-- Form to add new post -->
+<h2>Add a New Post</h2>
+<form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+  <input type="hidden" name="fromProfilePage" value="true" />
+  <p>Content: <input id="content" type="text" th:field="*{content}" /></p>
+  <p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
+
+<!--placeholder="Write something..."-->

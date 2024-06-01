@@ -37,11 +37,14 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam(required = false) String fromProfilePage) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipleName = authentication.getName();
         post.setUser_id(userRepository.findIdByUsername(currentPrincipleName));
         postRepository.save(post);
+        if ("true".equals(fromProfilePage)) {
+            return new RedirectView("/users/profile");
+        }
         return new RedirectView("/posts");
     }
 
