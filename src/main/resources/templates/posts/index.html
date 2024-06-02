@@ -53,7 +53,7 @@
         <form th:action="@{/posts-comments}" method="post">
             <input type="hidden" name="postId" th:value="${post.id}"/>
             <p class="hidden" th:id="'comment-content' + ${post.id}">
-                Content: <input th:id="'comment-content' + ${post.id}" type="text" placeholder="Write a comment..." name="content"/>
+                Content: <input th:id="'comment-input' + ${post.id}" type="text" placeholder="Write a comment..." name="content"/>
             </p>
             <button type="button" th:id="'comment_button' + ${post.id}" th:onclick="'showContentField(' + ${post.id} + ')'">Comment</button>
             <button type="submit" th:id="'submit_button' + ${post.id}" class="hidden">Comment</button>
