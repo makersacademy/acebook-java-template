@@ -26,6 +26,7 @@ public class User {
     @Getter
     private String password;
     private boolean enabled;
+    private String profilePicture;
 
     public User() {
         this.enabled = TRUE;
@@ -54,4 +55,6 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public void setProfilePicture(String profilePicture) {this.profilePicture = profilePicture;}
 }

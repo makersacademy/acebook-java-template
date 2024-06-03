@@ -49,6 +49,8 @@ public class PostTest {
 		driver.close();
 	}
 
+//	Testing
+
 
 	public WebDriver getDriver() {
 		return driver;
