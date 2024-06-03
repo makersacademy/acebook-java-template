@@ -7,6 +7,7 @@ import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,13 +27,16 @@ import java.util.List;
 @SpringBootTest(classes = Application.class)
 public class PostTest {
 
-//	private Post post = new Post("hello");
+	private Post post = new Post("hello");
 
 	@Autowired
 	private PostRepository postRepository;
 
 	@Autowired
 	private CommentRepository commentRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	static WebDriver driver;
 	static Faker faker;
@@ -65,7 +69,7 @@ public class PostTest {
 	public void signInViewPost() {
 		login();
 		List<WebElement> element = driver.findElements(By.className("post"));
-		WebElement element1 = element.get(element.size()-1);
+		WebElement element1 = element.get(element.size() - 1);
 		Assert.assertEquals("John\nThis is my first post!\nLikes: 15\nLike\nGreat post!\nComment", element1.getText());
 	}
 
@@ -99,13 +103,32 @@ public class PostTest {
 		postRepository.deleteTestPost();
 	}
 
+	@Test
+	public void signInCreatePostWithImage() {
+		// Create a new post
+		Post post = new Post();
+		post.setContent("post test");
+		String expectedUrl = "https://res.cloudinary.com/dk3vxa56n/image/upload/c_limit,h_60,w_90/v1717424673/o2zfyet3gtglmdmszi4r.png";
+		post.setImg_url(expectedUrl);
+		User user = userRepository.findByUsername("johndoe");
+		post.setUser(user);
+		postRepository.save(post);
+		login();
+//      Finds all posts then finds the most recent post
+		List<WebElement> post_elements = driver.findElements(By.className("post"));
+		WebElement firstPostElement = post_elements.get(0);
+		// Verify the image URL
+		WebElement postImageElement = firstPostElement.findElement(By.id("postImage"));
+		String actualUrl = postImageElement.getAttribute("src");
+		Assert.assertEquals(expectedUrl, actualUrl);
+		postRepository.deleteTestPost();
 	}
 
-
-//		@Test
-//	public void postHasContent() {
-//		assertThat(post.getContent(), containsString("hello"));
-//	}
+	@Test
+	public void postHasContent() {
+		assertThat(post.getContent(), containsString("hello"));
+	}
+}
 
 
 
