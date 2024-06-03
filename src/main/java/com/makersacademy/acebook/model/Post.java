@@ -39,7 +39,7 @@ public class Post {
     public void setContent(String content) { this.content = content; }
     public Integer getLikeCount() { return this.likeCount; }
     public void incrementLikeCount() { this.likeCount += 1; }
-    public void setImg_url() { this.img_url = img_url; }
+    public void setImg_url(String img_url) { this.img_url = img_url; }
     public Long getUser_id() { return this.user_id; }
     public void setUser_id(Long user_id) { this.user_id = user_id; }
 }

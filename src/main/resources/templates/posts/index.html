@@ -61,7 +61,7 @@
 <ul th:each="post : ${posts}">
 	<li class="post">
 		<p th:text="${post.content}"></p>
-		<img th:src="${thumbnail_url}" alt="An uploaded image">
+		<img th:src="${post.img_url}" alt="An uploaded image">
 		<p th:text="'Likes: ' + ${post.likeCount}"></p>
 		<form th:action="@{/posts-like}" method="post" class="like_button">
 			<input type="hidden" name="postId" th:value="${post.id}"/>
