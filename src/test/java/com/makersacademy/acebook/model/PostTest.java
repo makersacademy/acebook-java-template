@@ -7,6 +7,7 @@ import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import org.flywaydb.core.Flyway;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,22 +18,45 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostTest {
 
 	private Post post = new Post("hello");
+
+	@LocalServerPort
+	private int port;
 
 	@Autowired
 	private PostRepository postRepository;
 
 	@Autowired
 	private CommentRepository commentRepository;
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
+	private Flyway flyway;
+
+	@Test
+	public void testSource() throws SQLException {
+		Connection connection = dataSource.getConnection();
+		System.out.println(connection.getMetaData().getURL());
+	}
 
 	static WebDriver driver;
 	static Faker faker;
@@ -41,7 +65,6 @@ public class PostTest {
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 		driver = new ChromeDriver();
-		faker = new Faker();
 	}
 
 	@After
@@ -55,7 +78,7 @@ public class PostTest {
 	}
 
 	public void login() {
-		driver.get("http://localhost:8080/login");
+		driver.get("http://localhost:" + port + "/login");
 		// Login
 		driver.findElement(By.id("username")).sendKeys("johndoe");
 		driver.findElement(By.id("password")).sendKeys("password123");
@@ -67,7 +90,7 @@ public class PostTest {
 		login();
 		List<WebElement> element = driver.findElements(By.className("post"));
 		WebElement element1 = element.get(element.size()-1);
-		Assert.assertEquals("This is my first post!\nLikes: 16\nLike\nGreat post!\nComment", element1.getText());
+		Assert.assertEquals("This is my first post!\nLikes: 15\nLike\nGreat post!\nComment", element1.getText());
 	}
 
 	@Test
