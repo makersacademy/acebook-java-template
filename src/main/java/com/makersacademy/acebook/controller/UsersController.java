@@ -1,6 +1,7 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
@@ -50,9 +51,10 @@ public class UsersController {
         String currentPrincipleName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipleName);
         modelAndView.addObject("user", user);
-        List<Post> posts = postRepository.findByUserId(userRepository.findIdByUsername(currentPrincipleName));
+        List<Post> posts = postRepository.findByUserIdByOrderByIdDesc(userRepository.findIdByUsername(currentPrincipleName));
         modelAndView.addObject("posts", posts);
         modelAndView.addObject("post", new Post());
+        modelAndView.addObject("comment", new Comment());
         return modelAndView;
     }
 }

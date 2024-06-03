@@ -16,16 +16,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.time.Duration;
 import java.util.List;
-
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -72,7 +67,7 @@ public class PostTest {
 		login();
 		List<WebElement> element = driver.findElements(By.className("post"));
 		WebElement element1 = element.get(element.size()-1);
-		Assert.assertEquals("This is my first post!\nLikes: 16\nLike\nGreat post!\nContent:\nComment", element1.getText());
+		Assert.assertEquals("This is my first post!\nLikes: 16\nLike\nGreat post!\nComment", element1.getText());
 	}
 
 	@Test
@@ -84,7 +79,7 @@ public class PostTest {
 
 		List<WebElement> element = driver.findElements(By.className("post"));
 		WebElement element1 = element.get(0);
-		Assert.assertEquals("post test\nLikes: 0\nLike\nContent:\nComment", element1.getText());
+		Assert.assertEquals("post test\nLikes: 0\nLike\nComment", element1.getText());
 	}
 
 	@Test
@@ -101,7 +96,7 @@ public class PostTest {
 //		Find the test post and asserts that the like count is 1
 		List<WebElement> post_element = driver.findElements(By.className("post"));
 		WebElement element1 = post_element.get(0);
-		Assert.assertEquals("post test\nLikes: 1\nLike\nContent:\nComment", element1.getText());
+		Assert.assertEquals("post test\nLikes: 1\nLike\nComment", element1.getText());
 		postRepository.deleteTestPost();
 	}
 
@@ -115,10 +110,12 @@ public class PostTest {
 		Post find = postRepository.findTopByOrderByIdDesc();
 		Long id = find.getId();
 
-		WebElement comment_element = driver.findElement(By.id(String.format("comment-content%s", id)));
+		// Comment Button is clicked in order for the comment-input field to appear
+		driver.findElement(By.id(String.format("comment_button%d", id))).click();
+		WebElement comment_element = driver.findElement(By.id(String.format("comment-input%s", id)));
 		comment_element.sendKeys("comment test");
 
-		driver.findElement(By.id(String.format("comment_button%s", id))).click();
+		driver.findElement(By.id(String.format("submit_button%s", id))).click();
 
 		List<WebElement> post_element = driver.findElements(By.className("post"));
 		WebElement element1 = post_element.get(0);

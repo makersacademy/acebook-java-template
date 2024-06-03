@@ -3,6 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>User Profile</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    function showContentField(postId) {
+      var contentField = document.getElementById('comment-content' + postId);
+      var submitButton = document.getElementById('submit_button' + postId);
+      var commentButton = document.getElementById('comment_button' + postId);
+      contentField.classList.remove('hidden');
+      submitButton.classList.remove('hidden');
+      commentButton.classList.add('hidden');
+    }
+  </script>
 </head>
 <body>
 <h1>User Profile</h1>
@@ -14,11 +29,31 @@
 <p>Last Name: <span th:text="${user.lastname}">Last Name</span></p>
 <p>Bio: <span th:text="${user.bio}">User Bio</span></p>
 
-<!-- Display user's posts -->
-<h2>User's Posts</h2>
-<ul>
-  <li th:each="post : ${posts}">
-    <span th:text="${post.content}">Post content</span>
+<ul th:each="post : ${posts}">
+  <li class="post">
+    <p th:text="${post.content}"></p>
+    <p th:text="'Likes: ' + ${post.likeCount}"></p>
+    <form th:action="@{/posts-like}" method="post" class="like_button">
+      <input type="hidden" name="fromProfilePage" value="true" />
+      <input type="hidden" name="postId" th:value="${post.id}"/>
+      <button type="submit" th:id="'like_button' + ${post.id}">Like</button>
+    </form>
+    <!-- Display comments associated with the post -->
+    <ul class="comment">
+      <li th:each="comment : ${post.comments}">
+        <p th:text="${comment.content}"></p>
+      </li>
+    </ul>
+
+    <form th:action="@{/posts-comments}" method="post">
+      <input type="hidden" name="postId" th:value="${post.id}"/>
+      <input type="hidden" name="fromProfilePage" value="true" />
+      <p class="hidden" th:id="'comment-content' + ${post.id}">
+        Content: <input th:id="'comment-input' + ${post.id}" type="text" placeholder="Write a comment..." name="content"/>
+      </p>
+      <button type="button" th:id="'comment_button' + ${post.id}" th:onclick="'showContentField(' + ${post.id} + ')'">Comment</button>
+      <button type="submit" th:id="'submit_button' + ${post.id}" class="hidden">Comment</button>
+    </form>
   </li>
 </ul>
 
@@ -26,10 +61,9 @@
 <h2>Add a New Post</h2>
 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
   <input type="hidden" name="fromProfilePage" value="true" />
-  <p>Content: <input id="content" type="text" th:field="*{content}" /></p>
+  <p>Content: <input id="content" type="text" placeholder="Write a post..." th:field="*{content}" /></p>
   <p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>
 </html>
 
-<!--placeholder="Write something..."-->
