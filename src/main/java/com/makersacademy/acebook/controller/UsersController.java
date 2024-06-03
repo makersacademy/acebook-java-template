@@ -55,6 +55,7 @@ public class UsersController {
         String currentPrincipleName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipleName);
         modelAndView.addObject("user", user);
+
         List<Post> posts = postRepository.findByUserIdByOrderByIdDesc(userRepository.findIdByUsername(currentPrincipleName));
         modelAndView.addObject("posts", posts);
         modelAndView.addObject("post", new Post());

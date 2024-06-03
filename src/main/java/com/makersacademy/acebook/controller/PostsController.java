@@ -3,6 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -47,7 +48,8 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, @RequestParam(value = "imageInfoInput", required=false) String imageInfo, @RequestParam(required=false) String fromProfilePage) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipleName = authentication.getName();
-        post.setUser_id(userRepository.findIdByUsername(currentPrincipleName));
+        User user = userRepository.findByUsername(currentPrincipleName);
+        post.setUser(user);
         if (imageInfo != "") {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> map = mapper.readValue(imageInfo, Map.class);
