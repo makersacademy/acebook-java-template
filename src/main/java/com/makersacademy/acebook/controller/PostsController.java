@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.CommentRepository;
@@ -10,9 +11,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
+import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -37,10 +44,16 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post, @RequestParam(required = false) String fromProfilePage) {
+    public RedirectView create(@ModelAttribute Post post, @RequestParam(value = "imageInfoInput", required=false) String imageInfo, @RequestParam(required=false) String fromProfilePage) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipleName = authentication.getName();
         post.setUser_id(userRepository.findIdByUsername(currentPrincipleName));
+        if (imageInfo != "") {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, String> map = mapper.readValue(imageInfo, Map.class);
+            String thumbnail_url = map.get("thumbnail_url");
+            post.setImg_url(thumbnail_url);
+        }
         postRepository.save(post);
         if ("true".equals(fromProfilePage)) {
             return new RedirectView("/users/profile");
@@ -76,10 +89,4 @@ public class PostsController {
         }
         return new RedirectView("/posts");
     }
-
 }
-
-
-
-
-
