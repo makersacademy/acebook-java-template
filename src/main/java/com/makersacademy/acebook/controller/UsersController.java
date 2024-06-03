@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
@@ -15,10 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UsersController {
@@ -56,5 +60,18 @@ public class UsersController {
         modelAndView.addObject("post", new Post());
         modelAndView.addObject("comment", new Comment());
         return modelAndView;
+    }
+
+    @PostMapping("/profile-pic-add")
+    public RedirectView profilePicAdd(@RequestParam(value = "imageInfoInput", required=false) String imageInfo) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipleName = authentication.getName();
+        User user = userRepository.findByUsername(currentPrincipleName);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = mapper.readValue(imageInfo, Map.class);
+        String thumbnail_url = map.get("thumbnail_url");
+        user.setProfilePicture(thumbnail_url);
+        userRepository.save(user);
+        return new RedirectView("/users/profile");
     }
 }
