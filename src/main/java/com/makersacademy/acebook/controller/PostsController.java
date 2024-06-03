@@ -33,17 +33,14 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, @RequestParam(value = "imageInfoInput", required=false) String imageInfo) throws IOException {
-        if (imageInfo == "") {
-            repository.save(post);
-            return new RedirectView("/posts");
-        } else {
+        if (imageInfo != "") {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> map = mapper.readValue(imageInfo, Map.class);
             String thumbnail_url = map.get("thumbnail_url");
             post.setImg_url(thumbnail_url);
-            repository.save(post);
-            return new RedirectView("/posts");
         }
+        repository.save(post);
+        return new RedirectView("/posts");
     }
 
     @PostMapping("/posts-like")
