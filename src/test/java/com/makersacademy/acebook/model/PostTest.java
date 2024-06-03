@@ -49,7 +49,7 @@ public class PostTest {
 		driver.close();
 	}
 
-//	Test
+//	Testing
 
 
 	public WebDriver getDriver() {
