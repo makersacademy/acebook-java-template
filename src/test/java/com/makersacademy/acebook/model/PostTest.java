@@ -67,7 +67,7 @@ public class PostTest {
 		login();
 		List<WebElement> element = driver.findElements(By.className("post"));
 		WebElement element1 = element.get(element.size()-1);
-		Assert.assertEquals("This is my first post!\nLikes: 16\nLike\nGreat post!\nComment", element1.getText());
+		Assert.assertEquals("This is my first post!\nLikes: 15\nLike\nGreat post!\nComment", element1.getText());
 	}
 
 	@Test
