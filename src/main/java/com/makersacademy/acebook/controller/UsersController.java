@@ -11,6 +11,8 @@ import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,7 @@ public class UsersController {
     private final UserRepository userRepository;
     private final AuthoritiesRepository authoritiesRepository;
     private final PostRepository postRepository;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     public UsersController(UserRepository userRepository, AuthoritiesRepository authoritiesRepository, PostRepository postRepository) {
@@ -62,6 +65,8 @@ public class UsersController {
         if (!isPasswordValid(user.getPassword()) || !Objects.equals(user.getPassword(), confirmPassword)) {
             return new RedirectView("/users/new?error=password");
         }
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         user.setProfilePicture("https://res.cloudinary.com/dk3vxa56n/image/upload/c_limit,h_60,w_90/v1717509379/mxi8udntfuauiaxy5vyj.png");
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
