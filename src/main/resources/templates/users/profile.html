@@ -21,10 +21,21 @@
       var uploadSubmit = document.getElementById('upload_submit');
       var uploadWidget = document.getElementById('upload_widget');
       var profileUpload = document.getElementById('profile-upload');
+
+
       uploadSubmit.classList.remove('hidden');
       uploadWidget.classList.remove('hidden');
       profileUpload.classList.remove('hidden');
     }
+
+    function showImageField(){
+		  var imageView = document.getElementById('post-thumbnail-image');
+		  var uploadWidget = document.getElementById('upload_post_widget');
+		  var imagePreview = document.getElementById('image-preview');
+		  imageView.classList.remove('hidden');
+		  uploadWidget.classList.remove('hidden');
+		  imagePreview.classList.remove('hidden');
+    	}
 
   </script>
 </head>
@@ -40,10 +51,10 @@
 </header>
 <h1>User Profile</h1>
 
-<img id="thumbnail-image"/>
+<img id="profile-thumbnail-image"/>
 <!-- Display Profile Picture -->
 <form action="#" th:action="@{/profile-pic-add}" th:object="${user}" method="post">
-  <input type="hidden" id="imageInfoInput" name="imageInfoInput" th:value="*{profilePicture}"/>
+  <input type="hidden" id="imageProfileInfoInput" name="imageProfileInfoInput" th:value="*{profilePicture}"/>
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
   <p class="hidden" th:id="profile-upload">
     <button type="submit" id="upload_submit" >Confirm profile picture</button>
@@ -58,16 +69,16 @@
             uploadPreset: 'test_preset'}, (error, result) => {
             if (!error && result && result.event === "success") {
               console.log('Done! Here is the image info: ', result.info);
-              document.getElementById("imageInfoInput").value = JSON.stringify(result.info);
-              document.getElementById("thumbnail-image").src = result.info.thumbnail_url;
+              document.getElementById("imageProfileInfoInput").value = JSON.stringify(result.info);
+              document.getElementById("profile-thumbnail-image").src = result.info.thumbnail_url;
             }
           }
   )
   document.getElementById("upload_widget").addEventListener("click", function(){
     myWidget.open();
   }, false);
-
 </script>
+
 <!-- Display user information -->
 <h2>User Information</h2>
 <img th:src="${user.profilePicture}" alt="An uploaded image">
@@ -106,13 +117,33 @@
   </li>
 </ul>
 
-<!-- Form to add new post -->
-<h2>Add a New Post</h2>
 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-  <input type="hidden" name="fromProfilePage" value="true" />
   <p>Content: <input id="content" type="text" placeholder="Write a post..." th:field="*{content}" /></p>
-  <p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <input type="hidden" name="fromProfilePage" value="true" />
+    <input type="hidden" id="imageInfoInput" name="imageInfoInput" th:value="*{img_url}"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+  <p class="hidden" id="image-preview">
+    <img th:src="thumbnail_image" id="post-thumbnail-image"/>
+  </p>
+  <button type="button" id="upload_post_widget" th:onclick="'showImageField()'">Upload Media</button>
+  <p><input id="content_create" type="submit" value="Submit" /></p>
 </form>
-</body>
-</html>
+
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var myWidget2 = cloudinary.createUploadWidget({
+            cloudName: 'dk3vxa56n',
+            uploadPreset: 'test_preset'}, (error, result) => {
+            if (!error && result && result.event === "success") {
+              console.log('Done! Here is the image info: ', result.info);
+              document.getElementById("imageInfoInput").value = JSON.stringify(result.info);
+              document.getElementById("post-thumbnail-image").src = result.info.thumbnail_url;
+            }
+          }
+  )
+  document.getElementById("upload_post_widget").addEventListener("click", function(){
+    myWidget2.open();
+  }, false);
+</script>
+
 

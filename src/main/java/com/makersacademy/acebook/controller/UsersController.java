@@ -68,12 +68,12 @@ public class UsersController {
     }
 
     @PostMapping("/profile-pic-add")
-    public RedirectView profilePicAdd(@RequestParam(value = "imageInfoInput", required=false) String imageInfo) throws IOException {
+    public RedirectView profilePicAdd(@RequestParam(value = "imageProfileInfoInput", required=false) String imageProfileInfo) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipleName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipleName);
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map = mapper.readValue(imageInfo, Map.class);
+        Map<String, String> map = mapper.readValue(imageProfileInfo, Map.class);
         String thumbnail_url = map.get("thumbnail_url");
         user.setProfilePicture(thumbnail_url);
         userRepository.save(user);
