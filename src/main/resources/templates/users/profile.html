@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>User Profile</title>
@@ -29,6 +29,15 @@
   </script>
 </head>
 <body>
+
+<header>
+	<div sec:authorize="isAuthenticated()">
+		<a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<a href="/login">Login</a>
+	</div>
+</header>
 <h1>User Profile</h1>
 
 <img id="thumbnail-image"/>
