@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>User Profile</title>
@@ -40,6 +40,15 @@
   </script>
 </head>
 <body>
+
+<header>
+	<div sec:authorize="isAuthenticated()">
+		<a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<a href="/login">Login</a>
+	</div>
+</header>
 <h1>User Profile</h1>
 
 <img id="profile-thumbnail-image"/>
@@ -120,8 +129,6 @@
   <button type="button" id="upload_post_widget" th:onclick="'showImageField()'">Upload Media</button>
   <p><input id="content_create" type="submit" value="Submit" /></p>
 </form>
-
-
 <!--Widget2 for Post Feature-->
 <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
 <script type="text/javascript">

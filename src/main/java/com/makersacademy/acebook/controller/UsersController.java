@@ -27,12 +27,16 @@ import java.util.Map;
 @Controller
 public class UsersController {
 
+    private final UserRepository userRepository;
+    private final AuthoritiesRepository authoritiesRepository;
+    private final PostRepository postRepository;
+
     @Autowired
-    UserRepository userRepository;
-    @Autowired
-    AuthoritiesRepository authoritiesRepository;
-    @Autowired
-    PostRepository postRepository;
+    public UsersController(UserRepository userRepository, AuthoritiesRepository authoritiesRepository, PostRepository postRepository) {
+        this.userRepository = userRepository;
+        this.authoritiesRepository = authoritiesRepository;
+        this.postRepository = postRepository;
+    }
 
     @GetMapping("/users/new")
     public String signup(Model model) {
