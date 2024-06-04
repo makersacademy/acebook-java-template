@@ -16,7 +16,7 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     void deleteTestPost();
     public List<Post> findAllByOrderByIdDesc();
     public Post findTopByOrderByIdDesc();
-    @Query(value = "SELECT p FROM Post p WHERE p.user_id = :id ORDER BY p.id DESC")
+    @Query(value = "SELECT p FROM Post p WHERE p.user.id = :id ORDER BY p.id DESC")
     public List<Post> findByUserIdByOrderByIdDesc(@Param("id") Long id);
 
 }
