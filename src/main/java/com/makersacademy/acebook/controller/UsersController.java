@@ -23,6 +23,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.makersacademy.acebook.utils.EmailValidator.isEmailValid;
+import static com.makersacademy.acebook.utils.PasswordValidator.isPasswordValid;
 
 @Controller
 public class UsersController {
@@ -45,12 +49,27 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user) {
+    public RedirectView signup(@ModelAttribute User user, @RequestParam("confirm_password") String confirmPassword) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            return new RedirectView("/users/new?error=username");
+        }
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return new RedirectView("/users/new?error=emailExists");
+        }
+        if (!isEmailValid(user.getEmail())) {
+            return new RedirectView("/users/new?error=email");
+        }
+        if (!isPasswordValid(user.getPassword()) || !Objects.equals(user.getPassword(), confirmPassword)) {
+            return new RedirectView("/users/new?error=password");
+        }
+        user.setProfilePicture("https://res.cloudinary.com/dk3vxa56n/image/upload/c_limit,h_60,w_90/v1717509379/mxi8udntfuauiaxy5vyj.png");
         userRepository.save(user);
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
     }
+
+
 
     @GetMapping("/users/profile")
     public ModelAndView profile() {
