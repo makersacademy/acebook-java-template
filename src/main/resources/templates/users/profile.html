@@ -81,15 +81,16 @@
 
 <!-- Display user information -->
 <h2>User Information</h2>
-<img th:src="${user.profilePicture}" alt="An uploaded image">
-<p>Username: <span th:text="${user.username}">Username</span></p>
-<p>First Name: <span th:text="${user.firstname}">First Name</span></p>
-<p>Last Name: <span th:text="${user.lastname}">Last Name</span></p>
-<p>Bio: <span th:text="${user.bio}">User Bio</span></p>
+<img id="profile-picture" th:src="${user.profilePicture}" alt="An uploaded image">
+<p>Username: <span id="username" th:text="${user.username}">Username</span></p>
+<p>First Name: <span id="firstname" th:text="${user.firstname}">First Name</span></p>
+<p>Last Name: <span id="lastname" th:text="${user.lastname}">Last Name</span></p>
+<p>Bio: <span id="bio" th:text="${user.bio}">User Bio</span></p>
+
 
 <ul th:each="post : ${posts}">
   <li class="post">
-    <p th:text="${post.content}"></p>
+    <p id="post-content" th:text="${post.content}"></p>
     <!-- Conditionally display the image only if img_url is present -->
     <div th:if="${post.img_url != null && !post.img_url.isEmpty()}">
       <img th:src="${post.img_url}">
@@ -102,7 +103,7 @@
     <!-- Display comments associated with the post -->
     <ul class="comment">
       <li th:each="comment : ${post.comments}">
-        <p th:text="${comment.content}"></p>
+        <p id="comment-contents" th:text="${comment.content}"></p>
       </li>
     </ul>
 
@@ -128,7 +129,7 @@
   <button type="button" id="upload_post_widget" th:onclick="'showImageField()'">Upload Media</button>
   <p><input id="content_create" type="submit" value="Submit" /></p>
 </form>
-
+<!--Widget2 for Post Feature-->
 <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
 <script type="text/javascript">
   var myWidget2 = cloudinary.createUploadWidget({
