@@ -23,8 +23,12 @@
 </head>
 <body>
 <header>
-	<a href="/login">Login</a>
-	<a href="/logout">Logout</a>
+	<div sec:authorize="isAuthenticated()">
+		<a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<a href="/login">Login</a>
+	</div>
 </header>
 <h1>Posts</h1>
 

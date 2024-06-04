@@ -25,14 +25,16 @@ import java.util.Optional;
 @Controller
 public class PostsController {
 
-    @Autowired
-    PostRepository postRepository;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    CommentRepository commentRepository;
-
-    @Autowired
-    UserRepository userRepository;
+    public PostsController(PostRepository postRepository, CommentRepository commentRepository, UserRepository userRepository) {
+        this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/posts")
     public String index(Model model) {
