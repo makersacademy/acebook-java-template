@@ -7,6 +7,7 @@ import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import org.flywaydb.core.Flyway;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,16 +19,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostTest {
 
 	private Post post = new Post("hello");
+
+	@LocalServerPort
+	private int port;
 
 	@Autowired
 	private PostRepository postRepository;
@@ -53,12 +62,13 @@ public class PostTest {
 		driver.close();
 	}
 
+
 	public WebDriver getDriver() {
 		return driver;
 	}
 
 	public void login() {
-		driver.get("http://localhost:8080/login");
+		driver.get("http://localhost:" + port + "/login");
 		// Login
 		driver.findElement(By.id("username")).sendKeys("johndoe");
 		driver.findElement(By.id("password")).sendKeys("password123");
