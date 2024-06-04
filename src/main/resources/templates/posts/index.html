@@ -19,10 +19,34 @@
           submitButton.classList.remove('hidden');
           commentButton.classList.add('hidden');
         }
+		function showUploadSubmit(){
+		  var uploadSubmit = document.getElementById('upload_submit');
+		  var uploadWidget = document.getElementById('upload_widget');
+		  var profileUpload = document.getElementById('profile-upload');
+		  uploadSubmit.classList.remove('hidden');
+		  uploadWidget.classList.remove('hidden');
+		  profileUpload.classList.remove('hidden');
+    	}
+		function showImageField(){
+		  var imageView = document.getElementById('thumbnail-image');
+		  var uploadWidget = document.getElementById('upload_widget');
+		  var imagePreview = document.getElementById('image-preview');
+		  imageView.classList.remove('hidden');
+		  uploadWidget.classList.remove('hidden');
+		  imagePreview.classList.remove('hidden');
+    	}
+
     </script>
 </head>
 <body>
-
+<header>
+	<div sec:authorize="isAuthenticated()">
+		<a href="/logout">Logout</a>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<a href="/login">Login</a>
+	</div>
+</header>
 <h1>Posts</h1>
 
 <div sec:authorize="isAuthenticated()">
@@ -33,10 +57,13 @@
 	<p>Content: <input id="content" type="text" placeholder="Write a post..." th:field="*{content}" /></p>
 		<input type="hidden" id="imageInfoInput" name="imageInfoInput" th:value="*{img_url}"/>
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	<p><input id="content_create" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+	<p class="hidden" id="image-preview">
+		<img th:src="thumbnail_image" id="thumbnail-image"/>
+	</p>
+<!--	<p><img th:src="thumbnail_image" id="thumbnail-image"/></p>-->
+	<button type="button" id="upload_widget" th:onclick="'showImageField()'">Upload Media</button>
+	<p><input id="content_create" type="submit" value="Submit" /></p>
 </form>
-
-<button id="upload_widget" class="cloudinary-button">Upload files</button>
 
 <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
 
@@ -48,6 +75,8 @@
 				if (!error && result && result.event === "success") {
 					console.log('Done! Here is the image info: ', result.info);
 					document.getElementById("imageInfoInput").value = JSON.stringify(result.info);
+					document.getElementById("thumbnail-image").src = result.info.thumbnail_url;
+
 				}
 			}
 	)
@@ -60,8 +89,13 @@
 
 <ul th:each="post : ${posts}">
 	<li class="post">
+		<p th:text="${post.user.firstname}"></p>
+		<p><img th:src="${post.user.profilePicture}" id="profilePicture"></p>
 		<p th:text="${post.content}"></p>
-		<img th:src="${post.img_url}" alt="An uploaded image">
+		<!-- Conditionally display the image only if img_url is present -->
+		<div th:if="${post.img_url != null && !post.img_url.isEmpty()}">
+			<img th:src="${post.img_url}" id="postImage">
+		</div>
 		<p th:text="'Likes: ' + ${post.likeCount}"></p>
 		<form th:action="@{/posts-like}" method="post" class="like_button">
 			<input type="hidden" name="postId" th:value="${post.id}"/>
