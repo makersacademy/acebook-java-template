@@ -22,7 +22,12 @@ public class Post {
     private String content;
     private String img_url;
     private Integer likeCount = 0;
-    private Long user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+//    private Long user_id;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter @Setter private List<Comment> comments;
@@ -31,15 +36,24 @@ public class Post {
     public Post() {}
 
     // Constructor
-    public Post(String content) {
+    public Post(String content ) {
         this.content = content;
     }
+//    public Post(String content, String img_url) {
+//        this.content = content;
+//        this.img_url = img_url;
+//    }
+
+    // Getters and setters
     public Long getId() { return this.id; }
     public String getContent() { return this.content; }
     public void setContent(String content) { this.content = content; }
     public Integer getLikeCount() { return this.likeCount; }
     public void incrementLikeCount() { this.likeCount += 1; }
+    public String getImg_url() { return this.img_url; }
     public void setImg_url(String img_url) { this.img_url = img_url; }
-    public Long getUser_id() { return this.user_id; }
-    public void setUser_id(Long user_id) { this.user_id = user_id; }
+    public User getUser() { return this.user; }
+    public void setUser(User user) { this.user = user; }
+//    public Long getUser_id() { return this.user_id; }
+//    public void setUser_id(Long user_id) { this.user_id = user_id; }
 }

@@ -70,7 +70,10 @@
 <ul th:each="post : ${posts}">
   <li class="post">
     <p th:text="${post.content}"></p>
-    <img th:src="${post.img_url}" alt="An uploaded image">
+    <!-- Conditionally display the image only if img_url is present -->
+    <div th:if="${post.img_url != null && !post.img_url.isEmpty()}">
+      <img th:src="${post.img_url}">
+    </div>
     <p th:text="'Likes: ' + ${post.likeCount}"></p>
     <form th:action="@{/posts-like}" method="post" class="like_button">
       <input type="hidden" name="postId" th:value="${post.id}"/>
