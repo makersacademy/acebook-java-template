@@ -7,10 +7,12 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "POSTS")
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -18,12 +20,8 @@ public class Post {
     private Long id;
     private String content;
 
-    public Post() {}
-
     public Post(String content) {
         this.content = content;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
 
 }

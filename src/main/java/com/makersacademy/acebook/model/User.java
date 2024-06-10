@@ -36,9 +36,4 @@ public class User {
         this.password = password;
         this.enabled = enabled;
     }
-
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
 }
