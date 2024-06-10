@@ -5,8 +5,11 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="/header-style.css" />
+        <link rel="stylesheet" href="/footer-style.css" />
     </head>
     <body>
+    <header th:replace="header :: header"></header>
 
     <h1>Posts</h1>
 
@@ -23,5 +26,6 @@
         <li th:text="${post.content}" />
     </ul>
 
+    <footer th:replace="footer :: footer"></footer>
     </body>
 </html>
