@@ -21,7 +21,13 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <form action="#" th:action="@{/posts}" method="post">
+            <input type="hidden" th:name="postId" th:value="${post.id}"/>
+            <p>Comment: <input type="text" name="commentContent"/></p>
+            <p><input type="submit" value="Submit Comment"/> <input type="reset" value="Reset"/></p>
+        </form>
     </ul>
+
 
     </body>
 </html>

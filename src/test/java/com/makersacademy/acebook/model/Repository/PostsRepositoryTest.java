@@ -1,11 +1,12 @@
-package com.makersacademy.acebook.model;
+package com.makersacademy.acebook.model.Repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.makersacademy.acebook.model.Post;
 import org.junit.Test;
 
-public class PostsTest {
+public class PostsRepositoryTest {
     @Test
     public void CheckIfPostWorks() {
         // Create a new post
