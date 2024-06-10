@@ -12,6 +12,8 @@
 
     <div sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
+        <br>
+        <a href="/logout">log out</a>
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
