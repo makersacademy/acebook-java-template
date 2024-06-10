@@ -20,7 +20,7 @@ public class UsersController {
     @Autowired
     AuthoritiesRepository authoritiesRepository;
 
-    @GetMapping("/users/new")
+    @GetMapping("/register")
     public String signup(Model model) {
         model.addAttribute("user", new User());
         return "users/new";
