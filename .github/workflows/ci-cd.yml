@@ -36,9 +36,18 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: 'temurin'  # Options: 'temurin', 'zulu', 'adopt', etc.
+          distribution: 'temurin'
           architecture: x64
           check-latest: false
+
+      - name: Install Chrome
+        run: sudo apt-get install -y google-chrome-stable
+
+      - name: Install Chromedriver
+        run: |
+          sudo apt-get install -yqq unzip
+          wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
       - name: Build with Maven
         run: mvn clean install
