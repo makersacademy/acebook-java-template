@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Date;
+import java.util.Optional;
 
 
 @Controller
@@ -36,9 +37,27 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+    //Delete Method
     @PostMapping("/posts/{id}/delete")
     public RedirectView delete(@PathVariable Long id){
         repository.deleteById(id);
         return new RedirectView("/posts");
+    }
+
+    //Edit Method
+    @PostMapping("/posts/{id}/edit")
+    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post) {
+        //Using Optional to stop Null errors
+        Optional<Post> existingPost = repository.findById(id);
+        //checking if post exists then updating title and content
+        if (existingPost.isPresent()) {
+            Post updatedPost = existingPost.get();
+            updatedPost.setTitle(post.getTitle());
+            updatedPost.setContent(post.getContent());
+            //saving updated post to database
+            repository.save(updatedPost);
+        }
+        return new RedirectView("/posts");
+
     }
 }
