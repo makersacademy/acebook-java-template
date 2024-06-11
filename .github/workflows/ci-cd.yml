@@ -43,10 +43,3 @@ jobs:
 
       - name: Run Tests
         run: mvn test
-
-      - name: Deploy to Render (optional, if using Render's GitHub integration)
-        if: github.ref == 'refs/heads/main'
-        uses: render/cli-deploy-action@v1
-        with:
-          api-key: ${{ secrets.RENDER_API_KEY }}
-          service-id: your-render-service-id
