@@ -12,9 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Optional;
+
 @RunWith(MockitoJUnitRunner.class)
 public class PostTest {
-  @Mock
+	@Mock
 	PostRepository repository;
 	User user = new User();
 
@@ -35,4 +37,29 @@ public class PostTest {
 
 		verify(repository).deleteById(1L);
 	}
+
+	@Test
+	public void postisEdited() {
+		// Create a new post
+		Post post = new Post("hello", "Greetings!", user);
+		post.setId(1L); // Set the ID for the post
+
+		// Mock the behavior of findById to return the post when called with ID 1L
+		when(repository.findById(1L)).thenReturn(Optional.of(post));
+
+		// Edit the post content and title
+		post.setContent("hello edited");
+		post.setTitle("Greetings Edited!");
+
+		// Call the method to edit the post
+		repository.save(post);
+
+		// Verify that the post is saved
+		verify(repository).save(post);
+		assertThat(post.getContent(), containsString("hello edited"));
+
+	}
 }
+
+
+
