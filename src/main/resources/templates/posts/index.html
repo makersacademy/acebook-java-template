@@ -16,13 +16,15 @@
         </div>
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" /></p>
+            <p>Content: <input type="text" th:field="*{content}"/></p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
         <ul th:each="post: ${posts}">
             <li>
-                <h4 th:text="${post.user.username}"></h4>
+                <h4>
+                    <span th:text="${post.user.username}"></span>
+                </h4>
                 <p th:text="${post.content}"></p>
             </li>
         </ul>
