@@ -23,9 +23,10 @@ import javax.persistence.*;
         public Comment() {
         }
 
-        public Comment(String text, Post post) {
+        public Comment(Post post, String text) {
             this.text = text;
             this.post = post;
+
         }
 
         public String getText() {
@@ -35,13 +36,14 @@ import javax.persistence.*;
         public void setText(String text) {
             this.text = text;
         }
-
-        public Post getPost() {
-            return this.post;
         }
 
-        public void setPost(Post post) {
-            this.post = post;
-        }
-    }
+//        public Post getPost() {
+//            return this.post;
+//        }
+//
+//        public void setPost(Post post) {
+//            this.post = post;
+//        }
+//    }
 
