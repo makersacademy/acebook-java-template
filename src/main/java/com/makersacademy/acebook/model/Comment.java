@@ -4,46 +4,32 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
+@Entity
+@Table(name = "COMMENTS")
+public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String text;
 
-    @Data
-    @Entity
-    @Table(name = "COMMENTS")
-    public class Comment {
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String text;
+    public Comment() {}
 
-        @ManyToOne
-        @JoinColumn(name = "post_id", nullable = false)
-        private Post post;
+    public Comment(Post post, String text) {
+        this.text = text;
+        this.post = post;
+    }
 
-        public Comment() {
-        }
+    public String getText() {
+        return this.text;
+    }
 
-        public Comment(Post post, String text) {
-            this.text = text;
-            this.post = post;
-
-        }
-
-        public String getText() {
-            return this.text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-        }
-
-//        public Post getPost() {
-//            return this.post;
-//        }
-//
-//        public void setPost(Post post) {
-//            this.post = post;
-//        }
-//    }
-
+    public void setText(String text) {
+        this.text = text;
+    }
+}
