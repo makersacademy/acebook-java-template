@@ -8,6 +8,8 @@
     </head>
     <body>
 
+    <nav th:insert="fragments.html :: nav"></nav>
+
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">
