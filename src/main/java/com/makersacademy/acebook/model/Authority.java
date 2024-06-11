@@ -13,11 +13,11 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+    private Long userId;
     private String authority;
 
-    public Authority(String username, String authority) {
-        this.username = username;
+    public Authority(long userId, String authority) {
+        this.userId = userId;
         this.authority = authority;
     }
 }
