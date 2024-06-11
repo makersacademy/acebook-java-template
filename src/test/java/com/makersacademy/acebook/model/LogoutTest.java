@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,16 +20,14 @@ public class LogoutTest {
 
     WebDriver driver;
     Faker faker;
+    User user;
 
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
+        user = new User();
 
     }
 
@@ -37,17 +36,20 @@ public class LogoutTest {
         driver.close();
     }
 
-//    @Test
-//    public void successfulSignUpRedirectsToSignIn() {
-//        driver.get("http://localhost:8080/users/new");
-//        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-//        driver.findElement(By.id("password")).sendKeys("password");
-//        driver.findElement(By.id("submit")).click();
-//        String title = driver.getTitle();
-//        Assert.assertEquals("Please sign in", title);
-//    }
     @Test
     public void successfulLogoutRedirectsToSignIn(){
-
-    }
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(user.getUsername());
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("username")).sendKeys(user.getUsername());
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.id("logout_id")).click();
+        driver.findElement(By.tagName("button")).click();
+        String title = driver.getTitle();
+        Assert.assertEquals("Please sign in", title);
 }
+}
+
