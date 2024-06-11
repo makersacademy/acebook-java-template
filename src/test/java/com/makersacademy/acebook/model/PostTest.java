@@ -14,10 +14,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PostTest {
-
-	@Mock
+  @Mock
 	PostRepository repository;
+	User user = new User();
 
+
+	private Post post = new Post("hello", "Greetings!", user);
 	@Test
 	public void postHasContent() {
 		Post post = new Post("hello");
