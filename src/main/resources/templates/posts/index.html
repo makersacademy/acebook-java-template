@@ -19,8 +19,14 @@
         <ul th:each="post: ${posts}">
             <li>[[${post.content}]]
                 <ul th:each="comment: ${post.comments}">
-                    <li th:text="${comment.content}"></li>
+                    <li>[[${comment.content}]]
+                    </li>
                 </ul>
+                <form action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
+                    <label for="content">Comment on this post:</label>
+                    <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
+                    <input type="submit" value="Add comment">
+                </form>
             </li>
         </ul>
     </div>
