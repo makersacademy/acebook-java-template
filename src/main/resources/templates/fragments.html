@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav th:fragment="navbar">
+        <a th:href="@{/posts}">Home</a>
+<!--        <a th:href="@{/notifications}">Notifications</a>-->
+<!--        <a th:href="@{/user{id}}(id=${user.id})}">My Profile</a>-->
+        <a th:href="@{/logout}">Sign out</a>
+    </nav>
+
+</body>
+</html>
