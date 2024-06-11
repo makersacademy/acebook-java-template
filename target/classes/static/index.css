@@ -1,0 +1,41 @@
+.profile-pic { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; } .navbar-nav {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 10px; /* Adjust margin between nav items */
+}
+
+.navbar-nav.ml-auto {
+    margin-left: auto; /* Align right-aligned nav items to the right */
+}
+
+.navbar-nav.ml-auto .nav-link {
+    display: flex; /* Ensure consistent alignment of nav links */
+    align-items: center; /* Align items vertically */
+}
+
+.navbar-nav.ml-auto .nav-link img {
+    margin-right: 5px; /* Adjust margin between image and text */
+}.navbar-nav {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 10px; /* Adjust margin between nav items */
+}
+
+.navbar-nav.ml-auto {
+    margin-left: auto; /* Align right-aligned nav items to the right */
+}
+
+.navbar-nav.ml-auto .nav-link {
+    display: flex; /* Ensure consistent alignment of nav links */
+    align-items: center; /* Align items vertically */
+}
+
+.navbar-nav.ml-auto .nav-link img {
+    margin-right: 5px; /* Adjust margin between image and text */
+}
