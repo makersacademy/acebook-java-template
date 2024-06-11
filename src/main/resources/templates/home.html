@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acebook - Login or Signup</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+
+</head>
+<body>
+<div id="container">
+    <div class="text__wrapper">
+        <div class="heading">
+            <img src="./img/facebook.svg" alt="Acebook">
+        </div>
+        <p class="description">Acebook helps you connect and share with the people in your life.</p>
+    </div>
+    <div class="form__wrapper">
+        <form th:action="@{/login}" th:object="${user}" method="post">
+            <div>
+                <input type="text" name="username" id="username" placeholder="Email Address or Phone Number" required th:field="*{username}">
+            </div>
+            <div>
+                <input type="password" name="password" id="password" placeholder="Password" required th:field="*{password}">
+            </div>
+            <div>
+                <button type="submit" class="loginButton btn">Login</button>
+            </div>
+        </form>
+        <a href="#" class="forgotPassword">Forgotten Password?</a>
+        <a href="/register"><button type="button" class="registerButton btn">Create New Account</button></a>
+    </div>
+</div>
+</body>
+</html>
