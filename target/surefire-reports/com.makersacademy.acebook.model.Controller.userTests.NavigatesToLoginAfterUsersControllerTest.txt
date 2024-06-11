@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.makersacademy.acebook.model.Controller.userTests.NavigatesToLoginAfterUsersControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.016 s <<< FAILURE! - in com.makersacademy.acebook.model.Controller.userTests.NavigatesToLoginAfterUsersControllerTest
+testNavigatesToLoginAfterUsers(com.makersacademy.acebook.model.Controller.userTests.NavigatesToLoginAfterUsersControllerTest)  Time elapsed: 0.016 s  <<< FAILURE!
+java.lang.AssertionError: expected:<http://localhost:8080/login> but was:<null>
+	at com.makersacademy.acebook.model.Controller.userTests.NavigatesToLoginAfterUsersControllerTest.testNavigatesToLoginAfterUsers(NavigatesToLoginAfterUsersControllerTest.java:42)
+
