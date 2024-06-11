@@ -26,8 +26,17 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
-        System.out.println("POST HERE!");
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+    @PostMapping("/posts/{id}/like")
+    public RedirectView likePost(@PathVariable Long id) {
+        Post post = repository.findById(id).get();
+        post.setLikes(post.getLikes() + 1);
+        repository.save(post);
+        return new RedirectView("/posts");
+
+    }
 }
+
