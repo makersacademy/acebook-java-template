@@ -1,16 +1,16 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 
-@Data
+@Getter @Setter
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -20,6 +20,8 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public User() {
         this.enabled = TRUE;
@@ -36,9 +38,4 @@ public class User {
         this.password = password;
         this.enabled = enabled;
     }
-
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
 }

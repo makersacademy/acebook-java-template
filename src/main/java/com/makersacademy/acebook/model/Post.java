@@ -1,14 +1,15 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "POSTS")
 public class Post {
@@ -17,13 +18,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-
-    public Post() {}
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public Post(String content) {
         this.content = content;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
-
 }
