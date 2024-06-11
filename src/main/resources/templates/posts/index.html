@@ -1,32 +1,38 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
 
-    <main>
-        <h1>Posts</h1>
+<main>
+    <h1>Posts</h1>
 
-        <div sec:authorize="isAuthenticated()">
-            Signed in as <span sec:authentication="name"></span>
-        </div>
+    <div sec:authorize="isAuthenticated()">
+        Signed in as <span sec:authentication="name"></span>
+    </div>
 
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" /></p>
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+    <!-- Update the form to support file uploads -->
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <p>Content: <input type="text" th:field="*{content}"/></p>
+        <p>Image: <input type="file" name="image"/></p> <!-- Add the image upload input -->
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
 
-        <ul th:each="post: ${posts}">
-            <li>
-                <h4 th:text="${post.user.username}"></h4>
-                <p th:text="${post.content}"></p>
-            </li>
-        </ul>
-    </main>
+    <ul th:each="post: ${posts}">
+        <li>
+            <h4 th:text="${post.user.username}"></h4>
+            <p th:text="${post.content}"></p>
+            <!-- Display the image if it exists -->
+            <div th:if="${post.imageUrl}">
+                <img th:src="${post.imageUrl}" alt="Post image" style="max-width: 300px; max-height: 300px;"/>
+            </div>
+        </li>
+    </ul>
+</main>
 
-    </body>
+</body>
 </html>

@@ -10,22 +10,44 @@ import org.junit.Test;
 public class PostTest {
 
 	private User user;
-	private Post post;
+	private Post postWithImage;
+	private Post postWithoutImage;
 
 	@Before
 	public void setUp(){
 		user = mock(User.class);
 		when(user.getUsername()).thenReturn("testuser");
-		post = new Post("hello", user);
+		postWithoutImage = new Post("hello", user);
+		postWithImage = new Post("hello with image", user, "http://image.url/test.jpg");
 	}
 
 	@Test
 	public void postHasContent() {
-		assertThat(post.getContent(), containsString("hello"));
+		assertThat(postWithoutImage.getContent(), containsString("hello"));
 	}
 
 	@Test
 	public void postHasUser() {
-		assertEquals("testuser", post.getUser().getUsername());
+		assertEquals("testuser", postWithoutImage.getUser().getUsername());
+	}
+
+	@Test
+	public void postWithImageHasContent() {
+		assertThat(postWithImage.getContent(), containsString("hello with image"));
+	}
+
+	@Test
+	public void postWithImageHasUser() {
+		assertEquals("testuser", postWithImage.getUser().getUsername());
+	}
+
+	@Test
+	public void postWithImageHasImageUrl() {
+		assertEquals("http://image.url/test.jpg", postWithImage.getImageUrl());
+	}
+
+	@Test
+	public void postWithoutImageDoesNotHaveImageUrl() {
+		assertNull(postWithoutImage.getImageUrl());
 	}
 }
