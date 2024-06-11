@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
 
-    <h1>Posts</h1>
+<h1>Posts</h1>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+<div sec:authorize="isAuthenticated()">
+    Signed in as <span sec:authentication="name"></span>
+    <a th:href="@{/profile}">Account</a>
+</div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Title: <input type="text" th:field="*{title}" /></p>
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+<form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <p>Title: <input type="text" th:field="*{title}" /></p>
+    <p>Content: <input type="text" th:field="*{content}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
 
-    <ul>
-        <li th:each="post: ${posts}">
-        <span th:text="${post.content}"></span>
-            <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
-                <input type="submit" value="Delete">
-            </form>
-        </li>
-    </ul>
+<ul>
+    <li th:each="post : ${posts}">
+        <p><strong>Title:</strong> <span th:text="${post.title}">Post Title</span></p>
+        <p><strong>Content:</strong> <span th:text="${post.content}">Post Content</span></p>
+        <p><strong>Date:</strong> <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">Post Date</span></p>
+        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+            <input type="submit" value="Delete">
+        </form>
+    </li>
+</ul>
 
-    </body>
+</body>
 </html>
