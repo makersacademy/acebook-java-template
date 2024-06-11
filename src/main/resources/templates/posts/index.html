@@ -61,7 +61,7 @@
     </div>
 
 <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-    <p>Content: <input type="text" th:field="*{content}"/></p>
+    <p>Content: <input type="text" th:field="*{content}" required/></p>
     <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 
