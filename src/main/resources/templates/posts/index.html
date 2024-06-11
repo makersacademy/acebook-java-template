@@ -17,7 +17,11 @@
         </form>
 
         <ul th:each="post: ${posts}">
-            <li th:text="${post.content}" />
+            <li>[[${post.content}]]
+                <ul th:each="comment: ${post.comments}">
+                    <li th:text="${comment.content}"></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </html>
