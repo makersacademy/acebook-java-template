@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 public class Post {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -23,6 +23,9 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+<!--        <form action="#" th:action="@{/posts/)" th:object="${post}" method="post">-->
+<!--            <p><input type="submit" name="Like" value="Submit" /></p>-->
+<!--        </form>-->
     </ul>
 
     </body>
