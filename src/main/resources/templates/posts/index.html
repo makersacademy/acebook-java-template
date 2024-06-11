@@ -26,6 +26,11 @@
             <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
                 <input type="submit" value="Delete">
             </form>
+            <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="post" th:object="${post}">
+                <p>Title: <input type="text" th:field="*{title}" /></p>
+                <p>Content: <input type="text" th:field="*{content}" /></p>
+                <input type="submit" value="Edit">
+            </form>
         </li>
     </ul>
 
