@@ -22,13 +22,13 @@ public class PostTest {
 	private Post post = new Post("hello", "Greetings!", user);
 	@Test
 	public void postHasContent() {
-		Post post = new Post("hello");
+		Post post = new Post("hello", "Greetings!", user);
 		assertThat(post.getContent(), containsString("hello"));
 	}
 
 	@Test
 	public void postIsDeleted() {
-		Post post = new Post("hello");
+		Post post = new Post("hello", "Greetings!", user);
 
 
 		repository.deleteById(1L);
