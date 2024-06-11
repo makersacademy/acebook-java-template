@@ -1,25 +1,29 @@
 version: '3.8'
+
 services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: acebook_springboot_development
+      POSTGRES_USER: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   app:
     build: .
     ports:
       - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/acebook-springboot
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: mypassword
     depends_on:
-      - db
-  db:
-    image: postgres:latest
+      - database
     environment:
-      POSTGRES_DB: acebook-springboot
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/acebook_springboot_development
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQL9Dialect
 
 volumes:
-  postgres-data:
+  postgres_data:

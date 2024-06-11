@@ -1,7 +1,5 @@
 # Acebook
 
-Penguin Patrol Trello board: https://trello.com/b/8l12f8Z4/acebook-penguin-patrol
-
 This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
 
 The application uses:
