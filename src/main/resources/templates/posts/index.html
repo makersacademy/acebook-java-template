@@ -4,12 +4,12 @@
     <head lang="en">
         <meta charset="UTF-8"/>
         <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-        <link rel="stylesheet" href="/header-style.css" />
-        <link rel="stylesheet" href="/footer-style.css" />
+        <link rel="stylesheet" href="/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="/css/header-style.css" type="text/css" />
+        <link rel="stylesheet" href="/css/footer-style.css" type="text/css" />
     </head>
     <body>
-    <header th:replace="header :: header"></header>
+    <header th:replace="header :: body"></header>
 
     <h1>Posts</h1>
 
@@ -26,6 +26,6 @@
         <li th:text="${post.content}" />
     </ul>
 
-    <footer th:replace="footer :: footer"></footer>
+    <footer th:replace="footer :: body"></footer>
     </body>
 </html>
