@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PostTest {
 
 	private Post post = new Post("hello");
@@ -39,5 +40,4 @@ public class PostTest {
 			assertThat(current, greaterThanOrEqualTo(next));
 		}
 	}
-
 }
