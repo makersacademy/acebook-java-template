@@ -1,0 +1,1 @@
+ALTER TABLE comments RENAME COLUMN comment_id TO id;

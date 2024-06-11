@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/styles.css"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+
+<h1>Posts</h1>
+
+<div sec:authorize="isAuthenticated()">
+    Signed in as <span sec:authentication="name"></span>
+</div>
     <html xmlns:th="http://www.thymeleaf.org"
           xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
     <head lang="en">
@@ -45,14 +60,33 @@
         <a id="logout_id" href="/logout">log out</a>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+<form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+    <p>Content: <input type="text" th:field="*{content}" required/></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
 
-    <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+<div class="post-container">
+    <ul th:each="post : ${posts}">
+        <li>
+            <p th:text="${post.content}"></p>
+            <form action="#" th:action="@{/posts/{id}/comments(id=${post.id})}" method="post">
+                <input type="hidden" name="postId" th:value="${post.id}"/>
+                <div class="comment-container">
+                    <p>Comment: <input type="text" name="commentText"/></p>
+                    <p><input type="submit" value="Submit Comment"/> <input type="reset" value="Reset"/></p>
+                </div>
+            </form>
+            <!-- List comments if there are any -->
+            <div class="comment-container">
+                <ul th:if="${post.comments != null and #lists.size(post.comments) > 0}">
+                    <li th:each="comment : ${post.comments}">
+                        <p th:text="${comment.text}"></p>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
+</div>
 
-    </body>
+</body>
 </html>
