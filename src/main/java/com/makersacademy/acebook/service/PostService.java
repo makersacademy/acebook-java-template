@@ -2,8 +2,8 @@ package com.makersacademy.acebook.service;
 
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.PostRepository;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -30,11 +30,13 @@ public class PostService {
     private final String bucketName;
 
     @Autowired
-    public PostService(Dotenv dotenv) {
-        String region = dotenv.get("AWS_REGION");
-        String accessKeyId = dotenv.get("AWS_ACCESS_KEY_ID");
-        String secretAccessKey = dotenv.get("AWS_SECRET_ACCESS_KEY");
-        this.bucketName = dotenv.get("AWS_S3_BUCKET_NAME");
+    public PostService(
+            @Value("${aws.region}") String region,
+            @Value("${aws.accessKeyId}") String accessKeyId,
+            @Value("${aws.secretAccessKey}") String secretAccessKey,
+            @Value("${aws.s3.bucket.name}") String bucketName) {
+
+        this.bucketName = bucketName;
 
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
 
