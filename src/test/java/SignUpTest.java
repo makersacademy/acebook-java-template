@@ -41,3 +41,18 @@
 //    }
 //}
 
+//    @After
+//    public void tearDown() {
+//        driver.close();
+//    }
+//
+//    @Test
+//    public void successfulSignUpRedirectsToSignIn() {
+//        driver.get("http://localhost:8080/users/new");
+//        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
+//        driver.findElement(By.id("password")).sendKeys("password");
+//        driver.findElement(By.id("submit")).click();
+//        String title = driver.getTitle();
+//        Assert.assertEquals("Please sign in", title);
+//    }
+//}
