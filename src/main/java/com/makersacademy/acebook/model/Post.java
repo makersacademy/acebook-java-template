@@ -9,10 +9,10 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "POSTS")
 public class Post {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,10 @@ public class Post {
     private String title;
     private String content;
     private Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }
