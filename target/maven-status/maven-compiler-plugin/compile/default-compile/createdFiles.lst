@@ -1,0 +1,11 @@
+com/makersacademy/acebook/model/Post.class
+com/makersacademy/acebook/repository/PostRepository.class
+com/makersacademy/acebook/Application.class
+com/makersacademy/acebook/controller/HomeController.class
+com/makersacademy/acebook/model/User.class
+com/makersacademy/acebook/repository/AuthoritiesRepository.class
+com/makersacademy/acebook/controller/PostsController.class
+com/makersacademy/acebook/controller/UsersController.class
+com/makersacademy/acebook/repository/UserRepository.class
+com/makersacademy/acebook/SecurityConfiguration.class
+com/makersacademy/acebook/model/Authority.class
