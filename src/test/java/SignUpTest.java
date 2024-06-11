@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,5 +41,11 @@ public class SignUpTest {
         driver.findElement(By.id("submit")).click();
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
+    }
+    @Test
+    public void navBarAppearsOnPages() {
+        driver.get("http://localhost:8080/");
+        WebElement navBar = driver.findElement(By.tagName("nav"));
+        Assert.assertNotNull("Navigation bar should be present on the page", navBar);
     }
 }

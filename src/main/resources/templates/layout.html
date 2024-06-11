@@ -13,9 +13,9 @@
         <nav>
             <ul>
                 <li><a href="/posts">home</a></li>
-                <li><a href="/logout">logout</a></li>
-                <li th:if="$<{username == null}>"><a href="/login">login</a></li>
-                <li><a href="/users/new">signup</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout">logout</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login">login</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/users/new">signup</a></li>
             </ul>
         </nav>
         <div layout:fragment="content">
