@@ -29,7 +29,7 @@ public class UsersController {
     @PostMapping("/users")
     public RedirectView signup(@ModelAttribute User user) {
         userRepository.save(user);
-        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
+        Authority authority = new Authority(user.getId(), "ROLE_USER");
         authoritiesRepository.save(authority);
         return new RedirectView("/login");
     }
