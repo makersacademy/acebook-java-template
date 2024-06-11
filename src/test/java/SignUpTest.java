@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,7 +20,9 @@ public class SignUpTest {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        use environment variable to get chromedriver location
+        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
         driver = new ChromeDriver();
         faker = new Faker();
     }
@@ -33,7 +34,7 @@ public class SignUpTest {
 
     @Test
     public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
+        driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();

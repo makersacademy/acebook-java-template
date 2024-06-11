@@ -104,7 +104,17 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.22.0</version> <!-- Use the latest version available -->
+            <scope>test</scope> <!-- Ensure Mockito is only included in test scope -->
+        </dependency>
+
+
+
     </dependencies>
+
 
 
 </project>

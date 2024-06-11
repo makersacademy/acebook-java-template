@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="/main.css"/>
+    <style>
+        /* Custom styles */
+        :root {
+            --primaryColor: #007bff; /* Update this color to match the Add Friend button */
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: url('https://33.media.tumblr.com/4893e945c6d3a67780efc1e4158bd1ac/tumblr_nut2otAr5C1rhlvg8o1_1280.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .navbar {
+            width: 100%;
+            background: var(--primaryColor);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .navbar input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-left: 20px;
+        }
+
+        .profile-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Adjust size as needed */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+        }
+
+        .profile-info label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-info input,
+        .profile-info select {
+            padding: 10px;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .add-friend-btn {
+            display: block;
+            width: 150px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: var(--primaryColor);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-friend-btn.sent {
+            background: var(--primaryColor);
+            color: lightgray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/logout">Logout</a>
+    <a href="/posts">Posts</a>
+    <input type="text" placeholder="Search...">
+</div>
+
+<div class="profile-container">
+    <img src="https://i.imgur.com/1z5NYzX.gif" alt="Acebook Logo" class="logo">
+    <h1>Update Profile</h1>
+
+    <form th:action="@{/profile}" th:object="${user}" method="post">
+        <div class="profile-info">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}" readonly />
+
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" id="mobileNumber" th:field="*{mobileNumber}" />
+
+            <label for="emailAddress">Email Address</label>
+            <input type="email" id="emailAddress" th:field="*{emailAddress}" />
+
+            <label for="gender">Gender</label>
+            <select id="gender" th:field="*{gender}">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="country">Country</label>
+            <input type="text" id="country" th:field="*{country}" />
+
+            <label for="language">Language</label>
+            <input type="text" id="language" th:field="*{language}" />
+        </div>
+        <button type="submit" class="add-friend-btn">Update Profile</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('addFriendBtn').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default action to avoid page reload or form submission
+        var btn = this;
+        if (btn.classList.contains('sent')) {
+            btn.classList.remove('sent');
+            btn.textContent = 'Add Friend';
+        } else {
+            btn.classList.add('sent');
+            btn.textContent = 'Friend request sent ✓';
+        }
+    });
+</script>
+
+</body>
+</html>
