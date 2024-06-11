@@ -13,9 +13,9 @@
         <nav>
             <ul>
                 <li><a href="/posts">home</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/logout">logout</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/login">login</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/users/new">signup</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/users/new">Sign Up</a></li>
             </ul>
         </nav>
         <div layout:fragment="content">
