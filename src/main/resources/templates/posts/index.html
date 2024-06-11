@@ -69,6 +69,10 @@
     <ul th:each="post : ${posts}">
         <li>
             <p th:text="${post.content}"></p>
+            <p>Likes: <span th:text="${post.likes}"></span></p>
+            <form action="#" th:action="@{/posts/{id}/like(id=${post.id})}" method="post">
+                <input type="submit" value="Like"/>
+            </form>
             <form action="#" th:action="@{/posts/{id}/comments(id=${post.id})}" method="post">
                 <input type="hidden" name="postId" th:value="${post.id}"/>
                 <div class="comment-container">
