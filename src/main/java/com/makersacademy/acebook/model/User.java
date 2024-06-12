@@ -1,12 +1,9 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import static java.lang.Boolean.TRUE;
 
@@ -20,20 +17,28 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+    private String profilePicture;
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private java.sql.Timestamp createdAt;
 
     public User() {
         this.enabled = TRUE;
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String profilePicture, java.sql.Timestamp createdAt) {
         this.username = username;
         this.password = password;
         this.enabled = TRUE;
+        this.profilePicture = profilePicture;
+        this.createdAt = createdAt;
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, String password, boolean enabled, String profilePicture, java.sql.Timestamp createdAt) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+        this.profilePicture = profilePicture;
+        this.createdAt = createdAt;
     }
 }
