@@ -36,7 +36,7 @@ jobs:
       - name: Install ChromeDriver
         run: |
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          DOWNLOAD_URL="https://chromedriver.storage.googleapis.com/126.0.6478.55/chromedriver_linux64.zip"
+          DOWNLOAD_URL="https://googlechromelabs.github.io/chrome-for-testing/126.0.6478.55/chromedriver_linux64.zip"
           FILENAME=$(basename "$DOWNLOAD_URL")
           wget -q -O "$FILENAME" "$DOWNLOAD_URL"
           unzip "$FILENAME"
