@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<body>
+<h1>Comments for Post: <span th:text="${post.id}"></span></h1>
+<ul>
+    <li th:each="comment : ${comments}">
+        <p th:text="${comment.content}"></p>
+        <p th:text="${comment.created_at}"></p>
+    </li>
+</ul>
+<form th:action="@{/posts/{postId}/comments(postId=${post.id})}" th:object="${comment}" method="post">
+    <textarea th:field="*{content}"></textarea>
+    <button type="submit">Add Comment</button>
+</form>
+
+</body>
+</html>

@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -23,8 +25,9 @@ public class PostsController {
     PostRepository repository;
 
     @Autowired
+    CommentRepository commentRepository;
+    @Autowired
     UserRepository userRepository;
-
     @Autowired
     LikeRepository likeRepository;
 
@@ -47,6 +50,22 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+  
+    @GetMapping("/posts/{post_id}/comments")
+    public String viewComments(@PathVariable Long post_id, Model model) {
+        Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
+        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+        model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+        return "comments/comments.html";
+    }
+    @PostMapping("posts/{post_id}/comments")
+    public RedirectView createComment (@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
+        comment.setUser_id(userRepository.findByUsername(auth.getName()).getId());
+        comment.setPost_id(post_id);
+        commentRepository.save(comment);
+        return new RedirectView("/posts/" + post_id + "/comments");
 
     @PostMapping("/posts/like")
     public RedirectView likePost(@RequestParam Long postId, Authentication auth) {

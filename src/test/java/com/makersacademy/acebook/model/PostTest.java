@@ -12,8 +12,10 @@ public class PostTest {
 
 	private Post post = new Post("hello", 1L, "asd", new Timestamp(10000));
 
+
 	@Test
 	public void postHasContent() {
+
 		assertThat(post.getContent(), containsString("hello"));
 	}
 
