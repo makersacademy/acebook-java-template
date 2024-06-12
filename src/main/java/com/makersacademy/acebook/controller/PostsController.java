@@ -53,7 +53,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Authentication auth, @RequestParam("image") MultipartFile file) throws IOException {
-        post.setUser_id(userRepository.findByUsername(auth.getName()).getId());
+        post.setUserId(userRepository.findByUsername(auth.getName()).getId());
         if (!file.isEmpty()) {
             StringBuilder fileNames = new StringBuilder("images/");
             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
@@ -71,7 +71,7 @@ public class PostsController {
     @GetMapping("/posts/{post_id}")
     public String viewComments(@PathVariable Long post_id, Model model) {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
-        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(post_id);
         post.setLikes(likeRepository.countByPost(post));
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
