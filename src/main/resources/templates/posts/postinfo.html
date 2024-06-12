@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<body>
+<li>
+    <p th:text="${post.content}"></p>
+    <p>Likes: <span th:text="${post.likes}"></span></p>
+    <form th:action="@{/posts/like}" th:object="${like}" method="post">
+        <input type="hidden" name="postId" th:value="${post.id}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Like</button>
+    </form>
+</li>
+<h1>Comments for Post: <span th:text="${post.id}"></span></h1>
+<ul>
+    <li th:each="comment : ${comments}">
+        <p th:text="${comment.content}"></p>
+        <p th:text="${comment.createdAt}"></p>
+    </li>
+</ul>
+<form th:action="@{/posts/comments}" th:object="${comment}" method="post">
+    <input type="hidden" name="postId" th:value="${post.id}">
+    <textarea th:field="*{content}"></textarea>
+    <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+    <button type="submit">Add Comment</button>
+</form>
+
+</body>
+</html>
