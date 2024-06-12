@@ -34,7 +34,7 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAllByOrderByCreatedAtAsc();
-        for (Post post : posts) {
+        for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }
         model.addAttribute("posts", posts);
@@ -50,8 +50,8 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
-
-    @GetMapping("/posts/{post_id}/comments")
+  
+    @GetMapping("/posts/{postId}/comments")
     public String viewComments(@PathVariable Long post_id, Model model) {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
         Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
@@ -60,31 +60,30 @@ public class PostsController {
         model.addAttribute("comment", new Comment());
         return "comments/comments.html";
     }
-
-    @PostMapping("posts/{post_id}/comments")
-    public RedirectView createComment(@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
-        comment.setUser_id(userRepository.findByUsername(auth.getName()).getId());
-        comment.setPost_id(post_id);
+    @PostMapping("posts/{postId}/comments")
+    public RedirectView createComment (@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
+        comment.setUserId(userRepository.findByUsername(auth.getName()).getId());
+        comment.setPostId(post_id);
         commentRepository.save(comment);
         return new RedirectView("/posts/" + post_id + "/comments");
-
-        @PostMapping("/posts/like")
-        public RedirectView likePost (@RequestParam Long postId, Authentication auth){
-            Optional<Post> optionalPost = repository.findById(postId);
-            if (optionalPost.isPresent()) {
-                Post post = optionalPost.get();
-                User user = userRepository.findByUsername(auth.getName());
-                List<Like> likes = likeRepository.findLikeByPostIdAndUserId(post.getId(), user.getId());
-                if (likes.size() > 0) {
-                    for (Like like : likes) {
-                        likeRepository.deleteById(like.getId());
-                    }
-                    return new RedirectView("/posts");
-                }
-                Like like = new Like(post, user);
-                likeRepository.save(like);
-            }
-            return new RedirectView("/posts");
-        }
     }
 
+    @PostMapping("/posts/like")
+    public RedirectView likePost(@RequestParam Long postId, Authentication auth) {
+        Optional<Post> optionalPost = repository.findById(postId);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            User user = userRepository.findByUsername(auth.getName());
+            List<Like> likes = likeRepository.findLikeByPostIdAndUserId(post.getId(), user.getId());
+            if (likes.size() > 0) {
+                for (Like like : likes) {
+                    likeRepository.deleteById(like.getId());
+                }
+                return new RedirectView("/posts");
+            }
+            Like like = new Like(post, user);
+            likeRepository.save(like);
+        }
+        return new RedirectView("/posts");
+    }
+}

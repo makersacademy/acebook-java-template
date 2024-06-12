@@ -20,16 +20,16 @@ public class Comment {
     @Setter
     @Getter
     private String content;
-    private Long user_id;
-    private Long post_id;
+    private Long userId;
+    private Long postId;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
-    public Comment(String content, Long user_id, Long post_id, java.sql.Timestamp createdAt) {
+    public Comment(String content, Long userId, Long postId, java.sql.Timestamp createdAt) {
         this.content = content;
-        this.user_id = user_id;
-        this.post_id = post_id;
+        this.userId = userId;
+        this.postId = postId;
         this.createdAt = createdAt;
     }
 
