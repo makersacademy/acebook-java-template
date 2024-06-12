@@ -1,12 +1,183 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Acebook</title>
-  </head>
-  <body>
-    OOOOOOOOOPS
+<head>
+  <meta charset="utf-8">
+  <title>Acebook</title>
+  <style>
+    /* Set general body styling */
+    body {
+      font-family: Arial, sans-serif; /* Use Arial font */
+      text-align: center; /* Center text */
+      margin: 0; /* Remove default margin */
+      overflow: hidden; /* Hide overflow */
+      display: flex; /* Use flexbox for layout */
+      flex-direction: column; /* Arrange children in a column */
+      height: 100vh; /* Full viewport height */
+    }
+    /* Style for the game canvas */
+    #gameCanvas {
+      border: 1px solid #000; /* Black border */
+      display: block; /* Display as block element */
+      margin: 20px auto; /* Center horizontally with margin */
+      background-color: #f0f0f0; /* Light gray background */
+    }
+    /* Style for score and high score */
+    #score, #highScore {
+      font-size: 20px; /* Increase font size */
+    }
+    /* Style for the navbar */
+    .navbar {
+      width: 100%; /* Full width */
+      background-color: #027bff; /* Blue background */
+      color: white; /* White text color */
+      position: fixed; /* Fixed position at bottom */
+      bottom: 0; /* Align to bottom */
+      text-align: center; /* Center text */
+      padding: 10px 0; /* Vertical padding */
+    }
+    /* Style for the navbar button */
+    .navbar button {
+      background-color: #027bff; /* Blue background */
+      border: none; /* No border */
+      color: white; /* White text */
+      padding: 14px 20px; /* Padding */
+      font-size: 16px; /* Font size */
+      cursor: pointer; /* Pointer cursor on hover */
+    }
+    /* Style for navbar button hover effect */
+    .navbar button:hover {
+      background-color: #005bb5; /* Darker blue on hover */
+    }
+  </style>
+</head>
+<body>
+<h1>Oh No!</h1>
+<p>You got a 404!</p>
+<p>Try our game while you get back on your feet!</p>
+<p>Catch the ball with your paddle to increase your score!</p>
+<p id="score">Score: 0</p>
+<p id="highScore">High Score: 0</p>
 
-    You done got 404.
-  </body>
+<!-- Game canvas for drawing the game -->
+<canvas id="gameCanvas" width="480" height="320"></canvas>
+
+<!-- Navbar with a button to go home -->
+<div class="navbar">
+  <button onclick="window.location.href='http://localhost:8080'">Home</button>
+</div>
+
+<script>
+  // Get the canvas element and its 2D context
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Initialize basket variables
+  let basketX = canvas.width / 2; // Basket starting x position
+  const basketWidth = 75; // Basket width
+  const basketHeight = 10; // Basket height
+  const basketY = canvas.height - basketHeight; // Basket y position
+  const basketSpeed = 7; // Basket movement speed
+
+  // Initialize key press variables
+  let rightPressed = false; // Right arrow key pressed
+  let leftPressed = false; // Left arrow key pressed
+
+  // Initialize falling object variables
+  const objectRadius = 10; // Radius of the falling object
+  let objectX = Math.random() * (canvas.width - objectRadius * 2) + objectRadius; // Random starting x position
+  let objectY = 0; // Starting y position
+  let objectSpeed = 4; // Initial falling speed
+
+  // Initialize score variables
+  let score = 0; // Current score
+  let highScore = localStorage.getItem('highScore') || 0; // High score from local storage
+  document.getElementById("highScore").innerText = "High Score: " + highScore; // Display high score
+
+  // Add event listeners for key presses
+  document.addEventListener("keydown", keyDownHandler, false); // Key down event
+  document.addEventListener("keyup", keyUpHandler, false); // Key up event
+
+  // Handle key down events
+  function keyDownHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") { // Right arrow key
+      rightPressed = true; // Set rightPressed to true
+    } else if (e.key == "Left" || e.key == "ArrowLeft") { // Left arrow key
+      leftPressed = true; // Set leftPressed to true
+    }
+  }
+
+  // Handle key up events
+  function keyUpHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") { // Right arrow key
+      rightPressed = false; // Set rightPressed to false
+    } else if (e.key == "Left" || e.key == "ArrowLeft") { // Left arrow key
+      leftPressed = false; // Set leftPressed to false
+    }
+  }
+
+  // Draw the basket on the canvas
+  function drawBasket() {
+    ctx.beginPath(); // Start drawing path
+    ctx.rect(basketX, basketY, basketWidth, basketHeight); // Draw rectangle
+    ctx.fillStyle = "#027bff"; // Set fill color
+    ctx.fill(); // Fill rectangle
+    ctx.closePath(); // Close drawing path
+  }
+
+  // Draw the falling object on the canvas
+  function drawObject() {
+    ctx.beginPath(); // Start drawing path
+    ctx.arc(objectX, objectY, objectRadius, 0, Math.PI * 2); // Draw circle
+    ctx.fillStyle = "#027bff"; // Set fill color
+    ctx.fill(); // Fill circle
+    ctx.closePath(); // Close drawing path
+  }
+
+  // Move the basket based on key presses
+  function moveBasket() {
+    if (rightPressed && basketX < canvas.width - basketWidth) { // Move right
+      basketX += basketSpeed; // Increase x position
+    } else if (leftPressed && basketX > 0) { // Move left
+      basketX -= basketSpeed; // Decrease x position
+    }
+  }
+
+  // Move the falling object and handle collision
+  function moveObject() {
+    objectY += objectSpeed; // Increase y position
+    if (objectY + objectRadius > basketY && objectX > basketX && objectX < basketX + basketWidth) { // Collision with basket
+      objectX = Math.random() * (canvas.width - objectRadius * 2) + objectRadius; // Reset x position
+      objectY = 0; // Reset y position
+      score++; // Increase score
+      objectSpeed = 4 + score * 0.4; // Increase speed with score
+      document.getElementById("score").innerText = "Score: " + score; // Update score display
+
+      if (score > highScore) { // Check for new high score
+        highScore = score; // Update high score
+        localStorage.setItem('highScore', highScore); // Save to local storage
+        document.getElementById("highScore").innerText = "High Score: " + highScore; // Update high score display
+      }
+    } else if (objectY > canvas.height) { // Object missed the basket
+      objectX = Math.random() * (canvas.width - objectRadius * 2) + objectRadius; // Reset x position
+      objectY = 0; // Reset y position
+      score = 0; // Reset score
+      objectSpeed = 4; // Reset speed
+      document.getElementById("score").innerText = "Score: " + score; // Update score display
+    }
+  }
+
+  // Main draw function to render the game
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    drawBasket(); // Draw the basket
+    drawObject(); // Draw the falling object
+    moveBasket(); // Move the basket
+    moveObject(); // Move the falling object
+    requestAnimationFrame(draw); // Request next frame
+  }
+
+  // Start the game loop
+  draw();
+</script>
+</body>
 </html>
