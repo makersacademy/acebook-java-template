@@ -26,7 +26,7 @@ jobs:
     - name: Docker Build and Push
       if: github.ref == 'refs/heads/main'  # Only build Docker image on main branch
       env:
-        IMAGE_NAME: ghcr.io/Umi007/acebook-red-panda
+        IMAGE_NAME: ghcr.io/umi007/acebook-red-panda
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DB_USERNAME: ${{ secrets.DB_USERNAME }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
