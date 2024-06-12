@@ -21,8 +21,8 @@ public class SignUpTest {
     @Before
     public void setup() {
 //        use environment variable to get chromedriver location
-        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
-//        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
+//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
         driver = new ChromeDriver();
         faker = new Faker();
     }
@@ -34,7 +34,7 @@ public class SignUpTest {
 
     @Test
     public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/login");
+        driver.get("http://localhost:8080/");
         driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
@@ -42,3 +42,6 @@ public class SignUpTest {
         Assert.assertEquals("Please sign in", title);
     }
 }
+
+
+

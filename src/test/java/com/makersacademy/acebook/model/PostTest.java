@@ -1,18 +1,19 @@
 package com.makersacademy.acebook.model;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PostTest {
@@ -20,18 +21,24 @@ public class PostTest {
 	PostRepository repository;
 	User user = new User();
 
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+	Date date = formatter.parse("2024-06-11 20:16:56");
+	Long id = 1L;
 
-	private Post post = new Post("hello", "Greetings!", user);
+	private final Post post = new Post(id, "hello", "Greetings!", date, user);
+
+	public PostTest() throws ParseException {
+	}
+
 	@Test
 	public void postHasContent() {
-		Post post = new Post("hello", "Greetings!", user);
-		assertThat(post.getContent(), containsString("hello"));
+		Post post = new Post(id, "hello", "Greetings!", date, user);
+		assertThat(post.getContent(), containsString("Greetings!"));
 	}
 
 	@Test
 	public void postIsDeleted() {
-		Post post = new Post("hello", "Greetings!", user);
-
+		Post post = new Post(id, "hello", "Greetings!", date, user);
 
 		repository.deleteById(1L);
 
@@ -39,27 +46,20 @@ public class PostTest {
 	}
 
 	@Test
-	public void postisEdited() {
+	public void postIsEdited() {
 		// Create a new post
-		Post post = new Post("hello", "Greetings!", user);
+		Post post = new Post(id, "hello", "Greetings!", date, user);
 		post.setId(1L); // Set the ID for the post
 
-		// Mock the behavior of findById to return the post when called with ID 1L
-		when(repository.findById(1L)).thenReturn(Optional.of(post));
-
 		// Edit the post content and title
-		post.setContent("hello edited");
-		post.setTitle("Greetings Edited!");
+		post.setTitle("hello Edited!");
+		post.setContent("Greetings edited");
 
 		// Call the method to edit the post
 		repository.save(post);
 
 		// Verify that the post is saved
 		verify(repository).save(post);
-		assertThat(post.getContent(), containsString("hello edited"));
-
+		assertThat(post.getContent(), containsString("Greetings edited"));
 	}
 }
-
-
-
