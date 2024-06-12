@@ -25,4 +25,4 @@ jobs:
         env:
           IMAGE_TAG: latest
         run: |
-          docker buildx build --platform linux/amd64 -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/acebook-red-panda:${IMAGE_TAG} --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/acebook-red-panda:${IMAGE_TAG} --push .
