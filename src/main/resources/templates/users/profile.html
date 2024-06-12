@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${username}">Title</title>
+</head>
+<body>
+    <nav th:insert="fragments.html :: nav"></nav>
+    <span th:text="${username}"></span>
+
+</body>
+</html>
