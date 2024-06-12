@@ -44,6 +44,7 @@ jobs:
           sudo mv chromedriver /usr/local/bin/
           # Clean up by removing the downloaded ZIP file
           rm "$FILENAME"
+          
 
       - name: Build with Maven
         env:
