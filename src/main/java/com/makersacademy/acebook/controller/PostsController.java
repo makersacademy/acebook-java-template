@@ -40,10 +40,12 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAllByOrderByCreatedAtAsc();
+
+        Iterable<Post> posts = repository.findAllByOrderByCreatedAtDesc();
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }
+
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
