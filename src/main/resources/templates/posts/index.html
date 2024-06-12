@@ -1,168 +1,335 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Acebook</title>
+    <!-- Link to the external stylesheet -->
     <link rel="stylesheet" href="/main.css"/>
-    <style>
-        :root {
-            --facebookBlue: #1877f2; /* Facebook blue color */
-            --hoverBlue: #145dbf; /* Darker shade for hover */
+    <script>
+        function moveCursorToEnd(e) {
+            var tempValue = e.value;
+            e.value = '';
+            e.value = tempValue;
         }
 
+<!--        // Function to hide flash message after 5 seconds-->
+        function hideFlashMessage(id) {
+            setTimeout(function() {
+                var flashMessage = document.getElementById(id);
+                if (flashMessage) {
+                    flashMessage.style.opacity = '0';
+                    setTimeout(function() {
+                        flashMessage.style.display = 'none';
+                    }, 500); // Allow time for fade out
+                }
+            }, 5000);
+        }
+
+<!--        // Call hideFlashMessage for each flash message on page load-->
+        window.onload = function() {
+            var flashMessages = document.getElementsByClassName('flash-message');
+            for (var i = 0; i < flashMessages.length; i++) {
+                hideFlashMessage(flashMessages[i].id);
+            }
+        }
+    </script>
+
+
+    <style>
+        /* Style for the body element, setting the font, margin, padding, and background */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
+            /* Frog gif, feel free to change :) */
+            background: url('https://33.media.tumblr.com/4893e945c6d3a67780efc1e4158bd1ac/tumblr_nut2otAr5C1rhlvg8o1_1280.gif') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-
-        header {
-            background: var(--facebookBlue);
-            color: #fff;
-            padding-top: 10px;
-            min-height: 70px;
-            border-bottom: var(--hoverBlue) 3px solid;
-        }
-
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-
-        header li {
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-
-        form {
-            margin: 20px 0;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        input[type="text"], input[type="email"], select {
+        /* Styles for the navigation bar */
+        .navbar {
             width: 100%;
+            background-color: #027bff !important;
             padding: 10px;
-            margin: 10px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="submit"], button {
-            width: 100%;
-            background-color: var(--facebookBlue);
+        /* Style for the links in the navigation bar */
+        .navbar a {
             color: white;
-            padding: 14px 20px;
-            margin: 10px 0;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        /* Style for the links in the navigation bar when hovered over */
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Style for the search input in the navigation bar */
+        .navbar input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            margin-left: 20px;
+            width: 150px;
         }
 
-        input[type="submit"]:hover, button:hover {
-            background-color: var(--hoverBlue);
-        }
-
-        .post {
-            background: #fff;
-            margin: 20px 0;
+        /* Styles for the main container of the posts */
+        .post-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 80px auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .post-title {
-            font-size: 20px;
+        /* Style for the main heading */
+        .post-container h1 {
+            font-size: 32px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for the authentication information */
+        .auth-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Style for the authentication information text */
+        .auth-info span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Style for the authentication information link */
+        .auth-info a {
+            color: #027bff;
+            text-decoration: none;
             font-weight: bold;
         }
 
-        .post-content {
+        /* General styles for forms */
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* General styles for paragraphs inside forms */
+        form p {
             margin: 10px 0;
         }
 
-        .post-date {
-            color: #777;
+        /* General styles for text input fields */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* General styles for submit and reset buttons */
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: #027bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        /* Styles for the unordered list of posts */
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Styles for list items inside the unordered list */
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        /* General styles for paragraphs inside list items */
+        ul li p {
+            margin: 10px 0;
+        }
+
+        /* General styles for forms inside list items */
+        ul li form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Styles for the delete button */
+        ul li input[type="submit"] {
+            background: #f44336;
+        }
+
+        /* Styles for the edit button */
+        ul li .edit-form input[type="submit"] {
+            background: #4CAF50;
+        }
+
+        /* Styles for action buttons */
+        .actions {
+            margin-top: 10px;
+        }
+
+        /* General styles for action buttons */
+        .actions button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Styles for the content of posts */
+        .post-content {
+            flex: 2;
+        }
+
+        /* Styles for the form used to edit posts */
+        .edit-form {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        /* Styles for the logo */
+        .logo {
+            width: 150px;
+            height: 150px;
+        }
+
+        .flash-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .flash-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
 <body>
 <header>
     <div class="container">
-        <h1>Acebook</h1>
-        <nav>
-            <ul>
-                <li><a th:href="@{/profile}">Account</a></li>
-                <li><span sec:authentication="name"></span></li>
-            </ul>
-        </nav>
+
     </div>
 </header>
+<!-- Navigation bar with links and search input -->
+<div class="navbar">
+    <a href="/logout">Logout</a>
+    <a href="/profile">Profile</a>
+    <li><span sec:authentication="name"></span></li>
+    <input type="text" placeholder="Search...">
+</div>
 
-<div class="container">
+<div class="post-container">
     <h1>Posts</h1>
+
 
     <div sec:authorize="isAuthenticated()">
         <form th:action="@{/posts}" th:object="${post}" method="post">
-            <label for="title">Title</label>
-            <input type="text" id="title" th:field="*{title}" placeholder="Enter title" required />
-
-            <label for="content">Content</label>
-            <input type="text" id="content" th:field="*{content}" placeholder="Enter content" required />
-
-            <input type="submit" value="Submit" />
-            <input type="reset" value="Reset" />
+            <p>Title: <input type="text" th:field="*{title}" /></p>
+            <p>Content: <input type="text" th:field="*{content}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
     </div>
 
+    <!-- List of posts -->
     <ul>
+
+        <!-- Iterate over each post and display its content -->
         <li th:each="post : ${posts}">
-            <div class="post">
-                <!-- Edit Form -->
-                <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="post" th:object="${post}">
-                    <p class="post-title">
-                        <strong>Title:</strong>
-                        <input type="text" th:field="*{title}" th:attr="placeholder=${post.title}" required />
-                    </p>
+            <div class="post-content">
 
-                    <p class="post-content">
-                        <strong>Content:</strong>
-                        <input type="text" th:field="*{content}" th:attr="placeholder=${post.content}" required />
-                    </p>
+                <!-- Post Content -->
+                <p class="post-title">
+                    <strong>Title:</strong>
+                    <span th:text="${post.title}"></span>
+                </p>
 
-                    <p class="post-date">
-                        <strong>Date:</strong>
-                        <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">Post Date</span>
-                    </p>
+                <p class="post-content">
+                    <strong>Content:</strong>
+                    <span th:text="${post.content}"></span>
+                </p>
 
-                    <button type="submit">Edit</button>
-                </form>
+                <p class="post-user">
+                    <strong>Posted by:</strong>
+                    <span th:text="${post.user.username}"></span>
+                </p>
 
-                <!-- Delete Form -->
-                <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
-                </form>
+                <p class="post-date">
+                    <strong>Created At:</strong>
+                    <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                </p>
+
+                <!-- Conditional Edit Form -->
+                <div th:if="${post.user.id == currentUser.id}">
+                    <!-- Flash messages -->
+                    <div id="flash-message-[[${iterStat.index}]]" class="flash-message" th:if="${message}">
+                        <p th:text="${message}"></p>
+                    </div>
+                    <div id="flash-error-[[${iterStat.index}]]" class="flash-message error" th:if="${error}">
+                        <p th:text="${error}"></p>
+                    </div>
+                    <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="post" th:object="${post}">
+                        <p class="post-title">
+                            <strong>Title:</strong>
+                            <input type="text" th:field="*{title}" th:attr="placeholder=${post.title}" onfocus="moveCursorToEnd(this)" />
+                        </p>
+
+                        <p class="post-content">
+                            <strong>Content:</strong>
+                            <input type="text" th:field="*{content}" th:attr="placeholder=${post.content}" onfocus="moveCursorToEnd(this)" />
+                        </p>
+
+                        <button type="submit">Edit</button>
+                    </form>
+
+                    <!-- Conditional Delete Form -->
+                    <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+                    </form>
+                </div>
             </div>
         </li>
     </ul>
 </div>
+<script>
+    window.onload = function() {
+        let flashMessages = document.getElementsByClassName('flash-message');
+        for (var i = 0; i < flashMessages.length; i++) {
+            hideFlashMessage(flashMessages[i].id);
+        }
+    }
+</script>
 </body>
 </html>
