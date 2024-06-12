@@ -1,36 +1,29 @@
-name: CD
+name: Build and Push Docker Image
 
 on:
   push:
     branches:
-      - main  # Set your main branch name here
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'  # Choose your preferred distribution
-        java-version: '11'
-        java-package: 'jdk'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Build Spring Boot Application
-      run: ./mvnw clean package -DskipTests=true
+      - name: Login to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login docker.io -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-    - name: Deploy to Render
-      if: github.ref == 'refs/heads/main'  # Deploy only on main branch
-      env:
-        RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}  # Your Render token
-        RENDER_SERVICE_NAME: acebook-java_team-red-panda  # Replace with your Render service name
-      run: |
-        curl -X PATCH -H "Authorization: Bearer $RENDER_TOKEN" \
-          -H "Content-Type: application/json" \
-          -d '{"buildCommand": "./mvnw spring-boot:run"}' \
-          https://api.render.com/v1/services/$RENDER_SERVICE_NAME
-
+      - name: Build and push Docker image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          IMAGE_TAG: latest
+        run: |
+          docker buildx build --platform linux/amd64 -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-image:$IMAGE_TAG .
+          docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-image:$IMAGE_TAG
