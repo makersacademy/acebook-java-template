@@ -6,6 +6,105 @@
     <!-- Link to the external stylesheet -->
     <link rel="stylesheet" href="/main.css"/>
     <style>
+
+        :root {
+            --facebookBlue: #1877f2; /* Facebook blue color */
+            --hoverBlue: #145dbf; /* Darker shade for hover */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--facebookBlue);
+            color: #fff;
+            padding-top: 10px;
+            min-height: 70px;
+            border-bottom: var(--hoverBlue) 3px solid;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            width: 100%;
+            background-color: var(--facebookBlue);
+            color: white;
+            padding: 14px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: var(--hoverBlue);
+        }
+
+        .post {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .post-content {
+            margin: 10px 0;
+        }
+
+        .post-date {
+            color: #777;
+        }
+
         /* Style for the body element, setting the font, margin, padding, and background */
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -193,6 +292,34 @@
     </style>
 </head>
 <body>
+<header>
+    <div class="container">
+        <h1>Acebook</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/profile}">Account</a></li>
+                <li><span sec:authentication="name"></span></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<div class="container">
+    <h1>Posts</h1>
+
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/posts}" th:object="${post}" method="post">
+            <label for="title">Title</label>
+            <input type="text" id="title" th:field="*{title}" placeholder="Enter title" required />
+
+            <label for="content">Content</label>
+            <input type="text" id="content" th:field="*{content}" placeholder="Enter content" required />
+
+            <input type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
 
 <!-- Navigation bar with links and search input -->
 <div class="navbar">
@@ -241,5 +368,37 @@
     </ul>
 </div>
 
+
+    <ul>
+        <li th:each="post : ${posts}">
+            <div class="post">
+                <!-- Edit Form -->
+                <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="post" th:object="${post}">
+                    <p class="post-title">
+                        <strong>Title:</strong>
+                        <input type="text" th:field="*{title}" th:attr="placeholder=${post.title}" required />
+                    </p>
+
+                    <p class="post-content">
+                        <strong>Content:</strong>
+                        <input type="text" th:field="*{content}" th:attr="placeholder=${post.content}" required />
+                    </p>
+
+                    <p class="post-date">
+                        <strong>Date:</strong>
+                        <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">Post Date</span>
+                    </p>
+
+                    <button type="submit">Edit</button>
+                </form>
+
+                <!-- Delete Form -->
+                <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
