@@ -1,4 +1,4 @@
-name: CD
+name: CD Pipeline
 
 on:
   push:
@@ -25,5 +25,4 @@ jobs:
         env:
           IMAGE_TAG: latest
         run: |
-          docker buildx build --platform linux/amd64 -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/acebook-red-panda:latest .
-          docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/acebook-red-panda:latest
+          docker buildx build --platform linux/amd64 -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/acebook-red-panda:${IMAGE_TAG} --push .
