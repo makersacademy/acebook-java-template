@@ -7,7 +7,7 @@ COPY src src
 RUN mvn package -DskipTests
 
 # Stage 2: Production-ready stage with Alpine OpenJDK
-FROM arm64v8/openjdk:8-jdk-alpine
+FROM openjdk:8-jdk-alpine
 
 # Create a non-root user
 RUN addgroup -S spring && adduser -S spring -G spring
