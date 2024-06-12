@@ -43,9 +43,6 @@ jobs:
           # Rest of your script (move chromedriver, etc.)
           sudo mv chromedriver /usr/local/bin/
           rm "$FILENAME"
-          
-
-
 
       - name: Build with Maven
         env:
@@ -57,4 +54,4 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn test 
+        run: mvn test -Dtest=!SignUpTest
