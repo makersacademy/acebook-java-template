@@ -51,7 +51,7 @@ public class CommentTest {
         driver.findElement(By.className("post-submit-button")).click();
         // created a post
         List<WebElement> allPosts = driver.findElements(By.className("post"));
-        WebElement firstPost = allPosts.getFirst();
+        WebElement firstPost = allPosts.get(0);
         firstPost.findElement(By.id("content")).sendKeys(commentText);
         firstPost.findElement(By.className("comment-submit-button")).click();
         // created a comment on the first post on the page
