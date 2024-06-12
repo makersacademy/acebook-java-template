@@ -1,43 +1,43 @@
 import com.github.javafaker.Faker;
-import com.github.javafaker.service.RandomService;
+import com.makersacademy.acebook.Application;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
 public class PostSeleniumTest {
 
     private WebDriver driver;
     Faker faker;
 
     @Before
-    public void setUp() {
+    public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
-        driver.get("http://localhost:8080/posts");
     }
 
     @After
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.close();
     }
 
     @Test
-    public void testPostsinChronological() {
-        //Assigning a fake user & posts
+    public void testPostsInReverseChronologicalOrder() {
+        //Assigning a fake user
         String fakeName = faker.name().firstName();
-        String post1 = faker.random().toString();
-        String post2 = faker.random().toString();
 
         //Signing up into the app
         driver.get("http://localhost:8080/users/new");
@@ -51,9 +51,9 @@ public class PostSeleniumTest {
         driver.findElement(By.className("btn")).click();
 
         //Add in fake posts
-        driver.findElement(By.id("content")).sendKeys(post1);
+        driver.findElement(By.id("content")).sendKeys("My first post");
         driver.findElement(By.id("contentSubmit")).click();
-        driver.findElement(By.id("content")).sendKeys(post2);
+        driver.findElement(By.id("content")).sendKeys("My second post");
         driver.findElement(By.id("contentSubmit")).click();
 
         //Checking structure of posts page
@@ -61,7 +61,7 @@ public class PostSeleniumTest {
         assertThat(posts).isNotEmpty();
         String firstPostContent = posts.get(0).getText();
         String secondPostContent = posts.get(1).getText();
-        assertThat(firstPostContent).isEqualTo(post2);
-        assertThat(secondPostContent).isEqualTo(post1);
+        assertThat(firstPostContent).isEqualTo("My second post");
+        assertThat(secondPostContent).isEqualTo("My first post");
     }
 }
