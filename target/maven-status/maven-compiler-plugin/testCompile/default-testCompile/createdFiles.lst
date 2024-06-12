@@ -1,9 +1,0 @@
-SignUpTest.class
-com/makersacademy/acebook/model/CommentsTest.class
-com/makersacademy/acebook/model/LoginTest.class
-com/makersacademy/acebook/model/LogoutTest.class
-com/makersacademy/acebook/model/Controller/userTests/NavigatesToUsersControllerTest.class
-com/makersacademy/acebook/model/Controller/userTests/NavigatesToLoginAfterUsersControllerTest.class
-com/makersacademy/acebook/model/Controller/commentTests/CommentsControllerTest.class
-com/makersacademy/acebook/model/Controller/postTests/NavigatesToPostCorrectlyTest.class
-com/makersacademy/acebook/model/Repository/PostsRepositoryTest.class
