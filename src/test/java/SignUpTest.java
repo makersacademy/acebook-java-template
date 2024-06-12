@@ -24,11 +24,12 @@ public class SignUpTest {
 //        use environment variable to get chromedriver location
 //        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--headless");
+//        options.addArguments("--no-sandbox");
+//        options.addArguments("--disable-dev-shm-usage");
+//        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
         faker = new Faker();
     }
 
