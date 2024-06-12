@@ -48,18 +48,12 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-//        Delete Method
-//    @PostMapping("/posts/{id}/delete")
-//    public RedirectView delete(@PathVariable Long id){
-//        repository.deleteById(id);
-//        return new RedirectView("/posts");
-//    }
-@PostMapping("/posts/{id}/delete")
-public RedirectView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-    repository.deleteById(id);
-    redirectAttributes.addFlashAttribute("message", "Post deleted successfully.");
-    return new RedirectView("/posts");
-}
+    @PostMapping("/posts/{id}/delete")
+    public RedirectView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        repository.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "Post deleted successfully.");
+        return new RedirectView("/posts");
+    }
 
 //    Edit Method
 //    @PostMapping("/posts/{id}/edit")
