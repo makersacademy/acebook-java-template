@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT users.username as username, users.password as password, users.enabled as enabled from users where users.username=?")
                 .authoritiesByUsernameQuery("SELECT users.username as username, authorities.authority as role FROM users\n" +
-                        "INNER JOIN authorities ON users.id = authorities.user_id\n" +
+                        "INNER JOIN authorities ON users.id = authorities.user_Id\n" +
                         "WHERE username = ?  ");
     }
 

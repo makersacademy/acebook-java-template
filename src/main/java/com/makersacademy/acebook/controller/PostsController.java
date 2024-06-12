@@ -51,7 +51,7 @@ public class PostsController {
         return new RedirectView("/posts");
     }
   
-    @GetMapping("/posts/{post_id}/comments")
+    @GetMapping("/posts/{postId}/comments")
     public String viewComments(@PathVariable Long post_id, Model model) {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
         Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
@@ -60,12 +60,13 @@ public class PostsController {
         model.addAttribute("comment", new Comment());
         return "comments/comments.html";
     }
-    @PostMapping("posts/{post_id}/comments")
+    @PostMapping("posts/{postId}/comments")
     public RedirectView createComment (@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
-        comment.setUser_id(userRepository.findByUsername(auth.getName()).getId());
-        comment.setPost_id(post_id);
+        comment.setUserId(userRepository.findByUsername(auth.getName()).getId());
+        comment.setPostId(post_id);
         commentRepository.save(comment);
         return new RedirectView("/posts/" + post_id + "/comments");
+    }
 
     @PostMapping("/posts/like")
     public RedirectView likePost(@RequestParam Long postId, Authentication auth) {
