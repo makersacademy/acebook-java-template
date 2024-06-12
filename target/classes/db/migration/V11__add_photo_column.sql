@@ -1,1 +1,0 @@
-ALTER TABLE users ADD COLUMN photo_path VARCHAR(255);
