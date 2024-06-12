@@ -19,6 +19,8 @@ public class Post {
     private String content;
     private Long user_id;
     private String photo;
+
+    @javax.persistence.Transient private Long likes;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
