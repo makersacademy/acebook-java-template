@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +24,11 @@ public class SignUpTest {
 //        use environment variable to get chromedriver location
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 //        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
         faker = new Faker();
     }
 
