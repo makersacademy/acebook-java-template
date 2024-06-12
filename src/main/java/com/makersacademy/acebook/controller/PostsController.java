@@ -71,7 +71,7 @@ public class PostsController {
     @GetMapping("/posts/{post_id}")
     public String viewComments(@PathVariable Long post_id, Model model) {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
-        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(post_id);
         post.setLikes(likeRepository.countByPost(post));
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
