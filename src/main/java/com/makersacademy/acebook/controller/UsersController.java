@@ -43,7 +43,7 @@ public class UsersController {
                 Path path = Paths.get(UPLOAD_DIR + filename);
                 Files.createDirectories(path.getParent());
                 Files.write(path, file.getBytes());
-                user.setProfilePictureUrl("/profile-pictures/" + UPLOAD_DIR + filename);
+                user.setProfilePictureUrl("/profile-pictures/" + filename);
             }
             userRepository.save(user);
             Authority authority = new Authority(user.getUsername(), "ROLE_USER");
