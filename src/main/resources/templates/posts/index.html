@@ -3,8 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Acebook</title>
+    <!-- Link to the external stylesheet -->
     <link rel="stylesheet" href="/main.css"/>
     <style>
+
         :root {
             --facebookBlue: #1877f2; /* Facebook blue color */
             --hoverBlue: #145dbf; /* Darker shade for hover */
@@ -102,6 +104,191 @@
         .post-date {
             color: #777;
         }
+
+        /* Style for the body element, setting the font, margin, padding, and background */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Frog gif, feel free to change :) */
+            background: url('https://33.media.tumblr.com/4893e945c6d3a67780efc1e4158bd1ac/tumblr_nut2otAr5C1rhlvg8o1_1280.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Styles for the navigation bar */
+        .navbar {
+            width: 100%;
+            background-color: #027bff !important;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the links in the navigation bar */
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        /* Style for the links in the navigation bar when hovered over */
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Style for the search input in the navigation bar */
+        .navbar input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-left: 20px;
+            width: 150px;
+        }
+
+        /* Styles for the main container of the posts */
+        .post-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 80px auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Style for the main heading */
+        .post-container h1 {
+            font-size: 32px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for the authentication information */
+        .auth-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Style for the authentication information text */
+        .auth-info span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Style for the authentication information link */
+        .auth-info a {
+            color: #027bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* General styles for forms */
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* General styles for paragraphs inside forms */
+        form p {
+            margin: 10px 0;
+        }
+
+        /* General styles for text input fields */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* General styles for submit and reset buttons */
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: #027bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        /* Styles for the unordered list of posts */
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Styles for list items inside the unordered list */
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        /* General styles for paragraphs inside list items */
+        ul li p {
+            margin: 10px 0;
+        }
+
+        /* General styles for forms inside list items */
+        ul li form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Styles for the delete button */
+        ul li input[type="submit"] {
+            background: #f44336;
+        }
+
+        /* Styles for the edit button */
+        ul li .edit-form input[type="submit"] {
+            background: #4CAF50;
+        }
+
+        /* Styles for action buttons */
+        .actions {
+            margin-top: 10px;
+        }
+
+        /* General styles for action buttons */
+        .actions button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Styles for the content of posts */
+        .post-content {
+            flex: 2;
+        }
+
+        /* Styles for the form used to edit posts */
+        .edit-form {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        /* Styles for the logo */
+        .logo {
+            width: 150px;
+            height: 150px;
+        }
+
     </style>
 </head>
 <body>
@@ -116,6 +303,7 @@
         </nav>
     </div>
 </header>
+
 
 <div class="container">
     <h1>Posts</h1>
@@ -132,6 +320,54 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
+
+<!-- Navigation bar with links and search input -->
+<div class="navbar">
+    <a href="/logout">Logout</a>
+    <a href="/profile">Profile</a>
+    <input type="text" placeholder="Search...">
+</div>
+
+<!-- Main container for posts -->
+<div class="post-container">
+    <h1>Posts</h1>
+
+    <!-- Authentication information displayed if the user is authenticated -->
+    <div class="auth-info" sec:authorize="isAuthenticated()">
+        Signed in as <span sec:authentication="name"></span>
+    </div>
+
+    <!-- Form to submit a new post -->
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <p>Title: <input type="text" th:field="*{title}" /></p>
+        <p>Content: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <!-- List of posts -->
+    <ul>
+        <!-- Iterate over each post and display its content -->
+        <li th:each="post : ${posts}">
+            <!-- Display post content -->
+            <div class="post-content">
+                <p><strong>Title:</strong> <span th:text="${post.title}">Post Title</span></p>
+                <p><strong>Content:</strong> <span th:text="${post.content}">Post Content</span></p>
+                <p><strong>Date:</strong> <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">Post Date</span></p>
+                <!-- Form to delete a post -->
+                <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </div>
+            <!-- Form to edit a post -->
+            <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="post" th:object="${post}" class="edit-form">
+                <p>Title: <input type="text" th:field="*{title}" /></p>
+                <p>Content: <input type="text" th:field="*{content}" /></p>
+                <input type="submit" value="Edit">
+            </form>
+        </li>
+    </ul>
+</div>
+
 
     <ul>
         <li th:each="post : ${posts}">
