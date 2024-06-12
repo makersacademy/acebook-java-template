@@ -51,25 +51,26 @@ public class PostsController {
         return new RedirectView("/posts");
     }
   
-    @GetMapping("/posts/{postId}/comments")
+    @GetMapping("/posts/{post_id}")
     public String viewComments(@PathVariable Long post_id, Model model) {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
         Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+        post.setLikes(likeRepository.countByPost(post));
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
-        return "comments/comments.html";
+        return "posts/postinfo.html";
     }
-    @PostMapping("posts/{postId}/comments")
-    public RedirectView createComment (@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
+    @PostMapping("posts/comments")
+    public RedirectView createComment (@RequestParam Long postId, @ModelAttribute Comment comment, Authentication auth, @RequestParam String returnURL) {
         comment.setUserId(userRepository.findByUsername(auth.getName()).getId());
-        comment.setPostId(post_id);
+        comment.setPostId(postId);
         commentRepository.save(comment);
-        return new RedirectView("/posts/" + post_id + "/comments");
+        return new RedirectView(returnURL);
     }
 
     @PostMapping("/posts/like")
-    public RedirectView likePost(@RequestParam Long postId, Authentication auth) {
+    public RedirectView likePost(@RequestParam Long postId, Authentication auth, @RequestParam String returnURL) {
         Optional<Post> optionalPost = repository.findById(postId);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
@@ -79,11 +80,11 @@ public class PostsController {
                 for (Like like : likes) {
                     likeRepository.deleteById(like.getId());
                 }
-                return new RedirectView("/posts");
+                return new RedirectView(returnURL);
             }
             Like like = new Like(post, user);
             likeRepository.save(like);
         }
-        return new RedirectView("/posts");
+        return new RedirectView(returnURL);
     }
 }

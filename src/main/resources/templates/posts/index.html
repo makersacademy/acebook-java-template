@@ -27,6 +27,7 @@
             <p>Likes: <span th:text="${post.likes}"></span></p>
             <form th:action="@{/posts/like}" th:object="${like}" method="post">
                 <input type="hidden" name="postId" th:value="${post.id}">
+                <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
                 <button type="submit">Like</button>
             </form>
         </li>
