@@ -57,20 +57,9 @@ public class UsersController {
         model.addAttribute("username", username);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
-//        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!");
-//        System.out.println(user_id);
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!\n");
-//        User user = userRepository
         Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "users/profile";
-
-//    public String index(Model model) {
-//        Iterable<Post> posts = repository.findAllByOrderByCreatedAtAsc();
-//        model.addAttribute("posts", posts);
-//        model.addAttribute("post", new Post());
-//        return "posts/index";
-//    }
     }
 }
