@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
-    List<Post> findAllByOrderByCreatedAtAsc();
+    List<Post> findAllByOrderByCreatedAtDesc();
+    List<Post> findByUserIdOrderByCreatedAtDesc(long user_id);
 }

@@ -7,6 +7,9 @@
 <body>
     <nav th:insert="fragments.html :: nav"></nav>
     <span th:text="${username}"></span>
+    <ul th:each="post: ${posts}">
+        <li th:text="${post.content}" />
+    </ul>
 
 </body>
 </html>

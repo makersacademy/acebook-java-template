@@ -24,7 +24,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAllByOrderByCreatedAtAsc();
+        Iterable<Post> posts = repository.findAllByOrderByCreatedAtDesc();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -32,7 +32,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post, Authentication auth) {
-        post.setUser_id(userRepository.findByUsername(auth.getName()).getId());
+        post.setUserId(userRepository.findByUsername(auth.getName()).getId());
 //      Temporary while photo feature being developed
         post.setPhoto(null);
         repository.save(post);

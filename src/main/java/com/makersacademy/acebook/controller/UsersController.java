@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,8 @@ public class UsersController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    PostRepository postRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -41,34 +45,32 @@ public class UsersController {
         return new RedirectView("/login");
     }
 
-//    @GetMapping("/users/my-profile")
-//    public RedirectView sessionProfile(Model model) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!");
-//        System.out.println(username);
-//
-////        model.addAttribute("username", auth.getPrincipal());
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!\n");
-//        return new RedirectView("users/{username}");
-//    }
-
         @GetMapping("/users/my-profile")
     public String sessionProfile(RedirectAttributes redirectAttributes) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        redirectAttributes.addAttribute("username", username);
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(username);
-
-//        model.addAttribute("username", auth.getPrincipal());
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!\n");
+        redirectAttributes.addAttribute("username", auth.getName());
         return "redirect:/users/{username}";
     }
 
     @GetMapping("/users/{username}")
     public String profile(@PathVariable("username") String username, Model model) {
         model.addAttribute("username", username);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+//        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!");
+//        System.out.println(user_id);
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!\n");
+//        User user = userRepository
+        Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        model.addAttribute("posts", posts);
+        model.addAttribute("post", new Post());
         return "users/profile";
+
+//    public String index(Model model) {
+//        Iterable<Post> posts = repository.findAllByOrderByCreatedAtAsc();
+//        model.addAttribute("posts", posts);
+//        model.addAttribute("post", new Post());
+//        return "posts/index";
+//    }
     }
 }
