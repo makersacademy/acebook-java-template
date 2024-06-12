@@ -4,14 +4,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 @Data
 @Entity
-@Table(name = "AUTHORITIES")
+@Table(name = "COMMENTS")
 @NoArgsConstructor
 public class Comment {
     @Id
@@ -22,12 +22,15 @@ public class Comment {
     private String content;
     private Long user_id;
     private Long post_id;
-    private LocalDateTime created_at;
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private java.sql.Timestamp createdAt;
 
-    public Comment(String content, Long user_id, Long post_id, LocalDateTime created_at) {
+    public Comment(String content, Long user_id, Long post_id, java.sql.Timestamp createdAt) {
         this.content = content;
         this.user_id = user_id;
         this.post_id = post_id;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
+
 }

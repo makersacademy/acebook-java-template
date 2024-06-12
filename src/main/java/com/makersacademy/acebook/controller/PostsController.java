@@ -1,8 +1,13 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
+import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,11 @@ public class PostsController {
     @Autowired
     PostRepository repository;
 
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
@@ -28,5 +38,21 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post) {
         repository.save(post);
         return new RedirectView("/posts");
+    }
+    @GetMapping("/posts/{post_id}/comments")
+    public String viewComments(@PathVariable Long post_id, Model model) {
+        Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
+        Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(post_id);
+        model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+        return "comments/comments.html";
+    }
+    @PostMapping("posts/{post_id}/comments")
+    public RedirectView createComment (@PathVariable Long post_id, @ModelAttribute Comment comment, Authentication auth) {
+        comment.setUser_id(userRepository.findByUsername(auth.getName()).getId());
+        comment.setPost_id(post_id);
+        commentRepository.save(comment);
+        return new RedirectView("/posts/" + post_id + "/comments");
     }
 }
