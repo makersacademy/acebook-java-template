@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Acebook</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/header-style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/footer-style.css" type="text/css"/>
+</head>
+<body>
+<header th:replace="header :: body"></header>
 
-    <h1>Posts</h1>
+    <main>
+        <h1>Posts</h1>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
+        <div sec:authorize="isAuthenticated()">
+            Signed in as <span sec:authentication="name"></span>
+        </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <!-- Update the form to support file uploads -->
+    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <p>Content: <input type="text" th:field="*{content}"/></p>
+        <p>Image: <input type="file" name="image"/></p> <!-- Add the image upload input -->
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li>
+            <div class="user-info" th:text="${post.user.username}"></div>
+            <div class="post-content" th:text="${post.content}"></div>
+            <div th:if="${post.imageUrl}">
+                <img th:src="${post.imageUrl}" alt="Post image" style="max-width: 300px; max-height: 300px;"/>
+            </div>
+        </li>
     </ul>
+</main>
 
-    </body>
+<footer th:replace="footer :: body"></footer>
+</body>
 </html>

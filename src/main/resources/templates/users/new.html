@@ -4,12 +4,19 @@
     <head>
         <meta charset="UTF-8">
         <title>Signup</title>
+        <link rel="stylesheet" href="/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="/css/header-style.css" type="text/css" />
+        <link rel="stylesheet" href="/css/footer-style.css" type="text/css" />
     </head>
     <body>
+        <header th:replace="header :: body"></header>
+
         <form action="#" th:action="@{/users}" th:object="${user}" method="post">
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
+
+        <footer th:replace="footer :: body"></footer>
     </body>
 </html>

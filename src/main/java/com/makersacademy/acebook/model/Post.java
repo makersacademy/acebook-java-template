@@ -1,12 +1,10 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -16,14 +14,31 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @Getter
     private String content;
+
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Setter
+    @Getter
+    private String imageUrl;
 
     public Post() {}
 
-    public Post(String content) {
+    public Post(String content, User user) {
         this.content = content;
+        this.user = user;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
 
+    public Post(String content, User user, String imageUrl) {
+        this.content = content;
+        this.user = user;
+        this.imageUrl = imageUrl;
+    }
 }
