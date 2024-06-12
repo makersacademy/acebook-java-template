@@ -8,11 +8,13 @@ import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,30 +29,28 @@ public class CommentsController {
     @Autowired
     CommentRepository commentRepository;
 
-
     //comment method
     @PostMapping("/posts/{postId}/comments")
     public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment, Model model) {
-        // Get the post by ID
-        Optional<Post> post = repository.findById(postId);
+        Optional<Post> postOptional = repository.findById(postId);
 
-        if (post.isPresent()) {
-            // Set the post ID for the comment
-            comment.setPost(post.get());
-
-            // Save the comment to the database
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            comment.setPost(post);
             commentRepository.save(comment);
 
-            // Add the post and comments to the model
-            model.addAttribute("post", post.get());
-            model.addAttribute("comments", commentRepository.findById(postId));
+            // Fetch all comments for the current post
+            List<Comment> comments = commentRepository.findByPostId(postId);
 
-            // Redirect to the post page with a success message
+            // Add the post and comments to the model
+            model.addAttribute("post", post);
+            model.addAttribute("comments", comments);
+
+            // Redirect to the post page with comments section
             return new RedirectView("/posts/" + postId + "#comments", true, false);
         } else {
             // Handle the case when the post is not found
             return new RedirectView("/posts", true, false);
         }
     }
-
 }

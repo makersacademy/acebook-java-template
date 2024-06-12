@@ -291,6 +291,27 @@
                     <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                 </p>
 
+
+
+
+                <ul>
+                    <li th:each="comment : ${comments}">
+                        <div class="comment-content">
+                            <!-- Comment Content -->
+                            <p><strong>Comment:</strong> <span th:text="${comment.content}"></span></p>
+                            <p><strong>Posted by:</strong> <span th:text="${comment.user.username}"></span></p>
+                            <p><strong>Posted At:</strong> <span th:text="${#dates.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Form to add new comment -->
+                <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="text" name="content" placeholder="Add a comment..." />
+                    <button type="submit">Add Comment</button>
+                </form>
+
                 <!-- Conditional Edit Form -->
                 <div th:if="${post.user.id == currentUser.id}">
                     <!-- Flash messages -->
