@@ -21,8 +21,8 @@ public class SignUpTest {
     @Before
     public void setup() {
 //        use environment variable to get chromedriver location
-//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
-        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
         driver = new ChromeDriver();
         faker = new Faker();
     }
