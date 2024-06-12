@@ -11,13 +11,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class PostsController {
+
+    public static final String UPLOAD_DIRECTORY = "src/main/resources/static/images";
 
     @Autowired
     PostRepository repository;
@@ -40,10 +47,18 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(@ModelAttribute Post post, Authentication auth) {
+    public RedirectView create(@ModelAttribute Post post, Authentication auth, @RequestParam("image") MultipartFile file) throws IOException {
         post.setUser_id(userRepository.findByUsername(auth.getName()).getId());
-//      Temporary while photo feature being developed
-        post.setPhoto(null);
+        if (!file.isEmpty()) {
+            StringBuilder fileNames = new StringBuilder("images/");
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+            fileNames.append(file.getOriginalFilename());
+            Files.write(fileNameAndPath, file.getBytes());
+            post.setPhoto(fileNames.toString());
+        }
+        else {
+            post.setPhoto(null);
+        }
         repository.save(post);
         return new RedirectView("/posts");
     }
