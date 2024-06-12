@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -39,5 +40,19 @@ public class PostTest {
 			LocalDateTime next = posts.get(i + 1).getCreatedAt();
 			assertThat(current, greaterThanOrEqualTo(next));
 		}
+	}
+
+	@Test
+	public void likesAreTypedAsListOfLongsThatCanBeSetAndGot() {
+		// List<Long> emptyList = new ArrayList<>();
+        assertNull(post.getLikes());
+
+		List<Long> likesList = new ArrayList<>();
+		likesList.add(1L);
+		likesList.add(2L);
+		likesList.add(3L);
+		post.setLikes(likesList);
+
+		assertEquals(likesList, post.getLikes());
 	}
 }
