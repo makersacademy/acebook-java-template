@@ -3,6 +3,8 @@ package com.makersacademy.acebook.model;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -12,11 +14,20 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @Getter
     private String content;
 
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Setter
+    @Getter
+    private String imageUrl;
 
     public Post() {}
 
@@ -24,9 +35,10 @@ public class Post {
         this.content = content;
         this.user = user;
     }
-    public String getContent() { return this.content; }
-    public void setContent(String content) { this.content = content; }
 
-    public User getUser() { return this.user; }
-    public void setUser(User user) { this.user = user; }
+    public Post(String content, User user, String imageUrl) {
+        this.content = content;
+        this.user = user;
+        this.imageUrl = imageUrl;
+    }
 }
