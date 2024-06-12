@@ -36,11 +36,16 @@ jobs:
       - name: Install ChromeDriver
         run: |
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          curl -s "https://chrome-for-testing.herokuapp.com/v${CHROME_VERSION}" | jq -r '.chromedriver_executable' | wget -i -
-          unzip downloaded_chromedriver_version.zip  # Replace with actual downloaded filename
+          DOWNLOAD_URL=$(curl -s "https://chrome-for-testing.herokuapp.com/v${CHROME_VERSION}" | jq -r '.chromedriver_executable')
+          # Extract filename from the URL (assuming it ends with .zip)
+          FILENAME=$(basename "$DOWNLOAD_URL")
+          # Download the file using wget
+          wget -q -O "$FILENAME" "$DOWNLOAD_URL"  # -q for quiet mode
+          # Unzip the downloaded file
+          unzip "$FILENAME"
+          # Rest of the script (move chromedriver, etc.)
           sudo mv chromedriver /usr/local/bin/
-          rm downloaded_chromedriver_version.zip  # Replace with actual downloaded filename
-
+          rm "$FILENAME"
 
 
 
