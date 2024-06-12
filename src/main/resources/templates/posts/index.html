@@ -291,6 +291,13 @@
                     <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                 </p>
 
+                <p>Likes: <span th:text="${#lists.size(post.likes)}"></span></p>
+                <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post">
+                    <button type="submit" th:text="${#lists.contains(post.likes, currentUser) ? 'Unlike' : 'Like'}"></button>
+                </form>
+                <hr>
+
+
                 <!-- Conditional Edit Form -->
                 <div th:if="${post.user.id == currentUser.id}">
                     <!-- Flash messages -->

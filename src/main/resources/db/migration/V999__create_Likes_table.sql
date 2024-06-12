@@ -1,0 +1,7 @@
+CREATE TABLE LIKES (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT,
+    post_id BIGINT,
+    FOREIGN KEY (user_id) REFERENCES USERS(id),
+    FOREIGN KEY (post_id) REFERENCES POSTS(id)
+);

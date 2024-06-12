@@ -1,11 +1,13 @@
 package com.makersacademy.acebook.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +28,12 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+//    No post No like, one post can have many likes
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+//    set ensures element uniqueness
+    private Set<Like> likes = new HashSet<>();
 
 
 }
