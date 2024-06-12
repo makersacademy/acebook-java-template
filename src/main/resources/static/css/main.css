@@ -14,6 +14,10 @@ header {
 
 main {
     margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -24,18 +28,29 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="submit"],
-input[type="reset"] {
-    font-family: "Ruda", sans-serif; /* Ensure input fields use the same font */
+.form-group {
+    margin-bottom: 15px;
 }
 
-input[type="text"] {
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
     width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    font-family: "Ruda", sans-serif;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
 }
 
 input[type="submit"],
@@ -46,6 +61,7 @@ input[type="reset"] {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    font-family: "Ruda", sans-serif;
 }
 
 input[type="submit"]:hover,
@@ -65,13 +81,12 @@ li {
     padding: 10px;
     border-radius: 5px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .user-info {
+    margin-right: 10px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .post-content {
