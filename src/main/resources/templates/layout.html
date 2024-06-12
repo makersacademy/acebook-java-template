@@ -10,8 +10,16 @@
 </head>
 <body>
     <main>
-        <!-- add nav here, or as a fragment -->
-        <div layout:fragment="content"></div>
+        <nav>
+            <ul>
+                <li><a href="/posts">home</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/users/new">Sign Up</a></li>
+            </ul>
+        </nav>
+        <div layout:fragment="content">
+        </div>
     </main>
 </body>
 </html>
