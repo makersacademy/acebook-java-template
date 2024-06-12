@@ -8,6 +8,8 @@
     </head>
     <body>
 
+    <nav th:insert="fragments.html :: nav"></nav>
+
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">
@@ -20,7 +22,14 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <li th:text="${post.content}" />
+        <li>
+            <p th:text="${post.content}"></p>
+            <p>Likes: <span th:text="${post.likes}"></span></p>
+            <form th:action="@{/posts/like}" th:object="${like}" method="post">
+                <input type="hidden" name="postId" th:value="${post.id}">
+                <button type="submit">Like</button>
+            </form>
+        </li>
     </ul>
 
     </body>

@@ -12,16 +12,17 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 public class Post {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private Long user_id;
     private String photo;
+    @javax.persistence.Transient private Long likes;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
-
 
     public Post(String content, Long user_id, String photo, java.sql.Timestamp createdAt) {
         this.content = content;

@@ -1,4 +1,3 @@
-
 ALTER TABLE authorities
   DROP CONSTRAINT fk_authorities_users,
   ADD COLUMN user_id bigint;
