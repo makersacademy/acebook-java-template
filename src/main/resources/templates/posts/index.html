@@ -24,7 +24,7 @@
         <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
     </form>
 
-    <ul th:each="post: ${posts}">
+    <ul th:each="post: ${postsList}">
         <li>
             <div class="user-info" th:text="${post.user.username}"></div>
             <div class="post-content" th:text="${post.content}"></div>

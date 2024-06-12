@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class PostsController {
@@ -28,7 +31,13 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
+
+        // creating a list to store all the posts, and reversing its order
+        List<Post> postsList = new ArrayList<>();
+        posts.forEach(postsList::add);
+        Collections.reverse(postsList);
+
+        model.addAttribute("postsList", postsList);
         model.addAttribute("post", new Post());
         return "posts/index";
     }
