@@ -62,7 +62,7 @@ public class UsersController {
                 Files.write(path, bytes);
 
                 // Set the photo path to the user object
-                user.setPhotoPath(path.toString());
+//                user.setPhotoPath(path.toString());
             }
 
             // Save the user to the database
