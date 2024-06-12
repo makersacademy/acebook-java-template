@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acebook - Login or Signup</title>
     <link th:href="@{/css/main.css}" rel="stylesheet" />
-
 </head>
 <body>
+<p id="welcome-title">Welcome to Acebook!</p>
+<p class="title">Acebook helps you connect and share with the people in your life.</p>
 <div id="container">
     <div class="text__wrapper">
         <div class="heading">
-            <img src="./img/facebook.svg" alt="Acebook">
+            <img src="https://i.imgur.com/1z5NYzX.gif" alt="Acebook">
         </div>
-        <p class="description">Acebook helps you connect and share with the people in your life.</p>
     </div>
     <div class="form__wrapper">
         <form th:action="@{/login}" th:object="${user}" method="post">
