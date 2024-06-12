@@ -82,10 +82,6 @@ public class PostsController {
             }
             Like like = new Like(post, user);
             likeRepository.save(like);
-            // Increment the like count in the post
-//            repository.save(post);
-            System.out.println("Hello world");
-            System.out.println(likeRepository.countByPost(post));
         }
         return new RedirectView("/posts");
     }
