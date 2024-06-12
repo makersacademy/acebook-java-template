@@ -6,7 +6,7 @@ on:
       - main  # Set your main branch name here
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,29 +23,14 @@ jobs:
     - name: Build Spring Boot Application
       run: ./mvnw clean package -DskipTests=true
 
-    - name: Docker Build and Push
-      if: github.ref == 'refs/heads/main'  # Only build Docker image on main branch
+    - name: Deploy to Render
+      if: github.ref == 'refs/heads/main'  # Deploy only on main branch
       env:
-        IMAGE_NAME: ghcr.io/umi007/acebook-red-panda
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}  # Your Render token
+        RENDER_SERVICE_NAME: acebook-java_team-red-panda  # Replace with your Render service name
       run: |
-        echo $GITHUB_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        docker build -t $IMAGE_NAME --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD .
-        docker push $IMAGE_NAME
+        curl -X PATCH -H "Authorization: Bearer $RENDER_TOKEN" \
+          -H "Content-Type: application/json" \
+          -d '{"buildCommand": "./mvnw spring-boot:run"}' \
+          https://api.render.com/v1/services/$RENDER_SERVICE_NAME
 
-    # Uncomment and configure the following section if you want to deploy to production
-    # - name: Deploy to Production
-    #   if: github.ref == 'refs/heads/main'  # Deploy only on main branch
-    #   env:
-    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     REMOTE_USER: your-remote-username
-    #     REMOTE_HOST: your-remote-host
-    #     REMOTE_PATH: /path/to/deployment/directory
-    #   run: |
-    #     mkdir -p ~/.ssh
-    #     echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-    #     chmod 600 ~/.ssh/id_rsa
-    #     ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
-    #     scp -r ./your-application.jar $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
