@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.makersacademy.acebook.model.Controller.commentTests.CommentsControllerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 3, Time elapsed: 0.052 s <<< FAILURE! - in com.makersacademy.acebook.model.Controller.commentTests.CommentsControllerTest
+createComment_whenCommentRepositoryIsNotNull_shouldSaveCommentAndRedirect(com.makersacademy.acebook.model.Controller.commentTests.CommentsControllerTest)  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.makersacademy.acebook.repository.PostRepository.findById(Object)" because "this.postRepository" is null
+	at com.makersacademy.acebook.model.Controller.commentTests.CommentsControllerTest.createComment_whenCommentRepositoryIsNotNull_shouldSaveCommentAndRedirect(CommentsControllerTest.java:47)
+
