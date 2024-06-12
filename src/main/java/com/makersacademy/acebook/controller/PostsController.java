@@ -25,16 +25,24 @@ import java.util.Optional;
 public class PostsController {
 
     @Autowired
-    PostRepository repository;
+    PostRepository postRepository;
 
     @Autowired
     UserRepository userRepository;
 
 
+//    add the current user's information to the model
+
     @GetMapping("/posts")
-    public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
+    public String index(Model model, @AuthenticationPrincipal Principal principal) {
+        Iterable<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
+
+//        Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
+        // Get current user information
+        User currentUser = userRepository.findByUsername(principal.getName());
+        model.addAttribute("currentUser", currentUser);
+
         model.addAttribute("post", new Post());
         return "posts/index";
     }
@@ -44,47 +52,43 @@ public class PostsController {
         post.setCreatedAt(new Date());
         User user = userRepository.findByUsername(principal.getName());
         post.setUser(user);
-        repository.save(post);
+        postRepository.save(post);
         return new RedirectView("/posts");
     }
 
     @PostMapping("/posts/{id}/delete")
     public RedirectView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        repository.deleteById(id);
+        postRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("message", "Post deleted successfully.");
         return new RedirectView("/posts");
     }
 
-//    Edit Method
-//    @PostMapping("/posts/{id}/edit")
-//    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post) {
-//        //Using Optional to stop Null errors
-//        Optional<Post> existingPost = repository.findById(id);
-//        //checking if post exists then updating title and content
-//        if (existingPost.isPresent()) {
-//            Post updatedPost = existingPost.get();
-//            updatedPost.setTitle(post.getTitle());
-//            updatedPost.setContent(post.getContent());
-//            //saving updated post to database
-//            repository.save(updatedPost);
-//        }
-//        return new RedirectView("/posts");
-//
-//    }
-@PostMapping("/posts/{id}/edit")
-public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post, BindingResult result, RedirectAttributes redirectAttributes) {
-    Optional<Post> existingPost = repository.findById(id);
-    if (existingPost.isPresent()) {
-        Post updatedPost = existingPost.get();
-        updatedPost.setTitle(post.getTitle());
-        updatedPost.setContent(post.getContent());
-        updatedPost.setCreatedAt(new Date()); // Update the date
-        repository.save(updatedPost);
-        redirectAttributes.addFlashAttribute("message", "Post updated successfully.");
-    } else {
-        redirectAttributes.addFlashAttribute("error", "Post not found.");
-    }
-    return new RedirectView("/posts");
-}
 
+    @PostMapping("/posts/{id}/edit")
+    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post, BindingResult result, RedirectAttributes redirectAttributes) {
+        Optional<Post> existingPostOptional = postRepository.findById(id);
+        if (existingPostOptional.isPresent()) {
+            Post existingPost = existingPostOptional.get();
+
+            // Only update the title if a new value is provided
+            if (post.getTitle() != null && !post.getTitle().isEmpty()) {
+                existingPost.setTitle(post.getTitle());
+            }
+
+            // Only update the content if a new value is provided
+            if (post.getContent() != null && !post.getContent().isEmpty()) {
+                existingPost.setContent(post.getContent());
+            }
+
+            existingPost.setCreatedAt(new Date()); // Update the date
+            postRepository.save(existingPost);
+            redirectAttributes.addFlashAttribute("message", "Post updated successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Post not found.");
+        }
+        return new RedirectView("/posts");
     }
+
+
+
+}
