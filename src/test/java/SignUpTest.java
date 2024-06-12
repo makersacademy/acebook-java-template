@@ -22,14 +22,14 @@ public class SignUpTest {
     @Before
     public void setup() {
 //        use environment variable to get chromedriver location
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--disable-dev-shm-usage");
-//        driver = new ChromeDriver(options);
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER_LOCATION"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
+//        driver = new ChromeDriver();
         faker = new Faker();
     }
 
@@ -47,6 +47,13 @@ public class SignUpTest {
         String title = driver.getTitle();
         Assert.assertEquals("Please sign in", title);
     }
+
+//    @Test
+//    public void successfulSignUpRedirectsToWelcome() {
+//        // ... rest of the test code
+//        String title = driver.getTitle();
+//        Assert.assertEquals("Welcome", title); // assuming "Welcome" is the title of the welcome page
+//    }
 }
 
 

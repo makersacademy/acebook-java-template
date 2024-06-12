@@ -28,22 +28,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-#      - name: Install Google Chrome
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y google-chrome-stable
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
-#      - name: Install ChromeDriver
-#        run: |
-#          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-#          DOWNLOAD_URL="https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.57/mac-arm64/chrome-mac-arm64.zip"
-#          FILENAME=$(basename "$DOWNLOAD_URL")
-#          wget -q -O "$FILENAME" "$DOWNLOAD_URL"
-#          unzip "$FILENAME"
-#          # Move chromedriver to /usr/local/bin/
-#          sudo mv chromedriver /usr/local/bin/
-#          # Clean up by removing the downloaded ZIP file
-#          rm "$FILENAME"
+      - name: Install ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+          DOWNLOAD_URL="https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/mac-arm64/chrome-mac-arm64.zip"
+          FILENAME=$(basename "$DOWNLOAD_URL")
+          wget -q -O "$FILENAME" "$DOWNLOAD_URL"
+          unzip "$FILENAME"
+          # Move chromedriver to /usr/local/bin/
+          sudo mv chromedriver /usr/local/bin/
+          # Clean up by removing the downloaded ZIP file
+          rm "$FILENAME"
 
 
       - name: Build with Maven
@@ -56,4 +56,5 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn test -Dtest=!SignUpTest
+        run: mvn test
+#        -Dtest=!SignUpTest
