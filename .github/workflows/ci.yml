@@ -40,8 +40,9 @@ jobs:
           FILENAME=$(basename "$DOWNLOAD_URL")
           wget -q -O "$FILENAME" "$DOWNLOAD_URL"
           unzip "$FILENAME"
-          # Rest of your script (move chromedriver, etc.)
+          # Move chromedriver to /usr/local/bin/
           sudo mv chromedriver /usr/local/bin/
+          # Clean up by removing the downloaded ZIP file
           rm "$FILENAME"
 
       - name: Build with Maven
