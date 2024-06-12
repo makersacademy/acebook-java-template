@@ -30,7 +30,7 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-    @PostMapping("/posts/{id}/like")
+    @PostMapping("/posts/{id}/likes")
     public RedirectView likePost(@PathVariable Long id) {
         Post post = repository.findById(id).get();
         post.setLikes(post.getLikes() + 1);
