@@ -1,0 +1,11 @@
+com/makersacademy/acebook/model/Comment.class
+com/makersacademy/acebook/Application.class
+com/makersacademy/acebook/controller/HomeController.class
+com/makersacademy/acebook/controller/FileUploadController.class
+com/makersacademy/acebook/SecurityConfiguration.class
+com/makersacademy/acebook/repository/CommentRepository.class
+com/makersacademy/acebook/model/Authority.class
+com/makersacademy/acebook/repository/PostRepository.class
+com/makersacademy/acebook/controller/CommentsController.class
+com/makersacademy/acebook/repository/AuthoritiesRepository.class
+com/makersacademy/acebook/repository/UserRepository.class
