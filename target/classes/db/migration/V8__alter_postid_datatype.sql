@@ -1,1 +1,0 @@
-ALTER TABLE comments ALTER COLUMN post_id TYPE BIGINT;

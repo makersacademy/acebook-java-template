@@ -1,1 +1,0 @@
-ALTER TABLE posts ADD COLUMN likes INT;
