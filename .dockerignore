@@ -1,0 +1,11 @@
+# Exclude the target directory, which contains the build output
+target/
+
+# Exclude git configuration and repository data
+.git
+.gitignore
+
+# Exclude local configuration files (IDE settings, etc.)
+.idea
+*.iml
+*.log
