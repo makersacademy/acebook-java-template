@@ -13,19 +13,19 @@
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p>Content: <input type="text" th:field="*{content}" /></p>
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            <p><input class="post-submit-button" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
         <ul th:each="post: ${posts}">
-            <li>[[${post.content}]]
+            <li class="post">[[${post.content}]]
                 <ul th:each="comment: ${post.comments}">
-                    <li>[[${comment.content}]]
+                    <li class="comment">[[${comment.content}]]
                     </li>
                 </ul>
                 <form action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
                     <label for="content">Comment on this post:</label>
                     <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
-                    <input type="submit" value="Add comment">
+                    <input class="comment-submit-button" type="submit" value="Add comment">
                 </form>
             </li>
         </ul>
