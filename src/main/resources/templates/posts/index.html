@@ -32,6 +32,8 @@
                 <input type="hidden" name="postId" th:value="${post.id}">
                 <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
                 <button type="submit">Like</button>
+                <a th:href="@{/posts/{id}(id=${post.id})}">Comment</a>
+
             </form>
         </li>
     </ul>
