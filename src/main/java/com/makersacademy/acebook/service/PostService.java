@@ -51,6 +51,23 @@ public class PostService {
                 .build();
     }
 
+    public String saveProfilePicture(MultipartFile image) throws IOException {
+        String filename = "profile_pictures/" + System.currentTimeMillis() + "_" + image.getOriginalFilename();
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(filename)
+                .build();
+        Map<String, String> metadata = new HashMap<>();
+        metadata.put("Content-Type", image.getContentType());
+        PutObjectResponse response = s3Client.putObject(putObjectRequest,
+                software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
+        GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .getObjectRequest(r -> r.bucket(bucketName).key(filename))
+                .signatureDuration(java.time.Duration.ofDays(7))
+                .build();
+        return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
+    }
+
     public void savePost(Post post, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
             String imageUrl = saveImageToS3(image);
