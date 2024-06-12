@@ -1,29 +1,12 @@
-# Use a base image that contains Java and Maven
-FROM maven:3.8.5-openjdk-17-slim AS build
-
-# Set the working directory
+# Use the official Maven image to create a build artifact.
+# https://hub.docker.com/_/maven
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy the pom.xml file
-COPY pom.xml .
-
-# Download the dependencies
-RUN mvn dependency:go-offline -B
-
-# Copy the rest of the project files
-COPY src ./src
-
-# Package the application
-RUN mvn package -DskipTests
-
-# Use a lightweight base image for running the application
-FROM openjdk:17-jdk-alpine
-
-# Copy the JAR file from the build stage
+FROM openjdk:17-jdk-slim
+WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-
-# Expose port 8080
 EXPOSE 8080
-
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
