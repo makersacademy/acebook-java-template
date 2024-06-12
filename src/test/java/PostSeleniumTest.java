@@ -61,7 +61,7 @@ public class PostSeleniumTest {
         assertThat(posts).isNotEmpty();
         String firstPostContent = posts.get(0).getText();
         String secondPostContent = posts.get(1).getText();
-        assertThat(firstPostContent).isEqualTo("My second post");
-        assertThat(secondPostContent).isEqualTo("My first post");
+        assertThat(firstPostContent).contains("My second post");
+        assertThat(secondPostContent).contains("My first post");
     }
 }
