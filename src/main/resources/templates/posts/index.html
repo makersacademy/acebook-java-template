@@ -18,6 +18,8 @@
 
         <ul th:each="post: ${posts}">
             <li class="post">[[${post.content}]]
+                <p class="post-username" th:if="${post.user != null}" th:text="'Posted by ' + ${post.user.username}"></p>
+                <p th:if="${post.user == null}"></p>
                 <ul th:each="comment: ${post.comments}">
                     <li class="comment">[[${comment.content}]]
                     </li>
