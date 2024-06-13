@@ -272,12 +272,10 @@
     </div>
 
     <!-- List of posts -->
-    <ul>
-
+    <ul th:if="${not #lists.isEmpty(posts)}">
         <!-- Iterate over each post and display its content -->
         <li th:each="post : ${posts}">
             <div class="post-content">
-
                 <!-- Post Content -->
                 <p class="post-title">
                     <strong>Title:</strong>
@@ -298,19 +296,19 @@
                     <strong>Created At:</strong>
                     <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                 </p>
+
                 <!-- Display comments for the current post -->
-                <p class="post-comments">
                 <ul>
-                    <li th:each="comment : ${comments}">
-                        <div class="comment-content">
-                            <!-- Comment Content -->
-                            <p><strong>Comment:</strong> <span th:text="${comment.content}"></span></p>
-                            <p><strong>Posted by:</strong> <span th:text="${comment.user.username}"></span></p>
-                            <p><strong>Posted At:</strong> <span th:text="${#dates.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"></span></p>
-                        </div>
-                    </li>
+                    <div>
+                        <li th:each="comment : ${post.comments}">
+                            <p th:text="${comment.content}"></p>
+                            <p th:text="${comment.user.username}"></p>
+                            <p th:text="${comment.createdAt}"></p>
+                        </li>
+                    </div>
                 </ul>
-                </p>
+                        <!-- Edit comment form -->
+
                 <!-- Form to add new comment -->
                 <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -318,22 +316,11 @@
                     <button type="submit">Add Comment</button>
                 </form>
 
-
-
-
-
-
-
-
-
-
-
                 <p>Likes: <span th:text="${#lists.size(post.likes)}"></span></p>
                 <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post">
                     <button type="submit" th:text="${#lists.contains(post.likes, currentUser) ? 'Unlike' : 'Like'}"></button>
                 </form>
                 <hr>
-
 
                 <div th:if="${post.user.id == currentUser.id}">
                     <!-- Flash messages -->
@@ -378,3 +365,15 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

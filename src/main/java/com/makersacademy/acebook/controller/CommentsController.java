@@ -32,8 +32,15 @@ public class CommentsController {
     @Autowired
     CommentRepository commentRepository;
 
+    @GetMapping("/posts/{postId}/comments")
+    public String index(@PathVariable Long postId, Model model) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        return "posts/index";
+    }
+
+
     @PostMapping("/posts/{postId}/comments")
-    public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment, Model model) {
+    public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
         Optional<Post> postOptional = postRepository.findById(postId);
 
         if (postOptional.isPresent()) {
@@ -53,13 +60,6 @@ public class CommentsController {
             comment.setUser(user);
             commentRepository.save(comment);
 
-            // Fetch all comments for the current post
-            List<Comment> comments = commentRepository.findByPostId(postId);
-
-            // Add the post and comments to the model
-            model.addAttribute("post", post);
-            model.addAttribute("comments", comments);
-
             // Redirect to the posts page to show updated comments
             return new RedirectView("/posts", true, false);
         } else {
@@ -73,6 +73,7 @@ public class CommentsController {
         commentRepository.deleteById(commentId);
         return new RedirectView("/posts", true, false);
     }
+
 
     @PostMapping("/posts/{postId}/comments/{commentId}/edit")
     public RedirectView editComment(@PathVariable Long postId, @PathVariable Long commentId, @ModelAttribute Comment comment) {
@@ -90,5 +91,6 @@ public class CommentsController {
         }
     }
 }
+
 
 

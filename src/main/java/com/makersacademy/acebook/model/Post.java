@@ -16,7 +16,6 @@ import java.util.List;
 @Table(name = "POSTS")
 public class Post {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,13 +28,13 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+  
 //    No post No like, one post can have many likes
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 //    set ensures element uniqueness? but has problem , so changed to list
     private List<Like> likes = new ArrayList<>();
 
-
-
-
 }
+

@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -19,8 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -31,6 +32,7 @@ public class PostsController {
 
     @Autowired
     UserRepository userRepository;
+    CommentRepository commentRepository;
 
     @Autowired
     LikeRepository likeRepository;
@@ -43,8 +45,11 @@ public class PostsController {
     public String index(Model model, @AuthenticationPrincipal Principal principal) {
         Iterable<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
 
+
+
 //        Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
+
         // Get current user information
         User currentUser = userRepository.findByUsername(principal.getName());
         model.addAttribute("currentUser", currentUser);
