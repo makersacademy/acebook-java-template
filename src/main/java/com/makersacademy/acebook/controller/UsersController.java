@@ -83,8 +83,7 @@ public class UsersController {
         model.addAttribute("friend_status", friend_status);
         return "users/profile";
     }
-
-    @Transactional
+    
     @PostMapping("/users/upload-profile-image")
     public String uploadProfileImage(RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile file) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -95,6 +94,9 @@ public class UsersController {
         fileNames.append(file.getOriginalFilename());
         Files.write(fileNameAndPath, file.getBytes());
         String stringFileName = fileNames.toString();
+
+        user.setProfilePicture(stringFileName);
+        userRepository.save(user);
 
         redirectAttributes.addAttribute("username", auth.getName());
         return "redirect:/users/{username}";
