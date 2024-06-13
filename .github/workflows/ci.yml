@@ -38,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-
+            
       - name: Install Chrome and Chromedriver
         run: |
           sudo apt-get update
@@ -67,4 +67,5 @@ jobs:
           DB_PASSWORD: test_password
           SPRING_PROFILES_ACTIVE: test
         run: |
+          # Run tests with Selenium and Chrome in headless mode
           mvn test -X --debug -DargLine="-Dwebdriver.chrome.driver=/usr/local/bin/chromedriver -Dwebdriver.chrome.args=--headless --disable-gpu"
