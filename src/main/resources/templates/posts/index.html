@@ -19,6 +19,7 @@
 
     <!-- Update the form to support file uploads -->
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="redirectUrl" value="/posts">
         <p>Content: <input type="text" th:field="*{content}"/></p>
         <p>Image: <input type="file" name="image"/></p> <!-- Add the image upload input -->
         <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>

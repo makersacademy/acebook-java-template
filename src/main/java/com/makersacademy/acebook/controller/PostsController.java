@@ -34,7 +34,7 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(Post post, @RequestParam("image") MultipartFile image, Authentication authentication) {
+    public RedirectView create(Post post, @RequestParam("image") MultipartFile image, @RequestParam(required = false) String redirectUrl, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         post.setUser(user);
@@ -43,9 +43,9 @@ public class PostsController {
             postService.savePost(post, image);
         } catch (IOException e) {
             e.printStackTrace();
-            return new RedirectView("/posts?error");
+            return new RedirectView(redirectUrl != null ? redirectUrl + "?error" : "/posts?error");
         }
 
-        return new RedirectView("/posts");
+        return new RedirectView(redirectUrl != null ? redirectUrl : "/posts");
     }
 }

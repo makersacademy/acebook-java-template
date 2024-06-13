@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+<div class="profile-banner">
+    <div class="profile-picture-container">
+        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="profile-picture">
+    </div>
+    <div class="profile-info">
+        <h1 th:text="${user.username}">Username</h1>
+    </div>
+</div>
+
+<div class="profile-bio">
+    <h2>Bio</h2>
+    <p th:text="${user.bio}">This is the user's bio.</p>
+</div>
+
+<div class="new-post">
+    <h2>Create a New Post</h2>
+    <form action="/posts" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="redirectUrl" value="/profile">
+        <textarea name="content" placeholder="What's on your mind?" required></textarea>
+        <input type="file" name="image">
+        <button type="submit">Post</button>
+    </form>
+</div>
+
+<div class="user-posts">
+    <h2>Posts</h2>
+    <div th:each="post : ${posts}" class="post">
+        <p th:text="${post.content}">Post content here</p>
+        <div th:if="${post.imageUrl}">
+            <img th:src="${post.imageUrl}" alt="Post Image" class="post-image">
+        </div>
+    </div>
+</div>
+</body>
+</html>
