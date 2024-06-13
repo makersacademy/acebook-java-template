@@ -1,6 +1,5 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
-import jdk.vm.ci.meta.Local;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +27,7 @@ public class PostSeleniumTest {
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "C:/Windows/chromedriver.exe");
         driver = new ChromeDriver();
         faker = new Faker();
     }
