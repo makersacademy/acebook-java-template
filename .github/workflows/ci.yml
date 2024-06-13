@@ -44,14 +44,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wget unzip
           # Download and install Chrome for testing
-          wget -q -O /tmp/chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/linux64/chrome-linux64.zip
-          unzip /tmp/chrome-linux64.zip -d /tmp/
-          sudo mv /tmp/chrome-linux64/chrome /usr/local/bin/chrome
-          sudo chmod +x /usr/local/bin/chrome
+          wget -q -O /tmp/chrome-linux64.zip https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+          sudo apt-get -f install -y
           # Download and install Chromedriver
-          wget -q -O /tmp/chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/linux64/chromedriver-linux64.zip
-          unzip /tmp/chromedriver-linux64.zip -d /tmp/
-          sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9.]+' | head -1)
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          wget -q -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip /tmp/chromedriver_linux64.zip -d /tmp/
+          sudo mv /tmp/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Build with Maven
@@ -67,4 +68,3 @@ jobs:
           DB_PASSWORD: test_password
           SPRING_PROFILES_ACTIVE: test
         run: mvn test -X --debug
-
