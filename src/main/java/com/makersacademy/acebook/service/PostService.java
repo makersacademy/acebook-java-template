@@ -32,84 +32,27 @@ public class PostService {
     private PostRepository postRepository;
 
     @Autowired
+    private S3Service s3Service;
+    @Autowired
     private CommentRepository commentRepository;
 
     @Autowired
     private LikeRepository likeRepository;
 
-    private final S3Client s3Client;
-    private final S3Presigner s3Presigner;
-    private final String bucketName;
-
-    @Autowired
-    public PostService(
-            @Value("${aws.region}") String region,
-            @Value("${aws.accessKeyId}") String accessKeyId,
-            @Value("${aws.secretAccessKey}") String secretAccessKey,
-            @Value("${aws.s3.bucket.name}") String bucketName) {
-
-        this.bucketName = bucketName;
-
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
-
-        this.s3Client = S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-                .build();
-
-        this.s3Presigner = S3Presigner.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-                .build();
-    }
-
-  
-    public String saveProfilePicture(MultipartFile image) throws IOException {
-        String filename = "profile_pictures/" + System.currentTimeMillis() + "_" + image.getOriginalFilename();
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(filename)
-                .build();
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("Content-Type", image.getContentType());
-        PutObjectResponse response = s3Client.putObject(putObjectRequest,
-                software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
-        GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .getObjectRequest(r -> r.bucket(bucketName).key(filename))
-                .signatureDuration(java.time.Duration.ofDays(7))
-                .build();
-        return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
-    }
-
-    @Transactional
     public void savePost(Post post, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
-            String imageUrl = saveImageToS3(image);
+            String imageUrl = s3Service.saveImage(image);
             post.setImageUrl(imageUrl);
         }
         postRepository.save(post);
     }
-
-    private String saveImageToS3(MultipartFile image) throws IOException {
-        String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(filename)
-                .build();
-
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("Content-Type", image.getContentType());
-
-        s3Client.putObject(putObjectRequest, software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
-
-        return filename; // Return the filename for now, adjust as per your actual URL handling
+    public List<Post> getPostsByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
     }
-
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }
-    
+
     public Iterable<Post> getAllPostsFromNewestToOldest(){
         List<Post> posts = (List<Post>) postRepository.findAll();
         posts.sort(Comparator.comparing(Post::getCreatedAt).reversed());
