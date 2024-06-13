@@ -82,4 +82,19 @@ public class SignUpTest {
         List<WebElement> logoutLinks = driver.findElements(By.linkText("Logout"));
         Assert.assertTrue("Logout should not be present on the page", logoutLinks.isEmpty());
     }
+    @Test
+    public void whenUserIsLoggedOutFeaturesAreNotAvailableLikeCommentAndPost() {
+        driver.get("http://localhost:8080/");
+        // Check that the "Submit" button for posting is not present
+        List<WebElement> postButtons = driver.findElements(By.id("contentSubmit"));
+        Assert.assertTrue("Post button should not be present when logged out", postButtons.isEmpty());
+
+        // Check that the "Like" button is not present
+        List<WebElement> likeButtons = driver.findElements(By.className("like-button"));
+        Assert.assertTrue("Like button should not be present when logged out", likeButtons.isEmpty());
+
+        // Check that the "Add comment" button is not present
+        List<WebElement> commentButtons = driver.findElements(By.className("comment-submit-button"));
+        Assert.assertTrue("Comment button should not be present when logged out", commentButtons.isEmpty());
+    }
 }
