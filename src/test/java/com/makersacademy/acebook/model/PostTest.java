@@ -49,4 +49,14 @@ public class PostTest {
 		assertEquals("Charlie", post.getUser().getUsername());
 		assertThat(post.getUser().getUsername(), containsString("Charlie"));
 	}
+
+	@Test
+	public void postsHaveATimeStamp(){
+		Post post = new Post("Post content");
+		post.onCreate();
+		LocalDateTime currentTime = LocalDateTime.now();
+
+		assertNotNull(post.getCreatedAt());
+		assertTrue(post.getCreatedAt().isBefore(currentTime) || post.getCreatedAt().isEqual(currentTime));
+	}
 }

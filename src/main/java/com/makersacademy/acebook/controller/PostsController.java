@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,8 @@ public class PostsController {
         if (user.isPresent()) {
             post.setUser(user.get());
         }
+        post.onCreate();
+
         postRepository.save(post);
         return new RedirectView("/posts");
     }
