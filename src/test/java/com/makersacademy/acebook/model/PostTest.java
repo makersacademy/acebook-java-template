@@ -44,8 +44,8 @@ public class PostTest {
 
 	@Test
 	public void likesAreTypedAsListOfLongsThatCanBeSetAndGot() {
-		// List<Long> emptyList = new ArrayList<>();
-        assertNull(post.getLikes());
+		List<Long> emptyList = new ArrayList<>();
+        assertEquals(emptyList, post.getLikes());
 
 		List<Long> likesList = new ArrayList<>();
 		likesList.add(1L);

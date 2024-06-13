@@ -33,7 +33,7 @@ public class Post {
 
     @Type(type = "list-array")
     @Column(name = "likes", columnDefinition = "bigint[]")
-    private List<Long> likes;
+    private List<Long> likes = new ArrayList<>();
 
     public Post(String content) {
         this.content = content;
