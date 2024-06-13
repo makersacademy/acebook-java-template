@@ -17,16 +17,18 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     private String photo;
     @javax.persistence.Transient private Long likes;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
-    public Post(String content, Long userId, String photo, java.sql.Timestamp createdAt) {
+    public Post(String content, User user, String photo, java.sql.Timestamp createdAt) {
         this.content = content;
-        this.userId = userId;
+        this.user = user;
         this.photo = photo;
         this.createdAt = createdAt;
     }
