@@ -1,13 +1,7 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Comment;
-import com.makersacademy.acebook.model.Like;
-import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.CommentRepository;
-import com.makersacademy.acebook.repository.LikeRepository;
-import com.makersacademy.acebook.repository.PostRepository;
-import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -37,6 +31,8 @@ public class PostsController {
     UserRepository userRepository;
     @Autowired
     LikeRepository likeRepository;
+    @Autowired
+    LikeCommentRepository likeCommentRepository;
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -45,7 +41,6 @@ public class PostsController {
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }
-
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
@@ -73,6 +68,9 @@ public class PostsController {
         Post post = repository.findById(post_id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + post_id));
         Iterable<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(post_id);
         post.setLikes(likeRepository.countByPost(post));
+        for (Comment comment : comments){
+            comment.setLikes(likeCommentRepository.countByComment(comment));
+        }
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
@@ -101,6 +99,25 @@ public class PostsController {
             }
             Like like = new Like(post, user);
             likeRepository.save(like);
+        }
+        return new RedirectView(returnURL);
+    }
+
+    @PostMapping("/posts/{post_id}/like")
+    public RedirectView likeComment(@RequestParam Long commentId, Authentication auth, @RequestParam String returnURL) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if (optionalComment.isPresent()) {
+            Comment comment = optionalComment.get();
+            User user = userRepository.findByUsername(auth.getName());
+            List<LikeComment> likes = likeCommentRepository.findLikeCommentByCommentIdAndUserId(comment.getId(), user.getId());
+            if (likes.size() > 0) {
+                for (LikeComment like : likes) {
+                    likeCommentRepository.deleteById(like.getId());
+                }
+                return new RedirectView(returnURL);
+            }
+            LikeComment like = new LikeComment(comment, user);
+            likeCommentRepository.save(like);
         }
         return new RedirectView(returnURL);
     }

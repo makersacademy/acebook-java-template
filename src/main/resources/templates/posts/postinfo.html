@@ -22,6 +22,12 @@
     <li th:each="comment : ${comments}">
         <p th:text="${comment.content}"></p>
         <p th:text="${comment.createdAt}"></p>
+        <p>Likes: <span th:text="${comment.likes}"></span></p>
+        <form th:action="@{/posts/{post_id}/like(post_id=${post.id})}" th:object="${like}" method="post">
+            <input type="hidden" name="commentId" th:value="${comment.id}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Like</button>
+        </form>
     </li>
 </ul>
 <form th:action="@{/posts/comments}" th:object="${comment}" method="post">
