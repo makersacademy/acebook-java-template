@@ -32,7 +32,9 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#"><img src="/pic.jpeg" alt="Profile" class="profile-pic"></a>
+                <a class="nav-link" href="#">
+                    <img th:src="${session.profilePicPath}" alt="Profile" class="profile-pic">
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="logout_id" href="/logout">Logout</a>
