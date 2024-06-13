@@ -10,17 +10,22 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 @Controller
 public class UsersController {
+
+    public static final String UPLOAD_DIRECTORY = "src/main/resources/static/images";
 
     @Autowired
     UserRepository userRepository;
@@ -47,7 +52,7 @@ public class UsersController {
         return new RedirectView("/login");
     }
 
-        @GetMapping("/users/my-profile")
+    @GetMapping("/users/my-profile")
     public String sessionProfile(RedirectAttributes redirectAttributes) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         redirectAttributes.addAttribute("username", auth.getName());
@@ -56,15 +61,39 @@ public class UsersController {
 
     @GetMapping("/users/{username}")
     public String profile(@PathVariable("username") String username, Model model) {
-        model.addAttribute("username", username);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }
+        model.addAttribute("user", user);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "users/profile";
+    }
+
+    @Transactional
+    @PostMapping("/users/upload-profile-image")
+    public String uploadProfileImage(RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile file) throws IOException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+
+        StringBuilder fileNames = new StringBuilder("/images/");
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(file.getOriginalFilename());
+        Files.write(fileNameAndPath, file.getBytes());
+        String stringFileName = fileNames.toString();
+
+        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(stringFileName);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        user.setProfilePicture(fileNames.toString());
+        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(user.getProfilePicture());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
+        redirectAttributes.addAttribute("username", auth.getName());
+        return "redirect:/users/{username}";
     }
 }
