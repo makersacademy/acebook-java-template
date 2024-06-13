@@ -55,7 +55,7 @@ public class PostsController {
     public RedirectView create(@ModelAttribute Post post, Authentication auth, @RequestParam("image") MultipartFile file) throws IOException {
         post.setUser(userRepository.findByUsername(auth.getName()));
         if (!file.isEmpty()) {
-            StringBuilder fileNames = new StringBuilder("images/");
+            StringBuilder fileNames = new StringBuilder("/images/");
             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename());
             Files.write(fileNameAndPath, file.getBytes());
