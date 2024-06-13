@@ -27,6 +27,7 @@ public class PostTest {
 	Long id = 1L;
 
 	List<Comment> comments;
+	private List<Like> likes;
 
 	private final Post post = new Post(id, "hello", "Greetings!", date, user, comments, likes);
 
