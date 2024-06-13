@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 
 public class PostTest {
 
-	private Post post = new Post("hello", 1L, "asd", new Timestamp(10000));
+	private User user = new User("daniel", "daniel", "images/foo.jpg", new Timestamp(10000));
+	private Post post = new Post("hello", user, "asd", new Timestamp(10000));
 
 
 	@Test

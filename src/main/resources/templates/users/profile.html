@@ -8,7 +8,10 @@
     <nav th:insert="fragments.html :: nav"></nav>
     <span th:text="${username}"></span>
     <ul th:each="post: ${posts}">
+        <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
+        <p th:text="${post.user.username}"></p>
         <li th:text="${post.content}" />
+        <img th:src="${post.photo}" onerror="this.style.display = 'none';">
     </ul>
 
 </body>
