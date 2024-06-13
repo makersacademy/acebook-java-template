@@ -1,6 +1,10 @@
+// PostService.java
 package com.makersacademy.acebook.service;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +15,6 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
@@ -24,6 +27,9 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
@@ -62,7 +68,6 @@ public class PostService {
     private String saveImageToS3(MultipartFile image) throws IOException {
         String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
 
-        // Upload the image to S3
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(filename)
@@ -71,13 +76,11 @@ public class PostService {
         Map<String, String> metadata = new HashMap<>();
         metadata.put("Content-Type", image.getContentType());
 
-        PutObjectResponse response = s3Client.putObject(putObjectRequest,
-                software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
+        s3Client.putObject(putObjectRequest, software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
 
-        // Generate a pre-signed URL for the uploaded image
         GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
                 .getObjectRequest(r -> r.bucket(bucketName).key(filename))
-                .signatureDuration(java.time.Duration.ofDays(7)) // URL expiration time
+                .signatureDuration(java.time.Duration.ofDays(7))
                 .build();
 
         return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
@@ -85,5 +88,11 @@ public class PostService {
 
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    public Comment addComment(Long postId, String content, User user) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        Comment comment = new Comment(content, post, user);
+        return commentRepository.save(comment);
     }
 }

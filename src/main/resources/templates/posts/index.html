@@ -10,17 +10,16 @@
 <body>
 <header th:replace="header :: body"></header>
 
-    <main>
-        <h1>Posts</h1>
+<main>
+    <h1>Posts</h1>
 
-        <div sec:authorize="isAuthenticated()">
-            Signed in as <span sec:authentication="name"></span>
-        </div>
+    <div sec:authorize="isAuthenticated()">
+        Signed in as <span sec:authentication="name"></span>
+    </div>
 
-    <!-- Update the form to support file uploads -->
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
         <p>Content: <input type="text" th:field="*{content}"/></p>
-        <p>Image: <input type="file" name="image"/></p> <!-- Add the image upload input -->
+        <p>Image: <input type="file" name="image"/></p>
         <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
     </form>
 
@@ -30,6 +29,24 @@
             <div class="post-content" th:text="${post.content}"></div>
             <div th:if="${post.imageUrl}">
                 <img th:src="${post.imageUrl}" alt="Post image" style="max-width: 300px; max-height: 300px;"/>
+            </div>
+
+            <div>
+                <h3>Comments</h3>
+                <ul th:each="comment : ${post.comments}">
+                    <li>
+                        <div th:text="${comment.user.username}"></div>
+                        <div th:text="${comment.content}"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Add a Comment</h3>
+                <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
+                    <textarea name="content"></textarea>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </li>
     </ul>

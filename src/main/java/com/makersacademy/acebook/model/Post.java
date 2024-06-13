@@ -1,10 +1,13 @@
+// Post.java
 package com.makersacademy.acebook.model;
-
-import javax.persistence.*;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +31,9 @@ public class Post {
     @Setter
     @Getter
     private String imageUrl;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 
     public Post() {}
 
