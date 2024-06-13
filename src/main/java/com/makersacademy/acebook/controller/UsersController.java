@@ -95,9 +95,10 @@ public class UsersController {
         fileNames.append(file.getOriginalFilename());
         Files.write(fileNameAndPath, file.getBytes());
         String stringFileName = fileNames.toString();
-      
+
         redirectAttributes.addAttribute("username", auth.getName());
         return "redirect:/users/{username}";
+    }
 
     public String GetFriendStatus(User one, User two){
         User sender = userRepository.findByUsername(one.getUsername());
