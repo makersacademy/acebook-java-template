@@ -47,7 +47,7 @@ public class LikesOnPostsTest {
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
         // now logged in on /posts
-        driver.findElement(By.id("content")).sendKeys("postText");
+        driver.findElement(By.id("content")).sendKeys(postText);
         driver.findElement(By.className("post-submit-button")).click();
         // created a yeasty post
         List<WebElement> allPosts = driver.findElements(By.className("post"));
@@ -69,7 +69,7 @@ public class LikesOnPostsTest {
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
         // now logged in on /posts
-        driver.findElement(By.id("content")).sendKeys("postText");
+        driver.findElement(By.id("content")).sendKeys(postText);
         driver.findElement(By.className("post-submit-button")).click();
         // created a yeasty post
         List<WebElement> allPosts = driver.findElements(By.className("post"));
@@ -94,7 +94,7 @@ public class LikesOnPostsTest {
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
         // now logged in on /posts
-        driver.findElement(By.id("content")).sendKeys("postText");
+        driver.findElement(By.id("content")).sendKeys(postText);
         driver.findElement(By.className("post-submit-button")).click();
         // created a beery post
         List<WebElement> allPosts = driver.findElements(By.className("post"));
