@@ -66,6 +66,8 @@ public class PostsController {
     public RedirectView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         postRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("message", "Post deleted successfully.");
+        redirectAttributes.addFlashAttribute("flashPostId", id);
+
         return new RedirectView("/posts");
     }
 
@@ -89,6 +91,8 @@ public class PostsController {
             existingPost.setCreatedAt(new Date()); // Update the date
             postRepository.save(existingPost);
             redirectAttributes.addFlashAttribute("message", "Post updated successfully.");
+            redirectAttributes.addFlashAttribute("flashPostId", id);
+
         } else {
             redirectAttributes.addFlashAttribute("error", "Post not found.");
         }
@@ -110,9 +114,13 @@ public class PostsController {
                 like.setPost(post);
                 likeRepository.save(like);
                 redirectAttributes.addFlashAttribute("message", "Post liked.");
+                redirectAttributes.addFlashAttribute("flashPostId", id);
+
             } else {
                 likeRepository.delete(existingLike);
                 redirectAttributes.addFlashAttribute("message", "Post unliked.");
+                redirectAttributes.addFlashAttribute("flashPostId", id);
+
             }
         } else {
             redirectAttributes.addFlashAttribute("error", "Post not found.");

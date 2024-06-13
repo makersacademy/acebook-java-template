@@ -31,9 +31,11 @@ public class Post {
 
 
 //    No post No like, one post can have many likes
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 //    set ensures element uniqueness? but has problem , so changed to list
     private List<Like> likes = new ArrayList<>();
+
+
 
 
 }
