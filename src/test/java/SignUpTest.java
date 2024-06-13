@@ -24,8 +24,8 @@ public class SignUpTest {
 
     @Before
     public void setup() {
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        System.setProperty("webdriver.chrome.driver", "C:/Windows/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "C:/Windows/chromedriver.exe");
         driver = new ChromeDriver();
         faker = new Faker();
     }
