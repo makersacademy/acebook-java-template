@@ -27,7 +27,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = postService.getAllPosts();
+        Iterable<Post> posts = postService.getAllPostsFromNewestToOldest();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";

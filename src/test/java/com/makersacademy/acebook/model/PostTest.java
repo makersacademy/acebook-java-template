@@ -1,14 +1,15 @@
 package com.makersacademy.acebook.model;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PostTest {
 
