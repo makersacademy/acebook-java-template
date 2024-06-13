@@ -62,6 +62,7 @@ input[type="reset"] {
     cursor: pointer;
     border-radius: 5px;
     font-family: "Ruda", sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 input[type="submit"]:hover,

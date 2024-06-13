@@ -55,4 +55,20 @@ public class PostsController {
         postService.addComment(postId, content, user);
         return "redirect:/posts";
     }
+
+    @PostMapping("/posts/{postId}/like")
+    public String likePost(@PathVariable Long postId, Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        postService.addLike(postId, user);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{postId}/unlike")
+    public String unlikePost(@PathVariable Long postId, Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        postService.removeLike(postId, user);
+        return "redirect:/posts";
+    }
 }
