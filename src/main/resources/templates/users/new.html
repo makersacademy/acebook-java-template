@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Signup</title>
-        <link rel="stylesheet" href="/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="/css/header-style.css" type="text/css" />
-        <link rel="stylesheet" href="/css/footer-style.css" type="text/css" />
-    </head>
-    <body>
-        <header th:replace="header :: body"></header>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header-style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/footer-style.css" type="text/css" />
+</head>
+<body>
+<header th:replace="header :: body"></header>
+
+<main>
+    <h1>Signup</h1>
+    <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" />
+        </div>
+        <div class="form-actions">
+            <input type="submit" value="Submit" id="submit"/>
+            <input type="reset" value="Reset" />
+        </div>
+    </form>
+</main>
 
         <form action="#" th:action="@{/users}" th:object="${user}" method="post" enctype="multipart/form-data">
             <p>Username: <input type="text" th:field="*{username}" /></p>
@@ -18,6 +35,6 @@
             <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
 
-        <footer th:replace="footer :: body"></footer>
-    </body>
+<footer th:replace="footer :: body"></footer>
+</body>
 </html>
