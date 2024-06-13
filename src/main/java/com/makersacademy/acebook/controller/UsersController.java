@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+
 import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class UsersController {
@@ -37,6 +40,9 @@ public class UsersController {
     CommentRepository commentRepository;
     @Autowired
     LikeRepository likeRepository;
+    @Autowired  
+    FriendRepository friendRepository;
+
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -73,6 +79,8 @@ public class UsersController {
         model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        String friend_status = GetFriendStatus(auth.getName(), username);
+        model.addAttribute("friend_status", friend_status);
         return "users/profile";
     }
 
@@ -87,16 +95,45 @@ public class UsersController {
         fileNames.append(file.getOriginalFilename());
         Files.write(fileNameAndPath, file.getBytes());
         String stringFileName = fileNames.toString();
-
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(stringFileName);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-        user.setProfilePicture(fileNames.toString());
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(user.getProfilePicture());
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-
+      
         redirectAttributes.addAttribute("username", auth.getName());
         return "redirect:/users/{username}";
+
+    public String GetFriendStatus(User one, User two){
+        User sender = userRepository.findByUsername(one.getUsername());
+        User recipient = userRepository.findByUsername(two.getUsername());
+
+        if (sender == null || recipient == null || sender == recipient) return "N/A";
+
+        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Sent";
+        }
+        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Received";
+        }
+        return "None";
+    }
+
+    public String GetFriendStatus(String one, String two){
+        User sender = userRepository.findByUsername(one);
+        User recipient = userRepository.findByUsername(two);
+
+        if (sender == null || recipient == null || sender.getId() == recipient.getId()) return "N/A";
+
+        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Sent";
+        }
+        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Received";
+        }
+        return "None";
     }
 }
