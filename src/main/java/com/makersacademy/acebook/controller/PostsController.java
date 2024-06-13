@@ -8,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import java.util.List;
 
 @Controller
@@ -18,8 +22,11 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Iterable<Post> posts = repository.findAll();
-        model.addAttribute("posts", posts);
+        List<Post> posts = (List<Post>) repository.findAll();
+        List<Post> sortedPosts = posts.stream().sorted(Comparator.comparingLong(Post::getId) .reversed()) .collect(Collectors.toList());
+
+        model.addAttribute("posts", sortedPosts);
+        //model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "posts/index";
     }

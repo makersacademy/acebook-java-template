@@ -1,6 +1,13 @@
 package com.makersacademy.acebook.model.Controller.userTests;
 
+import com.github.javafaker.Faker;
+import com.makersacademy.acebook.model.User;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -9,36 +16,36 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 
 public class NavigatesToLoginAfterUsersControllerTest {
+        WebDriver driver;
+        Faker faker;
+        User user;
+
+
+        @Before
+        public void setup() {
+            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+            driver = new ChromeDriver();
+            faker = new Faker();
+            user = new User();
+            user.setUsername(faker.name().firstName());
+
+    }
+
+    @After
+    public void tearDown() {
+        driver.close();
+    }
+
     @Test
-    public void testNavigatesToLoginAfterUsers() throws IOException {
-        // URL to test
-        String url = "http://localhost:8080/users/new";
+    public void navigatesToLoginAfterUsersController() throws IOException {
+        driver.get("http://localhost:8080/users/new");
+        driver.findElement(By.id("username")).sendKeys(user.getUsername());
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit")).click();
 
-        // Create a URL object
-        URL obj = new URL(url);
+        String url = driver.getCurrentUrl();
+        assertEquals("http://localhost:8080/login", url);
 
-        // Open a connection
-        HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-
-        // Set the request method
-        connection.setRequestMethod("GET");
-
-        // Enable following redirects
-        connection.setInstanceFollowRedirects(false);
-
-        // Get the response code
-        int responseCode = connection.getResponseCode();
-
-        // Get the redirection URL
-        String redirectURL = connection.getHeaderField("Location");
-
-        // Close the connection
-        connection.disconnect();
-
-        // Assert that the response code is 302 (Found) indicating a redirect
-        assertEquals(200, responseCode);
-
-        // Assert that the redirection URL is the login page
-        assertEquals("http://localhost:8080/login", redirectURL);
     }
 }
+

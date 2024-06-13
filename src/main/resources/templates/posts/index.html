@@ -54,7 +54,7 @@
             <input type="text" id="content" th:field="*{content}" class="form-control" required/>
         </div>
         <button type="submit" id="post-content-submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="reset" id="post-reset-button" class="btn btn-secondary">Reset</button>
     </form>
     <!-- POSTS LIKES-->
     <div class="post-container mt-4">
@@ -62,8 +62,8 @@
             <li class="media mb-4">
                 <div class="media-body">
                     <p th:text="${post.content}"></p>
-                    <p>likes: <span th:text="${post.likes}"></span></p>
-                    <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" method="post" class="d-inline">
+                    <p id="numOflikes">likes: <span th:text="${post.likes}"></span></p>
+                    <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" method="post" class="d-inline" id="like-button">
                         <button type="submit" class="btn btn-outline-primary btn-sm">Like</button>
                     </form>
                     <!-- COMMENTS -->
@@ -71,10 +71,10 @@
                         <input type="hidden" name="postId" th:value="${post.id}"/>
                         <div class="form-group">
                             <label for="commentText">Comment:</label>
-                            <input type="text" id="commentText" name="commentText" class="form-control"/>
+                            <input type="text" id="commentText" name="commentText" class="form-control" required/>
                         </div>
                         <button type="submit" id="comment-submit-button" class="btn btn-primary">Submit Comment</button>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
+                        <button type="reset" id="comment-reset-button" class="btn btn-secondary">Reset</button>
                     </form>
                     <!-- List comments if there are any -->
                     <div class="comment-container mt-2">
