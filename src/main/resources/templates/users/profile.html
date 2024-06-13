@@ -7,6 +7,36 @@
 <body>
     <nav th:insert="fragments.html :: nav"></nav>
     <span th:text="${username}"></span>
+    <div th:switch="${friend_status}">
+        <form th:case="'Friend'" th:action="@{/friends/delete}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Remove Friend</button>
+        </form>
+        <form th:case="'Sent'" th:action="@{/friends/delete}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Cancel Friend Request</button>
+        </form>
+        <form th:case="'Received'" th:action="@{/friends/confirm}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Confirm Friend Request</button>
+        </form>
+        <form th:case="'Received'" th:action="@{/friends/delete}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Deny Friend Request</button>
+        </form>
+        <form th:case="'None'" th:action="@{/friends/add}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Add Friend</button>
+        </form>
+        <p th:case="*">
+            You cannot be friends with this user
+        </p>
+    </div>
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
     </ul>

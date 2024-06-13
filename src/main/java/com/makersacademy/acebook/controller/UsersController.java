@@ -1,9 +1,11 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Authority;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
+import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class UsersController {
@@ -30,6 +33,8 @@ public class UsersController {
     AuthoritiesRepository authoritiesRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    FriendRepository friendRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -60,6 +65,46 @@ public class UsersController {
         Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+        String friend_status = GetFriendStatus(auth.getName(), username);
+        model.addAttribute("friend_status", friend_status);
         return "users/profile";
+    }
+
+    public String GetFriendStatus(User one, User two){
+        User sender = userRepository.findByUsername(one.getUsername());
+        User recipient = userRepository.findByUsername(two.getUsername());
+
+        if (sender == null || recipient == null || sender == recipient) return "N/A";
+
+        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Sent";
+        }
+        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Received";
+        }
+        return "None";
+    }
+
+    public String GetFriendStatus(String one, String two){
+        User sender = userRepository.findByUsername(one);
+        User recipient = userRepository.findByUsername(two);
+
+        if (sender == null || recipient == null || sender.getId() == recipient.getId()) return "N/A";
+
+        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Sent";
+        }
+        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
+        if (existingConnection.isPresent()){
+            if (existingConnection.get().isAccepted()) return "Friend";
+            return "Received";
+        }
+        return "None";
     }
 }
