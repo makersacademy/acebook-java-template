@@ -10,6 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,33 +39,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-#      - name: Install Google Chrome
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y google-chrome-stable
-#
-#      - name: Install ChromeDriver
-#        run: |
-#          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-#          DOWNLOAD_URL="https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/mac-arm64/chrome-mac-arm64.zip"
-#          FILENAME=$(basename "$DOWNLOAD_URL")
-#          wget -q -O "$FILENAME" "$DOWNLOAD_URL"
-#          unzip "$FILENAME"
-#          # Move chromedriver to /usr/local/bin/
-#          sudo mv chromedriver /usr/local/bin/
-#          # Clean up by removing the downloaded ZIP file
-#          rm "$FILENAME"
-
-
       - name: Build with Maven
         env:
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn clean install 
+          DB_USERNAME: test_user
+          DB_PASSWORD: test_password
+        run: mvn clean install -X --debug
 
       - name: Test with Maven
         env:
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn test
-#        -Dtest=!SignUpTest
+          DB_USERNAME: test_user
+          DB_PASSWORD: test_password
+          SPRING_PROFILES_ACTIVE: test
+        run: mvn test -X --debug

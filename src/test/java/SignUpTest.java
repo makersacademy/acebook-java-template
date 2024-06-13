@@ -28,11 +28,11 @@
 ////        DesiredCapabilities capabilities = new DesiredCapabilities();
 ////        capabilities.setCapability("chrome.options", new ChromeOptions().addArguments("--allowed-ips=18.196.138.205\t"));
 ////        WebDriver driver = new ChromeDriver(capabilities);
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--disable-dev-shm-usage");
-//        driver = new ChromeDriver(options);
+////        ChromeOptions options = new ChromeOptions();
+////        options.addArguments("--headless");
+////        options.addArguments("--no-sandbox");
+////        options.addArguments("--disable-dev-shm-usage");
+//        driver = new ChromeDriver();
 ////        driver = new ChromeDriver();
 //        faker = new Faker();
 //    }
@@ -52,12 +52,12 @@
 //        Assert.assertEquals("Please sign in", title);
 //    }
 //
-////    @Test
-////    public void successfulSignUpRedirectsToWelcome() {
-////        // ... rest of the test code
-////        String title = driver.getTitle();
-////        Assert.assertEquals("Welcome", title); // assuming "Welcome" is the title of the welcome page
-////    }
+//    @Test
+//    public void successfulSignUpRedirectsToWelcome() {
+//        // ... rest of the test code
+//        String title = driver.getTitle();
+//        Assert.assertEquals("Welcome", title); // assuming "Welcome" is the title of the welcome page
+//    }
 //}
 
 
