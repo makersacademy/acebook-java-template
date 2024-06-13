@@ -43,17 +43,17 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
-          # Download and install Chrome for testing
-          wget -q -O /tmp/chrome-linux64.zip https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
-          sudo apt-get -f install -y
-          # Download and install Chromedriver
+          # Install Google Chrome
+          wget -q -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+          # Install Chromedriver
           CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9.]+' | head -1)
           CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
           wget -q -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
           unzip /tmp/chromedriver_linux64.zip -d /tmp/
           sudo mv /tmp/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
+
 
       - name: Build with Maven
         env:
