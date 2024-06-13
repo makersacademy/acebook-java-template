@@ -20,9 +20,11 @@
             <li class="post">
                 [[${post.content}]]
 
-                <input type="button" th:action="${post.likes()}"/>
+                <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
 
-
+                <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
+                    <input class="like-button" type="submit" value="Like"/>
+                </form>
 
                 <ul th:each="comment: ${post.comments}">
                     <li class="comment">
