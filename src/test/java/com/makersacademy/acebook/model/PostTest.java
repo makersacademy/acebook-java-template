@@ -28,20 +28,20 @@ public class PostTest {
 
 	List<Comment> comments;
 
-	private final Post post = new Post(id, "hello", "Greetings!", date, user, comments);
+	private final Post post = new Post(id, "hello", "Greetings!", date, user, comments, likes);
 
 	public PostTest() throws ParseException {
 	}
 
 	@Test
 	public void postHasContent() {
-		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments, likes);
 		assertThat(post.getContent(), containsString("Greetings!"));
 	}
 
 	@Test
 	public void postIsDeleted() {
-		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments, likes);
 
 		repository.deleteById(1L);
 
@@ -51,7 +51,7 @@ public class PostTest {
 	@Test
 	public void postIsEdited() {
 		// Create a new post
-		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments, likes);
 		post.setId(1L); // Set the ID for the post
 
 		// Edit the post content and title
