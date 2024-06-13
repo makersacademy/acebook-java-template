@@ -3,17 +3,15 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
-import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +62,20 @@ public class FriendsController {
         receivedConnection.ifPresent(friend -> friendRepository.delete(friend));
 
         return new RedirectView(returnURL);
+    }
+
+    @GetMapping("/friends")
+    public String seeFriends(Model model, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        List<Friend> received = friendRepository.findAllByRecipientAndAccepted(user, true);
+        List<Friend> sent = friendRepository.findAllBySenderAndAccepted(user, true);
+
+        ArrayList<User> friends = new ArrayList<>();
+        for (Friend connection: received) friends.add(connection.getSender());
+        for (Friend connection: sent) friends.add(connection.getRecipient());
+
+
+        model.addAttribute("friends", friends);
+        return "friends/index";
     }
 }
