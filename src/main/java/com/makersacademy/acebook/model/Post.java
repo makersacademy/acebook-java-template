@@ -39,6 +39,9 @@ public class Post {
     @Column(name = "likes", columnDefinition = "bigint[]")
     private List<Long> likes = new ArrayList<>();
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public Post(String content) {
         this.content = content;
     }

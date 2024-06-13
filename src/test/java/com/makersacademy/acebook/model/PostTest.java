@@ -74,4 +74,9 @@ public class PostTest {
 
 		assertEquals(likesList, post.getLikes());
 	}
+
+	@Test
+	public void imageUrlInitialisesAsNull() {
+		assertNull(post.getImageUrl());
+	}
 }
