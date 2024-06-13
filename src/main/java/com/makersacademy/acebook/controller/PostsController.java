@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PostsController {
@@ -33,11 +32,20 @@ public class PostsController {
     LikeRepository likeRepository;
     @Autowired
     LikeCommentRepository likeCommentRepository;
+    @Autowired
+    FriendRepository friendRepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
-
-        Iterable<Post> posts = repository.findAllByOrderByCreatedAtDesc();
+    public String index(Model model, Authentication auth) {
+        User sessionUser = userRepository.findByUsername(auth.getName());
+        List<Friend> connections = friendRepository.findBySenderOrRecipient(sessionUser, sessionUser);
+        Set<Long> friendIds = new HashSet<Long>();
+        for (Friend connection : connections){
+            friendIds.add(connection.getRecipient().getId());
+            friendIds.add(connection.getSender().getId());
+        }
+        List<Long> idList = new ArrayList<Long>(friendIds);
+        Iterable<Post> posts = repository.findByUserIdInOrderByCreatedAtDesc(idList);
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }

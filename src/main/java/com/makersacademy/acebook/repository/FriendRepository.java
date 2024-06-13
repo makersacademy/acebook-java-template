@@ -14,6 +14,6 @@ public interface FriendRepository extends CrudRepository<Friend, Long> {
     List<User> findAllRecipientBySender(User sender);
     List<Friend> findAllByRecipientAndAccepted(User recipient, boolean accepted);
     List<Friend> findAllBySenderAndAccepted(User sender, boolean accepted);
-    List<User> findDistinctUsersBySenderOrRecipient(User sender, User recipient);
+    List<Friend> findBySenderOrRecipient(User sender, User recipient);
     Optional<Friend> findBySenderAndRecipient(User sender, User recipient);
 }
