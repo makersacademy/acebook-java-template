@@ -11,18 +11,22 @@
 <header th:replace="header :: body"></header>
 
 <main>
-    <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
+    <div class="italic-text" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <p>Content: <input type="text" th:field="*{content}"/></p>
-        <p>Image: <input type="file" name="image"/></p>
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-    </form>
+<!--  NEW POST FORM  -->
+    <div id="new-post-form">
+        <h2>New Post</h2>
+        <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data" class="form-post">
+            <p class="form-post-content">Content: <textarea type="textarea" th:field="*{content}"></textarea></p>
+            <p class="form-post-image">Image: <input type="file" name="image"/></p>
+            <p class="form-post-buttons"><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+        </form>
+    </div>
 
+    <h1>Posts</h1>
+<!--  POSTS  -->
     <ul th:each="post: ${posts}">
         <li>
             <img th:src="${post.user.profilePictureUrl}" alt="Profile" style="width: 50px; height: 50px; border-radius: 50%;"/>
@@ -32,6 +36,7 @@
                 <img th:src="${post.imageUrl}" alt="Post image" style="max-width: 300px; max-height: 300px;"/>
             </div>
 
+            <!--  COMMENTS  -->
             <div>
                 <h3>Comments</h3>
                 <ul th:each="comment : ${post.comments}">
@@ -42,6 +47,7 @@
                 </ul>
             </div>
 
+            <!--  NEW COMMENT FORM  -->
             <div>
                 <h3>Add a Comment</h3>
                 <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
@@ -50,6 +56,7 @@
                 </form>
             </div>
 
+            <!--  LIKES  -->
             <div>
                 <h3>Likes</h3>
                 <p>Total Likes: <span th:text="${post.likes.size()}"></span></p>

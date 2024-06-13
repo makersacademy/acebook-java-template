@@ -5,25 +5,58 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #1877F2;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
 main {
     margin: 20px;
-    padding: 20px;
+    padding: 80px 20px 50px 20px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.italic-text {
+    font-style: italic;
 }
 
 h1 {
     color: #1877F2;
 }
 
+h2 {
+    padding: 0;
+    margin: 0.5em 0;
+}
+
+/* ----- END OF NEW CSS -----*/
+
+#new-post-form {
+    max-width: 600px;
+    margin: 1.5vw 0 0 0;
+    padding: 5px 10px;
+    background-color: #f0f2f5;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-post-content,
+.form-post-image {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.form-post-content textarea {
+    width: 100%;
+    height: 7vw;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-post-buttons {
+    text-align: center;
+}
+
+/* ----- END OF NEW CSS -----*/
 form {
     margin-bottom: 20px;
 }
@@ -46,11 +79,6 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     border-radius: 5px;
     box-sizing: border-box;
     font-family: "Ruda", sans-serif;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: space-between;
 }
 
 input[type="submit"],
@@ -92,11 +120,4 @@ li {
 
 .post-content {
     flex-grow: 1;
-}
-
-footer {
-    background-color: #1877F2;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
 }
