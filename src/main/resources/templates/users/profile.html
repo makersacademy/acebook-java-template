@@ -10,6 +10,7 @@
     <header id="user-header" style="margin-top: 10px; margin-bottom: 10px;">
         <span th:text="${profileUser.username}" ></span>
         <img th:src="${profileUser.profilePicture}" onerror="this.style.display = 'none';" style="width:100px;height:100px;vertical-align: middle;" class="profile-pic">
+        <a th:href="@{/users/{id}/friends(id=${profileUser.username})}">Friends</a>
     </header>
 
     <form th:if="${profileUser.username} == ${sessionUser.username}" th:action="@{/users/upload-profile-image}" method="post" enctype="multipart/form-data" style="margin-top: 20px; margin-bottom: 50px;">
@@ -18,7 +19,7 @@
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <div th:switch="${friend_status}">
+    <div th:switch="${profileUser.friend_status}">
         <form th:case="'Friend'" th:action="@{/friends/delete}" method="post">
             <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
             <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
