@@ -11,6 +11,8 @@
             Signed in as <span sec:authentication="name"></span>
         </div>
 
+        <button id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p>Content: <input type="text" th:field="*{content}" /></p>
             <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
