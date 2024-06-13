@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 
 @Controller
 public class PostsController {
@@ -30,20 +30,18 @@ public class PostsController {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
     CommentRepository commentRepository;
+
+
+//    add the current user's information to the model
 
     @GetMapping("/posts")
     public String index(Model model, @AuthenticationPrincipal Principal principal) {
         Iterable<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
 
-        // Load comments for each post
-        for (Post post : posts) {
-            List<Comment> comments = commentRepository.findByPostId(post.getId());
-            post.setComments(comments); // Ensure your Post entity has a setComments method
-        }
 
+
+//        Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
 
         // Get current user information
@@ -70,8 +68,9 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
+
     @PostMapping("/posts/{id}/edit")
-    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post, RedirectAttributes redirectAttributes) {
+    public RedirectView edit(@PathVariable Long id, @ModelAttribute Post post, BindingResult result, RedirectAttributes redirectAttributes) {
         Optional<Post> existingPostOptional = postRepository.findById(id);
         if (existingPostOptional.isPresent()) {
             Post existingPost = existingPostOptional.get();
@@ -94,4 +93,5 @@ public class PostsController {
         }
         return new RedirectView("/posts");
     }
-}
+
+    }

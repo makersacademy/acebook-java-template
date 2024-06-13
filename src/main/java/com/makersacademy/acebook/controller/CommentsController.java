@@ -11,11 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -29,6 +31,13 @@ public class CommentsController {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @GetMapping("/posts/{postId}/comments")
+    public String index(@PathVariable Long postId, Model model) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        return "posts/index";
+    }
+
 
     @PostMapping("/posts/{postId}/comments")
     public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
@@ -64,6 +73,7 @@ public class CommentsController {
         commentRepository.deleteById(commentId);
         return new RedirectView("/posts", true, false);
     }
+
 
     @PostMapping("/posts/{postId}/comments/{commentId}/edit")
     public RedirectView editComment(@PathVariable Long postId, @PathVariable Long commentId, @ModelAttribute Comment comment) {
