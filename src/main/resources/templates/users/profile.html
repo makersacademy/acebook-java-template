@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${profileUser.username}">Title</title>
+    <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
     <nav th:insert="fragments.html :: nav"></nav>
     <header id="user-header" style="margin-top: 10px; margin-bottom: 10px;">
         <span th:text="${profileUser.username}" ></span>
-        <img th:src="${profileUser.profilePicture}" onerror="this.style.display = 'none';" style="width:100px;height:100px;vertical-align: middle;">
+        <img th:src="${profileUser.profilePicture}" onerror="this.style.display = 'none';" style="width:100px;height:100px;vertical-align: middle;" class="profile-pic">
     </header>
 
     <form th:if="${profileUser.username} == ${sessionUser.username}" th:action="@{/users/upload-profile-image}" method="post" enctype="multipart/form-data" style="margin-top: 20px; margin-bottom: 50px;">
         <p>Upload or change your profile picture!</p>
-        <p><input type="file" name="image" accept="image/*" class="form-control-file"></p>
+        <p class="profile-pic"><input type="file" name="image" accept="image/*" class="form-control-file"></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
@@ -52,7 +53,7 @@
     </div>
 
     <ul th:each="post: ${posts}">
-        <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
+        <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;" class="profile-pic">
         <p th:text="${post.user.username}"></p>
         <li th:text="${post.content}" />
         <img th:src="${post.photo}" onerror="this.style.display = 'none';">
