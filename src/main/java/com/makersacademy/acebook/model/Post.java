@@ -49,5 +49,13 @@ public class Post {
         this.Likes = likes;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
 
