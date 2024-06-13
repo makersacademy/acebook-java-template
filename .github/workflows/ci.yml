@@ -17,8 +17,8 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_DB: test_db
-          POSTGRES_USER: user_testing
-          POSTGRES_PASSWORD: password_testing
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -41,8 +41,8 @@ jobs:
 
       - name: Build with Maven
         env:
-          DB_USERNAME: user_testing
-          DB_PASSWORD: password_testing
+          DB_USERNAME: test_user
+          DB_PASSWORD: test_password
         run: mvn clean install
 
       - name: Test with Maven
