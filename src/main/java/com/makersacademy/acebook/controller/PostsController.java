@@ -129,6 +129,4 @@ public class PostsController {
         return new RedirectView("/posts");
     }
 
-
-
-}
+    }
