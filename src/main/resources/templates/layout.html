@@ -37,6 +37,8 @@
             }, (error, result) => {
                 if (!error && result && result.event === "success") {
                     console.log('Done! Here is the image info: ', result.info);
+                    // Set the image URL to the hidden input field
+                    document.getElementById("imageUrl").value = result.info.secure_url;
                 }
             });
 

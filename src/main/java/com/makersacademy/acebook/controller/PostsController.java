@@ -41,11 +41,11 @@ public class PostsController {
         if (user.isPresent()) {
             post.setUser(user.get());
         }
+
+        // set timestamp on post
         post.onCreate();
 
         postRepository.save(post);
         return new RedirectView("/posts");
     }
-
-
 }

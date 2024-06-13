@@ -17,6 +17,7 @@
             <button id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
 
             <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <input type="hidden" id="imageUrl" th:field="*{imageUrl}"/>
                 <label for="content">What's on your mind?</label>
                 <br>
                 <textarea th:field="*{content}"></textarea>
@@ -26,10 +27,10 @@
 
         <ul th:each="post: ${posts}">
             <li class="post">
-                [[${post.content}]]
                 <p class="post-username" th:text="${post.user.username}"></p>
                 <p class="post-timestamp" th:text="${post.createdAt}"></p>
-
+                <img th:unless="${post.imageUrl == null}" th:src="${post.imageUrl}" src="#" th:alt="|${post.user.username}'s image|">
+                <p th:unless="${post.content == null}" class="post-content" th:text="${post.content}"></p>
                 <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
 
                 <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
@@ -41,6 +42,7 @@
                         [[${comment.content}]]
                     </li>
                 </ul>
+
                 <form sec:authorize="isAuthenticated()" action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
                     <label for="content">Comment on this post:</label>
                     <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
