@@ -12,7 +12,7 @@
 
     <h1>Friends</h1>
     <ul th:each="friend : ${friends}">
-        <li>
+        <li class="profile-pic" >
             <img th:src="${friend.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
             <a th:href="@{/users/{id}(id=${friend.username})}" th:text="${friend.username}"></a>
             <div th:switch="${friend.friend_status}">
