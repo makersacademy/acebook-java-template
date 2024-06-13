@@ -31,6 +31,10 @@ public class Post {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
     @Type(type = "list-array")
     @Column(name = "likes", columnDefinition = "bigint[]")
     private List<Long> likes = new ArrayList<>();
