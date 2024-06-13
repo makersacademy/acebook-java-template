@@ -61,7 +61,6 @@
         </form>
     </div>
 
-
     <!-- POSTS LIKES -->
     <div class="main post-container mt-4">
         <ul th:each="post : ${posts}" class="list-unstyled">
@@ -80,6 +79,7 @@
                             <button type="submit" class="btn  btn-like btn-sm">Like</button>
                         </form>
                     </div>
+                  
                     <!-- List comments if there are any -->
                     <div class="comment-container mt-2">
                         <ul th:if="${post.comments != null && #lists.size(post.comments) > 0}" class="list-unstyled" id="commentsList">

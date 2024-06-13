@@ -7,6 +7,7 @@ import com.github.javafaker.Faker;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -70,6 +71,29 @@ public class CommentsTest {
     //Check if the comment was created
     WebElement commentList = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='comment-container mt-2']//ul[@id='commentsList']")));
     assert commentList.getText().contains("This is a comment");
+
+    }
+
+    @Test
+    public void resetComments() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        //Find the comment and enter content
+        driver.findElement(By.id("content")).sendKeys("Hello this is a comment");
+        //Click resetButton
+        driver.findElement(By.id("comment-reset-button")).click();
+
+        //Check if the comment was reset
+        WebElement form = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='form-group']//input[contains(@name, 'commentText')]")));
+        assert form.getText().isEmpty();
+        System.out.println("Comments have been reset successfully");
+
+    }
+
+    @Test
+    public void noContentInPostNoPostIsCreated() {
+        WebElement contentbox = driver.findElement(By.id("commentText"));
+        String hasRequiredAttribute = contentbox.getAttribute("required");
+        Assert.assertEquals("true", hasRequiredAttribute);
 
     }
 
