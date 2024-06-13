@@ -11,7 +11,7 @@
             Signed in as <span sec:authentication="name"></span>
         </div>
 
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
             <p>Content: <input type="text" th:field="*{content}" /></p>
             <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
@@ -28,7 +28,7 @@
                 <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
 
                 <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
-                    <input class="like-button" type="submit" value="Like"/>
+                    <input sec:authorize="isAuthenticated()" class="like-button" type="submit" value="Like"/>
                 </form>
 
                 <ul th:each="comment: ${post.comments}">
@@ -36,7 +36,7 @@
                         [[${comment.content}]]
                     </li>
                 </ul>
-                <form action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
+                <form sec:authorize="isAuthenticated()" action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
                     <label for="content">Comment on this post:</label>
                     <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
                     <input class="comment-submit-button" type="submit" value="Add comment">
