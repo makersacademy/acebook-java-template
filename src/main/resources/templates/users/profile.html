@@ -17,7 +17,7 @@
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <div th:switch="${friend_status}">
+    <div th:switch="${profileUser.friend_status}">
         <form th:case="'Friend'" th:action="@{/friends/delete}" method="post">
             <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
             <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
