@@ -11,13 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,7 +31,7 @@ public class CommentsController {
     CommentRepository commentRepository;
 
     @PostMapping("/posts/{postId}/comments")
-    public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment, Model model) {
+    public RedirectView createComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
         Optional<Post> postOptional = postRepository.findById(postId);
 
         if (postOptional.isPresent()) {
@@ -52,13 +50,6 @@ public class CommentsController {
             comment.setPost(post);
             comment.setUser(user);
             commentRepository.save(comment);
-
-            // Fetch all comments for the current post
-            List<Comment> comments = commentRepository.findByPostId(postId);
-
-            // Add the post and comments to the model
-            model.addAttribute("post", post);
-            model.addAttribute("comments", comments);
 
             // Redirect to the posts page to show updated comments
             return new RedirectView("/posts", true, false);
@@ -90,5 +81,6 @@ public class CommentsController {
         }
     }
 }
+
 
 

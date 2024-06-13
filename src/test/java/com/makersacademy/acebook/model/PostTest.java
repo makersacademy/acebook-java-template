@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -25,20 +26,22 @@ public class PostTest {
 	Date date = formatter.parse("2024-06-11 20:16:56");
 	Long id = 1L;
 
-	private final Post post = new Post(id, "hello", "Greetings!", date, user);
+	List<Comment> comments;
+
+	private final Post post = new Post(id, "hello", "Greetings!", date, user, comments);
 
 	public PostTest() throws ParseException {
 	}
 
 	@Test
 	public void postHasContent() {
-		Post post = new Post(id, "hello", "Greetings!", date, user);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
 		assertThat(post.getContent(), containsString("Greetings!"));
 	}
 
 	@Test
 	public void postIsDeleted() {
-		Post post = new Post(id, "hello", "Greetings!", date, user);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
 
 		repository.deleteById(1L);
 
@@ -48,7 +51,7 @@ public class PostTest {
 	@Test
 	public void postIsEdited() {
 		// Create a new post
-		Post post = new Post(id, "hello", "Greetings!", date, user);
+		Post post = new Post(id, "hello", "Greetings!", date, user, comments);
 		post.setId(1L); // Set the ID for the post
 
 		// Edit the post content and title
