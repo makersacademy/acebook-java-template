@@ -1,11 +1,15 @@
 package com.makersacademy.acebook.model;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PostTest {
 
@@ -49,5 +53,12 @@ public class PostTest {
 	@Test
 	public void postWithoutImageDoesNotHaveImageUrl() {
 		assertNull(postWithoutImage.getImageUrl());
+	}
+
+	@Test
+	public void postHasCreatedAtTimestampWhenCreated() {
+		Post newPost = new Post("timestamped post", user);
+		assertNotNull(newPost.getCreatedAt());
+		assertTrue(ChronoUnit.SECONDS.between(newPost.getCreatedAt(), LocalDateTime.now()) < 1);
 	}
 }

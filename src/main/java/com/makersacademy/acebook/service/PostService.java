@@ -16,8 +16,7 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -102,5 +101,11 @@ public class PostService {
 
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    public Iterable<Post> getAllPostsFromNewestToOldest(){
+        List<Post> posts = (List<Post>) postRepository.findAll();
+        posts.sort(Comparator.comparing(Post::getCreatedAt).reversed());
+        return posts;
     }
 }

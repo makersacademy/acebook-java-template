@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "POSTS")
@@ -29,16 +31,24 @@ public class Post {
     @Getter
     private String imageUrl;
 
-    public Post() {}
+    @Setter
+    @Getter
+    private LocalDateTime createdAt;
+
+    public Post() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public Post(String content, User user) {
         this.content = content;
         this.user = user;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Post(String content, User user, String imageUrl) {
         this.content = content;
         this.user = user;
         this.imageUrl = imageUrl;
+        this.createdAt = LocalDateTime.now();
     }
 }
