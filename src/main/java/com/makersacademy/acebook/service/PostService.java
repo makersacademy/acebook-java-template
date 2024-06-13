@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -63,6 +63,24 @@ public class PostService {
                 .build();
     }
 
+  
+    public String saveProfilePicture(MultipartFile image) throws IOException {
+        String filename = "profile_pictures/" + System.currentTimeMillis() + "_" + image.getOriginalFilename();
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(filename)
+                .build();
+        Map<String, String> metadata = new HashMap<>();
+        metadata.put("Content-Type", image.getContentType());
+        PutObjectResponse response = s3Client.putObject(putObjectRequest,
+                software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
+        GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .getObjectRequest(r -> r.bucket(bucketName).key(filename))
+                .signatureDuration(java.time.Duration.ofDays(7))
+                .build();
+        return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
+    }
+
     @Transactional
     public void savePost(Post post, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
@@ -91,6 +109,13 @@ public class PostService {
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }
+    
+    public Iterable<Post> getAllPostsFromNewestToOldest(){
+        List<Post> posts = (List<Post>) postRepository.findAll();
+        posts.sort(Comparator.comparing(Post::getCreatedAt).reversed());
+        return posts;
+    }
+
 
     @Transactional
     public Comment addComment(Long postId, String content, User user) {
