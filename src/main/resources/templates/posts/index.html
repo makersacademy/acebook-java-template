@@ -17,12 +17,23 @@
         </form>
 
         <ul th:each="post: ${posts}">
-            <li class="post">[[${post.content}]]
-                <p class="post-username" th:if="${post.user != null}" th:text="${post.user.username}"></p>
+            <li class="post">
+                [[${post.content}]]
+                <p th:if="${post.user != null}" class="post-username" th:text="${post.user.username}"></p>
+<!--                remove this once DB reseeded with posts with user_id -->
                 <p th:if="${post.user == null}"></p>
+<!--                -->
                 <p class="post-timestamp" th:text="${post.createdAt}"></p>
+
+                <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
+
+                <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
+                    <input class="like-button" type="submit" value="Like"/>
+                </form>
+
                 <ul th:each="comment: ${post.comments}">
-                    <li class="comment">[[${comment.content}]]
+                    <li class="comment">
+                        [[${comment.content}]]
                     </li>
                 </ul>
                 <form action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
