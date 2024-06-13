@@ -43,11 +43,11 @@ jobs:
         env:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
-        run: mvn clean install
+        run: mvn clean install -X --debug
 
       - name: Test with Maven
         env:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
           SPRING_PROFILES_ACTIVE: test
-        run: mvn test
+        run: mvn test -X --debug
