@@ -20,8 +20,12 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> posts = new ArrayList<>();
 
     public User() {
         this.enabled = TRUE;

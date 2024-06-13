@@ -27,6 +27,10 @@ public class Post {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
     public Post(String content) {
         this.content = content;
     }

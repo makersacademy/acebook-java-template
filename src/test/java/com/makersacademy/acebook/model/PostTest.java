@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PostTest {
 
 	private Post post = new Post("hello");
@@ -39,5 +38,25 @@ public class PostTest {
 			LocalDateTime next = posts.get(i + 1).getCreatedAt();
 			assertThat(current, greaterThanOrEqualTo(next));
 		}
+	}
+
+	@Test
+	public void postsAreAttributedToAUsername() {
+		User user = new User("Charlie", "Password");
+		Post post = new Post("Post content");
+		post.setUser(user);
+
+		assertEquals("Charlie", post.getUser().getUsername());
+		assertThat(post.getUser().getUsername(), containsString("Charlie"));
+	}
+
+	@Test
+	public void postsHaveATimeStamp(){
+		Post post = new Post("Post content");
+		post.onCreate();
+		LocalDateTime currentTime = LocalDateTime.now();
+
+		assertNotNull(post.getCreatedAt());
+		assertTrue(post.getCreatedAt().isBefore(currentTime) || post.getCreatedAt().isEqual(currentTime));
 	}
 }
