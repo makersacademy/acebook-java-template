@@ -11,12 +11,18 @@
             Signed in as <span sec:authentication="name"></span>
         </div>
 
-        <button id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+        <div class="post-creation-container" style="border:1px solid blue;">
+            <p>Post some content</p>
 
-        <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" /></p>
-            <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+            <button id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+
+            <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <label for="content">What's on your mind?</label>
+                <br>
+                <textarea th:field="*{content}"></textarea>
+                <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+        </div>
 
         <ul th:each="post: ${posts}">
             <li class="post">
