@@ -38,11 +38,12 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-
+            
       - name: Build with Maven
         env:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
+          SPRING_PROFILES_ACTIVE: test
         run: mvn clean install -X --debug
 
       - name: Test with Maven
@@ -51,3 +52,4 @@ jobs:
           DB_PASSWORD: test_password
           SPRING_PROFILES_ACTIVE: test
         run: mvn test -X --debug
+
