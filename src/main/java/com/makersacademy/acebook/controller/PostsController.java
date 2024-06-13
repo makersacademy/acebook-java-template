@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.Utils;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,8 @@ public class PostsController {
     @GetMapping("/posts")
     public String index(Model model, Authentication auth) {
         User sessionUser = userRepository.findByUsername(auth.getName());
-        List<Friend> connections = friendRepository.findBySenderOrRecipient(sessionUser, sessionUser);
-        Set<Long> friendIds = new HashSet<Long>();
-        for (Friend connection : connections){
-            friendIds.add(connection.getRecipient().getId());
-            friendIds.add(connection.getSender().getId());
-        }
-        List<Long> idList = new ArrayList<Long>(friendIds);
+        List<Long> idList = Utils.GetAllFriendsOfUser(sessionUser, true, friendRepository);
+
         Iterable<Post> posts = repository.findByUserIdInOrderByCreatedAtDesc(idList);
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
