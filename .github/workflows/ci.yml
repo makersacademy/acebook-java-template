@@ -54,7 +54,6 @@ jobs:
           sudo mv /tmp/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
-
       - name: Build with Maven
         env:
           DB_USERNAME: test_user
@@ -67,4 +66,5 @@ jobs:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
           SPRING_PROFILES_ACTIVE: test
-        run: mvn test -X --debug
+        run: |
+          mvn test -X --debug -DargLine="-Dwebdriver.chrome.driver=/usr/local/bin/chromedriver -Dwebdriver.chrome.args=--headless --disable-gpu"
