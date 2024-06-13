@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,8 +32,8 @@ public class Post {
 
 //    No post No like, one post can have many likes
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-//    set ensures element uniqueness
-    private Set<Like> likes = new HashSet<>();
+//    set ensures element uniqueness? but has problem , so changed to list
+    private List<Like> likes = new ArrayList<>();
 
 
 }
