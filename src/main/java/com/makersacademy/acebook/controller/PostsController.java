@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.Utils;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PostsController {
@@ -33,11 +33,15 @@ public class PostsController {
     LikeRepository likeRepository;
     @Autowired
     LikeCommentRepository likeCommentRepository;
+    @Autowired
+    FriendRepository friendRepository;
 
     @GetMapping("/posts")
-    public String index(Model model) {
+    public String index(Model model, Authentication auth) {
+        User sessionUser = userRepository.findByUsername(auth.getName());
+        List<Long> idList = Utils.GetAllFriendsOfUser(sessionUser, true, friendRepository);
 
-        Iterable<Post> posts = repository.findAllByOrderByCreatedAtDesc();
+        Iterable<Post> posts = repository.findByUserIdInOrderByCreatedAtDesc(idList);
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }

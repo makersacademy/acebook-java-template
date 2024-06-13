@@ -5,7 +5,7 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
-import java.util.Optional;
+import java.util.*;
 
 public class Utils {
 
@@ -45,5 +45,16 @@ public class Utils {
             return "Received";
         }
         return "None";
+    }
+
+    public static List<Long> GetAllFriendsOfUser(User user, boolean includeSelf, FriendRepository friendRepository){
+        List<Friend> connections = friendRepository.findBySenderOrRecipient(user, user);
+        Set<Long> friendIds = new HashSet<Long>();
+        if (includeSelf) friendIds.add(user.getId());
+        for (Friend connection : connections){
+            friendIds.add(connection.getRecipient().getId());
+            friendIds.add(connection.getSender().getId());
+        }
+        return new ArrayList<Long>(friendIds);
     }
 }
