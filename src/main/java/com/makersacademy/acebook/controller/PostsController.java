@@ -31,4 +31,6 @@ public class PostsController {
         repository.save(post);
         return new RedirectView("/posts");
     }
+
+
 }

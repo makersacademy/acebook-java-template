@@ -17,9 +17,16 @@
         </form>
 
         <ul th:each="post: ${posts}">
-            <li class="post">[[${post.content}]]
+            <li class="post">
+                [[${post.content}]]
+
+                <input type="button" th:action="${post.likes()}"/>
+
+
+
                 <ul th:each="comment: ${post.comments}">
-                    <li class="comment">[[${comment.content}]]
+                    <li class="comment">
+                        [[${comment.content}]]
                     </li>
                 </ul>
                 <form action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
@@ -28,6 +35,7 @@
                     <input class="comment-submit-button" type="submit" value="Add comment">
                 </form>
             </li>
+
         </ul>
     </div>
 </html>
