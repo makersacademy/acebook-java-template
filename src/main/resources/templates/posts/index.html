@@ -4,44 +4,57 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 
-    <div layout:fragment="content">
-        <h1>Posts</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>Acebook</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
 
+<body>
+
+
+<div layout:fragment="content">
+    <div class="fragment">
+        <h1>Posts</h1>
         <div sec:authorize="isAuthenticated()">
             Signed in as <span sec:authentication="name"></span>
         </div>
-
-        <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <p>Content: <input type="text" th:field="*{content}" /></p>
-            <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
-
-        <ul th:each="post: ${posts}">
-            <li class="post">
-                [[${post.content}]]
-                <p th:if="${post.user != null}" class="post-username" th:text="${post.user.username}"></p>
-<!--                remove this once DB reseeded with posts with user_id -->
-                <p th:if="${post.user == null}"></p>
-<!--                -->
-                <p class="post-timestamp" th:text="${post.createdAt}"></p>
-
-                <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
-
-                <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
-                    <input sec:authorize="isAuthenticated()" class="like-button" type="submit" value="Like"/>
-                </form>
-
-                <ul th:each="comment: ${post.comments}">
-                    <li class="comment">
-                        [[${comment.content}]]
-                    </li>
-                </ul>
-                <form sec:authorize="isAuthenticated()" action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
-                    <label for="content">Comment on this post:</label>
-                    <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
-                    <input class="comment-submit-button" type="submit" value="Add comment">
-                </form>
-            </li>
-        </ul>
     </div>
+    <div class="center">
+    <form class="card" sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <p class="form-flex">Content: <input type="text" th:field="*{content}" /></p>
+        <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+    </div>
+
+
+    <ul class="form-wrapper" th:each="post : ${posts}">
+        <li class="post card">
+            [[${post.content}]]
+            <p th:if="${post.user != null}" class="post-username" th:text="${post.user.username}"></p>
+            <p th:if="${post.user == null}"></p>
+            <p class="post-timestamp" th:text="${post.createdAt}"></p>
+
+            <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
+
+            <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">
+                <input sec:authorize="isAuthenticated()" class="like-button button" type="submit" value="Like &#x1F44D;"/>
+            </form>
+
+            <ul class="comment-box" th:each="comment: ${post.comments}">
+                <li class="comment">
+                    [[${comment.content}]]
+                </li>
+            </ul>
+            <form class="comment-form" sec:authorize="isAuthenticated()" action="#" th:action="@{'/posts/' + ${post.id} + '/comments'}" th:object="${comment}" method="post">
+                <label for="content">Comment on this post:</label>
+                <textarea th:field="*{content}" placeholder="Add a comment"></textarea>
+                <input class="comment-submit-button" type="submit" value="Add comment">
+            </form>
+        </li>
+    </ul>
+</div>
+
+</body>
+
 </html>
