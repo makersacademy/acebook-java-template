@@ -43,15 +43,11 @@ jobs:
         env:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
-          DB_URL: jdbc:postgresql://localhost:5432/test_db
         run: mvn clean install
 
       - name: Test with Maven
         env:
           DB_USERNAME: test_user
           DB_PASSWORD: test_password
-          DB_URL: jdbc:postgresql://localhost:5432/test_db
+          SPRING_PROFILES_ACTIVE: test
         run: mvn test
-
-#        -Dtest=!SignUpTest
-
