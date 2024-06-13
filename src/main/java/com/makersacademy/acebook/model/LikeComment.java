@@ -1,29 +1,31 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
 @Entity
-@Table(name = "LIKES")
+@Table(name = "COMMENTS_LIKES")
 @NoArgsConstructor
-public class Like {
+public class LikeComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "commentId")
+    private Comment comment;
+    @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "postId")
-    private Post post;
 
-    public Like(Post post, User user) {
-        this.post = post;
+
+    public LikeComment(Comment comment, User user) {
+        this.comment = comment;
         this.user = user;
     }
 }

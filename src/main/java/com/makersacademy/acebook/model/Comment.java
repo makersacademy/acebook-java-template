@@ -22,6 +22,7 @@ public class Comment {
     private String content;
     private Long userId;
     private Long postId;
+    @javax.persistence.Transient private Long likes;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
