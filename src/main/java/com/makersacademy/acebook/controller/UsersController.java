@@ -3,9 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.AuthoritiesRepository;
-import com.makersacademy.acebook.repository.PostRepository;
-import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +28,10 @@ public class UsersController {
     AuthoritiesRepository authoritiesRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    LikeRepository likeRepository;
 
     @GetMapping("/users/new")
     public String signup(Model model) {
@@ -58,6 +60,9 @@ public class UsersController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        for (Post post: posts){
+            post.setLikes(likeRepository.countByPost(post));
+        }
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "users/profile";
