@@ -46,12 +46,12 @@ jobs:
           # Download and install Chrome for testing
           wget -q -O /tmp/chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/linux64/chrome-linux64.zip
           unzip /tmp/chrome-linux64.zip -d /tmp/
-          sudo mv /tmp/chrome-linux64/chrome-linux64/chrome /usr/local/bin/chrome
+          sudo mv /tmp/chrome-linux64/chrome /usr/local/bin/chrome
           sudo chmod +x /usr/local/bin/chrome
           # Download and install Chromedriver
           wget -q -O /tmp/chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.55/linux64/chromedriver-linux64.zip
           unzip /tmp/chromedriver-linux64.zip -d /tmp/
-          sudo mv /tmp/chromedriver-linux64/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Build with Maven
