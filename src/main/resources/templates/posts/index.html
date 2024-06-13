@@ -21,10 +21,7 @@
         <ul th:each="post: ${posts}">
             <li class="post">
                 [[${post.content}]]
-                <p th:if="${post.user != null}" class="post-username" th:text="${post.user.username}"></p>
-<!--                remove this once DB reseeded with posts with user_id -->
-                <p th:if="${post.user == null}"></p>
-<!--                -->
+                <p class="post-username" th:text="${post.user.username}"></p>
                 <p class="post-timestamp" th:text="${post.createdAt}"></p>
 
                 <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
