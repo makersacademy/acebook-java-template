@@ -92,8 +92,25 @@ public class PostsTest {
         wait.until(ExpectedConditions.textToBePresentInElement(likeCount, "likes: 1"));
         Assert.assertEquals("likes: 1", likeCount.getText());
 
+    }
+    @Test
+    public void testMostRecentPostIsCurrent() {
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        //Find the post and enter content
+        driver.findElement(By.id("content")).sendKeys("This is a new post");
+        //Click the submit button
+        driver.findElement(By.id("post-content-submit")).click();
 
+        driver.findElement(By.id("content")).sendKeys("This is a second post");
+        //Click the submit button
+        driver.findElement(By.id("post-content-submit")).click();
 
+        driver.findElement(By.id("content")).sendKeys("This is a third post");
+        //Click the submit button
+        driver.findElement(By.id("post-content-submit")).click();
+
+        WebElement mostRecentPost = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[text()='This is a third post']")));
+        Assert.assertEquals("This is a third post", mostRecentPost.getText());
 
     }
 
