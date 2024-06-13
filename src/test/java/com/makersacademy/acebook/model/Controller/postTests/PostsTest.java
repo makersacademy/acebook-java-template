@@ -7,7 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PostsTest {
 
@@ -41,14 +44,16 @@ public class PostsTest {
 
     @Test
     public void createPost() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         //Find the post and enter content
         driver.findElement(By.id("content")).sendKeys("Hello this is a post");
         //Click the submit button
         driver.findElement(By.id("post-content-submit")).click();
 
-        //Check if the post was created
-        String postText = driver.findElement(By.tagName("p")).getText();
-        assert postText.contains("Hello this is a post");
+        WebElement post = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[text()='Hello this is a post']")));
+
+        assert post.getText().contains("Hello this is a post");
+
     }
 
 
