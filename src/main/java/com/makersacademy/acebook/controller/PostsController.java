@@ -1,7 +1,9 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class PostsController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
+
 
 
 //    add the current user's information to the model
@@ -60,6 +66,8 @@ public class PostsController {
     public RedirectView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         postRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("message", "Post deleted successfully.");
+        redirectAttributes.addFlashAttribute("flashPostId", id);
+
         return new RedirectView("/posts");
     }
 
@@ -83,9 +91,41 @@ public class PostsController {
             existingPost.setCreatedAt(new Date()); // Update the date
             postRepository.save(existingPost);
             redirectAttributes.addFlashAttribute("message", "Post updated successfully.");
+            redirectAttributes.addFlashAttribute("flashPostId", id);
+
         } else {
             redirectAttributes.addFlashAttribute("error", "Post not found.");
         }
+        return new RedirectView("/posts");
+    }
+
+    @PostMapping("/posts/{id}/like")
+    public RedirectView like(@PathVariable Long id, @AuthenticationPrincipal Principal principal, RedirectAttributes redirectAttributes) {
+        User currentUser = userRepository.findByUsername(principal.getName());
+        Optional<Post> postOptional = postRepository.findById(id);
+
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            Like existingLike = likeRepository.findByUserAndPost(currentUser, post);
+
+            if (existingLike == null) {
+                Like like = new Like();
+                like.setUser(currentUser);
+                like.setPost(post);
+                likeRepository.save(like);
+                redirectAttributes.addFlashAttribute("message", "Post liked.");
+                redirectAttributes.addFlashAttribute("flashPostId", id);
+
+            } else {
+                likeRepository.delete(existingLike);
+                redirectAttributes.addFlashAttribute("message", "Post unliked.");
+                redirectAttributes.addFlashAttribute("flashPostId", id);
+
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Post not found.");
+        }
+
         return new RedirectView("/posts");
     }
 
