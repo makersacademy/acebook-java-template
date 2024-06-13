@@ -46,16 +46,6 @@ jobs:
           DB_URL: jdbc:postgresql://localhost:5432/test_db
         run: mvn clean install
 
-      - name: Run database migrations
-        env:
-          DB_USERNAME: test_user
-          DB_PASSWORD: test_password
-          DB_URL: jdbc:postgresql://localhost:5432/test_db
-        run: |
-          java -cp target/classes:target/dependency/* \
-          org.flywaydb.core.command.Migrate -url=jdbc:postgresql://localhost:5432/test_db \
-          -user=test_user -password=test_password
-
       - name: Test with Maven
         env:
           DB_USERNAME: test_user
@@ -63,4 +53,5 @@ jobs:
           DB_URL: jdbc:postgresql://localhost:5432/test_db
         run: mvn test
 
+#        -Dtest=!SignUpTest
 
