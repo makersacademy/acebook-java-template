@@ -18,16 +18,19 @@
             <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
             <button type="submit">Cancel Friend Request</button>
         </form>
-        <form th:case="'Received'" th:action="@{/friends/confirm}" method="post">
-            <input type="hidden" name="recipient_username" th:value="${username}">
-            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
-            <button type="submit">Confirm Friend Request</button>
-        </form>
-        <form th:case="'Received'" th:action="@{/friends/delete}" method="post">
-            <input type="hidden" name="recipient_username" th:value="${username}">
-            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
-            <button type="submit">Deny Friend Request</button>
-        </form>
+        <div th:case="'Received'">
+            <form th:action="@{/friends/confirm}" method="post">
+                <input type="hidden" name="recipient_username" th:value="${username}">
+                <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+                <button type="submit">Confirm Friend Request</button>
+            </form>
+            <form th:action="@{/friends/delete}" method="post">
+                <input type="hidden" name="recipient_username" th:value="${username}">
+                <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+                <button type="submit">Deny Friend Request</button>
+            </form>
+        </div>
+
         <form th:case="'None'" th:action="@{/friends/add}" method="post">
             <input type="hidden" name="recipient_username" th:value="${username}">
             <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
