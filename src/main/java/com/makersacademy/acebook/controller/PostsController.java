@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +80,7 @@ public class PostsController {
     }
     @PostMapping("posts/comments")
     public RedirectView createComment (@RequestParam Long postId, @ModelAttribute Comment comment, Authentication auth, @RequestParam String returnURL) {
-        comment.setUserId(userRepository.findByUsername(auth.getName()).getId());
+        comment.setUser(userRepository.findByUsername(auth.getName()));
         comment.setPostId(postId);
         commentRepository.save(comment);
         return new RedirectView(returnURL);

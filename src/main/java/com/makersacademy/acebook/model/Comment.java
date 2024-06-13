@@ -17,16 +17,18 @@ public class Comment {
     @Setter
     @Getter
     private String content;
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     private Long postId;
     @javax.persistence.Transient private Long likes;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
-    public Comment(String content, Long userId, Long postId, java.sql.Timestamp createdAt) {
+    public Comment(String content, User user, Long postId, java.sql.Timestamp createdAt) {
         this.content = content;
-        this.userId = userId;
+        this.user = user;
         this.postId = postId;
         this.createdAt = createdAt;
     }
