@@ -9,10 +9,10 @@
       font-family: Arial, sans-serif; /* Use Arial font */
       text-align: center; /* Center text */
       margin: 0; /* Remove default margin */
-      overflow: hidden; /* Hide overflow */
+      overflow-y: auto; /* Enable vertical scrolling */
       display: flex; /* Use flexbox for layout */
       flex-direction: column; /* Arrange children in a column */
-      height: 100vh; /* Full viewport height */
+      min-height: 100vh; /* Minimum full viewport height */
     }
     /* Style for the game canvas */
     #gameCanvas {
@@ -27,43 +27,56 @@
     }
     /* Style for the navbar */
     .navbar {
-      width: 100%; /* Full width */
+      width: 60px; /* Set a width for the sidebar */
+      height: 100vh; /* Full viewport height */
       background-color: #027bff; /* Blue background */
       color: white; /* White text color */
-      position: fixed; /* Fixed position at bottom */
-      bottom: 0; /* Align to bottom */
-      text-align: center; /* Center text */
-      padding: 10px 0; /* Vertical padding */
+      position: fixed; /* Fixed position at left */
+      top: 0; /* Align to top */
+      left: 0; /* Align to left */
+      display: flex; /* Use flexbox for layout */
+      flex-direction: column; /* Arrange children in a column */
+      align-items: center; /* Center align children horizontally */
+      padding-top: 20px; /* Padding at the top */
     }
     /* Style for the navbar button */
     .navbar button {
       background-color: #027bff; /* Blue background */
       border: none; /* No border */
       color: white; /* White text */
-      padding: 14px 20px; /* Padding */
+      padding: 10px; /* Padding */
       font-size: 16px; /* Font size */
       cursor: pointer; /* Pointer cursor on hover */
+      margin: 10px 0; /* Margin between buttons */
+      width: 100%; /* Full width of the navbar */
+      text-align: center; /* Center text */
     }
     /* Style for navbar button hover effect */
     .navbar button:hover {
       background-color: #005bb5; /* Darker blue on hover */
     }
+    /* Add padding to the main content to account for the navbar */
+    .main-content {
+      margin-left: 60px; /* Margin equal to navbar width */
+      padding: 20px; /* Padding around the content */
+    }
   </style>
 </head>
 <body>
-<h1>Oh No!</h1>
-<p>You got a 404!</p>
-<p>Try our game while you get back on your feet!</p>
-<p>Catch the ball with your paddle to increase your score!</p>
-<p id="score">Score: 0</p>
-<p id="highScore">High Score: 0</p>
-
-<!-- Game canvas for drawing the game -->
-<canvas id="gameCanvas" width="480" height="320"></canvas>
-
-<!-- Navbar with a button to go home -->
 <div class="navbar">
   <button onclick="window.location.href='http://localhost:8080'">Home</button>
+</div>
+
+<div class="main-content">
+  <h1>Oh No!</h1>
+  <p>You got a 404!</p>
+  <p>Try our game while you get back on your feet!</p>
+  <p>Catch the ball with your paddle to increase your score!</p>
+  <p id="score">Score: 0</p>
+  <p id="highScore">High Score: 0</p>
+
+  <!-- Game canvas for drawing the game -->
+  <canvas id="gameCanvas" width="480" height="320"></canvas>
 </div>
 
 <script>
