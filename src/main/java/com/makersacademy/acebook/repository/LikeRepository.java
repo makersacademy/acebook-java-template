@@ -1,4 +1,3 @@
-// LikeRepository.java
 package com.makersacademy.acebook.repository;
 
 import com.makersacademy.acebook.model.Like;
