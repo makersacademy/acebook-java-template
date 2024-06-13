@@ -62,12 +62,15 @@ public class UsersController {
     @GetMapping("/users/{username}")
     public String profile(@PathVariable("username") String username, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(auth.getName());
-        Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        User sessionUser = userRepository.findByUsername(auth.getName());
+        model.addAttribute("username", username);
+        User profileUser = userRepository.findByUsername(username);
+        Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(profileUser.getId());
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
         }
-        model.addAttribute("user", user);
+        model.addAttribute("profileUser", profileUser);
+        model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
         return "users/profile";
