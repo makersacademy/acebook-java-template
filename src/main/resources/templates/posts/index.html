@@ -32,13 +32,13 @@
         <ul class="posts-list">
             <li class="post-box" th:each="post: ${posts}">
                 <div class="user-info">
-                    <img class="profile-pic" th:src="${post.user.profilePictureUrl}" alt="Profile"/>
+                    <img class="profile-pic" th:src="${post.user.profilePictureUrl}" alt="Profile" onerror="this.src='images/profile-user-icon.png';"/>
                     <div class="username" th:text="${post.user.username}"></div>
                 </div>
                 <div class="post-row">
                     <div class="post-text" th:text="${post.content}"></div>
                     <div class="post-image" th:if="${post.imageUrl}">
-                        <img th:src="${post.imageUrl}" alt="Post image"/>
+                        <img th:src="${post.imageUrl}" alt="Post image" />
                     </div>
                 </div>
 
