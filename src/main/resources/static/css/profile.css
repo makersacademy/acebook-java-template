@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+main {
+   padding-top: 60px;
+}
+
 .profile-banner {
     background-color: white;
     padding: 20px;

@@ -5,27 +5,58 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #1877F2;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
 main {
-    margin: 20px;
-    padding: 20px;
+    max-width: 70%;
+    margin: auto;
+    padding: 110px 2.5vw 40px 2.5vw;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.italic-text {
+    font-style: italic;
 }
 
 h1 {
     color: #1877F2;
 }
 
-form {
-    margin-bottom: 20px;
+h2 {
+    padding: 0;
+    margin: 0.5em 0;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+#new-post-form {
+    max-width: 600px;
+    margin: 1.5vw 0 0 0;
+    padding: 5px 10px;
+    background-color: #f0f2f5;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-post-content,
+.form-post-image {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.form-post-content textarea {
+    width: 100%;
+    height: 7vw;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-post-buttons {
+    text-align: center;
 }
 
 .form-group {
@@ -48,11 +79,6 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     font-family: "Ruda", sans-serif;
 }
 
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-}
-
 input[type="submit"],
 input[type="reset"] {
     background-color: #1877F2;
@@ -70,33 +96,87 @@ input[type="reset"]:hover {
     background-color: #135292;
 }
 
-ul {
+.posts-list{
+/*    background-color: green;*/
     list-style-type: none;
     padding: 0;
 }
 
-li {
-    background-color: #fff;
+.post-box {
+/*    background-color: pink;*/
     border: 1px solid #ccc;
-    margin-bottom: 10px;
+    margin-bottom: 2vw;
     padding: 10px;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
+    display: block;
 }
 
 .user-info {
+/*    background-color: blue;*/
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     margin-right: 10px;
+}
+
+.username {
+    margin: auto 0;
     font-weight: bold;
 }
 
-.post-content {
-    flex-grow: 1;
+.post-row {
+/*    background-color: purple;*/
+    display: flex;
+    justify-content: space-between;
+    margin: 2vw;
 }
 
-footer {
-    background-color: #1877F2;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
+.post-text {
+/*    background-color: brown;*/
+    flex: 1;
+    margin-right: 1vw;
+}
+
+.post-image img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 5px;
+}
+
+.post-likes,
+.post-comments {
+    margin-bottom: 10px;
+}
+
+.post-likes {
+    display: flex;
+    gap: 1vw;
+}
+
+.comments-list {
+    margin-bottom: 1.5vw;
+}
+
+.post-comments,
+.add-comment {
+    border-top: 1px solid #ccc;
+}
+
+.comment-block {
+    display: flex;
+    margin-bottom: 0.5vw;
+}
+
+.comment-username {
+    margin-right: 0.5vw;
+}
+
+.like-buttons {
+    display: flex;
+    margin: auto 0;
 }

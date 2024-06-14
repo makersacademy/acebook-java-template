@@ -12,60 +12,75 @@
 <header th:replace="header :: body"></header>
 
 <main>
-    <h1>Posts</h1>
-
-    <div sec:authorize="isAuthenticated()">
+    <div class="italic-text" sec:authorize="isAuthenticated()">
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="redirectUrl" value="/posts">
-        <p>Content: <input type="text" th:field="*{content}"/></p>
-        <p>Image: <input type="file" name="image"/></p>
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-    </form>
+<!--  NEW POST FORM  -->
+    <div id="new-post-form">
+        <h2>New Post</h2>
+        <form class="form-post" action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
+            <p class="form-post-content">Content: <textarea type="textarea" th:field="*{content}"></textarea></p>
+            <p class="form-post-image">Image: <input type="file" name="image"/></p>
+            <p class="form-post-buttons"><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+        </form>
+    </div>
 
-    <ul th:each="post: ${posts}">
-        <li>
-            <img th:src="${post.user.profilePictureUrl}" alt="Profile" onerror="this.src='images/profile-user-icon.png';" style="width: 50px; height: 50px; border-radius: 50%;"/>
-            <div class="user-info" th:text="${post.user.username}"></div>
-            <div class="post-content" th:text="${post.content}"></div>
-            <div th:if="${post.imageUrl}">
-                <img th:src="${post.imageUrl}" alt="Post image" style="max-width: 300px; max-height: 300px;"/>
-            </div>
+<!--  POSTS  -->
+    <div id="all-posts">
+        <h1>Posts</h1>
+        <ul class="posts-list">
+            <li class="post-box" th:each="post: ${posts}">
+                <div class="user-info">
+                    <img class="profile-pic" th:src="${post.user.profilePictureUrl}" alt="Profile"/>
+                    <div class="username" th:text="${post.user.username}"></div>
+                </div>
+                <div class="post-row">
+                    <div class="post-text" th:text="${post.content}"></div>
+                    <div class="post-image" th:if="${post.imageUrl}">
+                        <img th:src="${post.imageUrl}" alt="Post image"/>
+                    </div>
+                </div>
 
-            <div>
-                <h3>Comments</h3>
-                <ul th:each="comment : ${post.comments}">
-                    <li>
-                        <div th:text="${comment.user.username}"></div>
-                        <div th:text="${comment.content}"></div>
-                    </li>
-                </ul>
-            </div>
+                <!--  LIKES  -->
+                <div class="post-likes">
+                    <p>Likes: <span th:text="${post.likes.size()}"></span></p>
 
-            <div>
-                <h3>Add a Comment</h3>
-                <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
-                    <textarea name="content"></textarea>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+                    <div class="like-buttons">
+                        <form th:action="@{/posts/{postId}/like(postId=${post.id})}" method="post">
+                            <button type="submit">Like</button>
+                        </form>
 
-            <div>
-                <h3>Likes</h3>
-                <p>Total Likes: <span th:text="${post.likes.size()}"></span></p>
+                        <form th:action="@{/posts/{postId}/unlike(postId=${post.id})}" method="post">
+                            <button type="submit">Unlike</button>
+                        </form>
+                    </div>
+                </div>
 
-                <form th:action="@{/posts/{postId}/like(postId=${post.id})}" method="post">
-                    <button type="submit">Like</button>
-                </form>
+                <!--  COMMENTS  -->
+                <div class="post-comments" th:if="${!post.comments.isEmpty()}">
+                    <h3>Comments</h3>
+                    <ul th:each="comment : ${post.comments}">
+                        <li class="comments-list">
+                            <div class="comment-block">
+                                <div class="comment-username" th:text="${comment.user.username} + ':'"></div>
+                                <div class="comment-text" th:text="${comment.content}"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-                <form th:action="@{/posts/{postId}/unlike(postId=${post.id})}" method="post">
-                    <button type="submit">Unlike</button>
-                </form>
-            </div>
-        </li>
-    </ul>
+                <!--  NEW COMMENT FORM  -->
+                <div class="add-comment">
+                    <h3>Add a Comment</h3>
+                    <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
+                        <textarea name="content"></textarea>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
 </main>
 
 <footer th:replace="footer :: body"></footer>
