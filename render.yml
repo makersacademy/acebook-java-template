@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: acebook-api
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          name: acebook-db
+          type: database
+          property: connectionString
+      - key: DB_HOST
+        value: dpg-cpm5nc2ju9rs738kt4ng-a
+      - key: DB_NAME
+        value: acebook_springboot_development_fpol
+      - key: DB_USER
+        value: acebook_springboot_development_fpol_user
+      - key: DB_PASS
+        value: wiXc8BpegUV52sdrqykindpYNTIFiNDH
+    buildCommand: "./mvnw clean package"  # Ensure this matches your build command
+    startCommand: "java -jar app.jar"
+
+  - type: postgresql
+    name: acebook-db
+    plan: free
+    properties:
+      databaseName: acebook_springboot_development_fpol
+      user: acebook_springboot_development_fpol_user
+      password: wiXc8BpegUV52sdrqykindpYNTIFiNDH

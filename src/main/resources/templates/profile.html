@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <meta name="csrf-token" th:content="${_csrf.token}">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/header-style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/footer-style.css" type="text/css"/>
+</head>
+<body>
+<header th:replace="header :: body"></header>
+<main>
+<div class="spacer"></div>
+<div class="profile-banner">
+    <div class="profile-picture-container">
+        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="profile-picture" onerror="this.src='images/profile-user-icon.png';">
+    </div>
+    <div class="profile-info">
+        <h1 th:text="${user.username}">Username</h1>
+    </div>
+</div>
+
+<div class="profile-bio">
+    <h2>Bio</h2>
+    <p th:text="${user.bio}">This is the user's bio.</p>
+    <form th:action="@{/profile/updateBio}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <textarea name="bio" placeholder="Update your bio" required></textarea>
+        <button type="submit">Update Bio</button>
+    </form>
+</div>
+
+    <div class="new-post">
+        <form action="/posts" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture" onerror="this.src='images/profile-user-icon.png';">
+            <input type="hidden" name="redirectUrl" value="/profile">
+            <textarea class="post-text" name="content" placeholder="What's on your mind?" required></textarea>
+            <div class="form-row">
+                <input type="file" name="image">
+                <div class="btn-div">
+                    <button class="button" type="submit">Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="user-posts">
+        <h2>Posts</h2>
+        <div th:each="post : ${posts}" class="post">
+            <div class="post-banner">
+                <div class="post-picture-container">
+                    <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture" onerror="this.src='images/profile-user-icon.png';">
+                </div>
+                <div class="post-info">
+                    <h3 th:text="${user.username}">Username</h3>
+                </div>
+            </div>
+            <p th:text="${post.content}">Post content here</p>
+            <div class="post-img-div" th:if="${post.imageUrl}">
+                <img th:src="${post.imageUrl}" alt="Post Image" class="post-image" onerror="this.src='images/profile-user-icon.png';">
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: body"></footer>
+
+</body>
+</html>

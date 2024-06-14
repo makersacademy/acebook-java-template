@@ -9,3 +9,6 @@ dependency-reduced-pom.xml
 .factorypath
 .project
 .settings/
+.env
+
+.DS_STORE
