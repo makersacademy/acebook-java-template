@@ -10,23 +10,21 @@ services:
           name: acebook-db
           type: database
           property: connectionString
-      - key: DATABASE_USERNAME
-        fromService:
-          name: acebook-db
-          type: database
-          property: user
-      - key: DATABASE_PASSWORD
-        fromService:
-          name: acebook-db
-          type: database
-          property: password
-    buildCommand: "./mvnw clean package"
+      - key: DB_HOST
+        value: dpg-cpm5nc2ju9rs738kt4ng-a
+      - key: DB_NAME
+        value: acebook_springboot_development_fpol
+      - key: DB_USER
+        value: acebook_springboot_development_fpol_user
+      - key: DB_PASS
+        value: wiXc8BpegUV52sdrqykindpYNTIFiNDH
+    buildCommand: "./mvnw clean package"  # Ensure this matches your build command
     startCommand: "java -jar app.jar"
 
   - type: postgresql
     name: acebook-db
     plan: free
     properties:
-      databaseName: acebook_postgres_development
-      user: acebook_user
-      password: acebook_password
+      databaseName: acebook_springboot_development_fpol
+      user: acebook_springboot_development_fpol_user
+      password: wiXc8BpegUV52sdrqykindpYNTIFiNDH
