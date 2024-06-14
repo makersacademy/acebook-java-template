@@ -136,6 +136,13 @@ input[type="reset"]:hover {
     margin: 2vw;
 }
 
+<<<<<<< HEAD
+footer {
+    background-color: #1877F2;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
 .post-text {
 /*    background-color: brown;*/
     flex: 1;
@@ -180,3 +187,4 @@ input[type="reset"]:hover {
     display: flex;
     margin: auto 0;
 }
+
