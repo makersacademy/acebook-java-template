@@ -10,7 +10,7 @@
 <nav th:insert="fragments.html :: nav"></nav>
 
 <li>
-    <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
+    <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:50px;height:50px;border-radius:50%;">
     <p th:text="${post.user.username}"></p>
     <p th:text="${post.content}"></p>
     <img th:src="${post.photo}" onerror="this.style.display = 'none';">
