@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: acebook-api
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          name: acebook-db
+          type: database
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromService:
+          name: acebook-db
+          type: database
+          property: user
+      - key: DATABASE_PASSWORD
+        fromService:
+          name: acebook-db
+          type: database
+          property: password
+
+  - type: postgresql
+    name: acebook-db
+    plan: free
+    properties:
+      databaseName: acebook_postgres_development
+      user: acebook_user
+      password: acebook_password
