@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/header-style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/footer-style.css" type="text/css"/>
 </head>
 <body>
+<header th:replace="header :: body"></header>
+<div class="spacer"></div>
 <div class="profile-banner">
     <div class="profile-picture-container">
         <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="profile-picture">
@@ -21,12 +25,13 @@
 </div>
 
 <div class="new-post">
-    <h2>Create a New Post</h2>
+    <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
+
     <form action="/posts" method="post" enctype="multipart/form-data">
         <input type="hidden" name="redirectUrl" value="/profile">
-        <textarea name="content" placeholder="What's on your mind?" required></textarea>
-        <input type="file" name="image">
-        <button type="submit">Post</button>
+        <textarea class="post-text" name="content" placeholder="What's on your mind?" required></textarea>
+        <input  type="file" name="image">
+        <button class="button" type="submit">Post</button>
     </form>
 </div>
 
@@ -39,5 +44,7 @@
         </div>
     </div>
 </div>
+<footer th:replace="footer :: body"></footer>
+
 </body>
 </html>
