@@ -51,7 +51,7 @@ public class PostsTest {
         //Click the submit button
         driver.findElement(By.id("post-content-submit")).click();
 
-        WebElement post = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[text()='Hello this is a post']")));
+        WebElement post = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='main post-container mt-4']//p[text()='Hello this is a post']")));
 
         assert post.getText().contains("Hello this is a post");
 
@@ -66,7 +66,7 @@ public class PostsTest {
         driver.findElement(By.id("post-reset-button")).click();
 
         //Check if the post was reset
-        WebElement form = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='form-group']//input[contains(@name, 'commentText')]")));
+        WebElement form = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='form-group']//input[(@id='content')]")));
         assert form.getText().isEmpty();
 
     }
@@ -81,21 +81,21 @@ public class PostsTest {
 
     @Test
     public void testUserCanLikePost() {
-        WebDriverWait wait = new WebDriverWait(driver, 50);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         //Find the post and enter content
         driver.findElement(By.id("content")).sendKeys("This is a new post");
         //Click the submit button
         driver.findElement(By.id("post-content-submit")).click();
 
         driver.findElement(By.id("like-button")).click();
-        WebElement likeCount = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[@id='numOflikes']")));
-        wait.until(ExpectedConditions.textToBePresentInElement(likeCount, "likes: 1"));
-        Assert.assertEquals("likes: 1", likeCount.getText());
+        WebElement likeCount = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='main post-container mt-4']//p[@id='numOflikes']")));
+        wait.until(ExpectedConditions.textToBePresentInElement(likeCount, "Likes: 1"));
+        Assert.assertEquals("Likes: 1", likeCount.getText());
 
     }
     @Test
     public void testMostRecentPostIsCurrent() {
-        WebDriverWait wait = new WebDriverWait(driver, 50);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         //Find the post and enter content
         driver.findElement(By.id("content")).sendKeys("This is a new post");
         //Click the submit button
@@ -109,7 +109,7 @@ public class PostsTest {
         //Click the submit button
         driver.findElement(By.id("post-content-submit")).click();
 
-        WebElement mostRecentPost = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[text()='This is a third post']")));
+        WebElement mostRecentPost = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='main post-container mt-4']//p[text()='This is a third post']")));
         Assert.assertEquals("This is a third post", mostRecentPost.getText());
 
     }

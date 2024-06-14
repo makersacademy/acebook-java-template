@@ -57,7 +57,7 @@
                 <input type="text" id="content" th:field="*{content}" class="form-control" placeholder="What's new with you?" required/>
             </div>
             <button type="submit" id="post-content-submit" class="text-white btn btn-submit">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="reset" id="post-reset-button" class="btn btn-secondary">Reset</button>
         </form>
     </div>
 
@@ -74,8 +74,8 @@
                     <br>
                     <!-- Likes and Like button on the same line -->
                     <div class="d-flex align-items-center mb-2">
-                        <p class="mb-0 mr-2">Likes: <span th:text="${post.likes}"></span></p>
-                        <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" method="post" class="d-inline">
+                        <p class="mb-0 mr-2" id="numOflikes">Likes: <span th:text="${post.likes}"></span></p>
+                        <form action="#" th:action="@{/posts/{id}/likes(id=${post.id})}" method="post" class="d-inline" id="like-button">
                             <button type="submit" class="btn  btn-like btn-sm">Like</button>
                         </form>
                     </div>
@@ -95,10 +95,10 @@
                         <input type="hidden" name="postId" th:value="${post.id}"/>
                         <div class="form-group">
                             <label for="commentText"></label>
-                            <input type="text" id="commentText" name="commentText" class="form-control" placeholder="Tell us your thoughts..."/>
+                            <input type="text" id="commentText" name="commentText" class="form-control" placeholder="Tell us your thoughts..." required/>
                         </div>
                         <button type="submit" id="comment-submit-button" class="btn btn-submit btn-sm text-white">Comment</button>
-                        <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+                        <button type="reset" id="comment-reset-button" class="btn btn-secondary btn-sm">Reset</button>
                     </form>
                 </div>
             </li>
