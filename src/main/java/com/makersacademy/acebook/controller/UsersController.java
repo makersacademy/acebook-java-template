@@ -1,5 +1,6 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.Utils;
 import com.makersacademy.acebook.model.Authority;
 import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.Post;
@@ -71,6 +72,7 @@ public class UsersController {
         User sessionUser = userRepository.findByUsername(auth.getName());
         model.addAttribute("username", username);
         User profileUser = userRepository.findByUsername(username);
+        profileUser.setFriend_status(Utils.GetFriendStatus(sessionUser, profileUser, userRepository, friendRepository));
         Iterable<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(profileUser.getId());
         for (Post post: posts){
             post.setLikes(likeRepository.countByPost(post));
@@ -79,8 +81,6 @@ public class UsersController {
         model.addAttribute("sessionUser", sessionUser);
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        String friend_status = GetFriendStatus(auth.getName(), username);
-        model.addAttribute("friend_status", friend_status);
         return "users/profile";
     }
     
@@ -100,43 +100,5 @@ public class UsersController {
 
         redirectAttributes.addAttribute("username", auth.getName());
         return "redirect:/users/{username}";
-    }
-
-    public String GetFriendStatus(User one, User two){
-        User sender = userRepository.findByUsername(one.getUsername());
-        User recipient = userRepository.findByUsername(two.getUsername());
-
-        if (sender == null || recipient == null || sender == recipient) return "N/A";
-
-        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
-        if (existingConnection.isPresent()){
-            if (existingConnection.get().isAccepted()) return "Friend";
-            return "Sent";
-        }
-        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
-        if (existingConnection.isPresent()){
-            if (existingConnection.get().isAccepted()) return "Friend";
-            return "Received";
-        }
-        return "None";
-    }
-
-    public String GetFriendStatus(String one, String two){
-        User sender = userRepository.findByUsername(one);
-        User recipient = userRepository.findByUsername(two);
-
-        if (sender == null || recipient == null || sender.getId() == recipient.getId()) return "N/A";
-
-        Optional<Friend> existingConnection = friendRepository.findBySenderAndRecipient(sender, recipient);
-        if (existingConnection.isPresent()){
-            if (existingConnection.get().isAccepted()) return "Friend";
-            return "Sent";
-        }
-        existingConnection = friendRepository.findBySenderAndRecipient(recipient, sender);
-        if (existingConnection.isPresent()){
-            if (existingConnection.get().isAccepted()) return "Friend";
-            return "Received";
-        }
-        return "None";
     }
 }

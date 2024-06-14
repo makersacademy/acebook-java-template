@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
+    <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
+
+<nav th:insert="fragments.html :: nav"></nav>
+
 <li>
     <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
     <a th:href="@{/users/{id}(id=${post.user.username})}" th:text="${post.user.username}"></a>

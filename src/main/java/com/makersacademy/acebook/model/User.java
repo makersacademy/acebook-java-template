@@ -21,6 +21,7 @@ public class User {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
+    @javax.persistence.Transient private String friend_status;
 
     public User() {
         this.enabled = TRUE;
