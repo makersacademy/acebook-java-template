@@ -24,8 +24,8 @@
 <p>Comments:</p>
 <ul>
     <li th:each="comment : ${comments}">
-        <img th:src="${comment.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
-        <a th:href="@{/users/{id}(id=${comment.user.username})}" th:text="${comment.user.username}"></a>
+        <img th:src="${comment.user.profilePicture}" onerror="this.style.display = 'none';" style="width:50px;height:50px;border-radius:50%;margin-top:20px;">
+        <h3><a th:href="@{/users/{id}(id=${comment.user.username})}" th:text="${comment.user.username}"></a></h3>
         <p th:text="${comment.content}"></p>
         <p th:text="${comment.createdAt}"></p>
         <p>Likes: <span th:text="${comment.likes}"></span></p>
