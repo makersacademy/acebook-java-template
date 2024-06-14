@@ -13,7 +13,7 @@
 <div class="spacer"></div>
 <div class="profile-banner">
     <div class="profile-picture-container">
-        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="profile-picture">
+        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="profile-picture" onerror="this.src='images/profile-user-icon.png';">
     </div>
     <div class="profile-info">
         <h1 th:text="${user.username}">Username</h1>
@@ -33,7 +33,7 @@
 <div class="new-post">
     <form action="/posts" method="post" enctype="multipart/form-data">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
+        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture" onerror="this.src='images/profile-user-icon.png';">
         <input type="hidden" name="redirectUrl" value="/profile">
         <textarea class="post-text" name="content" placeholder="What's on your mind?" required></textarea>
         <div class="form-row">
@@ -50,7 +50,7 @@
     <div th:each="post : ${posts}" class="post">
         <div class="post-banner">
             <div class="post-picture-container">
-                <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
+                <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture" onerror="this.src='images/profile-user-icon.png';">
             </div>
             <div class="post-info">
                 <h3 th:text="${user.username}">Username</h3>
@@ -58,7 +58,7 @@
         </div>
         <p th:text="${post.content}">Post content here</p>
         <div class="post-img-div" th:if="${post.imageUrl}">
-            <img th:src="${post.imageUrl}" alt="Post Image" class="post-image">
+            <img th:src="${post.imageUrl}" alt="Post Image" class="post-image" onerror="this.src='images/profile-user-icon.png';">
         </div>
     </div>
 </div>
