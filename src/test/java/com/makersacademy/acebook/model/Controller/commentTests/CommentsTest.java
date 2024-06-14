@@ -60,17 +60,15 @@ public class CommentsTest {
     //Click the submit button
     driver.findElement(By.id("post-content-submit")).click();
 
-    WebElement post = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='post-container mt-4']//p[text()='Hello this is a post']")));
-
     WebElement form = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='form-group']//input[contains(@name, 'commentText')]")));
 
-    form.sendKeys("This is a comment");
+    form.sendKeys("This a comment");
 
     form.submit();
 
     //Check if the comment was created
     WebElement commentList = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='comment-container mt-2']//ul[@id='commentsList']")));
-    assert commentList.getText().contains("This is a comment");
+    assert commentList.getText().contains("This a comment");
 
     }
 
