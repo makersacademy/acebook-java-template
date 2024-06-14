@@ -52,6 +52,7 @@ public class Utils {
         Set<Long> friendIds = new HashSet<Long>();
         if (includeSelf) friendIds.add(user.getId());
         for (Friend connection : connections){
+            if (!connection.isAccepted()) continue;
             friendIds.add(connection.getRecipient().getId());
             friendIds.add(connection.getSender().getId());
         }
