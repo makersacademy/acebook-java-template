@@ -48,7 +48,9 @@ public class PostService {
         postRepository.save(post);
     }
     public List<Post> getPostsByUserId(Long userId) {
-        return postRepository.findByUserId(userId);
+        List<Post> posts = postRepository.findByUserId(userId);
+        posts.sort(Comparator.comparing(Post::getCreatedAt).reversed());
+        return posts;
     }
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
