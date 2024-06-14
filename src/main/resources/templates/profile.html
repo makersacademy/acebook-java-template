@@ -25,21 +25,32 @@
 </div>
 
 <div class="new-post">
-    <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
-
     <form action="/posts" method="post" enctype="multipart/form-data">
+        <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
         <input type="hidden" name="redirectUrl" value="/profile">
         <textarea class="post-text" name="content" placeholder="What's on your mind?" required></textarea>
-        <input  type="file" name="image">
-        <button class="button" type="submit">Post</button>
+        <div class="form-row">
+            <input type="file" name="image">
+            <div class="btn-div">
+                <button class="button" type="submit">Post</button>
+            </div>
+        </div>
     </form>
 </div>
 
 <div class="user-posts">
     <h2>Posts</h2>
     <div th:each="post : ${posts}" class="post">
+        <div class="post-banner">
+            <div class="post-picture-container">
+                <img th:src="${user.profilePictureUrl}" alt="Profile Picture" class="form-picture">
+            </div>
+            <div class="post-info">
+                <h3 th:text="${user.username}">Username</h3>
+            </div>
+        </div>
         <p th:text="${post.content}">Post content here</p>
-        <div th:if="${post.imageUrl}">
+        <div class="post-img-div" th:if="${post.imageUrl}">
             <img th:src="${post.imageUrl}" alt="Post Image" class="post-image">
         </div>
     </div>

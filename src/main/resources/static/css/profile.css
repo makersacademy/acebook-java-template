@@ -39,13 +39,7 @@ body {
 }
 
 
-.form-picture {
-    width: 45px;
-    height: 45px;
-    margin: auto;
-    border-radius: 50%;
 
-}
 
 .profile-info h1 {
     margin: 0;
@@ -72,15 +66,9 @@ body {
     margin: 10px 0;
 }
 
-.user-posts {
-    background-color: white;
-    padding: 20px;
-    margin: 20px auto;
-    width: 60%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
 
-}
+
+
 .new-post {
     padding: 20px;
     background-color: white;
@@ -90,8 +78,41 @@ body {
     margin: 20px auto;
 }
 
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.form-picture {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.post-text {
+    flex-grow: 1;
+    height: 22px;
+    width: 85%;
+    padding: 10px;
+    font-size: 18px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+    background-color: rgb(240, 242, 245);
+}
+
+.btn-div {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
 .button {
-    background-color: #1877F2;
+    background-color: #1877F2; /* Facebook blue */
     border: none;
     color: white;
     padding: 10px 25px;
@@ -100,19 +121,15 @@ body {
     display: inline-block;
     font-size: 16px;
     border-radius: 5px;
+    margin-left: auto;
 }
 
-.new-post textarea {
-    width: 90%;
-    padding: 10px;
-    margin: auto;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    resize: vertical;
-    background-color: rgb(240, 242, 245)
+input[type="file"] {
+    margin-top: 0;
+    margin-right: 10px;
+    width: auto;
+    flex-grow: 1;
 }
-
 .new-post .post-actions {
     display: flex;
     flex-direction: column;
@@ -137,21 +154,68 @@ body {
     background-color: #365899;
 }
 
-.post {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
+
 
 .post:last-child {
     border-bottom: none;
 }
 
 .post p {
-    margin: 5px 0;
+    margin: 15px 15px;
+}
+
+
+
+.user-posts {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+}
+
+.post {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+margin: 10px;
+}
+
+.post-img-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    background-color: rgb(147, 153, 158);
+
 }
 
 .post-image {
-    max-width: 100%;
+    max-width: 40%;
     height: auto;
-    margin-top: 10px;
+
+}
+
+
+.post-banner {
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.post-picture-container {
+    margin-right: 20px;
+    border-radius: 50%;
+
+}
+
+
+.post-info h1 {
+    margin: 0;
+    font-size: 36px;
 }
