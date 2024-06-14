@@ -20,6 +20,8 @@ services:
           name: acebook-db
           type: database
           property: password
+    buildCommand: "./mvnw clean package"
+    startCommand: "java -jar app.jar"
 
   - type: postgresql
     name: acebook-db
