@@ -4,6 +4,7 @@ import com.makersacademy.acebook.Utils;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.AuthoritiesRepository;
 import com.makersacademy.acebook.repository.FriendRepository;
+import com.makersacademy.acebook.repository.NotificationRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,6 +28,8 @@ public class FriendsController {
     AuthoritiesRepository authoritiesRepository;
     @Autowired
     FriendRepository friendRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
 
     @PostMapping("/friends/add")
     public RedirectView addFriend(@RequestParam String recipient_username, Authentication auth, @RequestParam String returnURL) {
@@ -36,6 +39,7 @@ public class FriendsController {
         //If no connection exists, we create a new friend entry in the database
         Friend newConnection = new Friend(sender, recipient);
         friendRepository.save(newConnection);
+        Utils.CreateNotification(recipient, sender, "friend_request", "/users/" + sender.getUsername(), notificationRepository);
         return new RedirectView(returnURL);
     }
 
@@ -49,6 +53,8 @@ public class FriendsController {
         Friend connection = existingConnection.get();
         connection.setAccepted(true);
         friendRepository.save(connection);
+        Utils.CreateNotification(recipient, sender, "friend_accepted", "/users/" + sender.getUsername(), notificationRepository);
+        Utils.CreateNotification(sender, recipient, "friend_accepted", "/users/" + recipient.getUsername(), notificationRepository);
         return new RedirectView(returnURL);
     }
 

@@ -12,6 +12,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class CommentTest {
+    User user = new User();
+
 
     private Comment comment;
 
@@ -19,6 +21,7 @@ public class CommentTest {
     public void setUp() {
         comment = new Comment("This is a comment", 1L, 1L, new Timestamp(10000));
     }
+
 
     @Test
     public void commentHasContent() {
