@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+main {
+   padding: 100px 0;
+}
+
 .profile-banner {
     background-color: white;
     padding: 20px;
@@ -180,7 +184,7 @@ input[type="file"] {
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #ddd;
-margin: 10px;
+    margin: 10px;
 }
 
 .post-img-div {
