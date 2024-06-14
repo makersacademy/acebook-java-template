@@ -3,6 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.Utils;
 import com.makersacademy.acebook.model.*;
 import com.makersacademy.acebook.repository.*;
+import org.slf4j.helpers.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -30,11 +31,15 @@ public class PostsController {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    PostRepository postRepository;
+    @Autowired
     LikeRepository likeRepository;
     @Autowired
     LikeCommentRepository likeCommentRepository;
     @Autowired
     FriendRepository friendRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
 
     @GetMapping("/posts")
     public String index(Model model, Authentication auth) {
@@ -83,8 +88,9 @@ public class PostsController {
     @PostMapping("posts/comments")
     public RedirectView createComment (@RequestParam Long postId, @ModelAttribute Comment comment, Authentication auth, @RequestParam String returnURL) {
         comment.setUser(userRepository.findByUsername(auth.getName()));
-        comment.setPostId(postId);
+        comment.setPost(postRepository.findById(postId).get());
         commentRepository.save(comment);
+        Utils.CreateNotification(comment.getPost().getUser(), comment.getUser(), "post_comment", "/posts/" + postId, notificationRepository);
         return new RedirectView(returnURL);
     }
 
@@ -103,6 +109,7 @@ public class PostsController {
             }
             Like like = new Like(post, user);
             likeRepository.save(like);
+            Utils.CreateNotification(post.getUser(), user, "post_like", "/posts/" + postId, notificationRepository);
         }
         return new RedirectView(returnURL);
     }
@@ -122,6 +129,7 @@ public class PostsController {
             }
             LikeComment like = new LikeComment(comment, user);
             likeCommentRepository.save(like);
+            Utils.CreateNotification(comment.getUser(), user, "comment_like", "/posts/" + comment.getPost().getId(), notificationRepository);
         }
         return new RedirectView(returnURL);
     }

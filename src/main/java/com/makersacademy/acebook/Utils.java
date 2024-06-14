@@ -1,8 +1,10 @@
 package com.makersacademy.acebook;
 
 import com.makersacademy.acebook.model.Friend;
+import com.makersacademy.acebook.model.Notification;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendRepository;
+import com.makersacademy.acebook.repository.NotificationRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 
 import java.util.*;
@@ -57,5 +59,22 @@ public class Utils {
             friendIds.add(connection.getSender().getId());
         }
         return new ArrayList<Long>(friendIds);
+    }
+
+    public static void CreateNotification(User recipient, User sender, String type, String link, NotificationRepository notificationRepository){
+        String message = GenerateNotificationMessage(sender.getUsername(), type);
+        Notification new_notification = new Notification(recipient, type, message, link);
+        notificationRepository.save(new_notification);
+    }
+
+    private static String GenerateNotificationMessage(String username, String type) {
+        switch(type){
+            case "post_like": return username + " liked your post.";
+            case "post_comment": return username + " commented on your post.";
+            case "comment_like": return username + " liked your comment";
+            case "friend_request": return username + " sent you a friend request";
+            case "friend_accepted": return "You became friends with " + username;
+            default: return "Something went wrong.";
+        }
     }
 }

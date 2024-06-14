@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Acebook</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+
+    <nav th:insert="fragments.html :: nav"></nav>
+
+    <h1>New Notifications</h1>
+    <ul th:each="notification : ${new_notifications}">
+        <li>
+            <a th:href="${notification.link}" th:text="${notification.message}"></a>
+        </li>
+    </ul>
+    <h1>Recent Notifications</h1>
+    <ul th:each="notification : ${recent_notifications}">
+        <li>
+            <a th:href="${notification.link}" th:text="${notification.message}"></a>
+        </li>
+    </ul>
+
+    </body>
+</html>
