@@ -44,8 +44,6 @@ public class LoginTest {
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(user.getUsername());
         driver.findElement(By.id("password")).sendKeys("password");
-        WebElement fileInput = driver.findElement(By.id("photo"));
-        fileInput.sendKeys("/Users/lauraselby/Documents/projects/acebook/acebook-java/src/main/resources/static/pic.jpeg");
         driver.findElement(By.id("submit")).click();
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("username")).sendKeys(user.getUsername());

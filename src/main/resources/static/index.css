@@ -1,10 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+
+
+}
+/*.main {
+    background-color: #E8F5E9 !important;
+}*/
+
 .profile-pic { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; } .navbar-nav {
     display: flex;
     align-items: center; /* Align items vertically */
 }
 
+.navbar {
+     background-color: #01452C !important;
+}
+
+.navbar-brand {
+    font-size: 40px !important; /* Adjust the font size as needed */
+    /* You can also adjust other properties like font-weight, etc. */
+}
+
 .navbar-nav .nav-item {
     margin-left: 10px; /* Adjust margin between nav items */
+    color: #ffffff !important;
 }
 
 .navbar-nav.ml-auto {
@@ -38,4 +61,22 @@
 
 .navbar-nav.ml-auto .nav-link img {
     margin-right: 5px; /* Adjust margin between image and text */
+}
+
+#green-border {
+    border-color: #01452C !important;
+}
+
+.btn-submit {
+    background-color: #01452C !important;
+}
+
+.btn-like {
+    border-color: #01452C !important;
+    color: #01452C;
+}
+
+.btn-like:hover {
+    background-color: #01452C !important;
+    color: #ffffff;
 }
