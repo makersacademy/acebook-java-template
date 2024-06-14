@@ -14,7 +14,7 @@
         <div class="post-creation-container" style="border:1px solid blue;">
             <p>Post some content</p>
 
-            <button id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+            <button sec:authorize="isAuthenticated()" id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
 
             <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
                 <input type="hidden" id="imageUrl" th:field="*{imageUrl}"/>
@@ -29,8 +29,8 @@
             <li class="post">
                 <p class="post-username" th:text="${post.user.username}"></p>
                 <p class="post-timestamp" th:text="${post.createdAt}"></p>
-                <img th:unless="${post.imageUrl == null}" th:src="${post.imageUrl}" src="#" th:alt="|${post.user.username}'s image|">
-                <p th:unless="${post.content == null}" class="post-content" th:text="${post.content}"></p>
+                <img th:unless="${#strings.isEmpty(post.imageUrl)}" th:src="${post.imageUrl}" src="#" th:alt="|${post.user.username}'s image|" alt="#">
+                <p th:unless="${#strings.isEmpty(post.content)}" class="post-content" th:text="${post.content}"></p>
                 <div class="likes-count">[[${post.likes.size()}]] [[${post.likes.size() == 1 ? "like" : "likes"}]]</div>
 
                 <form th:action="@{'/posts/' + ${post.id} + '/likes'}" th:method="patch">

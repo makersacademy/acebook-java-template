@@ -119,4 +119,10 @@ public class PostSeleniumTest {
         String timestamp = timestamps.get(0).getText();
         assertThat(timestamp).isNotNull();
     }
+
+    // imageUrl tests:
+    // test posts without upload do not have empty image displayed
+    // test image upload, post creation, image appears in that post displayed
+    // test alt text set
+    //
 }
