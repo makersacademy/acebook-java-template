@@ -54,12 +54,8 @@
                 <h3>Likes</h3>
                 <p>Total Likes: <span th:text="${post.likes.size()}"></span></p>
 
-                <form th:action="@{/posts/{postId}/like(postId=${post.id})}" method="post">
-                    <button type="submit">Like</button>
-                </form>
-
-                <form th:action="@{/posts/{postId}/unlike(postId=${post.id})}" method="post">
-                    <button type="submit">Unlike</button>
+                <form th:action="@{/posts/{postId}/toggleLike(postId=${post.id})}" method="post">
+                    <button type="submit" th:text="${post.containsUser(#httpServletRequest.remoteUser) ? 'Unlike' : 'Like'}"></button>
                 </form>
             </div>
         </li>

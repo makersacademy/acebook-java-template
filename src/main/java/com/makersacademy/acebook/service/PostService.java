@@ -64,7 +64,7 @@ public class PostService {
                 .build();
     }
 
-  
+
     public String saveProfilePicture(MultipartFile image) throws IOException {
         String filename = "profile_pictures/" + System.currentTimeMillis() + "_" + image.getOriginalFilename();
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -110,7 +110,7 @@ public class PostService {
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }
-    
+
     public Iterable<Post> getAllPostsFromNewestToOldest(){
         List<Post> posts = (List<Post>) postRepository.findAll();
         posts.sort(Comparator.comparing(Post::getCreatedAt).reversed());
@@ -127,31 +127,49 @@ public class PostService {
         return commentRepository.save(comment);
     }
 
+//    @Transactional
+//    public void addLike(Long postId, User user) {
+//        Post post = postRepository.findById(postId)
+//                .orElseThrow(() -> new RuntimeException("Post not found"));
+//
+//        // Check if the user has already liked the post
+//        if (likeRepository.findByPostAndUser(post, user).isEmpty()) {
+//            Like like = new Like(user, post);
+//            likeRepository.save(like);
+//            post.addLike(like); // Link the like to the post
+//        } else {
+//            throw new IllegalStateException("User already liked this post");
+//        }
+//    }
+//
+//    @Transactional
+//    public void removeLike(Long postId, User user) {
+//        Post post = postRepository.findById(postId)
+//                .orElseThrow(() -> new RuntimeException("Post not found"));
+//
+//        // Find the existing like and delete it
+//        Like like = likeRepository.findByPostAndUser(post, user)
+//                .orElseThrow(() -> new IllegalStateException("User has not liked this post"));
+//        likeRepository.delete(like);
+//        post.removeLike(like); // Remove the like from the post
+//    }
+
     @Transactional
-    public void addLike(Long postId, User user) {
+    public void toggleLike(Long postId, User user) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        // Check if the user has already liked the post
-        if (likeRepository.findByPostAndUser(post, user).isEmpty()) {
+        Optional<Like> existingLike = likeRepository.findByPostAndUser(post, user);
+
+        if (existingLike.isPresent()) {
+            Like like = existingLike.get();
+            likeRepository.delete(like);
+            post.removeLike(like); // Remove the like from the post
+        } else {
             Like like = new Like(user, post);
             likeRepository.save(like);
             post.addLike(like); // Link the like to the post
-        } else {
-            throw new IllegalStateException("User already liked this post");
         }
-    }
-
-    @Transactional
-    public void removeLike(Long postId, User user) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
-
-        // Find the existing like and delete it
-        Like like = likeRepository.findByPostAndUser(post, user)
-                .orElseThrow(() -> new IllegalStateException("User has not liked this post"));
-        likeRepository.delete(like);
-        post.removeLike(like); // Remove the like from the post
     }
 
     public long countLikes(Long postId) {
