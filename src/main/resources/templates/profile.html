@@ -23,6 +23,11 @@
 <div class="profile-bio">
     <h2>Bio</h2>
     <p th:text="${user.bio}">This is the user's bio.</p>
+    <form th:action="@{/profile/updateBio}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <textarea name="bio" placeholder="Update your bio" required></textarea>
+        <button type="submit">Update Bio</button>
+    </form>
 </div>
 
 <div class="new-post">
