@@ -33,11 +33,14 @@ public class PostService {
     private PostRepository postRepository;
 
     @Autowired
+    private S3Service s3Service;
+    @Autowired
     private CommentRepository commentRepository;
 
     @Autowired
     private LikeRepository likeRepository;
 
+<<<<<<< HEAD
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
     private final String bucketName;
@@ -83,30 +86,18 @@ public class PostService {
     }
 
     @Transactional
+=======
+>>>>>>> origin
     public void savePost(Post post, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
-            String imageUrl = saveImageToS3(image);
+            String imageUrl = s3Service.saveImage(image);
             post.setImageUrl(imageUrl);
         }
         postRepository.save(post);
     }
-
-    private String saveImageToS3(MultipartFile image) throws IOException {
-        String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(filename)
-                .build();
-
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("Content-Type", image.getContentType());
-
-        s3Client.putObject(putObjectRequest, software.amazon.awssdk.core.sync.RequestBody.fromBytes(image.getBytes()));
-
-        return filename; // Return the filename for now, adjust as per your actual URL handling
+    public List<Post> getPostsByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
     }
-
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }

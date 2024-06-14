@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -33,7 +37,7 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public String create(Post post, @RequestParam("image") MultipartFile image, Authentication authentication) {
+    public RedirectView create(Post post, @RequestParam("image") MultipartFile image, @RequestParam(required = false) String redirectUrl, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         post.setUser(user);
@@ -42,12 +46,11 @@ public class PostsController {
             postService.savePost(post, image);
         } catch (IOException e) {
             e.printStackTrace();
-            return "redirect:/posts?error";
+            return new RedirectView(redirectUrl != null ? redirectUrl + "?error" : "/posts?error");
         }
 
-        return "redirect:/posts";
+        return new RedirectView(redirectUrl != null ? redirectUrl : "/posts");
     }
-
     @PostMapping("/posts/{postId}/comments")
     public String addComment(@PathVariable Long postId, @RequestParam String content, Authentication authentication) {
         String username = authentication.getName();

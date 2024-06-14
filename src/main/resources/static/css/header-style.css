@@ -4,10 +4,15 @@
 
 /* Styles */
 header {
+    position: fixed;
+    top: 0px;
     margin: 0;
     padding: 0;
+    width: 100%;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    border-bottom: 2px solid #afafaf;
+
 }
 
 .header-container {
@@ -28,7 +33,7 @@ header {
     max-height: 100%;
     height: auto;
     width: auto;
-    max-width: 60px;
+    max-width: 45px;
 }
 
 .header-title {
