@@ -10,16 +10,21 @@ import java.sql.Timestamp;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CommentTest {
     User user = new User();
-
+    public Post post;
 
     private Comment comment;
 
     @Before
     public void setUp() {
-        comment = new Comment("This is a comment", 1L, 1L, new Timestamp(10000));
+        user = mock(User.class);
+        when(user.getUsername()).thenReturn("barry manilow");
+        post = new Post("hello", user, "photo", new Timestamp(10000));
+        comment = new Comment("This is a comment", user, post, new Timestamp(10000));
     }
 
 
@@ -29,12 +34,12 @@ public class CommentTest {
         assertThat(comment.getContent(), containsString("This is a comment"));
     }
     @Test
-    public void commentHasUserId() {
-        assertEquals(Long.valueOf(1L), comment.getPostId());
+    public void commentHasUser() {
+        assertEquals("barry manilow", comment.getUser().getUsername());
     }
     @Test
-    public void commentHasPostId() {
-        assertEquals(Long.valueOf(1L), comment.getPostId());
+    public void commentHasPost() {
+        assertEquals(post, comment.getPost());
     }
     @Test
     public void commentHasTimestamp() {
