@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Service
@@ -31,5 +32,13 @@ public class UserService {
             user.setProfilePictureUrl(profilePictureUrl);
         }
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public void updateBio(User user, String bio){
+        if(user != null){
+            user.setBio(bio);
+            userRepository.save(user);
+        }
     }
 }
