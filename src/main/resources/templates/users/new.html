@@ -11,11 +11,13 @@
     </head>
     <div layout:fragment="content">
     <body>
-        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+    <div class="center sign-up-margin">
+        <form class="card" action="#" th:action="@{/users}" th:object="${user}" method="post">
             <p>Username: <input type="text" th:field="*{username}" /></p>
             <p>Password: <input type="password" th:field="*{password}" /></p>
-            <p><input type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
+            <p><input class="post-submit-button" type="submit" value="Submit" id="submit"/> <input type="reset" value="Reset" /></p>
         </form>
+    </div>
     </body>
     </div>
 </html>
