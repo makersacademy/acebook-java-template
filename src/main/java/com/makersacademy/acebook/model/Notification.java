@@ -1,6 +1,9 @@
 package com.makersacademy.acebook.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,31 +11,30 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "COMMENTS")
+@Table(name = "NOTIFICATIONS")
 @NoArgsConstructor
-public class Comment {
+public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Setter
     @Getter
-    private String content;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
-    @javax.persistence.Transient private Long likes;
+    private String type;
+    private String message;
+    private String link;
+    private boolean seen;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
-    public Comment(String content, User user, Post post, java.sql.Timestamp createdAt) {
-        this.content = content;
+    public Notification(User user, String type, String message, String link) {
         this.user = user;
-        this.post = post;
-        this.createdAt = createdAt;
+        this.type = type;
+        this.message = message;
+        this.link = link;
+        this.seen = false;
     }
-
 }
