@@ -55,7 +55,7 @@
 
     <ul th:each="post: ${posts}">
         <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:50px;height:50px;" class="profile-pic">
-        <p th:text="${post.user.username}"></p>
+        <a th:href="@{/users/{id}(id=${post.user.username})}" th:text="${post.user.username}"></a>
         <li th:text="${post.content}" />
         <img th:src="${post.photo}" onerror="this.style.display = 'none';" style="width:250px;height:250px;">
         <p>Likes: <span th:text="${post.likes}"></span></p>
