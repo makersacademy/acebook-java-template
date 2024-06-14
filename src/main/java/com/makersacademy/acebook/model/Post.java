@@ -80,4 +80,10 @@ public class Post {
         likes.remove(like);
         like.setPost(null);
     }
+
+    public boolean containsUser(String username) {
+        return likes.stream().anyMatch(like -> like.getUser().getUsername().equals(username));
+    }
+
+
 }
