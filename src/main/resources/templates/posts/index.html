@@ -16,7 +16,7 @@
         Signed in as <span sec:authentication="name"></span>
     </div>
 
-<!--  NEW POST FORM  -->
+    <!--  NEW POST FORM  -->
     <div id="new-post-form">
         <h2>New Post</h2>
         <form class="form-post" action="#" th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
         </form>
     </div>
 
-<!--  POSTS  -->
+    <!--  POSTS  -->
     <div id="all-posts">
         <h1>Posts</h1>
         <ul class="posts-list">
@@ -47,24 +47,12 @@
                     <p>Likes: <span th:text="${post.likes.size()}"></span></p>
 
                     <div class="like-buttons">
-                        <form th:action="@{/posts/{postId}/like(postId=${post.id})}" method="post">
-                            <button type="submit">Like</button>
-                        </form>
-
-                        <form th:action="@{/posts/{postId}/unlike(postId=${post.id})}" method="post">
-                            <button type="submit">Unlike</button>
+                        <form th:action="@{/posts/{postId}/toggleLike(postId=${post.id})}" method="post">
+                            <button type="submit" th:text="${post.containsUser(#httpServletRequest.remoteUser) ? 'Unlike' : 'Like'}"></button>
                         </form>
                     </div>
                 </div>
 
-<<<<<<< HEAD
-                <form th:action="@{/posts/{postId}/toggleLike(postId=${post.id})}" method="post">
-                    <button type="submit" th:text="${post.containsUser(#httpServletRequest.remoteUser) ? 'Unlike' : 'Like'}"></button>
-                </form>
-            </div>
-        </li>
-    </ul>
-=======
                 <!--  COMMENTS  -->
                 <div class="post-comments" th:if="${!post.comments.isEmpty()}">
                     <h3>Comments</h3>
@@ -89,7 +77,6 @@
             </li>
         </ul>
     </div>
->>>>>>> origin
 </main>
 
 <footer th:replace="footer :: body"></footer>

@@ -6,7 +6,7 @@ body {
 }
 
 main {
-   padding-top: 60px;
+   padding: 100px 0;
 }
 
 .profile-banner {
@@ -184,7 +184,7 @@ input[type="file"] {
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #ddd;
-margin: 10px;
+    margin: 10px;
 }
 
 .post-img-div {

@@ -39,8 +39,6 @@ public class PostService {
 
     @Autowired
     private LikeRepository likeRepository;
-
-<<<<<<< HEAD
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
     private final String bucketName;
@@ -86,8 +84,6 @@ public class PostService {
     }
 
     @Transactional
-=======
->>>>>>> origin
     public void savePost(Post post, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
             String imageUrl = s3Service.saveImage(image);

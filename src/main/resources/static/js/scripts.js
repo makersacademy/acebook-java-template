@@ -37,12 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .catch(error => {
-<<<<<<< HEAD
         console.error('Error:', error);
     });
 });
-=======
-            console.error('Error:', error);
-        });
-});
->>>>>>> origin
+
