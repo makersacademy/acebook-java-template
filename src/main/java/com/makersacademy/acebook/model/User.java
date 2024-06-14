@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +28,11 @@ public class User {
     private String country;
     private String language;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Like> likes = new ArrayList<>();
-
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private List<User> friends = new ArrayList<>();
 }

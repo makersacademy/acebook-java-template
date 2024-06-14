@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
+<div class="navbar">
+    <a href="/logout">Logout</a>
+    <a href="/friends">Friends List</a>
+</div>
+<div class="container">
+    <h1>All Users</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.username}"></td>
+
+            <td>
+                <form th:action="@{users/friendList}" method="post">
+                    <input type="hidden" name="friendUsername" th:value="${user.username}"/>
+                    <button type="submit">Add Friend</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

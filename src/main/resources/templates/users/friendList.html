@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FriendList</title>
+</head>
+<body>
+<nav>
+<!--    <ul>-->
+<!--        <li><a href="/posts">Posts</a></li>-->
+<!--        <li><a href="/users/friendList?currentUserId=${currentUser.Id}">My Friends</a></li>-->
+<!--        <li><a href="/users/all-users?currentUserId=${currentUser.Id}">All Users</a></li>-->
+<!--    </ul>-->
+    <ul>
+        <li><a href="/posts">Posts</a></li>
+        <li><a href="/friends">My Friends</a></li>
+        <li><a th:href="@{/all-users(currentUserId=${currentUser.id})}">All Users</a></li>
+    </ul>
+
+</nav>
+
+
+<h1>My Friends</h1>
+<div id="friends-list">
+    <ul>
+
+        <li th:each="friend : ${friends}" th:text="${friend.username}"></li>
+
+    </ul>
+
+</div>
+</body>
+</html>
