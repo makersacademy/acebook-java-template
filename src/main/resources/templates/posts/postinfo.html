@@ -11,7 +11,7 @@
 
 <li>
     <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
-    <p th:text="${post.user.username}"></p>
+    <a th:href="@{/users/{id}(id=${post.user.username})}" th:text="${post.user.username}"></a>
     <p th:text="${post.content}"></p>
     <img th:src="${post.photo}" onerror="this.style.display = 'none';">
     <p>Likes: <span th:text="${post.likes}"></span></p>
@@ -24,6 +24,8 @@
 <p>Comments:</p>
 <ul>
     <li th:each="comment : ${comments}">
+        <img th:src="${comment.user.profilePicture}" onerror="this.style.display = 'none';" style="width:25px;height:25px;">
+        <a th:href="@{/users/{id}(id=${comment.user.username})}" th:text="${comment.user.username}"></a>
         <p th:text="${comment.content}"></p>
         <p th:text="${comment.createdAt}"></p>
         <p>Likes: <span th:text="${comment.likes}"></span></p>
