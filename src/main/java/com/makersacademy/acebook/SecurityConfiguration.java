@@ -27,8 +27,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/posts").hasRole("USER")
+                .antMatchers("/profile", "/profile/**").hasRole("USER")
                 .antMatchers("/users", "/profile-pictures/**").permitAll()
-                .and().formLogin();
+                .and().formLogin()
+                .and().logout().permitAll()
+                .and().csrf().disable(); // Disable CSRF for simplicity in this example
     }
 
     @Bean

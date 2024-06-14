@@ -8,6 +8,8 @@ header {
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    border-bottom: 2px solid #afafaf;
+
 }
 
 .header-container {
@@ -28,7 +30,7 @@ header {
     max-height: 100%;
     height: auto;
     width: auto;
-    max-width: 60px;
+    max-width: 45px;
 }
 
 .header-title {
