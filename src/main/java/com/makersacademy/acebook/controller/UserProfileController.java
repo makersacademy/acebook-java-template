@@ -7,6 +7,7 @@ import com.makersacademy.acebook.service.PostService;
 import com.makersacademy.acebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
@@ -51,5 +53,14 @@ public class UserProfileController {
         }
 
         return new RedirectView("/profile");
+    }
+
+    @PostMapping("/updateBio")
+    public String updateBio(@RequestParam("bio") String bio, Authentication authentication, RedirectAttributes redirectAttributes){
+        String username = authentication.getName();
+        User user = userService.getUserByUsername(username);
+        userService.updateBio(user, bio);
+        redirectAttributes.addFlashAttribute("message", "Bio updated successfully!");
+        return "redirect:/profile";
     }
 }
