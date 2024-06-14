@@ -38,24 +38,36 @@ public class NavbarTest {
         driver.findElement(By.tagName("button")).click();
 
     }
+
     @After
     public void tearDown() {
         driver.close();
     }
 
     @Test
-    public void successfulDisplayOfNavbar(){
+    public void successfulDisplayOfNavbar() {
         WebElement navbar = driver.findElement(By.className("navbar"));
         Assert.assertEquals(true, navbar.isDisplayed());
     }
+
     @Test
-    public void successfulClickOnAcebookInNavBar(){
+    public void successfulClickOnAcebookInNavBar() {
         driver.findElement(By.id("acebook_home")).click();
         WebElement title = driver.findElement(By.tagName("h1"));
         String titleAsStr = title.getText();
         Assert.assertEquals("Posts", titleAsStr);
     }
-    }
+
+    @Test
+    public void profilePicShownInNavbar() {
+        WebElement profilePic = driver.findElement(By.className("profile-pic"));
+        Assert.assertEquals(true, profilePic.isDisplayed());
+
+//         Verify the src attribute is correct (this is optional, based on your needs)
+//        String expectedSrc = "http://localhost:8080/uploads/testuser.jpg"; // Update this based on your implementation
+//        assertTrue(profilePic.getAttribute("src").contains(expectedSrc), "Profile picture source should be correct");
+//    }
+}}
 
 
 

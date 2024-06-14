@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Value;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class UsersController {
@@ -38,15 +38,8 @@ public class UsersController {
         return "users/new";
     }
 
-//    @PostMapping("/users")
-//    public RedirectView signup(@ModelAttribute User user) {
-//        userRepository.save(user);
-//        Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-//        authoritiesRepository.save(authority);
-//        return new RedirectView("/login");
-//    }
     @PostMapping("/users")
-    public RedirectView signup(@ModelAttribute User user, @RequestParam("photo") MultipartFile file) {
+    public RedirectView signup(@ModelAttribute User user, @RequestParam("photo") MultipartFile file, HttpSession session) {
         try {
             // Ensure the upload directory exists
             Path uploadPath = Paths.get(uploadDirectory);
@@ -61,8 +54,8 @@ public class UsersController {
                 Path path = uploadPath.resolve(file.getOriginalFilename());
                 Files.write(path, bytes);
 
-                // Set the photo path to the user object
-//                user.setPhotoPath(path.toString());
+                // Store the file path in session
+                session.setAttribute("profilePicPath", "/uploads/" + file.getOriginalFilename());
             }
 
             // Save the user to the database
@@ -77,5 +70,6 @@ public class UsersController {
         }
 
         return new RedirectView("/login");
-    }
+}
+
 }

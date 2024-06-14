@@ -37,7 +37,9 @@
             </li>
             <!-- Profile Picture -->
             <li class="nav-item">
-                <a class="text-white nav-link" href="#"><img src="/pic.jpeg" alt="Profile" class="profile-pic"></a>
+                <a class="nav-link" href="#">
+                    <img th:src="${session.profilePicPath}" alt="Profile" class="profile-pic">
+                </a>
             </li>
             <!-- Logout -->
             <li class="nav-item">
