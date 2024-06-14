@@ -12,17 +12,21 @@
         </div>
     </div>
 
-    <div class="post-creation-container center">
-        <p>Post some content</p>
 
-        <button sec:authorize="isAuthenticated()" id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+    <div class="center">
+        <div class="post-creation-container card">
+            <p sec:authorize="isAuthenticated()">Post some content:</p>
+            <p sec:authorize="!isAuthenticated()">Log in or sign up to post some content!</p>
 
-        <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
-            <input type="hidden" id="imageUrl" th:field="*{imageUrl}"/>
-            <label class="form-flex" for="content">What's on your mind?</label>
-            <input type="text" th:field="*{content}" />
-            <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+            <button sec:authorize="isAuthenticated()" id="post_image_upload_widget" class="cloudinary-button">Upload an image</button>
+
+            <form sec:authorize="isAuthenticated()" action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                <input type="hidden" id="imageUrl" th:field="*{imageUrl}"/>
+                <label class="form-flex" for="content">What's on your mind?</label>
+                <input type="text" th:field="*{content}" />
+                <p><input class="post-submit-button" id="contentSubmit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+        </div>
     </div>
 
     <ul class="form-wrapper" th:each="post: ${posts}">
