@@ -19,4 +19,5 @@ public class CommentTest {
         assertThat(comment.getContent(), containsString("This is a comment"));
     }
 
+
 }
