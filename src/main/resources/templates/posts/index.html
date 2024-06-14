@@ -26,14 +26,14 @@
     <ul th:each="post : ${posts}">
         <li class="lists">
             <img th:src="${post.user.profilePicture}" onerror="this.style.display = 'none';" style="width:50px;height:50px;" class="profile-pic">
-            <p th:text="${post.user.username}"></p>
-            <p th:text="${post.content}"></p>
-            <img th:src="${post.photo}" onerror="this.style.display = 'none';">
-            <p>Likes: <span th:text="${post.likes}"></span></p>
+            <h3 th:text="${post.user.username}" class="username"></h3>
+            <p th:text="${post.content}" class="post-content"></p>
+            <img th:src="${post.photo}" onerror="this.style.display = 'none';" style="width:250px;height:250px;">
+            <p class="like-counter">Likes: <span th:text="${post.likes}"></span></p>
             <form th:action="@{/posts/like}" th:object="${like}" method="post">
                 <input type="hidden" name="postId" th:value="${post.id}">
                 <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
-                <button type="submit">Like</button>
+                <button type="submit" class="like-button">Like</button>
                 <a th:href="@{/posts/{id}(id=${post.id})}">Comment</a>
 
             </form>
