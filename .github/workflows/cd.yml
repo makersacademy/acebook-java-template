@@ -23,11 +23,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Replace with your AWS region
 
-      - name: Login to Amazon ECR Public Registry
-        run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c3e7w6l3
+      - name: Login to Amazon ECR
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 471112786669.dkr.ecr.us-east-1.amazonaws.com
 
-      - name: Build and push Docker image to Amazon ECR Public
-        env:
-          IMAGE_TAG: latest
-        run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t public.ecr.aws/c3e7w6l3/socialites-app:${IMAGE_TAG} --push .
+      - name: Build Docker image
+        run: docker build -t socialites-app .
+
+      - name: Tag Docker image
+        run: docker tag socialites-app:latest 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app:latest
+
+      - name: Push Docker image to Amazon ECR
+        run: docker push 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app:latest
