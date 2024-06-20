@@ -3,9 +3,11 @@ package com.makersacademy.acebook.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -21,7 +23,8 @@ public class Comment {
 
     @Setter
     @Getter
-    private LocalDateTime createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
 
     @Setter
     @Getter
