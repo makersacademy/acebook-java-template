@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #F5F5F5;
+  padding: 20px 20px 20px 0;
+  border-radius: 25px;
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  justify-content: space-around;
+}
+
+.main-img {
+  background-image: url('https://images.unsplash.com/photo-1605106250963-ffda6d2a4b32?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80');
+  background-size: cover;
+  width: 300px;
+  height: 500px;
+  border-radius: 25px;
+}
+
+h1 {
+  color: #2b2684;
+  margin-bottom: 20px;
+}
+
+.wrapper p {
+  font-size: 0.75rem;
+  color: #2b2684;
+  margin-bottom: 40px;
+}
+
+.pass-icon {
+  display: flex;
+  position: relative;
+  width: 250px;
+}
+
+#email, #password {
+  height: 40px;
+  width: 250px;
+  border-radius: 15px;
+  padding-left: 15px;
+  border: 1px solid #2b2684;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #2b2684;
+  font-weight: bold;
+}
+
+.pass-icon img {
+  width: 25px;
+  position: absolute;
+  align-self: center;
+  top: 27%;
+  right: 0;
+  margin-right: 10px;
+  filter: opacity(0.3);
+}
+
+a {
+  text-decoration: none;
+  color: #2b2684;
+  font-size: 0.75rem;
+  text-align: right;
+  margin-right: 15px;
+}
+
+#password {
+  margin-bottom: 10px;
+}
+
+#login-btn {
+  margin: 20px 0;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: #2b2684;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+span {
+  text-align: center;
+  position: relative;
+}
+
+.or {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  color: #2b2684;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+}
+
+.or hr {
+  width: 40%;
+  height: 1px;
+  background-color: #2b2684;
+  border: none;
+  align-self: center;
+}
+
+.google-btn {
+  height: 40px;
+  border: 1px solid #2b2684;
+  border-radius: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  background-color: white;
+  margin-bottom: 20px;
+  color: #2b2684;
+  transition: 0.5s;
+}
+
+.google-btn svg {
+  width: 20px;
