@@ -10,10 +10,6 @@
 
     <h1>Add event</h1>
 
-    <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
-    </div>
-
     <form action="#" th:action="@{/events/new}" th:object="${event}" method="post">
         <p>Title: <input type="text" th:field="*{title}" /></p>
         <p>Description: <input type="text" th:field="*{description}" /></p>
