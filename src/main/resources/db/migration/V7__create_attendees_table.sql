@@ -7,4 +7,3 @@ CREATE TABLE attendees (
   event_id BIGINT NOT NULL,
   CONSTRAINT fk_attendees_events FOREIGN KEY(event_id) REFERENCES events(id)
 );
-
