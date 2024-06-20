@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title>Socialites</title>
+        <link rel="stylesheet" href="/main.css" />
+    </head>
+    <body>
+
+    <h1>Add event</h1>
+
+    <div sec:authorize="isAuthenticated()">
+        Signed in as <span sec:authentication="name"></span>
+    </div>
+
+    <form action="#" th:action="@{/events/new}" th:object="${event}" method="post">
+        <p>Title: <input type="text" th:field="*{title}" /></p>
+        <p>Description: <input type="text" th:field="*{description}" /></p>
+        <p>Date: <input type="date" th:field="*{scheduledDate}" /></p>
+        <p>Time: <input type="time" th:field="*{scheduledStartTime}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    </body>
+</html>
