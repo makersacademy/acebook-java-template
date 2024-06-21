@@ -22,13 +22,13 @@ public class EventsController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/events/new")
-    public String addEvent(Model model) {
-        Iterable<Event> events = eventRepository.findAll();
-        model.addAttribute("events", events);
-        model.addAttribute("event", new Event());
-        return "events/new";
-    }
+//    @GetMapping("/events/new")
+//    public String addEvent(Model model) {
+//        Iterable<Event> events = eventRepository.findAll();
+//        model.addAttribute("events", events);
+//        model.addAttribute("event", new Event());
+//        return "events/new";
+//    }
 
     @PostMapping("/events/new")
     public RedirectView create(@ModelAttribute Event event, Authentication authentication) {

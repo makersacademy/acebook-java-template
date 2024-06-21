@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
-    <link rel="stylesheet" th:href="@{/css/nav.css}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 <body>
@@ -14,14 +13,6 @@
 <p>You have successfully logged in.</p>
 <a href="/logout">Logout</a>
 
-<ul>
-    <li th:each="event : ${events}">
-        <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
-        <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
-        <div><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
-        <div><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
-    </li>
-</ul>
 <!-- Footer -->
 <!--<div th:replace="fragments/footer :: footer"></div>-->
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+<div th:replace="fragments/nav :: navbar"></div>
+
+<h1>User List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Enabled</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.username}">Username</td>
+    </tr>
+    </tbody>
+</table>
+<h1>Events</h1>
+<ul>
+    <li th:each="event : ${events}">
+        <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
+        <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+        <div><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
+        <div><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
+    </li>
+</ul>
+</body>
+</html>
