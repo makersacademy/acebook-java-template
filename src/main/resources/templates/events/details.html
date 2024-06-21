@@ -16,7 +16,16 @@
     <strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span>
 </div>
 <div>
-    <strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span>
+    <strong>Start time:</strong> <span th:text="${event.scheduledStartTime}"></span>
+</div>
+<div>
+    <strong>End time:</strong> <span th:text="${event.scheduledEndTime}"></span>
+</div>
+<div>
+    <strong>Location:</strong> <span th:text="${event.location}"></span>
+</div>
+<div>
+    <strong>Host:</strong> <span th:text="${event.user.username}"></span>
 </div>
 
 </body>

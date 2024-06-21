@@ -6,7 +6,9 @@
 <body>
 <h1>Welcome, <span th:text="${name}">User</span>!</h1>
 <p>You have successfully logged in.</p>
-<a href="/logout">Logout</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 
 <ul>
     <li th:each="event : ${events}">
