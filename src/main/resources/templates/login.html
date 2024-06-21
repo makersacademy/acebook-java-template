@@ -1,25 +1,47 @@
+<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/login.css}">
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
+
+
 </head>
 <body>
-<h1>Login</h1>
-<form th:action="@{/login}" method="post">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
+
+
+    <div class="container">
+        <div class="main-img"></div>
+        <div class="wrapper">
+            <form th:action="@{/login}" method="post">
+                <h1>Login</h1>
+                <div class="inputGroup">
+                    <label for="email">Name:</label>
+                    <input type="text" id="email" name="username">
+                </div>
+                <div class="inputGroup">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <a href="#">Forgot password?</a>
+                <button type="submit" id="login-btn">Login</button>
+                <div class="or">
+                    <hr>
+                    <span>or</span>
+                    <hr>
+                </div>
+                <a class="google-btn" href="/oauth2/authorization/google">
+                    <!-- Google SVG icon can be included here -->
+                    Sign in with Google
+                </a>
+                <div class="register">
+                    <p>Don't have an account?</p>
+                    <a class="register-btn" href="/register">Register</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-    </div>
-    <div>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Login</button>
-    </div>
-</form>
-<h3>Login with Google</h3>
-<a href="/oauth2/authorization/google">Sign in with Google</a>
+
 </body>
 </html>
