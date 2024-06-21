@@ -11,18 +11,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @CrossOrigin
 @Controller
 public class LandingPageController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private EventRepository eventRepository;
 
     @GetMapping("/")
-    public String listUsers(Model model) {
+    public String listUsersAndEvents(Model model) {
         List<User> users = userRepository.findAll();
+        List<Event> events = StreamSupport.stream(eventRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
         model.addAttribute("users", users);
+        model.addAttribute("events", events);
         return "landingpage";
     }
 }
