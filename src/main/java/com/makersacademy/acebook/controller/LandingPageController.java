@@ -25,12 +25,4 @@ public class LandingPageController {
         model.addAttribute("users", users);
         return "landingpage";
     }
-
-    @GetMapping("/events/new")
-    public String addEvent(Model model) {
-        Iterable<Event> events = eventRepository.findAll();
-        model.addAttribute("events", events);
-        model.addAttribute("event", new Event());
-        return "landingpage";
-    }
 }
