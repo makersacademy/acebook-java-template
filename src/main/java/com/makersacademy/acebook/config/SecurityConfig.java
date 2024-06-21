@@ -17,9 +17,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and() // Enable CORS
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .antMatchers("/", "/login", "/register", "/users", "/oauth2/**").permitAll()
+                                .antMatchers("/", "/login", "/register", "/users","/styles/**", "/search", "/oauth2/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
