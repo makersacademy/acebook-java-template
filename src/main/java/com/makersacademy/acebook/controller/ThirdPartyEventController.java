@@ -24,7 +24,7 @@ public class ThirdPartyEventController {
             model.addAttribute("thirdPartyEvents", thirdPartyEvents);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            model.addAttribute("thirdPartyEvents", List.of());
+            // model.addAttribute("thirdPartyEvents", List.of());
         }
         return "index";
     }
