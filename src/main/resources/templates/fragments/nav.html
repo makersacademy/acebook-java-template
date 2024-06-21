@@ -2,46 +2,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}">
-
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">EventWave</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/home}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/login}">Log in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/register}">Sign up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/events/new}">Create Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/events}">Find Events</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+    <nav class="flex w-full items-center border-b border-border-primary bg-background-primary lg:min-h-18 lg:px-[5%]">
+        <div class="size-full lg:flex lg:items-center lg:justify-between">
+            <div class="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
+                <a href="#"><img src="https://relume-assets.s3.amazonaws.com/logo-image.svg" alt="Logo image" /></a>
+                <button class="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden">
+                    <span class="my-[3px] h-0.5 w-6 bg-black"></span>
+                    <span class="my-[3px] h-0.5 w-6 bg-black"></span>
+                    <span class="my-[3px] h-0.5 w-6 bg-black"></span>
+                </button>
+            </div>
+            <div class="overflow-hidden px-[5%] lg:flex lg:items-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]" style="height: var(--height-closed, 0)">
+                <div class="first:pt-4 lg:first:pt-0">
+                    <a href="#" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Link One</a>
+                </div>
+                <div class="first:pt-4 lg:first:pt-0">
+                    <a href="#" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Link Two</a>
+                </div>
+                <div class="first:pt-4 lg:first:pt-0">
+                    <a href="#" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Link Three</a>
+                </div>
+                <div class="first:pt-4 lg:first:pt-0">
+                    <div>
+                        <button class="flex w-full items-center justify-between gap-2 py-3 text-left text-md focus-visible:outline-none lg:flex-none lg:justify-start lg:px-4 lg:py-2 lg:text-base">
+                            <span>Link Four</span>
+                            <span>
+                                <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-col items-center gap-4 lg:ml-4 lg:mt-0 lg:flex-row">
+                    <button class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-5 py-2 w-full">
+                        Button
+                    </button>
+                    <button class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary bg-background-alternative text-text-alternative px-5 py-2 w-full">
+                        Button
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
