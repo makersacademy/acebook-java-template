@@ -17,10 +17,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors().and() // Enable CORS
+                .cors().and()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .antMatchers("/", "/login", "/register", "/users","/styles/**", "/search", "/oauth2/**").permitAll()
+                                .antMatchers("/", "/login", "/register", "/users","/styles/**", "/search", "/events", "/oauth2/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
@@ -52,9 +52,6 @@ public class SecurityConfig {
         return new CustomPasswordEncoder();
     }
 }
-
-
-
 
 
 
