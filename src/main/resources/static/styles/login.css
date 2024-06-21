@@ -12,9 +12,12 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin-top: 80px;
 }
 
 .container {
+ margin-top: 80px;
+
   background-color: #F5F5F5;
   padding: 20px 20px 20px 0;
   border-radius: 25px;

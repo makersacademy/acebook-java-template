@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .cors().and() // Enable CORS
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .antMatchers("/", "/login", "/register", "/users","/styles/**").permitAll()
+                                .antMatchers("/", "/login", "/register", "/users","/styles/**", "/search").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

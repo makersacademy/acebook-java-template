@@ -1,23 +1,22 @@
-/* src/main/resources/static/css/styles.css */
-body {
-    font-family: Arial, sans-serif;
-}
+/* src/main/resources/static/css/nav.css */
 
+/* Custom styles for the navbar */
 .navbar {
-    background-color: #333;
-    overflow: hidden;
+    background-color: #f8f9fa;
 }
 
-.navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
+.nav-item .nav-link {
+    font-size: 1rem;
+}
+
+.form-control {
+    margin-right: 10px;
+
+.d-flex .form-control {
+    width: auto;
 }
