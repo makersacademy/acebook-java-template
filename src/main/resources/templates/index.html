@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Movie Search</title>
+    <title>Events</title>
 </head>
 <body>
-<h1>Movie Search</h1>
+<h1>Events</h1>
 <div>
-    <h2>Movie Data:</h2>
-    <div th:if="${events.isEmpty()}">
-        <p>No movie data available.</p>
+    <h2>Event Data:</h2>
+    <div th:if="${thirdPartyEvents.isEmpty()}">
+        <p>No events data available.</p>
     </div>
-    <div th:if="${!events.isEmpty()}">
+    <div th:if="${!thirdPartyEvents.isEmpty()}">
         <ul>
-            <li th:each="event : ${events}">
-                <h3 th:text="${event.name}"></h3>
-<!--                <p><strong>Vote Average:</strong> <span th:text="${movie.vote_average}"></span></p>-->
-<!--                <p><strong>Vote Count:</strong> <span th:text="${movie.vote_count}"></span></p>-->
-<!--                <p><strong>Status:</strong> <span th:text="${movie.status}"></span></p>-->
-<!--                <p><strong>Release Date:</strong> <span th:text="${movie.release_date}"></span></p>-->
-<!--                <p><strong>Revenue:</strong> <span th:text="${movie.revenue}"></span></p>-->
-<!--                <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> minutes</p>-->
-<!--                <p><strong>Overview:</strong> <span th:text="${movie.overview}"></span></p>-->
-<!--                <p><strong>Genres:</strong> <span th:text="${movie.genres}"></span></p>-->
-<!--                <p><strong>Production Companies:</strong> <span th:text="${movie.production_companies}"></span></p>-->
-<!--                <p><strong>Production Countries:</strong> <span th:text="${movie.production_countries}"></span></p>-->
-<!--                <p><img th:src="${movie.poster_path}" alt="Poster" style="max-width: 200px;"></p>-->
+            <li th:each="tpevent : ${thirdPartyEvents}">
+                <h3 th:text="${tpevent.name}"></h3>
+                <img th:src="@{${tpevent.thumbnail}}" alt="eventThumbnail" style="max-width: 500px;">
+                <p><strong>-</strong> <span th:text="'Description: '+${tpevent.description}"></span></p>
+                <p><strong>-</strong> <span th:text="'Start Time: '+ ${tpevent.formattedStartTime}"></span></p>
+                <p><strong>-</strong> <span th:text="'End Time: '+${tpevent.formattedEndTime}"></span></p>
+                <p><strong>-</strong> <span th:text="'Address: '+${tpevent.venue.full_address}"></span></p>
+                <p>
+                    <a th:href="@{${tpevent.link}}">
+                        <span>Event link</span>
+                    </a>
+                </p>
             </li>
         </ul>
     </div>
