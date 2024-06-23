@@ -46,8 +46,14 @@ public class EventsController {
     }
 
     @GetMapping("/events/users")
-    public String userEvents(Model model, @AuthenticationPrincipal Object principal) {
+    public String userEvents(Model model,
+                             @AuthenticationPrincipal Object principal,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
         String username;
+        System.out.println("Min Scheduled Date: " + minScheduledDate);
+        System.out.println("Max Scheduled Date: " + maxScheduledDate);
+        List<Event> events;
 
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
@@ -59,29 +65,13 @@ public class EventsController {
 
         model.addAttribute("name", username);
 
-        Iterable<Event> events = eventRepository.findAll();
-        model.addAttribute("events", events);
-        model.addAttribute("event", new Event());
-        return "home";
-    }
-
-    @GetMapping("/events/search")
-    public ModelAndView search(Model model,
-                               @AuthenticationPrincipal Object principal,
-                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
-                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-mm-dd") Date maxScheduledDate) {
-        System.out.println("Min Scheduled Date: " + minScheduledDate);
-        System.out.println("Max Scheduled Date: " + maxScheduledDate);
-        List<Event> events;
-
         if (minScheduledDate != null && maxScheduledDate != null) {
             events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
         } else {
             events = eventRepository.findAllByOrderByScheduledDate();
         }
-
-        ModelAndView modelAndView = new ModelAndView("/events/users");
-        modelAndView.addObject("events", events);
-        return modelAndView;
+        model.addAttribute("events", events);
+        model.addAttribute("event", new Event());
+        return "events/users";
     }
 }

@@ -12,6 +12,12 @@
 
 <h1>Welcome, <span th:text="${name}">User</span>!</h1>
 
+<form action="/events/users" method="get">
+    <input type="date" name="minScheduledDate" placeholder="Start Date">
+    <input type="date" name="maxScheduledDate" placeholder="End Date">
+    <button type="submit">Search</button>
+    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+</form>
 <ul>
     <li th:each="event : ${events}">
         <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
