@@ -32,7 +32,7 @@ public class LandingPageController {
 
     @RequestMapping(value = "/")
     public RedirectView index() {
-        return new RedirectView("landingpage");
+        return new RedirectView("/landingpage");
     }
 
     @GetMapping("/")
