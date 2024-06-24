@@ -37,8 +37,16 @@ public class Event {
 
     @Setter
     @Getter
+    private String scheduledEndTime;
+
+    @Setter
+    @Getter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
+
+    @Setter
+    @Getter
+    private String location;
 
     @Setter
     @Getter

@@ -36,6 +36,14 @@ public class User {
     @Setter
     private String profilePictureUrl;
 
+    @Getter
+    @Setter
+    private String language;
+
+    @Getter
+    @Setter
+    private String city;
+
     public User() {
         this.enabled = TRUE;
     }

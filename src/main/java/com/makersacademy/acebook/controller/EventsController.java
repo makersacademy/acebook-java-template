@@ -7,12 +7,16 @@ import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.service.CommentService;
 import com.makersacademy.acebook.service.ThirdPartyEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -51,24 +55,63 @@ public class EventsController {
         event.setCreatedAt(new Date());
         event.setUser(currentUser);
         eventRepository.save(event);
-
         return new RedirectView("/home");
     }
 
-    @GetMapping("/events/{event_id}")
-    public String viewSingleEvent(@PathVariable Long event_id, Model model) {
-        Event event = eventRepository.findById(event_id).orElseThrow(() -> new IllegalArgumentException("Invalid eventId:" + event_id));
-        Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(event_id);
-        model.addAttribute("event", event);
+    @GetMapping("/events/details/{eventId}")
+    public String showEventDetails(@PathVariable Long eventId, Model model) {
+
+        // Fetch comments for event
+        Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(eventId);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
 
-        return "events/eventinfo.html";
+        // Fetch the event details from the repository
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            model.addAttribute("event", event);
+            return "events/details";
+        } else {
+            // Handle the case where the event is not found
+            return "redirect:/error";
+        }
     }
 
-    @PostMapping("/events/{event_id}/comments/new")
-    public RedirectView createComment(@PathVariable Long event_id, Comment comment, Authentication authentication) {
-        commentService.save(comment, event_id, authentication);
-        return new RedirectView("/events/{event_id}");
+    @GetMapping("/")
+    public String userEvents(Model model,
+                             @AuthenticationPrincipal Object principal,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
+        String username;
+        System.out.println("Min Scheduled Date: " + minScheduledDate);
+        System.out.println("Max Scheduled Date: " + maxScheduledDate);
+        List<Event> events;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else if (principal instanceof OAuth2User) {
+            username = ((OAuth2User) principal).getAttribute("name");
+        } else {
+            username = "User";
+        }
+
+        model.addAttribute("name", username);
+
+        if (minScheduledDate != null && maxScheduledDate != null) {
+            events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
+        } else {
+            events = eventRepository.findAllByOrderByScheduledDate();
+        }
+        model.addAttribute("events", events);
+        model.addAttribute("event", new Event());
+        return "events/users";
+    }
+
+    @PostMapping("/events/details/{eventId}/comments/new")
+    public RedirectView createComment(@PathVariable Long eventId, Comment comment, Authentication authentication) {
+        commentService.save(comment, eventId, authentication);
+        return new RedirectView("/events/details/{eventId}");
     }
 }
