@@ -5,6 +5,11 @@
 </head>
 <body>
 <h1>Account Information</h1>
+<h2>Welcome, <span th:text="${name}">User</span>!</h2>
+<p>You have successfully logged in.</p>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 <form th:action="@{/account}" th:object="${user}" method="post">
     <div>
         <label>Username:</label>
