@@ -20,7 +20,7 @@ public class MovieService {
     public CompletableFuture<List<Movie>> searchMovie(String query) {
         AsyncHttpClient client = new DefaultAsyncHttpClient();
         return client.prepare("GET", "https://moviedatabase8.p.rapidapi.com/Search/" + query)
-                .setHeader("x-rapidapi-key", "{key}")
+                .setHeader("x-rapidapi-key", "f4de2aff69mshc8cba2b4117d03ep112cfcjsn5a204e5daac8")
                 .setHeader("x-rapidapi-host", "moviedatabase8.p.rapidapi.com")
                 .execute()
                 .toCompletableFuture()
