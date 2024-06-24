@@ -10,13 +10,14 @@
 
     <h1>Add event</h1>
 
-    <form action="#" th:action="@{/events/new}" th:object="${event}" method="post">
+    <form action="#" th:action="@{/events/new}" th:object="${event}" method="post" enctype="multipart/form-data">
         <p>Title: <input type="text" th:field="*{title}" /></p>
         <p>Description: <input type="text" th:field="*{description}" /></p>
         <p>Date: <input type="date" th:field="*{scheduledDate}" /></p>
         <p>Start time: <input type="time" th:field="*{scheduledStartTime}" /></p>
         <p>End time: <input type="time" th:field="*{scheduledEndTime}" /></p>
         <p>Location: <input type="text" th:field="*{location}" /></p>
+        <p class="form-post-image">Image: <input type="file" name="image"/></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
