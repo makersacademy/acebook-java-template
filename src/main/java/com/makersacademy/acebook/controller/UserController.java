@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/account")
@@ -26,15 +27,18 @@ public class UserController {
     }
 
     @PostMapping
-    public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser) {
+    public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser, RedirectAttributes redirectAttributes) {
         User user = userService.findByUsername(currentUser.getUsername());
         user.setUsername(updatedUser.getUsername());
         if (!updatedUser.getPassword().isEmpty()) {
             user.setPassword(updatedUser.getPassword()); // The password will be encoded in the service
         }
         user.setEmail(updatedUser.getEmail());
-        user.setProfilePictureUrl(updatedUser.getProfilePictureUrl());
+        user.setLanguage(updatedUser.getLanguage());
+        user.setCity(updatedUser.getCity());
         userService.save(user);
+        redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+
         return "redirect:/account";
     }
 }
