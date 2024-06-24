@@ -61,7 +61,7 @@ public class EventsController {
         }
     }
 
-    @GetMapping("/events/users")
+    @GetMapping("/")
     public String userEvents(Model model,
                              @AuthenticationPrincipal Object principal,
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
