@@ -1,9 +1,11 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Event;
-import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.repository.CommentsRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.service.CommentService;
+import com.makersacademy.acebook.service.ThirdPartyEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
-
+import java.util.concurrent.ExecutionException;
+import java.util.Optional;
 
 @Controller
 public class EventsController {
@@ -25,7 +28,17 @@ public class EventsController {
     EventRepository eventRepository;
 
     @Autowired
+    CommentsRepository commentsRepository;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private ThirdPartyEventService thirdPartyEventService;
+
 
     @GetMapping("/events/new")
     public String addEvent(Model model) {
@@ -46,6 +59,12 @@ public class EventsController {
 
     @GetMapping("/events/details/{eventId}")
     public String showEventDetails(@PathVariable Long eventId, Model model) {
+
+        // Fetch comments for event
+        Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(eventId);
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+
         // Fetch the event details from the repository
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
 
@@ -59,31 +78,37 @@ public class EventsController {
         }
     }
 
-//    @GetMapping("/")
-//    public String userEvents(Model model,
-//                             @AuthenticationPrincipal Object principal,
-//                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
-//                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
-//        String username;
-//        List<Event> events;
-//
-//        if (principal instanceof UserDetails) {
-//            username = ((UserDetails) principal).getUsername();
-//        } else if (principal instanceof OAuth2User) {
-//            username = ((OAuth2User) principal).getAttribute("name");
-//        } else {
-//            username = "User";
-//        }
-//
-//        model.addAttribute("name", username);
-//
-//        if (minScheduledDate != null && maxScheduledDate != null) {
-//            events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
-//        } else {
-//            events = eventRepository.findAllByOrderByScheduledDate();
-//        }
-//        model.addAttribute("events", events);
-//        model.addAttribute("event", new Event());
-//        return "events";
-//    }
+    @GetMapping("/")
+    public String userEvents(Model model,
+                             @AuthenticationPrincipal Object principal,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
+        String username;
+        List<Event> events;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else if (principal instanceof OAuth2User) {
+            username = ((OAuth2User) principal).getAttribute("name");
+        } else {
+            username = "User";
+        }
+
+        model.addAttribute("name", username);
+
+        if (minScheduledDate != null && maxScheduledDate != null) {
+            events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
+        } else {
+            events = eventRepository.findAllByOrderByScheduledDate();
+        }
+        model.addAttribute("events", events);
+        model.addAttribute("event", new Event());
+        return "events/events";
+    }
+
+    @PostMapping("/events/details/{eventId}/comments/new")
+    public RedirectView createComment(@PathVariable Long eventId, Comment comment, Authentication authentication) {
+        commentService.save(comment, eventId, authentication);
+        return new RedirectView("/events/details/{eventId}");
+    }
 }

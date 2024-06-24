@@ -6,27 +6,42 @@
 </head>
 <body>
 <h1>Event Details</h1>
-<div>
-    <strong>Title:</strong> <span th:text="${event.title}"></span>
-</div>
-<div>
-    <strong>Description:</strong> <span th:text="${event.description}"></span>
-</div>
-<div>
-    <strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span>
-</div>
-<div>
-    <strong>Start time:</strong> <span th:text="${event.scheduledStartTime}"></span>
-</div>
-<div>
-    <strong>End time:</strong> <span th:text="${event.scheduledEndTime}"></span>
-</div>
-<div>
-    <strong>Location:</strong> <span th:text="${event.location}"></span>
-</div>
-<div>
-    <strong>Host:</strong> <span th:text="${event.user.username}"></span>
-</div>
+    <div>
+        <strong>Title:</strong> <span th:text="${event.title}"></span>
+    </div>
+    <div>
+        <strong>Description:</strong> <span th:text="${event.description}"></span>
+    </div>
+    <div>
+        <strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span>
+    </div>
+    <div>
+        <strong>Start time:</strong> <span th:text="${event.scheduledStartTime}"></span>
+    </div>
+    <div>
+        <strong>End time:</strong> <span th:text="${event.scheduledEndTime}"></span>
+    </div>
+    <div>
+        <strong>Location:</strong> <span th:text="${event.location}"></span>
+    </div>
+    <div>
+        <strong>Host:</strong> <span th:text="${event.user.username}"></span>
+    </div>
+
+    <form action="#" th:action="@{/events/details/{id}/comments/new(id=${{event.id}})}" th:object="${comment}" method="post">
+        <p>Comment: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <h5 th:text="${comments.isEmpty}? 'No comments yet' : 'Comments'"></h5>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p th:text="${comment.user.username}"></p>
+            <p th:text="${comment.formattedCreatedAt}"></p>
+            <p th:text="${comment.content}"></p>
+        </li>
+    </ul>
+
 
 </body>
 </html>
