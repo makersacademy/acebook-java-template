@@ -11,9 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 public class ThirdPartyEvent {
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    @JsonProperty("event_id")
     private String eventId;
     private String name;
     private String link;
@@ -25,6 +24,10 @@ public class ThirdPartyEvent {
     private String endTime;
     private ThirdPartyVenue venue;
     private String thumbnail;
+
+
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public ThirdPartyEvent () {
     }

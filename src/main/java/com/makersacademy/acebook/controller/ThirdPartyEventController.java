@@ -18,7 +18,7 @@ public class ThirdPartyEventController {
     private ThirdPartyEventService thirdPartyEventService;
 
     @GetMapping("/events")
-    public String searchEvent(Model model) {
+    public String getTPEvents(Model model) {
         try {
             List<ThirdPartyEvent> thirdPartyEvents = thirdPartyEventService.searchEvent().get();
             model.addAttribute("thirdPartyEvents", thirdPartyEvents);
@@ -26,6 +26,6 @@ public class ThirdPartyEventController {
             e.printStackTrace();
             // model.addAttribute("thirdPartyEvents", List.of());
         }
-        return "index";
+        return "thirdpartyevents";
     }
 }

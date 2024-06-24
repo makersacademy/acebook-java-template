@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @Controller
 public class HomeController {
 
@@ -34,7 +37,6 @@ public class HomeController {
 		} else {
 			username = "User";
 		}
-
 		model.addAttribute("name", username);
 
 		Iterable<Event> events = eventRepository.findAll();
