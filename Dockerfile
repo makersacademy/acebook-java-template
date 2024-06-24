@@ -4,7 +4,9 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src src
-RUN mvn package -DskipTests
+
+# Clean and install dependencies, and package the application
+RUN mvn clean install -DskipTests
 
 # Stage 2: Production-ready stage with Alpine OpenJDK
 FROM openjdk:8-jdk-alpine
@@ -30,4 +32,3 @@ USER spring:spring
 
 # Define the command to run your application
 ENTRYPOINT ["java", "-jar", "app.jar", "--spring.config.location=/app/config/"]
-
