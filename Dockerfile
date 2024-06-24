@@ -29,5 +29,5 @@ RUN chown -R spring:spring /app
 USER spring:spring
 
 # Define the command to run your application
-ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar", "--spring.config.location=/app/config/"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
