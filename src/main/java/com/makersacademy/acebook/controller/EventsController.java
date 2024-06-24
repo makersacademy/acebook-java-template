@@ -5,6 +5,8 @@ import com.makersacademy.acebook.repository.CommentsRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.service.CommentService;
+import com.makersacademy.acebook.service.EventService;
+import com.makersacademy.acebook.service.S3Service;
 import com.makersacademy.acebook.service.ThirdPartyEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +17,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +45,12 @@ public class EventsController {
     @Autowired
     private ThirdPartyEventService thirdPartyEventService;
 
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private S3Service s3Service;
+
 
     @GetMapping("/events/new")
     public String addEvent(Model model) {
@@ -50,16 +61,27 @@ public class EventsController {
     }
 
     @PostMapping("/events/new")
-    public RedirectView create(@ModelAttribute Event event, Authentication authentication) {
+    public RedirectView create(@ModelAttribute Event event,
+                               Authentication authentication,
+                               @RequestParam("image") MultipartFile image) {
         User currentUser = userRepository.findByUsername(authentication.getName());
         event.setCreatedAt(new Date());
         event.setUser(currentUser);
+        try {
+            eventService.savePost(event, image);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new RedirectView("/");
+        }
+
         eventRepository.save(event);
-        return new RedirectView("/home");
+        return new RedirectView("/");
     }
 
     @GetMapping("/events/details/{eventId}")
-    public String showEventDetails(@PathVariable Long eventId, Model model) {
+    public String showEventDetails(@PathVariable Long eventId, Model model,
+                                   @RequestParam("image") MultipartFile image,
+                                   @RequestParam(required = false) String redirectUrl) {
 
         // Fetch comments for event
         Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(eventId);
