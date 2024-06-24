@@ -59,7 +59,7 @@ public class EventsController {
             // Handle the case where the event is not found
             return "redirect:/error";
         }
-    }    
+    }
 
     @GetMapping("/events/users")
     public String userEvents(Model model,
