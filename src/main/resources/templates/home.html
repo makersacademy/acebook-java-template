@@ -12,14 +12,16 @@
 
 <h1>Welcome, <span th:text="${name}">User</span>!</h1>
 <p>You have successfully logged in.</p>
-<a href="/logout">Logout</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 
 <ul>
     <li th:each="event : ${events}">
-        <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
-        <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
-        <div><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
-        <div><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
+        <a th:href="@{/events/details/{eventId}(eventId=${event.id})}">
+            <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
+            <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+        </a>
     </li>
 </ul>
 <!-- Footer -->

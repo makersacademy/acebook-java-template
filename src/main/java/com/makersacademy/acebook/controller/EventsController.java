@@ -15,9 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.Date;
+import java.util.Optional;
 import java.util.List;
+
 
 @Controller
 public class EventsController {
@@ -44,6 +45,20 @@ public class EventsController {
         eventRepository.save(event);
         return new RedirectView("/home");
     }
+
+    @GetMapping("/events/details/{eventId}")
+    public String showEventDetails(@PathVariable Long eventId, Model model) {
+        // Fetch the event details from the repository
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            model.addAttribute("event", event);
+            return "events/details";
+        } else {
+            // Handle the case where the event is not found
+            return "redirect:/error";
+        }
 
     @GetMapping("/events/users")
     public String userEvents(Model model,
