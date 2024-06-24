@@ -10,6 +10,7 @@ public class LoginController {
     public String login() {
         return "login";
     }
+
     @GetMapping("/loginSuccess")
     public String loginSuccess() {
         return "redirect:/home";
