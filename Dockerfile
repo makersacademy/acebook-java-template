@@ -18,15 +18,16 @@ WORKDIR /app
 # Copy the JAR file from the build stage to the image
 COPY --from=build /app/target/*.jar app.jar
 
-# Copy the application properties file from the build context to the image
-COPY src/main/resources/application.properties /config/application.properties
+# Copy application properties
+COPY src/main/resources/application.properties /app/config/application.properties
+COPY src/main/resources/application-dev.properties /app/config/application-dev.properties
 
-# Change ownership of the application JAR and config directory
-RUN chown -R spring:spring /app/app.jar /config
+# Change ownership of the application JAR
+RUN chown -R spring:spring /app
 
 # Switch to the non-root user
 USER spring:spring
 
 # Define the command to run your application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.config.location=/app/config/"]
 
