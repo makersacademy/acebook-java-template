@@ -54,4 +54,8 @@ public class Event {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Setter
+    @Getter
+    private String eventImageUrl;
+
 }

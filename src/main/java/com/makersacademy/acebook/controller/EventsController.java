@@ -1,22 +1,31 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.Event;
-import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.repository.CommentsRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.service.CommentService;
+import com.makersacademy.acebook.service.EventService;
+import com.makersacademy.acebook.service.S3Service;
+import com.makersacademy.acebook.service.ThirdPartyEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
-
+import java.util.concurrent.ExecutionException;
+import java.util.Optional;
 
 @Controller
 public class EventsController {
@@ -25,7 +34,23 @@ public class EventsController {
     EventRepository eventRepository;
 
     @Autowired
+    CommentsRepository commentsRepository;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private ThirdPartyEventService thirdPartyEventService;
+
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private S3Service s3Service;
+
 
     @GetMapping("/events/new")
     public String addEvent(Model model) {
@@ -36,16 +61,33 @@ public class EventsController {
     }
 
     @PostMapping("/events/new")
-    public RedirectView create(@ModelAttribute Event event, Authentication authentication) {
+    public RedirectView create(@ModelAttribute Event event,
+                               Authentication authentication,
+                               @RequestParam("image") MultipartFile image) {
         User currentUser = userRepository.findByUsername(authentication.getName());
         event.setCreatedAt(new Date());
         event.setUser(currentUser);
+        try {
+            eventService.savePost(event, image);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new RedirectView("/");
+        }
+
         eventRepository.save(event);
-        return new RedirectView("/home");
+        return new RedirectView("/");
     }
 
     @GetMapping("/events/details/{eventId}")
-    public String showEventDetails(@PathVariable Long eventId, Model model) {
+    public String showEventDetails(@PathVariable Long eventId, Model model,
+                                   @RequestParam("image") MultipartFile image,
+                                   @RequestParam(required = false) String redirectUrl) {
+
+        // Fetch comments for event
+        Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(eventId);
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
+
         // Fetch the event details from the repository
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
 
@@ -59,31 +101,9 @@ public class EventsController {
         }
     }
 
-//    @GetMapping("/")
-//    public String userEvents(Model model,
-//                             @AuthenticationPrincipal Object principal,
-//                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
-//                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
-//        String username;
-//        List<Event> events;
-//
-//        if (principal instanceof UserDetails) {
-//            username = ((UserDetails) principal).getUsername();
-//        } else if (principal instanceof OAuth2User) {
-//            username = ((OAuth2User) principal).getAttribute("name");
-//        } else {
-//            username = "User";
-//        }
-//
-//        model.addAttribute("name", username);
-//
-//        if (minScheduledDate != null && maxScheduledDate != null) {
-//            events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
-//        } else {
-//            events = eventRepository.findAllByOrderByScheduledDate();
-//        }
-//        model.addAttribute("events", events);
-//        model.addAttribute("event", new Event());
-//        return "events";
-//    }
+    @PostMapping("/events/details/{eventId}/comments/new")
+    public RedirectView createComment(@PathVariable Long eventId, Comment comment, Authentication authentication) {
+        commentService.save(comment, eventId, authentication);
+        return new RedirectView("/events/details/{eventId}");
+    }
 }

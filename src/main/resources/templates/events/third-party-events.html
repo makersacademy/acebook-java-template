@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <title>Events</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +16,12 @@
 </head>
 <body>
 <h1 class="text-4xl font-bold text-center my-8">Events</h1>
+  <form action="/events/third-party-events/search" method="get">
+    <input type="date" name="minScheduledDate" placeholder="Start Date">
+    <input type="date" name="maxScheduledDate" placeholder="End Date">
+    <button type="submit">Search</button>
+    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+</form>
 <div class="container mx-auto px-4">
     <div th:if="${thirdPartyEvents.isEmpty()}" class="text-center py-16">
         <p class="text-xl text-gray-600">No events data available.</p>
@@ -64,6 +71,6 @@
             button.textContent = "Less";
         }
     }
-</script>
-</body>
-</html>
+
+
+
