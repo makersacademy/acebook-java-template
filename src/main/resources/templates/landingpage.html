@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div th:replace="fragments/nav :: navbar"></div>
+<form action="/" method="get" class="p-4 bg-gray-100 rounded-lg mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div>
+            <label for="minScheduledDate" class="block text-lg font-medium text-gray-700">Start Date</label>
+            <input type="date" id="minScheduledDate" name="minScheduledDate" placeholder="Start Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div>
+            <label for="maxScheduledDate" class="block text-lg font-medium text-gray-700">End Date</label>
+            <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="flex items-end">
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700">Search</button>
+        </div>
+    </div>
+</form>
+
+<section class="px-[5%] py-16 md:py-24 lg:py-28">
+    <h1 class="text-3xl font-bold md:text-7xl lg:text-8xl mb-8">Events</h1>
+    <ul>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <li th:each="event : ${events}" class="mb-4 p-4 bg-white rounded-lg shadow-md">
+                <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
+                <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+                <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
+                <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
+            </li>
+        </div>
+    </ul>
+</section>
+</body>
+</html>
