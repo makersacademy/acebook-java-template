@@ -6,12 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import java.util.HashSet;
-import java.util.Set;
 
 @EnableWebSecurity
 
@@ -34,7 +30,7 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/events/new", true)
                                 .permitAll()
                 )
                 .oauth2Login(oauth2Login ->
@@ -43,7 +39,7 @@ public class SecurityConfig {
                                 .userInfoEndpoint(userInfoEndpoint ->
                                         userInfoEndpoint.userService(customOAuth2UserService)
                                 )
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/events/new", true)
                 )
                 .logout(logout ->
                         logout

@@ -27,10 +27,10 @@ jobs:
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 471112786669.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Build Docker image
-        run: docker build --no-cache -t socialites-app .
+        run: docker build --no-cache -t socialites-app01 .
 
       - name: Tag Docker image
-        run: docker tag socialites-app:latest 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app:latest
+        run: docker tag socialites-app01:latest 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app01:latest
 
       - name: Push Docker image to Amazon ECR
-        run: docker push 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app:latest
+        run: docker push 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app01:latest
