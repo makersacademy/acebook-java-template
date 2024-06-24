@@ -85,8 +85,6 @@ public class EventsController {
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
         String username;
-        System.out.println("Min Scheduled Date: " + minScheduledDate);
-        System.out.println("Max Scheduled Date: " + maxScheduledDate);
         List<Event> events;
 
         if (principal instanceof UserDetails) {
@@ -106,7 +104,7 @@ public class EventsController {
         }
         model.addAttribute("events", events);
         model.addAttribute("event", new Event());
-        return "events/users";
+        return "events/events";
     }
 
     @PostMapping("/events/details/{eventId}/comments/new")

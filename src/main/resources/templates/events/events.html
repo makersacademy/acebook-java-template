@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>User-Hosted Events</title>
     <link rel="stylesheet" th:href="@{/css/nav.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
 </head>
+
 <body>
 <div th:replace="fragments/nav :: navbar"></div>
 
@@ -15,12 +15,19 @@
 <form th:action="@{/logout}" method="post">
     <button type="submit">Logout</button>
 </form>
-
+<form action="/" method="get">
+    <input type="date" name="minScheduledDate" placeholder="Start Date">
+    <input type="date" name="maxScheduledDate" placeholder="End Date">
+    <button type="submit">Search</button>
+    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+</form>
 <ul>
     <li th:each="event : ${events}">
         <a th:href="@{/events/details/{eventId}(eventId=${event.id})}">
             <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
             <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+            <div><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
+            <div><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
         </a>
     </li>
 </ul>
