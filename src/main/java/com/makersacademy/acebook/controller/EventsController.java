@@ -88,6 +88,6 @@ public class EventsController {
         }
         model.addAttribute("events", events);
         model.addAttribute("event", new Event());
-        return "events/users";
+        return "events";
     }
 }
