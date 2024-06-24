@@ -29,11 +29,13 @@ public class UserController {
     public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser) {
         User user = userService.findByUsername(currentUser.getUsername());
         user.setUsername(updatedUser.getUsername());
-        user.setPassword(updatedUser.getPassword()); // You may want to hash the password
+        if (!updatedUser.getPassword().isEmpty()) {
+            user.setPassword(updatedUser.getPassword()); // The password will be encoded in the service
+        }
         user.setEmail(updatedUser.getEmail());
         user.setProfilePictureUrl(updatedUser.getProfilePictureUrl());
         userService.save(user);
-        return "redirect:/account?success";
+        return "redirect:/account";
     }
 }
 

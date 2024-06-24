@@ -9,31 +9,19 @@
 <body>
 <div th:replace="fragments/nav :: navbar"></div>
 
-<h1>User List</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Enabled</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}">1</td>
-        <td th:text="${user.username}">Username</td>
-    </tr>
-    </tbody>
-</table>
-<h1>Events</h1>
-<ul>
-    <li th:each="event : ${events}">
-        <div><strong>Title:</strong> <span th:text="${event.title}"></span></div>
-        <div><strong>Description:</strong> <span th:text="${event.description}"></span></div>
-        <div><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
-        <div><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
-    </li>
-</ul>
+
+<section class="px-[5%] py-16 md:py-24 lg:py-28">
+    <h1 class="text-3xl font-bold md:text-7xl lg:text-8xl mb-8">Events</h1>
+    <ul>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <li th:each="event : ${events}" class="mb-4">
+                <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
+                <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+                <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
+                <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
+            </li>
+        </div>
+    </ul>
+</section>
 </body>
 </html>

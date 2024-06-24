@@ -17,6 +17,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(User user) {
+        // Do not encode the password here
         userRepository.save(user);
     }
 
