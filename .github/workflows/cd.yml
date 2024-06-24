@@ -26,19 +26,11 @@ jobs:
       - name: Login to Amazon ECR
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 471112786669.dkr.ecr.us-east-1.amazonaws.com
 
-      - name: Build and Push Docker image for multiple platforms
-        run: |
-          # Enable experimental features in Docker
-          export DOCKER_CLI_EXPERIMENTAL=enabled
+      - name: Build Docker image
+        run: docker build --no-cache -t socialites-app01 .
 
-          # Create a new builder instance with Buildx
-          docker buildx create --use --name mybuilder
+      - name: Tag Docker image
+        run: docker tag socialites-app01:latest 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app01:latest
 
-          # Build the Docker image for multiple platforms
-          docker buildx build --platform linux/amd64,linux/arm64 -t socialites-app01 --push .
-
-          # Clean up after build
-          docker buildx rm mybuilder
-
-      - name: List images in ECR
-        run: aws ecr describe-images --repository-name socialites-app01 --region us-east-1
+      - name: Push Docker image to Amazon ECR
+        run: docker push 471112786669.dkr.ecr.us-east-1.amazonaws.com/socialites-app01:latest
