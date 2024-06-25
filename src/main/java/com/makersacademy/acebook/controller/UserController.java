@@ -5,6 +5,8 @@ import com.makersacademy.acebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,4 +93,23 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", "Password changed successfully!");
         return "redirect:/account";
     }
+
+    @GetMapping("/login/oauth2/code/google")
+    public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
+        OAuth2User oauthUser = token.getPrincipal();
+        String email = oauthUser.getAttribute("email");
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            user = new User();
+            user.setUsername(email);
+            user.setEmail(email);
+            user.setEnabled(true);
+            userService.save(user);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
+        return "redirect:/account";
+    }
 }
+

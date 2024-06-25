@@ -111,7 +111,7 @@ public class UserService implements UserDetailsService {
         }
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
-                .password(user.getPassword())
+                .password(user.getPassword() != null ? user.getPassword() : "") // Handle null password
                 .roles("USER")
                 .build();
     }
