@@ -5,6 +5,7 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AttendeesRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -39,6 +40,8 @@ public class LandingPageController {
     @Autowired
     private AttendeesRepository attendeesRepository;
 
+    private SearchService searchService;
+
     @RequestMapping(value = "/")
     public RedirectView index() {
         return new RedirectView("/landingpage");
@@ -48,7 +51,8 @@ public class LandingPageController {
     public String userEvents(Model model,
                              @AuthenticationPrincipal Object principal,
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
-                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate,
+                             @RequestParam(required = false) String keyword) {
         String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
@@ -61,7 +65,9 @@ public class LandingPageController {
         model.addAttribute("name", username);
 
         List<Event> events;
-        if (minScheduledDate != null && maxScheduledDate != null) {
+        if (keyword != null && !keyword.isEmpty()) {
+            events = searchService.searchEvents(keyword);
+        } else if (minScheduledDate != null && maxScheduledDate != null) {
             events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
         } else {
             events = eventRepository.findAllByOrderByScheduledDate();
