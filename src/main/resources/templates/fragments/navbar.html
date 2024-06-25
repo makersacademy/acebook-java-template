@@ -40,6 +40,14 @@
                 <div class="first:pt-4 lg:first:pt-0">
                     <a href="/account" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Account</a>
                 </div>
+                <!-- Search Bar -->
+<!--                <div class="flex items-center py-3 lg:py-2 lg:pl-4">-->
+<!--                    <form action="/search" method="get" class="flex items-center">-->
+<!--                        <input type="text" name="query" placeholder="Search events..." class="px-4 py-2 border border-gray-300 input-circle focus:outline-none">-->
+<!--                        <button type="submit" class="px-4 py-2 bg-gray-500 text-white font-bold button-circle hover:bg-gray-700">Search</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+
                 <div class="mt-6 flex flex-col items-center gap-4 lg:ml-4 lg:mt-0 lg:flex-row">
                     <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="inline">
