@@ -28,7 +28,7 @@
               <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
           </div>
           <div class="flex items-end">
-              <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700">Search</button>
+              <button type="submit" class="px-4 py-2 bg-gray-500 text-white font-bold rounded-md hover:bg-gray-700">Search</button>
           </div>
       </div>
 </form>
@@ -40,7 +40,7 @@
         <div class="container grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12 lg:gap-y-16">
             <div th:each="tpevent : ${thirdPartyEvents}" class="flex w-full flex-col items-center text-center bg-white p-6 rounded-lg shadow-md">
                 <div class="mb-6 md:mb-8">
-                    <img th:src="@{${tpevent.thumbnail}}" alt="eventThumbnail" class="max-w-full h-auto rounded-lg" onerror="this.onerror=null;this.src='./src/main/resources/static/images/default-image.png';">
+                    <img th:src="@{${tpevent.thumbnail}}" alt="eventThumbnail" class="max-w-full h-auto rounded-lg" onerror="this.onerror=null;this.src='/images/default_image.jpeg';">
                 </div>
                 <h3 class="mb-5 text-2xl font-bold md:mb-6 md:text-3xl md:leading-[1.3] lg:text-4xl" th:text="${tpevent.name}"></h3>
                 <div class="mb-3 text-lg text-gray-700">

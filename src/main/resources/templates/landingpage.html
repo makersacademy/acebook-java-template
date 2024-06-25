@@ -17,6 +17,12 @@
             <label for="maxScheduledDate" class="block text-lg font-medium text-gray-700">End Date</label>
             <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
         </div>
+<!--        searching keyword-->
+        <div>
+            <label for="keyword" class="block text-lg font-medium text-gray-700">Search Keyword</label>
+            <input type="text" id="keyword" name="keyword" placeholder="Search events by title, location, or username" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+
         <div class="flex items-end">
             <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700">Search</button>
         </div>
@@ -29,10 +35,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <li th:each="event : ${events}" class="mb-4 p-4 bg-white rounded-lg shadow-md">
                 <a th:href="@{/events/details/{eventId}(eventId=${event.id})}">
-                <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
-                <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
-                <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
-                <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
+                    <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
+                    <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
+                    <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
+                    <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
                 </a>
                 <form th:if="${!event.userAttending}" th:action="@{/events/attend/{id}(id=${event.id})}" method="post">
                     <p><input type="submit" value="I'm Attending!" /></p>

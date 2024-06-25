@@ -5,6 +5,7 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.AttendeesRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -13,7 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.makersacademy.acebook.model.Attendee;
@@ -34,6 +38,9 @@ public class LandingPageController {
     private EventRepository eventRepository;
 
     @Autowired
+    private SearchService searchService;
+
+    @Autowired
     private AttendeesService attendeesService;
 
     @Autowired
@@ -48,7 +55,8 @@ public class LandingPageController {
     public String userEvents(Model model,
                              @AuthenticationPrincipal Object principal,
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date minScheduledDate,
-                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate) {
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date maxScheduledDate,
+                             @RequestParam(required = false) String keyword) {
         String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
@@ -61,7 +69,9 @@ public class LandingPageController {
         model.addAttribute("name", username);
 
         List<Event> events;
-        if (minScheduledDate != null && maxScheduledDate != null) {
+        if (keyword != null && !keyword.isEmpty()) {
+            events = searchService.searchEvents(keyword);
+        } else if (minScheduledDate != null && maxScheduledDate != null) {
             events = eventRepository.findByScheduledDateBetween(minScheduledDate, maxScheduledDate);
         } else {
             events = eventRepository.findAllByOrderByScheduledDate();
