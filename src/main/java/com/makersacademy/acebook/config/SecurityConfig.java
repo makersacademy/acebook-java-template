@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .defaultSuccessUrl("/events/new", true)
+                                .defaultSuccessUrl("/ ", true)
                                 .permitAll()
                 )
                 .oauth2Login(oauth2Login ->
@@ -39,7 +39,7 @@ public class SecurityConfig {
                                 .userInfoEndpoint(userInfoEndpoint ->
                                         userInfoEndpoint.userService(customOAuth2UserService)
                                 )
-                                .defaultSuccessUrl("/events/new", true)
+                                .defaultSuccessUrl("/ ", true)
                 )
                 .logout(logout ->
                         logout
