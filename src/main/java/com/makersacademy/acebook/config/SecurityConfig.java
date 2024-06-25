@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .antMatchers("/", "/login", "/register", "/users","/styles/**", "/search", "/events", "/oauth2/**","/events/details/**").permitAll()
+                                .antMatchers("/", "/login", "/register","/images/**", "/users","/error/**", "/styles/**", "/search", "/events", "/oauth2/**","/events/details/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
