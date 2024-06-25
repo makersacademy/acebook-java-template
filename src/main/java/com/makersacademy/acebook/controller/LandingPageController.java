@@ -46,8 +46,6 @@ public class LandingPageController {
     @Autowired
     private AttendeesRepository attendeesRepository;
 
-    private SearchService searchService;
-
     @RequestMapping(value = "/")
     public RedirectView index() {
         return new RedirectView("/landingpage");
