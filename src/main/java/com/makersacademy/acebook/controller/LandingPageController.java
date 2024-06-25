@@ -14,7 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.makersacademy.acebook.model.Attendee;
@@ -35,12 +38,13 @@ public class LandingPageController {
     private EventRepository eventRepository;
 
     @Autowired
+    private SearchService searchService;
+
+    @Autowired
     private AttendeesService attendeesService;
 
     @Autowired
     private AttendeesRepository attendeesRepository;
-
-    private SearchService searchService;
 
     @RequestMapping(value = "/")
     public RedirectView index() {
