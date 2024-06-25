@@ -8,7 +8,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "ATTENDEES")
+@Table(name = "ATTENDEES",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames =
+                {"user_id", "event_id"})
+        })
 public class Attendee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

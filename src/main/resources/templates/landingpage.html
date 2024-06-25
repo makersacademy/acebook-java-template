@@ -34,7 +34,11 @@
                 <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
                 <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
                 </a>
-
+                <form th:if="${!event.userAttending}" th:action="@{/events/attend/{id}(id=${event.id})}" method="post">
+                    <p><input type="submit" value="I'm Attending!" /></p>
+                </form>
+                <p th:if="${event.userAttending}">You are attending this event!</p>
+                <p th:text="'Current number of attendees: ' + ${event.attendees}" ></p>
             </li>
         </div>
     </ul>
