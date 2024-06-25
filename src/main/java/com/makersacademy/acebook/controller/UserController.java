@@ -171,6 +171,6 @@ public class UserController {
         }
 
         redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
-        return "redirect:/account";
+        return "events/new";
     }
 }
