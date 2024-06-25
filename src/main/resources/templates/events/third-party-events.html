@@ -15,12 +15,22 @@
     </style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: navbar"></div>
 <h1 class="text-4xl font-bold text-center my-8">Events</h1>
-  <form action="/events/third-party-events/search" method="get">
-    <input type="date" name="minScheduledDate" placeholder="Start Date">
-    <input type="date" name="maxScheduledDate" placeholder="End Date">
-    <button type="submit">Search</button>
-    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+  <form action="/events/third-party-events/search" method="get" class="p-4 bg-gray-100 rounded-lg mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div>
+              <label for="minScheduledDate" class="block text-lg font-medium text-gray-700">Start Date</label>
+              <input type="date" id="minScheduledDate" name="minScheduledDate" placeholder="Start Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+          </div>
+          <div>
+              <label for="maxScheduledDate" class="block text-lg font-medium text-gray-700">End Date</label>
+              <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+          </div>
+          <div class="flex items-end">
+              <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700">Search</button>
+          </div>
+      </div>
 </form>
 <div class="container mx-auto px-4">
     <div th:if="${thirdPartyEvents.isEmpty()}" class="text-center py-16">

@@ -1,6 +1,8 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.model.*;
+import com.makersacademy.acebook.model.Comment;
+import com.makersacademy.acebook.model.Event;
+import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.CommentsRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -9,11 +11,7 @@ import com.makersacademy.acebook.service.EventService;
 import com.makersacademy.acebook.service.S3Service;
 import com.makersacademy.acebook.service.ThirdPartyEventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import java.util.Optional;
 
 @Controller
@@ -50,7 +45,6 @@ public class EventsController {
 
     @Autowired
     private S3Service s3Service;
-
 
     @GetMapping("/events/new")
     public String addEvent(Model model) {
@@ -79,9 +73,7 @@ public class EventsController {
     }
 
     @GetMapping("/events/details/{eventId}")
-    public String showEventDetails(@PathVariable Long eventId, Model model,
-                                   @RequestParam("image") MultipartFile image,
-                                   @RequestParam(required = false) String redirectUrl) {
+    public String showEventDetails(@PathVariable Long eventId, Model model) {
 
         // Fetch comments for event
         Iterable<Comment> comments = commentsRepository.findByEventIdOrderByCreatedAtDesc(eventId);
