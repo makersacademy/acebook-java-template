@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Application</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title th:fragment="title">My Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-<body>
-<!-- Navigation Bar -->
+<body class="light-mode">
+<!-- Include Navbar -->
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <!-- Main Content -->
 <div th:fragment="content">
-    <p>Content goes here...</p>
-</div>
-
-<!-- Footer -->
-<div th:replace="fragments/footer :: footer"></div>
-</body>
-</html>
+    <!-- Page-specific content
