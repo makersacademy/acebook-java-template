@@ -7,6 +7,7 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
+<<<<<<< HEAD
 <div class="container mx-auto p-8">
     <h1 class="text-4xl font-bold mb-8 text-center">Account Information</h1>
 
@@ -54,5 +55,34 @@
         }
     });
 </script>
+=======
+<h1>Account Information</h1>
+<h2>Welcome, <span th:text="${name}">User</span>!</h2>
+<p>You have successfully logged in.</p>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+<form th:action="@{/account}" th:object="${user}" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" th:field="*{username}" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" placeholder="Leave blank to keep current password"/>
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" />
+    </div>
+    <div>
+        <label>Profile Picture URL:</label>
+        <input type="text" th:field="*{profilePictureUrl}" />
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+>>>>>>> e9edf77 (A whole load of styling)
 </body>
 </html>
