@@ -15,34 +15,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/account")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
 
-    @GetMapping
+    @GetMapping("/account")
     public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
         User user = null;
+//        boolean isAuthenticated = false;
+
 
         if (principal instanceof UserDetails) {
             UserDetails currentUser = (UserDetails) principal;
             user = userService.findByUsername(currentUser.getUsername());
+//            isAuthenticated = true;
+
         } else if (principal instanceof OAuth2User) {
             OAuth2User oauthUser = (OAuth2User) principal;
             String email = oauthUser.getAttribute("email");
             user = userService.findByEmail(email);
+//            isAuthenticated = true;
+
         }
+
         if (user != null) {
             model.addAttribute("user", user);
+//            model.addAttribute("isAuthenticated", isAuthenticated);
+
             return "/account";
         } else {
             return "redirect:/login";
         }
     }
 
-    @PostMapping
+    @PostMapping("/account")
     public String updateAccount(@AuthenticationPrincipal Object principal, User updatedUser, RedirectAttributes redirectAttributes) {
         User user = null;
 
@@ -93,7 +101,7 @@ public class UserController {
         return "redirect:/account";
     }
 
-    @GetMapping("/password")
+    @GetMapping("/account/password")
     public String passwordPage(@AuthenticationPrincipal Object principal, RedirectAttributes redirectAttributes, Model model) {
         User user = null;
 
@@ -121,7 +129,7 @@ public class UserController {
         return "updatePassword";
     }
 
-    @PostMapping("/password")
+    @PostMapping("/account/password")
     public String changePassword(@AuthenticationPrincipal Object principal, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
         User user = null;
 
@@ -155,7 +163,7 @@ public class UserController {
         return "redirect:/account";
     }
 
-    @GetMapping("/login/oauth2/code/google")
+    @GetMapping("/account/login/oauth2/code/google")
     public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
         OAuth2User oauthUser = token.getPrincipal();
         String email = oauthUser.getAttribute("email");

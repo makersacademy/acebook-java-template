@@ -13,6 +13,6 @@ public class LoginController {
 
     @GetMapping("/loginSuccess")
     public String loginSuccess() {
-        return "redirect:/ ";
+        return "redirect:/";
     }
 }
