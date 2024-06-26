@@ -58,4 +58,9 @@ public class Event {
     @Getter
     private String eventImageUrl;
 
+    @javax.persistence.Transient
+    private Long attendees;
+
+    @javax.persistence.Transient
+    private Boolean userAttending;
 }

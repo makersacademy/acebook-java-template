@@ -1,11 +1,14 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Event;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.AttendeesRepository;
 import com.makersacademy.acebook.repository.EventRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import com.makersacademy.acebook.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.makersacademy.acebook.model.Attendee;
+import com.makersacademy.acebook.service.AttendeesService;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @Controller
@@ -32,6 +39,12 @@ public class LandingPageController {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private AttendeesService attendeesService;
+
+    @Autowired
+    private AttendeesRepository attendeesRepository;
 
     @RequestMapping(value = "/")
     public RedirectView index() {
@@ -64,6 +77,15 @@ public class LandingPageController {
             events = eventRepository.findAllByOrderByScheduledDate();
         }
 
+        User user = userRepository.findByUsername(username);
+        for (Event event: events) {
+            event.setAttendees(attendeesRepository.countByEvent(event));
+            Attendee userAttendee = attendeesRepository.findByUserAndEvent(user, event);
+            event.setUserAttending(userAttendee != null);
+        }
+
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
         model.addAttribute("events", events);
         model.addAttribute("event", new Event());
 

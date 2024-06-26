@@ -55,18 +55,12 @@ public class ThirdPartyEventService {
     public CompletableFuture<List<ThirdPartyEvent>> searchTPEvents(Date minScheduledDate, Date maxScheduledDate) {
 
         AsyncHttpClient client = new DefaultAsyncHttpClient();
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(" IN SEARCH TPEVENTS ");
-        System.out.println("!!!!!!!!!!!!!!!!!!!!\n");
 
         String pattern = "yyyy-MM-dd";
         DateFormat df = new SimpleDateFormat(pattern);
         String stringMinScheduledDate = df.format(minScheduledDate);
         String stringMaxScheduledDate = df.format(maxScheduledDate);
         String URL = "https://real-time-events-search.p.rapidapi.com/search-events?query=Newcastle%2CUK%20" + stringMinScheduledDate + "%20to%20" + stringMaxScheduledDate + "&date=any&is_virtual=false&start=0";
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(URL);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!\n");
 
         return client.prepare("GET", "https://real-time-events-search.p.rapidapi.com/search-events?query=Newcastle%2CUK%20" + stringMinScheduledDate + "%20to%20" + stringMaxScheduledDate + "&date=any&is_virtual=false&start=0")
                 .setHeader("x-rapidapi-key", apiKey)
