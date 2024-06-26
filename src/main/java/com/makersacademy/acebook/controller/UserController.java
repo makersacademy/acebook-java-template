@@ -45,7 +45,7 @@ public class UserController {
             model.addAttribute("user", user);
 //            model.addAttribute("isAuthenticated", isAuthenticated);
 
-            return "events/new";
+            return "/account";
         } else {
             return "redirect:/login";
         }
