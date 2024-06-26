@@ -63,18 +63,30 @@ public class UserController {
     }
 
     @GetMapping("/password")
-    public String passwordPage() {
+    public String passwordPage(@AuthenticationPrincipal UserDetails currentUser, RedirectAttributes redirectAttributes, Model model) {
+        User user = userService.findByUsername(currentUser.getUsername());
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
+            return "redirect:/account";
+        }
+        model.addAttribute("user", user);
         return "updatePassword";
     }
 
     @PostMapping("/password")
     public String changePassword(@AuthenticationPrincipal UserDetails currentUser, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
+        User user = userService.findByUsername(currentUser.getUsername());
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
+            return "redirect:/account";
+        }
+
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
             return "redirect:/account/password";
         }
 
-        User user = userService.findByUsername(currentUser.getUsername());
         userService.changePassword(user, newPassword);
         redirectAttributes.addFlashAttribute("message", "Password changed successfully!");
         return "redirect:/account";
