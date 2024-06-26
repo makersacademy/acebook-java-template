@@ -2,11 +2,11 @@
 <html class="theme-root" lang="en-GB">
 
 <head>
-    <title>Event</title>
     <meta charSet="utf-8" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/static/styles/details.css" rel="stylesheet">
+    <link href="../../static/styles/details.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/details-layout.css">
 </head>
 <style id="__jsx-4068354093">
     .img-aspect-ratio.jsx-4068354093 {
@@ -1310,69 +1310,6 @@
                                     <div class="jsx-4155675949 content">
                                         <div class="jsx-2999812480 gmaps mt-3"><a tabindex="-1" href="https://www.google.com/maps/search/?api=1&amp;query=Smith%20%26%20Wollensky&amp;query_place_id=ChIJhTYyWckEdkgRF2lCr6M3Qvw" class="rounded overflow-hidden block" aria-label="View on Google Maps" target="_blank" rel="nofollow noopener"><iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD09lau05Ec1he4kUtIoQ__GYOB4MlAqMA&amp;q=place_id%3AChIJhTYyWckEdkgRF2lCr6M3Qvw&amp;zoom=15" tabindex="-1" loading="lazy" style="width:100%;border:none;height:199px;display:flex;pointer-events:none" class="adaptive-inverted-filter" referrerPolicy="no-referrer-when-downgrade"></iframe></a></div>
                                     </div>
-                                </div>
-                                <div class="event-page-mobile-only">
-                                    <div class="jsx-4155675949 content-card">
-                                        <div class="jsx-4155675949 card-title flex-center gap-2 spread">
-                                            <div class="jsx-4155675949 title-label text-tinted fs-sm">Hosted By</div>
-                                        </div>
-                                        <div class="jsx-4155675949 content">
-                                            <div class="jsx-591752197 flex-column hosts">
-                                                <div class="jsx-591752197 flex-center gap-2">
-                                                    <a class="lux-menu-trigger-wrapper flex-center host-row gap-2 flex-1 hover-brand-link" href="/user/usr-CXofTFJ9GfFZy96">
-                                                        <div class="jsx-172621494 avatar-wrapper small">
-                                                            <div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_14.png&quot;)" class="jsx-172621494 avatar">
-                                                                <div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated">
-                                                                    <div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jsx-591752197 min-width-0">
-                                                            <div class="jsx-591752197 fw-medium text-ellipses">Tomas Lobo</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="jsx-591752197 flex-center gap-2">
-                                                    <a class="lux-menu-trigger-wrapper flex-center host-row gap-2 flex-1 hover-brand-link" href="/user/usr-QrHBtpTOcAU8LDL">
-                                                        <div class="jsx-172621494 avatar-wrapper small">
-                                                            <div style="background-image:url(&quot;https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars/10/14b1de43-97f5-4a3b-ab88-96b2a4da9e59&quot;)" class="jsx-172621494 avatar">
-                                                                <div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated">
-                                                                    <div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jsx-591752197 min-width-0">
-                                                            <div class="jsx-591752197 fw-medium text-ellipses">Aaron Steger</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="jsx-591752197 flex-center gap-2">
-                                                    <a class="lux-menu-trigger-wrapper flex-center host-row gap-2 flex-1 hover-brand-link" href="/user/twif">
-                                                        <div class="jsx-172621494 avatar-wrapper small">
-                                                            <div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars/7c/462e700d-5382-400f-aa3d-4085aa02e3dd&quot;)" class="jsx-172621494 avatar">
-                                                                <div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated">
-                                                                    <div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jsx-591752197 min-width-0">
-                                                            <div class="jsx-591752197 fw-medium text-ellipses">This Week in Fintech</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="jsx-4155675949 content-card">
-                                        <div class="jsx-4155675949 card-title flex-center gap-2 spread">
-                                            <div class="jsx-4155675949 title-label text-tinted fs-sm">63 Going</div>
-                                        </div>
-                                        <div class="jsx-4155675949 content">
-                                            <div class="jsx-2911588165"><button type="button" class="jsx-2911588165 guests-button button-reset"><div class="jsx-2911588165 flex-center guests pb-2"><div style="--size:1.5rem;--cutout-avatar-percentage-visible:0.5;--head-margin-percentage:0.1" class="jsx-1374597121 heads flex-center"><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_28.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_26.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_35.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_11.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_9.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div><div class="jsx-1374597121 head flex-start"><div class="jsx-172621494 avatar-wrapper small"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_13.png&quot;)" class="jsx-172621494 avatar"><div style="transform:scale(0)" class="jsx-2994073556 online-indicator-wrapper animated"><div style="background-color:var(--orange)" class="jsx-2994073556 online-indicator"></div></div></div></div><div class="lux-menu-trigger-wrapper jsx-1374597121 tooltip"></div></div></div></div><div class="jsx-2911588165 text-tinted fs-sm guests-string animated">Dimitrie Dorgan, Bikesh Kumar and 61 others</div></button></div>
-                                        </div>
-                                    </div>
-                                    <div class="jsx-4170869831 flex-column"><button class="btn luma-button flex-center small secondary link variant-color-secondary no-icon" type="button"><div class="label">Contact the Host</div></button><button class="btn luma-button flex-center small secondary link variant-color-secondary no-icon"
-                                                                                                                                                                                                                                                     type="button"><div class="label">Report Event</div></button></div>
                                 </div>
                             </div>
                         </div>
