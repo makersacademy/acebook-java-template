@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -41,15 +41,14 @@
                     <a href="/account" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Account</a>
                 </div>
                 <div class="mt-6 flex flex-col items-center gap-4 lg:ml-4 lg:mt-0 lg:flex-row">
-                    <div th:if="${isAuthenticated}">
-                        <h4>Welcome, <span th:text="${user.username}">User</span>!</h4>
+                    <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="inline">
                             <button type="submit" class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-5 py-2">
                                 Logout
                             </button>
                         </form>
                     </div>
-                    <div th:if="${!isAuthenticated}">
+                    <div sec:authorize="!isAuthenticated()">
                         <button class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-5 py-2">
                             <a href="/login" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Login</a>
                         </button>
