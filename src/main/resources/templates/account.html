@@ -7,12 +7,6 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<h1>Account Information</h1>
-<h2>Welcome, <span th:text="${name}">User</span>!</h2>
-<p>You have successfully logged in.</p>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
-</form>
 <div class="container mx-auto p-8">
     <h1 class="text-4xl font-bold mb-8 text-center">Account Information</h1>
 
@@ -38,7 +32,7 @@
             <input type="text" th:field="*{city}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </div>
         <div class="flex items-center justify-between">
-            <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Update
             </button>
 
