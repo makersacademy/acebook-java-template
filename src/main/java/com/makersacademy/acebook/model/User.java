@@ -1,25 +1,48 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 import static java.lang.Boolean.TRUE;
 
 @Data
+@AllArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Getter
+    @Setter
     private String username;
-    private String password;
+
+    @Getter
+    @Setter
+    private String password;    // This can be null for Google users
+
     private boolean enabled;
+
+    @Getter
+    @Setter
+    private String email;
+
+    @Getter
+    @Setter
+    private String profilePictureUrl;
+
+    @Getter
+    @Setter
+    private String language;
+
+    @Getter
+    @Setter
+    private String city;
 
     public User() {
         this.enabled = TRUE;
@@ -31,14 +54,13 @@ public class User {
         this.enabled = TRUE;
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, String password, String email, boolean enabled) {
         this.username = username;
         this.password = password;
+        this.email = email;
+
         this.enabled = enabled;
     }
 
-    public String getUsername() { return this.username; }
-    public String getPassword() { return this.password; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
+
 }

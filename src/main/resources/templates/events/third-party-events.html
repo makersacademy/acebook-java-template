@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .description-short {
+            display: block;
+        }
+        .description-full {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<h1 class="text-4xl font-bold text-center my-8">Events</h1>
+  <form action="/events/third-party-events/search" method="get" class="p-4 bg-gray-100 rounded-lg mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div>
+              <label for="minScheduledDate" class="block text-lg font-medium text-gray-700">Start Date</label>
+              <input type="date" id="minScheduledDate" name="minScheduledDate" placeholder="Start Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+          </div>
+          <div>
+              <label for="maxScheduledDate" class="block text-lg font-medium text-gray-700">End Date</label>
+              <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+          </div>
+          <div class="flex items-end">
+              <button type="submit" class="px-4 py-2 bg-gray-500 text-white font-bold rounded-md hover:bg-gray-700">Search</button>
+          </div>
+      </div>
+</form>
+<div class="container mx-auto px-4">
+    <div th:if="${thirdPartyEvents.isEmpty()}" class="text-center py-16">
+        <p class="text-xl text-gray-600">No events data available.</p>
+    </div>
+    <div th:if="${!thirdPartyEvents.isEmpty()}" class="px-[5%] py-16 md:py-24 lg:py-28">
+        <div class="container grid grid-cols-1 items-start justify-center gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:gap-x-12 lg:gap-y-16">
+            <div th:each="tpevent : ${thirdPartyEvents}" class="flex w-full flex-col items-center text-center bg-white p-6 rounded-lg shadow-md">
+                <div class="mb-6 md:mb-8">
+                    <img th:src="@{${tpevent.thumbnail}}" alt="eventThumbnail" class="max-w-full h-auto rounded-lg" onerror="this.onerror=null;this.src='/images/default_image.jpeg';">
+                </div>
+                <h3 class="mb-5 text-2xl font-bold md:mb-6 md:text-3xl md:leading-[1.3] lg:text-4xl" th:text="${tpevent.name}"></h3>
+                <div class="mb-3 text-lg text-gray-700">
+                    <strong>Description:</strong>
+                    <span class="description-short" th:text="${#strings.abbreviate(tpevent.description, 100)} + '...'"></span>
+                    <span class="description-full" th:text="${tpevent.description}"></span>
+                    <button class="text-blue-500 hover:text-blue-700 ml-2" onclick="toggleDescription(this)">More</button>
+                </div>
+                <p class="mb-3 text-lg text-gray-700"><strong>Start Time:</strong> <span th:text="${tpevent.formattedStartTime}"></span></p>
+                <p class="mb-3 text-lg text-gray-700"><strong>End Time:</strong> <span th:text="${tpevent.formattedEndTime}"></span></p>
+                <p class="mb-3 text-lg text-gray-700"><strong>Address:</strong> <span th:text="${tpevent.venue.full_address}"></span></p>
+                <div class="mt-6 flex items-center gap-4 md:mt-8">
+                    <a th:href="@{${tpevent.link}}" class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-6 py-3">
+                        Event Link
+                    </a>
+                    <button class="focus-visible:ring-border-primary inline-flex items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-0 text-text-primary gap-2 p-0">
+                        <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" class="size-6" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z" fill="currentColor"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleDescription(button) {
+        const shortDesc = button.previousElementSibling.previousElementSibling;
+        const fullDesc = button.previousElementSibling;
+        if (shortDesc.style.display === "none") {
+            shortDesc.style.display = "block";
+            fullDesc.style.display = "none";
+            button.textContent = "More";
+        } else {
+            shortDesc.style.display = "none";
+            fullDesc.style.display = "block";
+            button.textContent = "Less";
+        }
+    }
+
+
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<!-- Navigation Bar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<!-- Main Content -->
+<div th:fragment="content">
+    <p>Content goes here...</p>
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

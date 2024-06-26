@@ -1,0 +1,22 @@
+/* src/main/resources/static/css/nav.css */
+
+/* Custom styles for the navbar */
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-item .nav-link {
+    font-size: 1rem;
+}
+
+.form-control {
+    margin-right: 10px;
+
+.d-flex .form-control {
+    width: auto;
+}

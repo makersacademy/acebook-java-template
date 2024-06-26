@@ -1,6 +1,9 @@
-DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS events;
 
-CREATE TABLE posts (
+CREATE TABLE events (
   id bigserial PRIMARY KEY,
-  content varchar(250) NOT NULL
+  title varchar(250) NOT NULL,
+  description varchar(250) NOT NULL,
+  scheduled_date timestamp NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );

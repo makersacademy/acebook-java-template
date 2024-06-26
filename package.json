@@ -1,0 +1,22 @@
+{
+  "name": "socialites",
+  "version": "1.0.0",
+  "description": "The application uses: - `maven` to build the project - `thymeleaf` for templating - `flyway` to manage `postgres` db migrations - `selenium` for feature testing - `faker` to generate fake names for testing - `junit4` for unit testing - `spring-security` for authentication and user management",
+  "main": "index.js",
+  "dependencies": {
+    "@relume_io/relume-tailwind": "^0.2.0",
+    "@relume_io/relume-ui": "^0.2.2",
+    "autoprefixer": "^10.4.19"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./src/main/resources/static/styles/input.css -o ./src/main/resources/static/styles/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.4"
+  }
+}
