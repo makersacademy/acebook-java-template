@@ -14,7 +14,8 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://qxvdpmwpb4.us-east-1.awsapprunner.com")
+                        .allowedOrigins("https://qxvdpmwpb4.us-east-1.awsapprunner.com",
+                                "https://eventwave.events")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
