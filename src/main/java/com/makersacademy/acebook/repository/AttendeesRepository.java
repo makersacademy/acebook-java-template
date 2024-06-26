@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface AttendeesRepository extends CrudRepository<Attendee, Long> {
     public Long countByEvent (Event event);
-    public Attendee findByUserAndEvent(User user, Event event);
+    // Modify this method to return a List of attendees
+    List<Attendee> findByUserAndEvent(User user, Event event);
 }

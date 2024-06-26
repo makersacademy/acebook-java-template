@@ -34,16 +34,23 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <li th:each="event : ${events}" class="mb-4 p-4 bg-white rounded-lg shadow-md">
                 <a th:href="@{/events/details/{eventId}(eventId=${event.id})}">
+                    <div class="text-lg">
+                        <strong>Image:</strong>
+                        <img th:src="${event.eventImageUrl}" th:if="${event.eventImageUrl}" alt="Event Image" class="mt-2 rounded-lg w-full h-auto"/>
+                        <img th:src="@{/images/default_image.jpeg}" th:unless="${event.eventImageUrl}" alt="Default Event Image" class="mt-2 rounded-lg w-full h-auto"/>
+                    </div>
                     <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
                     <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
                     <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
                     <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
                 </a>
-<!--                <form th:if="${!event.userAttending}" th:action="@{/events/attend/{id}(id=${event.id})}" method="post">-->
-<!--                    <p><input type="submit" value="I'm Attending!" /></p>-->
-<!--                </form>-->
-<!--                <p th:if="${event.userAttending}">You are attending this event!</p>-->
-<!--                <p th:text="'Current number of attendees: ' + ${event.attendees}" ></p>-->
+                <form th:if="${!event.userAttending}" th:action="@{/events/attend/{id}(id=${event.id})}" method="post">
+                    <button type="submit" class="mt-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-blue-700">
+                        Attend this Event
+                    </button>
+                </form>
+                <p th:if="${event.userAttending}">You are attending this event!</p>
+                <p th:text="'Current number of attendees: ' + ${event.attendees}" ></p>
             </li>
         </div>
     </ul>
