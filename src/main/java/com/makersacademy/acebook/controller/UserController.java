@@ -29,17 +29,54 @@ public class UserController {
     @PostMapping
     public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser, RedirectAttributes redirectAttributes) {
         User user = userService.findByUsername(currentUser.getUsername());
-        user.setUsername(updatedUser.getUsername());
-        if (!updatedUser.getPassword().isEmpty()) {
-            user.setPassword(updatedUser.getPassword()); // The password will be encoded in the service
+
+        // Update username if provided and different
+        if (!updatedUser.getUsername().isEmpty() && !updatedUser.getUsername().equals(user.getUsername())) {
+            if (userService.findByUsername(updatedUser.getUsername()) != null) {
+                redirectAttributes.addFlashAttribute("error", "Username already exists. Please choose another one.");
+                return "redirect:/account";
+            }
+            user.setUsername(updatedUser.getUsername());
         }
-        user.setEmail(updatedUser.getEmail());
+
+        // Update email if provided and different
+        if (!updatedUser.getEmail().isEmpty() && !updatedUser.getEmail().equals(user.getEmail())) {
+            if (userService.findByEmail(updatedUser.getEmail()) != null) {
+                redirectAttributes.addFlashAttribute("error", "Email already exists. Please choose another one.");
+                return "redirect:/account";
+            }
+            user.setEmail(updatedUser.getEmail());
+        }
+
+        // Update other fields
         user.setLanguage(updatedUser.getLanguage());
         user.setCity(updatedUser.getCity());
-        userService.save(user);
-        redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+
+        try {
+            userService.update(user);
+            redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
 
         return "redirect:/account";
     }
-}
 
+    @GetMapping("/password")
+    public String passwordPage() {
+        return "updatePassword";
+    }
+
+    @PostMapping("/password")
+    public String changePassword(@AuthenticationPrincipal UserDetails currentUser, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            return "redirect:/account/password";
+        }
+
+        User user = userService.findByUsername(currentUser.getUsername());
+        userService.changePassword(user, newPassword);
+        redirectAttributes.addFlashAttribute("message", "Password changed successfully!");
+        return "redirect:/account";
+    }
+}
