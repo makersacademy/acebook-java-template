@@ -3,6 +3,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
         .rounded-circle {
             border-radius: 9999px;
@@ -17,7 +19,6 @@
         }
     </style>
 </head>
-
 <body>
 <div th:fragment="navbar">
     <nav class="flex w-full items-center border-b border-border-primary bg-background-primary lg:min-h-18 lg:px-[5%]">
@@ -56,6 +57,8 @@
                             <a href="/register" class="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base">Signup</a>
                         </button>
                     </div>
+                    <!-- Include Dark Mode Fragment -->
+                    <div th:replace="fragments/dark-mode :: dark-mode"></div>
                 </div>
             </div>
         </div>

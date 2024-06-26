@@ -3,9 +3,13 @@
 <head>
     <title>Website-Hosted Events</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script></head>
-<body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="light-mode">
 <div th:replace="fragments/navbar :: navbar"></div>
+
+
 <form action="/" method="get" class="p-4 bg-gray-100 rounded-lg mb-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div>
@@ -16,30 +20,104 @@
             <label for="maxScheduledDate" class="block text-lg font-medium text-gray-700">End Date</label>
             <input type="date" id="maxScheduledDate" name="maxScheduledDate" placeholder="End Date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
         </div>
-        <!--        searching keyword-->
         <div>
             <label for="keyword" class="block text-lg font-medium text-gray-700">Search Keyword</label>
             <input type="text" id="keyword" name="keyword" placeholder="Search events by title, location, or username" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
         </div>
-
         <div class="flex items-end">
-            <button type="submit" class="px-4 py-2 bg-gray-500 text-white font-bold rounded-md hover:bg-gray-700">Search</button>        </div>
+            <button type="submit" class="px-4 py-2 bg-gray-500 text-white font-bold rounded-md hover:bg-gray-700">Search</button>
+        </div>
     </div>
 </form>
 
+<section class="px-[5%] py-8 md:py-12 lg:py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-8 lg:grid-cols-8 gap-8 text-center">
+        <div>
+            <a href="https://open.spotify.com/" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-music text-4xl"></i>
+                </div>
+                <p>Music</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.timeout.com/london/nightlife" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-glass-cheers text-4xl"></i>
+                </div>
+                <p>Nightlife</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://tinder.com/en-GB" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-heart text-4xl"></i>
+                </div>
+                <p>Dating</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.burlapandblue.com/list-of-hobbies/" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-gamepad text-4xl"></i>
+                </div>
+                <p>Hobbies</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.eventbrite.co.uk/d/united-kingdom--london/free--business--events/" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-briefcase text-4xl"></i>
+                </div>
+                <p>Business</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.timeout.com/london/food-drink" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-utensils text-4xl"></i>
+                </div>
+                <p>Food & Drink</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.battersea.org.uk/" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-paw text-4xl"></i>
+                </div>
+                <p>Pets</p>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.houseplant.co.uk/collections/house-plants-indoor-plants" class="block text-gray-700 hover:text-blue-500 flex flex-col items-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-300 mt-4 mb-4">
+                    <i class="fas fa-seedling text-4xl"></i>
+                </div>
+                <p>Plants</p>
+            </a>
+        </div>
+    </div>
+</section>
+
 <section class="px-[5%] py-16 md:py-24 lg:py-28">
-    <h1 class="text-3xl font-bold md:text-7xl lg:text-8xl mb-8">Events</h1>
+    <h3 class="text-3xl font-bold md:text-7xl lg:text-8xl mb-8">Events</h3>
     <ul>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <li th:each="event : ${events}" class="mb-4 p-4 bg-white rounded-lg shadow-md">
                 <a th:href="@{/events/details/{eventId}(eventId=${event.id})}">
+                    <div class="text-lg">
+                        <img th:src="${event.eventImageUrl}" th:if="${event.eventImageUrl}" alt="Event Image" class="mt-2 rounded-lg w-full h-auto"/>
+                        <img th:src="@{/images/default_image.jpeg}" th:unless="${event.eventImageUrl}" alt="Default Event Image" class="mt-2 rounded-lg w-full h-auto"/>
+                    </div>
                     <div class="text-lg"><strong>Title:</strong> <span th:text="${event.title}"></span></div>
                     <div class="text-lg"><strong>Description:</strong> <span th:text="${event.description}"></span></div>
                     <div class="text-lg"><strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span></div>
                     <div class="text-lg"><strong>Time:</strong> <span th:text="${event.scheduledStartTime}"></span></div>
                 </a>
                 <form th:if="${!event.userAttending}" th:action="@{/events/attend/{id}(id=${event.id})}" method="post">
-                    <p><input type="submit" value="I'm Attending!" /></p>
+                    <button type="submit" class="mt-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-blue-700">
+                        Attend this Event
+                    </button>
                 </form>
                 <p th:if="${event.userAttending}">You are attending this event!</p>
                 <p th:text="'Current number of attendees: ' + ${event.attendees}" ></p>
@@ -47,5 +125,6 @@
         </div>
     </ul>
 </section>
+
 </body>
 </html>
