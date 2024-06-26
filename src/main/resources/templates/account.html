@@ -7,51 +7,32 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<div class="container mx-auto p-8">
-    <h1 class="text-4xl font-bold mb-8 text-center">Account Information</h1>
-
-    <!-- Flash Message -->
-    <div th:if="${message}" th:text="${message}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" id="flashMessage"></div>
-
-    <form th:action="@{/account}" th:object="${user}" method="post" class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
-            <input type="text" th:field="*{username}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-            <input type="password" th:field="*{password}" placeholder="Leave blank to keep current password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-            <input type="email" th:field="*{email}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Language:</label>
-            <input type="text" th:field="*{language}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">City:</label>
-            <input type="text" th:field="*{city}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        </div>
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Update
-            </button>
-        </div>
-    </form>
-</div>
-
-<script>
-    // Hide the flash message after 5 seconds
-    document.addEventListener("DOMContentLoaded", function() {
-        var flashMessage = document.getElementById("flashMessage");
-        if (flashMessage) {
-            setTimeout(function() {
-                flashMessage.style.display = "none";
-            }, 2000); // 2000 milliseconds = 2 seconds
-        }
-    });
-</script>
+<h1>Account Information</h1>
+<h2>Welcome, <span th:text="${name}">User</span>!</h2>
+<p>You have successfully logged in.</p>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+<form th:action="@{/account}" th:object="${user}" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" th:field="*{username}" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" placeholder="Leave blank to keep current password"/>
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" />
+    </div>
+    <div>
+        <label>Profile Picture URL:</label>
+        <input type="text" th:field="*{profilePictureUrl}" />
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
 </body>
 </html>
