@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping
     public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
         User user = null;
@@ -28,16 +29,14 @@ public class UserController {
         if (principal instanceof UserDetails) {
             UserDetails currentUser = (UserDetails) principal;
             user = userService.findByUsername(currentUser.getUsername());
-
         } else if (principal instanceof OAuth2User) {
             OAuth2User oauthUser = (OAuth2User) principal;
             String email = oauthUser.getAttribute("email");
             user = userService.findByEmail(email);
         }
-
         if (user != null) {
             model.addAttribute("user", user);
-            return "account";
+            return "/account";
         } else {
             return "redirect:/login";
         }
@@ -171,6 +170,6 @@ public class UserController {
         }
 
         redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
-        return "events/new";
+        return "";
     }
 }

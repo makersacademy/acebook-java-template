@@ -52,6 +52,8 @@ public class SecurityConfig {
                                 .logoutUrl("/logout")
                                 .logoutSuccessHandler(oidcLogoutSuccessHandler) // Ensure both OAuth2 and form logins are handled
                                 .permitAll()
+
+
                 );
 
         return http.build();
