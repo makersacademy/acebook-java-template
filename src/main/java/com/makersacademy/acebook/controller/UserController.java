@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/account")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
 
-    @GetMapping
+    @GetMapping("/account")
     public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
         User user = null;
 
@@ -42,7 +41,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/account")
     public String updateAccount(@AuthenticationPrincipal Object principal, User updatedUser, RedirectAttributes redirectAttributes) {
         User user = null;
 
@@ -93,7 +92,7 @@ public class UserController {
         return "redirect:/account";
     }
 
-    @GetMapping("/password")
+    @GetMapping("/account/password")
     public String passwordPage(@AuthenticationPrincipal Object principal, RedirectAttributes redirectAttributes, Model model) {
         User user = null;
 
@@ -121,7 +120,7 @@ public class UserController {
         return "updatePassword";
     }
 
-    @PostMapping("/password")
+    @PostMapping("/account/password")
     public String changePassword(@AuthenticationPrincipal Object principal, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
         User user = null;
 
@@ -155,7 +154,7 @@ public class UserController {
         return "redirect:/account";
     }
 
-    @GetMapping("/login/oauth2/code/google")
+    @GetMapping("/account/login/oauth2/code/google")
     public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
         OAuth2User oauthUser = token.getPrincipal();
         String email = oauthUser.getAttribute("email");
