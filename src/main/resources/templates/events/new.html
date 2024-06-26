@@ -1,28 +1,454 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Socialites</title>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Multi-Step Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step.active {
+            background-color: #DBDBDB;
+            color: white;
+        }
+        .step:not(.active) {
+            background-color: white;
+            color: black;
+        }
+        .step.completed {
+            background-color: #1fd655;
+            color: white;
+        }
+        .step-line {
+            flex: 1;
+            border-top: 2px solid gray;
+            margin: 0 15px;
+            border-radius: 6px;
+        }
+        .step-line.completed {
+            border-color: #39e75f;
+        }
+        .step-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4rem; /* Add horizontal padding */
+        }
+        .step-check {
+            display: none;
+        }
+        .step.completed .step-number {
+            display: none;
+        }
+        .step.completed .step-check {
+            display: inline-block;
+        }
+        .step-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+        }
+        .step {
+            font-size: 1rem; /* Increase font size for step numbers */
+        }
+        .image-container img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        label {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="navbar" th:replace="fragments/navbar :: navbar"></div>
+<div class="flex h-screen">
+    <!-- Form Container -->
+    <div class="w-1/2 flex flex-col h-full">
+        <!-- Step Indicator -->
+        <div class="mb-8 px-8 pt-8 progress-container">
+            <div class="flex items-center justify-between w-3/4">
+                <div class="step-container">
+                    <div class="step active w-8 h-8 flex items-center justify-center rounded-full">1</div>
+                    <div class="step-line"></div>
+                    <div class="step w-8 h-8 flex items-center justify-center rounded-full">2</div>
+                    <div class="step-line"></div>
+                    <div class="step w-8 h-8 flex items-center justify-center rounded-full">3</div>
+                </div>
+            </div>
+        </div>
+        <!-- Form Steps -->
+        <form id="multi-step-form" class="flex-1 flex flex-col justify-center px-16 pb-8"> <!-- Added horizontal padding -->
+            <!-- Step 1 -->
+            <div class="step-content" id="step-1">
 
+                <!-- Title -->
+                <div class="mb-8">
+                    <label for="title" class="block text-lg font-medium text-gray-700">Title</label>
+                    <input type="text" id="title" name="title" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                </div>
 
-    <h1>Add event</h1>
+                <!-- Description -->
+                <div class="mb-8">
+                    <label for="description" class="block text-lg font-medium text-gray-700">Description</label>
+                    <textarea id="description" name="description" rows="3" class="mt-1 p-2 border border-gray-300 rounded-md w-full"></textarea>
+                </div>
 
-    <form action="#" th:action="@{/events/new}" th:object="${event}" method="post" enctype="multipart/form-data">
-        <p>Title: <input type="text" th:field="*{title}" /></p>
-        <p>Description: <input type="text" th:field="*{description}" /></p>
-        <p>Date: <input type="date" th:field="*{scheduledDate}" /></p>
-        <p>Start time: <input type="time" th:field="*{scheduledStartTime}" /></p>
-        <p>End time: <input type="time" th:field="*{scheduledEndTime}" /></p>
-        <p>Location: <input type="text" th:field="*{location}" /></p>
-        <p class="form-post-image">Image: <input type="file" name="image"/></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+                <!-- Date and time -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="col-span-1">
+                        <label for="date" class="block text-lg font-medium text-gray-700">Date</label>
+                        <input type="date" id="date" name="date" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                    </div>
+                    <div class="col-span-1">
+                        <label for="start-time" class="block text-lg font-medium text-gray-700">Start time</label>
+                        <input type="time" id="start-time" name="start-time" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                    </div>
+                    <div class="col-span-1">
+                        <label for="end-time" class="block text-lg font-medium text-gray-700">End time</label>
+                        <input type="time" id="end-time" name="end-time" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                    </div>
+                </div>
 
-    </body>
+                <!-- Image -->
+                <div class="col-span-full mb-8">
+                    <label id="image" class="block text-lg font-medium text-gray-700">Image</label>
+                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                        <div class="text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                    <span>Upload a file</span>
+                                    <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 font-bold rounded-md" disabled>Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md" onclick="nextStep(1)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-content hidden" id="step-2">
+                <h2 class="text-2xl font-bold mb-6">Event Location</h2>
+                <p class="mb-6">Please provide the location details for your event.</p>
+                <div class="mb-4">
+                    <label for="location" class="block text-lg font-medium text-gray-700">Location</label>
+                    <input type="text" id="location" name="location" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 font-bold rounded-md" onclick="prevStep(1)">Back</button>
+                    <button type="button" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md" onclick="nextStep(2)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-content hidden h-full flex items-center justify-center" id="step-3">
+                <div id="confetti-container" class="absolute top-0 left-0 w-full h-full"></div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-24 h-24 mb-4">
+                        <svg class="text-green-500 w-24 h-24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 22.25A10.25 10.25 0 1122.25 12 10.25 10.25 0 0112 22.25zm0-18.5a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M10.743 16.07l-4.95-4.95a1.25 1.25 0 011.767-1.767l3.182 3.182 6.436-6.436a1.25 1.25 0 011.767 1.767l-7.55 7.55a1.25 1.25 0 01-1.767 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">Congratulations!</h2>
+                    <p class="mb-4">You have successfully created an event.</p>
+                    <button type="button" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md">Go to Home</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Image Container -->
+    <div class="w-1/2 h-full bg-gray-100 flex items-center justify-center image-container">
+        <img id="step-image" src="/assets/groupPhoto.png" alt="Step Image" class="w-full h-full object-cover">
+    </div>
+</div>
+
+<script>
+    function updateSteps(currentStep) {
+        const steps = document.querySelectorAll('.step');
+        const lines = document.querySelectorAll('.step-line');
+        steps.forEach((step, index) => {
+            if (index < currentStep) {
+                step.classList.add('completed');
+                step.innerHTML = '&#10003;'; // check mark
+                if (lines[index]) lines[index].classList.add('completed');
+            } else {
+                step.classList.remove('completed');
+                step.innerHTML = index + 1;
+                if (lines[index]) lines[index].classList.remove('completed');
+            }
+            if (index === currentStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+
+        // Change image based on step
+        const stepImage = document.getElementById('step-image');
+        if (currentStep === 2) {
+            stepImage.src = '/assets/Adobe_Preview.jpeg';
+            startConfetti();
+        } else {
+            stepImage.src = '/assets/groupPhoto.png';
+        }
+    }
+
+    function nextStep(currentStep) {
+        document.getElementById('step-' + currentStep).classList.add('hidden');
+        document.getElementById('step-' + (currentStep + 1)).classList.remove('hidden');
+        updateSteps(currentStep);
+    }
+
+    function prevStep(currentStep) {
+        document.getElementById('step-' + currentStep).classList.add('hidden');
+        document.getElementById('step-' + (currentStep - 1)).classList.remove('hidden');
+        updateSteps(currentStep - 2);
+    }
+
+    function startConfetti() {
+        'use strict';
+
+        var random = Math.random,
+            cos = Math.cos,
+            sin = Math.sin,
+            PI = Math.PI,
+            PI2 = PI * 2,
+            timer = undefined,
+            frame = undefined,
+            confetti = [];
+
+        var particles = 10,
+            spread = 40,
+            sizeMin = 3,
+            sizeMax = 12 - sizeMin,
+            eccentricity = 10,
+            deviation = 100,
+            dxThetaMin = -.1,
+            dxThetaMax = -dxThetaMin - dxThetaMin,
+            dyMin = .13,
+            dyMax = .18,
+            dThetaMin = .4,
+            dThetaMax = .7 - dThetaMin;
+
+        var colorThemes = [
+            function() {
+                return color(200 * random() | 0, 200 * random() | 0, 200 * random() | 0);
+            },
+            function() {
+                var black = 200 * random() | 0;
+                return color(200, black, black);
+            },
+            function() {
+                var black = 200 * random() | 0;
+                return color(black, 200, black);
+            },
+            function() {
+                var black = 200 * random() | 0;
+                return color(black, black, 200);
+            },
+            function() {
+                return color(200, 100, 200 * random() | 0);
+            },
+            function() {
+                return color(200 * random() | 0, 200, 200);
+            },
+            function() {
+                var black = 256 * random() | 0;
+                return color(black, black, black);
+            },
+            function() {
+                return colorThemes[random() < .5 ? 1 : 2]();
+            },
+            function() {
+                return colorThemes[random() < .5 ? 3 : 5]();
+            },
+            function() {
+                return colorThemes[random() < .5 ? 2 : 4]();
+            }
+        ];
+
+        function color(r, g, b) {
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+
+        function interpolation(a, b, t) {
+            return (1 - cos(PI * t)) / 2 * (b - a) + a;
+        }
+
+        var radius = 1 / eccentricity,
+            radius2 = radius + radius;
+
+        function createPoisson() {
+            var domain = [radius, 1 - radius],
+                measure = 1 - radius2,
+                spline = [0, 1];
+            while (measure) {
+                var dart = measure * random(),
+                    i, l, interval, a, b, c, d;
+
+                for (i = 0, l = domain.length, measure = 0; i < l; i += 2) {
+                    a = domain[i], b = domain[i + 1], interval = b - a;
+                    if (dart < measure + interval) {
+                        spline.push(dart += a - measure);
+                        break;
+                    }
+                    measure += interval;
+                }
+                c = dart - radius, d = dart + radius;
+
+                for (i = domain.length - 1; i > 0; i -= 2) {
+                    l = i - 1, a = domain[l], b = domain[i];
+
+                    if (a >= c && a < d)
+                        if (b > d) domain[l] = d;
+                        else domain.splice(l, 2);
+                    else if (a < c && b > c)
+                        if (b <= d) domain[i] = c;
+                        else domain.splice(i, 0, c, d);
+                }
+
+                for (i = 0, l = domain.length, measure = 0; i < l; i += 2)
+                    measure += domain[i + 1] - domain[i];
+            }
+
+            return spline.sort();
+        }
+
+        var container = document.createElement('div');
+        container.style.position = 'fixed';
+        container.style.top = '0';
+        container.style.left = '0';
+        container.style.width = '100%';
+        container.style.height = '0';
+        container.style.overflow = 'visible';
+        container.style.zIndex = '9999';
+
+        function Confetto(theme) {
+            this.frame = 0;
+            this.outer = document.createElement('div');
+            this.inner = document.createElement('div');
+            this.outer.appendChild(this.inner);
+
+            var outerStyle = this.outer.style,
+                innerStyle = this.inner.style;
+            outerStyle.position = 'absolute';
+            outerStyle.width = (sizeMin + sizeMax * random()) + 'px';
+            outerStyle.height = (sizeMin + sizeMax * random()) + 'px';
+            innerStyle.width = '100%';
+            innerStyle.height = '100%';
+            innerStyle.backgroundColor = theme();
+
+            outerStyle.perspective = '50px';
+            outerStyle.transform = 'rotate(' + (360 * random()) + 'deg)';
+            this.axis = 'rotate3D(' +
+                cos(360 * random()) + ',' +
+                cos(360 * random()) + ',0,';
+            this.theta = 360 * random();
+            this.dTheta = dThetaMin + dThetaMax * random();
+            innerStyle.transform = this.axis + this.theta + 'deg)';
+
+            this.x = window.innerWidth * random();
+            this.y = -deviation;
+            this.dx = sin(dxThetaMin + dxThetaMax * random());
+            this.dy = dyMin + dyMax * random();
+            outerStyle.left = this.x + 'px';
+            outerStyle.top = this.y + 'px';
+
+            this.splineX = createPoisson();
+            this.splineY = [];
+            for (var i = 1, l = this.splineX.length - 1; i < l; ++i)
+                this.splineY[i] = deviation * random();
+            this.splineY[0] = this.splineY[l] = deviation * random();
+
+            this.update = function(height, delta) {
+                this.frame += delta;
+                this.x += this.dx * delta;
+                this.y += this.dy * delta;
+                this.theta += this.dTheta * delta;
+
+                var phi = this.frame % 7777 / 7777,
+                    i = 0, j = 1;
+                while (phi >= this.splineX[j]) i = j++;
+                var rho = interpolation(
+                    this.splineY[i],
+                    this.splineY[j],
+                    (phi - this.splineX[i]) / (this.splineX[j] - this.splineX[i])
+                );
+                phi *= PI2;
+
+                outerStyle.left = this.x + rho * cos(phi) + 'px';
+                outerStyle.top = this.y + rho * sin(phi) + 'px';
+                innerStyle.transform = this.axis + this.theta + 'deg)';
+                return this.y > height + deviation;
+            };
+        }
+
+        function poof() {
+            if (!frame) {
+                document.body.appendChild(container);
+
+                var theme = colorThemes[0],
+                    count = 0;
+                (function addConfetto() {
+                    var confetto = new Confetto(theme);
+                    confetti.push(confetto);
+                    container.appendChild(confetto.outer);
+                    timer = setTimeout(addConfetto, spread * random());
+                })(0);
+
+                var prev = undefined;
+                requestAnimationFrame(function loop(timestamp) {
+                    var delta = prev ? timestamp - prev : 0;
+                    prev = timestamp;
+                    var height = window.innerHeight;
+
+                    for (var i = confetti.length - 1; i >= 0; --i) {
+                        if (confetti[i].update(height, delta)) {
+                            container.removeChild(confetti[i].outer);
+                            confetti.splice(i, 1);
+                        }
+                    }
+
+                    if (timer || confetti.length)
+                        return frame = requestAnimationFrame(loop);
+
+                    document.body.removeChild(container);
+                    frame = undefined;
+                });
+
+                // Stop confetti after 7 seconds
+                setTimeout(function() {
+                    clearTimeout(timer);
+                    timer = undefined;
+                    frame = undefined;
+                }, 7000);
+            }
+        }
+
+        poof();
+    }
+</script>
+</body>
 </html>

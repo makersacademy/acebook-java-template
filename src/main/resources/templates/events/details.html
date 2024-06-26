@@ -1,47 +1,215 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Event Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #4A2D2A;
+        }
+        .text-primary {
+            color: #FFD700;
+        }
+    </style>
 </head>
 <body>
-<h1>Event Details</h1>
-    <div>
-        <strong>Title:</strong> <span th:text="${event.title}"></span>
-    </div>
-    <div>
-        <strong>Description:</strong> <span th:text="${event.description}"></span>
-    </div>
-    <div>
-        <strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span>
-    </div>
-    <div>
-        <strong>Start time:</strong> <span th:text="${event.scheduledStartTime}"></span>
-    </div>
-    <div>
-        <strong>End time:</strong> <span th:text="${event.scheduledEndTime}"></span>
-    </div>
-    <div>
-        <strong>Location:</strong> <span th:text="${event.location}"></span>
-    </div>
-    <div>
-        <strong>Host:</strong> <span th:text="${event.user.username}"></span>
+<div th:fragment="navbar" th:replace="fragments/navbar :: navbar"></div>
+<div class="event-page-content-wrapper zm-container flex flex-col lg:flex-row gap-4">
+    <!-- Event-page-left -->
+    <div class="event-page-left flex flex-col gap-4 w-full lg:w-1/3 p-6 bg-[#4A2D2A] text-white min-h-screen">
+        <!-- Cover Image -->
+        <div class="relative w-full" style="padding-bottom: 100%;">
+            <img class="absolute inset-0 object-cover rounded" src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=400,height=400/event-covers/os/61fc8a1d-9c93-4d92-baa3-0ee9f44b95a8" alt="Cover Image for London Credit and Risk Dinner with Oscilar & TWIF" />
+        </div>
+        <!-- Hosted By Section -->
+        <div class="bg-white rounded shadow p-4 text-gray-800">
+            <div class="text-sm text-gray-500">Hosted By</div>
+            <div class="flex flex-col gap-4 mt-2">
+                <div class="flex items-center gap-2">
+                    <img class="w-6 h-6 rounded-full" src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars-default/avatar_14.png" alt="Tomas Lobo" />
+                    <div class="flex-1 ml-1 truncate">Tomas Lobo</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img class="w-6 h-6 rounded-full" src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars/10/14b1de43-97f5-4a3b-ab88-96b2a4da9e59" alt="Aaron Steger" />
+                    <div class="flex-1 ml-1 truncate">Aaron Steger</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img class="w-6 h-6 rounded-full" src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=24,height=24/avatars/7c/462e700d-5382-400f-aa3d-4085aa02e3dd" alt="This Week in Fintech" />
+                    <div class="flex-1 ml-1 truncate">This Week in Fintech</div>
+                    <a href="https://instagram.com/thisweekinfintech" target="_blank" rel="nofollow noopener" class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="w-4 h-4">
+                            <g fill="currentColor" fill-rule="evenodd">
+                                <path fill-rule="nonzero" d="M13.38 3.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0"></path>
+                                <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8m0-1.6a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8"></path>
+                                <path d="M0 7.68c0-2.688 0-4.032.523-5.06A4.8 4.8 0 0 1 2.621.524C3.648 0 4.99 0 7.68 0h.64c2.688 0 4.032 0 5.06.523a4.8 4.8 0 0 1 2.097 2.098C16 3.648 16 4.99 16 7.68v.64c0 2.688 0 4.032-.523 5.06a4.8 4.8 0 0 1-2.098 2.097C12.352 16 11.01 16 8.32 16h-.64c-2.688 0-4.032 0-5.06-.523a4.8 4.8 0 0 1-2.097-2.098C0 12.352 0 11.01 0 8.32zM7.68 1.6h.64c1.37 0 2.302.001 3.022.06.702.057 1.06.161 1.31.289a3.2 3.2 0 0 1 1.4 1.398c.127.25.23.61.288 1.31.059.72.06 1.652.06 3.023v.64c0 1.37-.001 2.302-.06 3.022-.057.702-.161 1.06-.289 1.31a3.2 3.2 0 0 1-1.398 1.4c-.25.127-.61.23-1.31.288-.72.059-1.652.06-3.023.06"></path>
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/twifintech" target="_blank" rel="nofollow noopener" class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-4 h-4">
+                            <path fill="currentColor" d="M6.278 18.5A11.33 11.33 0 0 1 0 16.605c1.54.103 4.256-.144 5.945-1.812-2.541-.12-3.688-2.138-3.837-3 .216.086 1.246.19 1.827-.052C1.011 10.983.563 8.328.662 7.517c.549.397 1.479.535 1.845.5C-.218 6 .762 2.966 1.244 2.31c1.955 2.803 4.885 4.378 8.51 4.465a4.5 4.5 0 0 1-.104-.965c0-2.38 1.86-4.31 4.153-4.31 1.199 0 2.279.527 3.037 1.37.8-.195 2.006-.65 2.595-1.042-.297 1.103-1.221 2.024-1.78 2.365.004.011-.005-.
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <form action="#" th:action="@{/events/details/{id}/comments/new(id=${{event.id}})}" th:object="${comment}" method="post">
-        <p>Comment: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
-    <h5 th:text="${comments.isEmpty}? 'No comments yet' : 'Comments'"></h5>
-    <ul>
-        <li th:each="comment : ${comments}">
-            <p th:text="${comment.user.username}"></p>
-            <p th:text="${comment.formattedCreatedAt}"></p>
-            <p th:text="${comment.content}"></p>
-        </li>
-    </ul>
-
-
-</body>
+    <!-- Event-page-right -->
+<div class="event-page-right flex-1 flex flex-col gap-4 p-6 bg-[#4A2D2A] text-white">
+                            <!-- Top Wrapper -->
+                            <div class="top-wrapper flex flex-col gap-2">
+                                <!-- Event Title -->
+                                <div class="top-card-content">
+                                    <div class="flex justify-between items-center gap-2 title-wrapper">
+                                        <h1 class="title text-3xl font-bold text-primary mb-0">London Credit and Risk Dinner with Oscilar & TWIF</h1>
+                                    </div>
+                                </div>
+                                <!-- Event Info -->
+                                <div class="meta flex flex-col gap-2">
+                                    <div class="flex items-center gap-2 p-2 bg-opacity-10 bg-white rounded">
+                                        <div class="flex-shrink-0 p-2 border border-gray-400 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" class="w-6 h-6 text-primary">
+                                                <path d="M6.5 1.5A5.5 5.5 0 1 0 6.5 12.5 5.5 5.5 0 0 0 6.5 1.5z"></path>
+                                                <path d="M6.5 4.5V6.5H4.5"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="text-lg font-medium text-white">Wednesday, June 26</div>
+                                            <div class="text-sm text-gray-300">6:00 PM - 8:30 PM</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 bg-opacity-10 bg-white rounded">
+                                        <div class="flex-shrink-0 p-2 border border-gray-400 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" class="w-6 h-6 text-primary">
+                                                <path d="M8 1C6.3 1 5 2.3 5 4s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm0 7c-2.8 0-5 1.4-5 3v2h10v-2c0-1.6-2.2-3-5-3z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="text-lg font-medium text-white">Smith & Wollensky</div>
+                                            <div class="text-sm text-gray-300">London, England</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Registration Section -->
+                            <div class="bg-white rounded shadow p-4 text-gray-800">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" class="w-6 h-6 text-primary">
+                                        <path fill-rule="nonzero" d="m5.029 8.556-.001-.003C5.028 7.5 3.3 7 3.3 4.4 3.3 1.987 5.164 0 7.5 0s4.2 1.987 4.2 4.4c0 2.041-1.065 3.437-1.523 3.943.285-.292.69-.707-.028.031q-.104.111-.15.154l-.027.028C8.666 9.896 6.5 10.5 7.5 13s.86 3 0 3c-2.036 0-7 .066-7-3.09 0-2.745 4.529-2.823 4.529-4.354"></path>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9.5 11.722 1.454 1.778 3.546-4"></path>
+                                    </svg>
+                                    <div>
+                                        <div class="text-lg font-medium">Approval Required</div>
+                                        <div class="text-sm text-gray-500">Your registration is subject to approval by the host.</div>
+                                    </div>
+                                </div>
+                                <div class="text-center mb-4">
+                                    <div class="text-sm text-gray-500">Welcome! To join the event, please register below.</div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700">Request to Join</button>
+                                </div>
+                            </div>
+                            <!-- About Event Section -->
+                            <div class="bg-white rounded shadow p-4 text-gray-800">
+                                <div class="text-lg font-medium text-primary">You're invited! Join us in London on 26 June</div>
+                                <div class="mt-2 text-gray-700">
+                                    <p>Calling all lending, credit, and risk operators and leaders. We are delighted to invite you to an exclusive, 3-course dinner at historic Smith & Wollensky with facilitated group discussions centered around credit and risk management.</p>
+                                    <p class="mt-2">We will delve into some key topics shaping our industry, including:</p>
+                                    <ul class="list-disc list-inside mt-2 text-gray-700">
+                                        <li>Innovations in fraud/AML detection</li>
+                                        <li>How companies are leveraging biometrics</li>
+                                        <li>How companies are utilizing alternative data</li>
+                                    </ul>
+                                    <p class="mt-2">Please register below and we will confirm your attendance, as spaces are limited.</p>
+                                </div>
+                            </div>
+                    </div>
+    </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Event Details</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Event Details</h1>-->
+<!--    <div>-->
+<!--        <strong>Title:</strong> <span th:text="${event.title}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>Description:</strong> <span th:text="${event.description}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>Date:</strong> <span th:text="${#dates.format(event.scheduledDate, 'yyyy-MM-dd')}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>Start time:</strong> <span th:text="${event.scheduledStartTime}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>End time:</strong> <span th:text="${event.scheduledEndTime}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>Location:</strong> <span th:text="${event.location}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <strong>Host:</strong> <span th:text="${event.user.username}"></span>-->
+<!--    </div>-->
+
+<!--    <form action="#" th:action="@{/events/details/{id}/comments/new(id=${{event.id}})}" th:object="${comment}" method="post">-->
+<!--        <p>Comment: <input type="text" th:field="*{content}" /></p>-->
+<!--        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--    </form>-->
+
+<!--    <h5 th:text="${comments.isEmpty}? 'No comments yet' : 'Comments'"></h5>-->
+<!--    <ul>-->
+<!--        <li th:each="comment : ${comments}">-->
+<!--            <p th:text="${comment.user.username}"></p>-->
+<!--            <p th:text="${comment.formattedCreatedAt}"></p>-->
+<!--            <p th:text="${comment.content}"></p>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+
+<!--</body>-->
+<!--</html>-->
