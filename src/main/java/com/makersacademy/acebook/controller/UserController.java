@@ -21,42 +21,49 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping
     public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
         User user = null;
-//        boolean isAuthenticated = false;
-
 
         if (principal instanceof UserDetails) {
             UserDetails currentUser = (UserDetails) principal;
             user = userService.findByUsername(currentUser.getUsername());
-//            isAuthenticated = true;
 
         } else if (principal instanceof OAuth2User) {
             OAuth2User oauthUser = (OAuth2User) principal;
             String email = oauthUser.getAttribute("email");
             user = userService.findByEmail(email);
-//            isAuthenticated = true;
-
         }
 
         if (user != null) {
             model.addAttribute("user", user);
-//            model.addAttribute("isAuthenticated", isAuthenticated);
-
-            return "/account";
+            return "account";
         } else {
             return "redirect:/login";
         }
     }
 
     @PostMapping
-    public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser, RedirectAttributes redirectAttributes) {
-        User user = userService.findByUsername(currentUser.getUsername());
+    public String updateAccount(@AuthenticationPrincipal Object principal, User updatedUser, RedirectAttributes redirectAttributes) {
+        User user = null;
+
+        if (principal instanceof UserDetails) {
+            UserDetails currentUser = (UserDetails) principal;
+            user = userService.findByUsername(currentUser.getUsername());
+
+        } else if (principal instanceof OAuth2User) {
+            OAuth2User oauthUser = (OAuth2User) principal;
+            String email = oauthUser.getAttribute("email");
+            user = userService.findByEmail(email);
+        }
+
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+            return "redirect:/login";
+        }
 
         // Update username if provided and different
-        if (!updatedUser.getUsername().isEmpty() && !updatedUser.getUsername().equals(user.getUsername())) {
+        if (updatedUser.getUsername() != null && !updatedUser.getUsername().isEmpty() && !updatedUser.getUsername().equals(user.getUsername())) {
             if (userService.findByUsername(updatedUser.getUsername()) != null) {
                 redirectAttributes.addFlashAttribute("error", "Username already exists. Please choose another one.");
                 return "redirect:/account";
@@ -65,7 +72,7 @@ public class UserController {
         }
 
         // Update email if provided and different
-        if (!updatedUser.getEmail().isEmpty() && !updatedUser.getEmail().equals(user.getEmail())) {
+        if (updatedUser.getEmail() != null && !updatedUser.getEmail().isEmpty() && !updatedUser.getEmail().equals(user.getEmail())) {
             if (userService.findByEmail(updatedUser.getEmail()) != null) {
                 redirectAttributes.addFlashAttribute("error", "Email already exists. Please choose another one.");
                 return "redirect:/account";
@@ -88,19 +95,51 @@ public class UserController {
     }
 
     @GetMapping("/password")
-    public String passwordPage(@AuthenticationPrincipal UserDetails currentUser, RedirectAttributes redirectAttributes, Model model) {
-        User user = userService.findByUsername(currentUser.getUsername());
+    public String passwordPage(@AuthenticationPrincipal Object principal, RedirectAttributes redirectAttributes, Model model) {
+        User user = null;
+
+        if (principal instanceof UserDetails) {
+            UserDetails currentUser = (UserDetails) principal;
+            user = userService.findByUsername(currentUser.getUsername());
+
+        } else if (principal instanceof OAuth2User) {
+            OAuth2User oauthUser = (OAuth2User) principal;
+            String email = oauthUser.getAttribute("email");
+            user = userService.findByEmail(email);
+        }
+
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+            return "redirect:/login";
+        }
+
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
             return "redirect:/account";
         }
+
         model.addAttribute("user", user);
         return "updatePassword";
     }
 
     @PostMapping("/password")
-    public String changePassword(@AuthenticationPrincipal UserDetails currentUser, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
-        User user = userService.findByUsername(currentUser.getUsername());
+    public String changePassword(@AuthenticationPrincipal Object principal, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
+        User user = null;
+
+        if (principal instanceof UserDetails) {
+            UserDetails currentUser = (UserDetails) principal;
+            user = userService.findByUsername(currentUser.getUsername());
+
+        } else if (principal instanceof OAuth2User) {
+            OAuth2User oauthUser = (OAuth2User) principal;
+            String email = oauthUser.getAttribute("email");
+            user = userService.findByEmail(email);
+        }
+
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+            return "redirect:/login";
+        }
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
@@ -135,4 +174,3 @@ public class UserController {
         return "events/new";
     }
 }
-
