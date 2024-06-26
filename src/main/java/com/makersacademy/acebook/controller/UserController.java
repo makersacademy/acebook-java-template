@@ -5,6 +5,8 @@ import com.makersacademy.acebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +21,34 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping
-    public String accountPage(@AuthenticationPrincipal UserDetails currentUser, Model model) {
-        User user = userService.findByUsername(currentUser.getUsername());
-        model.addAttribute("user", user);
-        return "account";
+    public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
+        User user = null;
+//        boolean isAuthenticated = false;
+
+
+        if (principal instanceof UserDetails) {
+            UserDetails currentUser = (UserDetails) principal;
+            user = userService.findByUsername(currentUser.getUsername());
+//            isAuthenticated = true;
+
+        } else if (principal instanceof OAuth2User) {
+            OAuth2User oauthUser = (OAuth2User) principal;
+            String email = oauthUser.getAttribute("email");
+            user = userService.findByEmail(email);
+//            isAuthenticated = true;
+
+        }
+
+        if (user != null) {
+            model.addAttribute("user", user);
+//            model.addAttribute("isAuthenticated", isAuthenticated);
+
+            return "events/new";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @PostMapping
@@ -40,6 +65,24 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
 
         return "redirect:/account";
+    }
+
+    @GetMapping("/login/oauth2/code/google")
+    public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
+        OAuth2User oauthUser = token.getPrincipal();
+        String email = oauthUser.getAttribute("email");
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            user = new User();
+            user.setUsername(email);
+            user.setEmail(email);
+            user.setEnabled(true);
+            userService.save(user);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
+        return "events/new";
     }
 }
 
