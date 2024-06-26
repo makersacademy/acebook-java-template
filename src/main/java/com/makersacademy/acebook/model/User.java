@@ -24,7 +24,7 @@ public class User {
 
     @Getter
     @Setter
-    private String password;
+    private String password;    // This can be null for Google users
 
     private boolean enabled;
 
@@ -54,9 +54,13 @@ public class User {
         this.enabled = TRUE;
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, String password, String email, boolean enabled) {
         this.username = username;
         this.password = password;
+        this.email = email;
+
         this.enabled = enabled;
     }
+
+
 }
