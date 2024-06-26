@@ -11,8 +11,8 @@
     <h1 class="text-4xl font-bold mb-8 text-center">Account Information</h1>
 
     <!-- Flash Messages -->
-    <div th:if="${message}" th:text="${message}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" id="flashMessage"></div>
-    <div th:if="${error}" th:text="${error}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" id="flashMessage"></div>
+    <div th:if="${message}" th:text="${message}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" id="flashMessageSuccess"></div>
+    <div th:if="${error}" th:text="${error}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" id="flashMessageError"></div>
 
     <form th:action="@{/account}" th:object="${user}" method="post" class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
         <div class="mb-4">
