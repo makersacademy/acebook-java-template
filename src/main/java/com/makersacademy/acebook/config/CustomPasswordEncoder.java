@@ -15,10 +15,6 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        if (encodedPassword.startsWith("{bcrypt}")) {
-            return bcryptEncoder.matches(rawPassword, encodedPassword.substring(8));
-        } else {
-            return noopEncoder.matches(rawPassword, encodedPassword);
-        }
+        return bcryptEncoder.matches(rawPassword, encodedPassword);
     }
 }

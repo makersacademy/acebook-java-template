@@ -15,74 +15,240 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/account")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+   @Autowired
+   private UserService userService;
 
 
-    @GetMapping
-    public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
-        User user = null;
+   @GetMapping("/account")
+   public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
+       User user = null;
 //        boolean isAuthenticated = false;
 
 
-        if (principal instanceof UserDetails) {
-            UserDetails currentUser = (UserDetails) principal;
-            user = userService.findByUsername(currentUser.getUsername());
+       if (principal instanceof UserDetails) {
+           UserDetails currentUser = (UserDetails) principal;
+           user = userService.findByUsername(currentUser.getUsername());
 //            isAuthenticated = true;
 
-        } else if (principal instanceof OAuth2User) {
-            OAuth2User oauthUser = (OAuth2User) principal;
-            String email = oauthUser.getAttribute("email");
-            user = userService.findByEmail(email);
+       } else if (principal instanceof OAuth2User) {
+           OAuth2User oauthUser = (OAuth2User) principal;
+           String email = oauthUser.getAttribute("email");
+           user = userService.findByEmail(email);
 //            isAuthenticated = true;
 
-        }
+       }
 
-        if (user != null) {
-            model.addAttribute("user", user);
+       if (user != null) {
+           model.addAttribute("user", user);
 //            model.addAttribute("isAuthenticated", isAuthenticated);
 
-            return "/account";
-        } else {
-            return "redirect:/login";
-        }
-    }
+           return "account";
+       } else {
+           return "redirect:/login";
+       }
+   }
 
-    @PostMapping
-    public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser, RedirectAttributes redirectAttributes) {
-        User user = userService.findByUsername(currentUser.getUsername());
-        user.setUsername(updatedUser.getUsername());
-        if (!updatedUser.getPassword().isEmpty()) {
-            user.setPassword(updatedUser.getPassword()); // The password will be encoded in the service
-        }
-        user.setEmail(updatedUser.getEmail());
-        user.setLanguage(updatedUser.getLanguage());
-        user.setCity(updatedUser.getCity());
-        userService.save(user);
-        redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+   @PostMapping("/account")
+   public String updateAccount(@AuthenticationPrincipal Object principal, User updatedUser, RedirectAttributes redirectAttributes) {
+       User user = null;
 
-        return "redirect:/account";
-    }
+       if (principal instanceof UserDetails) {
+           UserDetails currentUser = (UserDetails) principal;
+           user = userService.findByUsername(currentUser.getUsername());
 
-    @GetMapping("/login/oauth2/code/google")
-    public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
-        OAuth2User oauthUser = token.getPrincipal();
-        String email = oauthUser.getAttribute("email");
-        User user = userService.findByEmail(email);
+       } else if (principal instanceof OAuth2User) {
+           OAuth2User oauthUser = (OAuth2User) principal;
+           String email = oauthUser.getAttribute("email");
+           user = userService.findByEmail(email);
+       }
 
-        if (user == null) {
-            user = new User();
-            user.setUsername(email);
-            user.setEmail(email);
-            user.setEnabled(true);
-            userService.save(user);
-        }
+       if (user == null) {
+           redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+           return "redirect:/login";
+       }
 
-        redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
-        return "events/new";
-    }
+       // Update username if provided and different
+       if (updatedUser.getUsername() != null && !updatedUser.getUsername().isEmpty() && !updatedUser.getUsername().equals(user.getUsername())) {
+           if (userService.findByUsername(updatedUser.getUsername()) != null) {
+               redirectAttributes.addFlashAttribute("error", "Username already exists. Please choose another one.");
+               return "redirect:/account";
+           }
+           user.setUsername(updatedUser.getUsername());
+       }
+
+       // Update email if provided and different
+       if (updatedUser.getEmail() != null && !updatedUser.getEmail().isEmpty() && !updatedUser.getEmail().equals(user.getEmail())) {
+           if (userService.findByEmail(updatedUser.getEmail()) != null) {
+               redirectAttributes.addFlashAttribute("error", "Email already exists. Please choose another one.");
+               return "redirect:/account";
+           }
+           user.setEmail(updatedUser.getEmail());
+       }
+
+       // Update other fields
+       user.setLanguage(updatedUser.getLanguage());
+       user.setCity(updatedUser.getCity());
+
+       try {
+           userService.update(user);
+           redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+       } catch (IllegalArgumentException e) {
+           redirectAttributes.addFlashAttribute("error", e.getMessage());
+       }
+
+       return "redirect:/account";
+   }
+
+   @GetMapping("/account/password")
+   public String passwordPage(@AuthenticationPrincipal Object principal, RedirectAttributes redirectAttributes, Model model) {
+       User user = null;
+
+       if (principal instanceof UserDetails) {
+           UserDetails currentUser = (UserDetails) principal;
+           user = userService.findByUsername(currentUser.getUsername());
+
+       } else if (principal instanceof OAuth2User) {
+           OAuth2User oauthUser = (OAuth2User) principal;
+           String email = oauthUser.getAttribute("email");
+           user = userService.findByEmail(email);
+       }
+
+       if (user == null) {
+           redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+           return "redirect:/login";
+       }
+
+       if (user.getPassword() == null || user.getPassword().isEmpty()) {
+           redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
+           return "redirect:/account";
+       }
+
+       model.addAttribute("user", user);
+       return "updatePassword";
+   }
+
+   @PostMapping("/account/password")
+   public String changePassword(@AuthenticationPrincipal Object principal, String newPassword, String confirmPassword, RedirectAttributes redirectAttributes) {
+       User user = null;
+
+       if (principal instanceof UserDetails) {
+           UserDetails currentUser = (UserDetails) principal;
+           user = userService.findByUsername(currentUser.getUsername());
+
+       } else if (principal instanceof OAuth2User) {
+           OAuth2User oauthUser = (OAuth2User) principal;
+           String email = oauthUser.getAttribute("email");
+           user = userService.findByEmail(email);
+       }
+
+       if (user == null) {
+           redirectAttributes.addFlashAttribute("error", "User not authenticated.");
+           return "redirect:/login";
+       }
+
+       if (user.getPassword() == null || user.getPassword().isEmpty()) {
+           redirectAttributes.addFlashAttribute("error", "You cannot change your password because your account does not have a password set.");
+           return "redirect:/account";
+       }
+
+       if (!newPassword.equals(confirmPassword)) {
+           redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+           return "redirect:/account/password";
+       }
+
+       userService.changePassword(user, newPassword);
+       redirectAttributes.addFlashAttribute("message", "Password changed successfully!");
+       return "redirect:/account";
+   }
+
+   @GetMapping("/account/login/oauth2/code/google")
+   public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
+       OAuth2User oauthUser = token.getPrincipal();
+       String email = oauthUser.getAttribute("email");
+       User user = userService.findByEmail(email);
+
+       if (user == null) {
+           user = new User();
+           user.setUsername(email);
+           user.setEmail(email);
+           user.setEnabled(true);
+           userService.save(user);
+       }
+
+       redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
+       return "";
+   }
 }
 
+// @Controller
+// @RequestMapping("/account")
+// public class UserController {
+//     @Autowired
+//     private UserService userService;
+
+
+//     @GetMapping
+//         public String accountPage(@AuthenticationPrincipal Object principal, Model model) {
+//             User user = null;
+// //        boolean isAuthenticated = false;
+
+
+//             if (principal instanceof UserDetails) {
+//                 UserDetails currentUser = (UserDetails) principal;
+//                 user = userService.findByUsername(currentUser.getUsername());
+// //            isAuthenticated = true;
+
+//             } else if (principal instanceof OAuth2User) {
+//                 OAuth2User oauthUser = (OAuth2User) principal;
+//                 String email = oauthUser.getAttribute("email");
+//                 user = userService.findByEmail(email);
+// //            isAuthenticated = true;
+
+//             }
+
+//             if (user != null) {
+//                 model.addAttribute("user", user);
+// //            model.addAttribute("isAuthenticated", isAuthenticated);
+
+//                 return "/account";
+//             } else {
+//                 return "redirect:/login";
+//             }
+//         }
+
+//         @PostMapping
+//         public String updateAccount(@AuthenticationPrincipal UserDetails currentUser, User updatedUser, RedirectAttributes redirectAttributes) {
+//             User user = userService.findByUsername(currentUser.getUsername());
+//             user.setUsername(updatedUser.getUsername());
+//             if (!updatedUser.getPassword().isEmpty()) {
+//                 user.setPassword(updatedUser.getPassword()); // The password will be encoded in the service
+//             }
+//             user.setEmail(updatedUser.getEmail());
+//             user.setLanguage(updatedUser.getLanguage());
+//             user.setCity(updatedUser.getCity());
+//             userService.save(user);
+//             redirectAttributes.addFlashAttribute("message", "Account updated successfully!");
+
+//             return "redirect:/account";
+//         }
+
+//         @GetMapping("/login/oauth2/code/google")
+//         public String handleGoogleLogin(OAuth2AuthenticationToken token, RedirectAttributes redirectAttributes) {
+//             OAuth2User oauthUser = token.getPrincipal();
+//             String email = oauthUser.getAttribute("email");
+//             User user = userService.findByEmail(email);
+
+//             if (user == null) {
+//                 user = new User();
+//                 user.setUsername(email);
+//                 user.setEmail(email);
+//                 user.setEnabled(true);
+//                 userService.save(user);
+//             }
+
+//             redirectAttributes.addFlashAttribute("message", "Logged in with Google successfully!");
+//             return "events/new";
+//         }
+//     }

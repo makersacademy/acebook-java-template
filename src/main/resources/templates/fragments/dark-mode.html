@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        /* Light Mode Styles */
+        .light-mode {
+            background-color: #f7fafc; /* Tailwind light mode bg-gray-100 */
+            color: #1a202c; /* Tailwind light mode text-gray-900 */
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #1a202c; /* Tailwind dark mode bg-gray-900 */
+            color: #cbd5e0; /* Tailwind dark mode text-gray-300 */
+        }
+
+        /* Additional Styles for Body Element */
+        body.light-mode {
+            background-color: #f7fafc;
+            color: #1a202c;
+        }
+
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="dark-mode">
+    <!-- Dark Mode Toggle Button -->
+    <button id="dark-mode-toggle" class="p-2 bg-gray-200 dark:bg-gray-800 rounded ml-4 text-gray-800 dark:text-gray-200">
+        <i id="dark-mode-icon" class="fas fa-moon"></i>
+    </button>
+
+    <!-- Dark Mode Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const darkModeIcon = document.getElementById('dark-mode-icon');
+            const bodyElement = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            if (currentTheme === 'dark') {
+                bodyElement.classList.remove('light-mode');
+                bodyElement.classList.add('dark-mode');
+                darkModeIcon.classList.remove('fa-moon');
+                darkModeIcon.classList.add('fa-sun');
+            }
+
+            toggleButton.addEventListener('click', function() {
+                if (bodyElement.classList.contains('dark-mode')) {
+                    bodyElement.classList.remove('dark-mode');
+                    bodyElement.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light');
+                    darkModeIcon.classList.remove('fa-sun');
+                    darkModeIcon.classList.add('fa-moon');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                    bodyElement.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                    darkModeIcon.classList.remove('fa-moon');
+                    darkModeIcon.classList.add('fa-sun');
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
