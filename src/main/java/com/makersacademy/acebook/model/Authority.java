@@ -2,7 +2,7 @@ package com.makersacademy.acebook.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity
