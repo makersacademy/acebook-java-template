@@ -19,7 +19,6 @@ public class UsersController {
 
     @PostMapping("/profiles")
     public User afterRegistration(@RequestBody User user) {
-        System.out.println(user);
         userRepository.save(user);
         return user;
     }
