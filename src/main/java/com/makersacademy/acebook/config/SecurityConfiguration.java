@@ -41,8 +41,6 @@ public class SecurityConfiguration {
     private LogoutHandler logoutHandler() {
         return (request, response, authentication) -> {
             try {
-                System.out.println("ISSUER");
-                System.out.println(issuer);
                 String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
                 response.sendRedirect(issuer + "v2/logout?client_id=" + clientId + "&returnTo=" + baseUrl);
             } catch (IOException e) {
