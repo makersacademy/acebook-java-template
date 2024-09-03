@@ -20,12 +20,12 @@ public class User {
         this.enabled = TRUE;
     }
 
-    public User(String username, String password) {
+    public User(String username) {
         this.username = username;
         this.enabled = TRUE;
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, boolean enabled) {
         this.username = username;
         this.enabled = enabled;
     }
