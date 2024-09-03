@@ -11,7 +11,7 @@
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
+        Signed in as <span sec:authentication="principal.attributes['email']"></span>
     </div>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
