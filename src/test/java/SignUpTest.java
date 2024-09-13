@@ -11,8 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = Application.class)
 public class SignUpTest {
 
     WebDriver driver;
@@ -31,12 +31,16 @@ public class SignUpTest {
     }
 
     @Test
-    public void successfulSignUpRedirectsToSignIn() {
-        driver.get("http://localhost:8080/users/new");
-        driver.findElement(By.id("username")).sendKeys(faker.name().firstName());
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit")).click();
-        String title = driver.getTitle();
-        Assert.assertEquals("Please sign in", title);
+    public void successfulSignUpAlsoLogsInUser() {
+        String email = faker.name().username() + "@email.com";
+
+        driver.get("http://localhost:8080/");
+        driver.findElement(By.linkText("Sign up")).click();
+        driver.findElement(By.name("email")).sendKeys(email);
+        driver.findElement(By.name("password")).sendKeys("P@55qw0rd");
+        driver.findElement(By.name("action")).click();
+        driver.findElement(By.name("action")).click();
+        String greetingText = driver.findElement(By.id("greeting")).getText();
+        Assert.assertEquals("Signed in as " + email, greetingText);
     }
 }

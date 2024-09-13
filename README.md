@@ -1,7 +1,5 @@
 # Acebook
 
-This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
-
 The application uses:
   - `maven` to build the project
   - `thymeleaf` for templating
@@ -9,7 +7,7 @@ The application uses:
   - `selenium` for feature testing
   - `faker` to generate fake names for testing
   - `junit4` for unit testing
-  - `spring-security` for authentication and user management
+  - `auth0` and `spring-security` for authentication and user management
   
 Below, you'll find specific learning objectives for each tool.
 
@@ -19,9 +17,58 @@ Below, you'll find specific learning objectives for each tool.
 - Open the codebase in an IDE like InteliJ or VSCode
 - Create a new Postgres database called `acebook_springboot_development`
 - Install Maven `brew install maven`
+- [Set up Auth0](https://journey.makers.tech/pages/auth0) (you only need the "Create an Auth0 app" section)
+  - NOTE: Each member of the team will need their own Auth0 app
 - Build the app and start the server, using the Maven command `mvn spring-boot:run`
 > The database migrations will run automatically at this point
-- Visit `http://localhost:8080/users/new` to sign up
+- Visit `http://localhost:8080/` to sign up
+
+## Extending User Sign Up
+
+The second migration creates a `users` table but, to start with, noting is ever put in there - when a user signs up via Auth0, a record is created in a table that Auth0 'owns' in the cloud. But, if you want your `Post`s to have authors (a one to many relationship between `users` and `posts`) you'll need your own record of each user.
+
+It's not necessary to do this from the start but, once you're ready to implement the one to many relationship...
+
+1. Install localtunnel `npm install -g localtunnel`
+2. Choose a subdomain, perhaps one based on your team's name. It needs to be unique!
+3. Get a public URL for your app `lt --port 8080 --subdomain <your-subdomain>`
+4. Go to your Auth0 account and choose `Actions` on the left sidebar, then `Flows`
+5. Choose `Post User Registtration` from the main page body
+6. Click `+` next to `Add Action` and then, from the menu, choose `Build from scratch`
+7. On the pop up form..
+   - Give your action a sensible name
+   - The trigger should be set to `Post User Registration`
+   - The runtime should be set to `Node 18`
+   - Click `Create`
+8. Paste in the code below, then click `Deploy`
+9. Finally, go to your Auth0 application settings to update `Allowed Callback Urls` and `Allowed Logout URLs` with your new localtunnel URLs.
+
+#### What your updated Auth0 URLs might look like
+
+![An image of the Auth0 fields for updating callback and logout URLs](/images/updated_urls.png)
+
+#### Post User Registration Code
+
+```js
+exports.onExecutePostUserRegistration = async (event, api) => {
+  fetch("https://<your-domain>.loca.lt/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: event.user.email
+      })
+    }
+  )
+};
+```
+
+![An image showing the JS code that is used in the post user registration action](/images/post_user_registration.png)
+
+Now, when a user signs up, an HTTP request will be sent to your locally running app and a user will be added to your local database whenever someone signs up. Test this by signing up then looking at the contents of your local `users` table.
+
+> NOTE: As mentioned above, each member of the team needs their own Auth0 app and they'll each need to do the above set up for `users`.
 
 ## Running the tests
 
@@ -49,8 +96,8 @@ Your Mac might refuse to open Chromedriver because it's from an unidentified dev
 ## Existing features
 
 This app already has a few basic features
-* A user can sign up at `/users/new`
-* A signed up user can sign in at `/login`
+* A user can sign up using Auth0
+* A signed up user can sign in
 * A signed in user can create posts at `/posts`
 * A signed in user can sign out at `/logout`
 
@@ -96,11 +143,6 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 ### SpringBoot
 - [ ] I can diagram how this SpringBoot application handles `GET "/posts"`
 
-### Spring Security
+### Spring Security and Auth0
 - [ ] I can explain how this app is secured
-
-## Resources
-
-
-* [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
