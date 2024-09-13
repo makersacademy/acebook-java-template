@@ -1,7 +1,5 @@
 # Acebook
 
-This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
-
 The application uses:
   - `maven` to build the project
   - `thymeleaf` for templating
@@ -9,7 +7,7 @@ The application uses:
   - `selenium` for feature testing
   - `faker` to generate fake names for testing
   - `junit4` for unit testing
-  - `spring-security` for authentication and user management
+  - `auth0` and `spring-security` for authentication and user management
   
 Below, you'll find specific learning objectives for each tool.
 
@@ -19,9 +17,10 @@ Below, you'll find specific learning objectives for each tool.
 - Open the codebase in an IDE like InteliJ or VSCode
 - Create a new Postgres database called `acebook_springboot_development`
 - Install Maven `brew install maven`
+- [Set up Auth0](https://journey.makers.tech/pages/auth0) (you only need the "Create an Auth0 app" section)
 - Build the app and start the server, using the Maven command `mvn spring-boot:run`
 > The database migrations will run automatically at this point
-- Visit `http://localhost:8080/users/new` to sign up
+- Visit `http://localhost:8080/` to sign up
 
 ## Running the tests
 
@@ -49,8 +48,8 @@ Your Mac might refuse to open Chromedriver because it's from an unidentified dev
 ## Existing features
 
 This app already has a few basic features
-* A user can sign up at `/users/new`
-* A signed up user can sign in at `/login`
+* A user can sign up using Auth0
+* A signed up user can sign in
 * A signed in user can create posts at `/posts`
 * A signed in user can sign out at `/logout`
 
@@ -96,11 +95,6 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 ### SpringBoot
 - [ ] I can diagram how this SpringBoot application handles `GET "/posts"`
 
-### Spring Security
+### Spring Security and Auth0
 - [ ] I can explain how this app is secured
-
-## Resources
-
-
-* [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
 
