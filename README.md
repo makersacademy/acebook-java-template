@@ -23,53 +23,6 @@ Below, you'll find specific learning objectives for each tool.
 > The database migrations will run automatically at this point
 - Visit `http://localhost:8080/` to sign up
 
-## Extending User Sign Up
-
-The second migration creates a `users` table but, to start with, noting is ever put in there - when a user signs up via Auth0, a record is created in a table that Auth0 'owns' in the cloud. But, if you want your `Post`s to have authors (a one to many relationship between `users` and `posts`) you'll need your own record of each user.
-
-It's not necessary to do this from the start but, once you're ready to implement the one to many relationship...
-
-1. Install localtunnel `npm install -g localtunnel`
-2. Choose a subdomain, perhaps one based on your team's name. It needs to be unique!
-3. Get a public URL for your app `lt --port 8080 --subdomain <your-subdomain>`
-4. Go to your Auth0 account and choose `Actions` on the left sidebar, then `Flows`
-5. Choose `Post User Registtration` from the main page body
-6. Click `+` next to `Add Action` and then, from the menu, choose `Build from scratch`
-7. On the pop up form..
-   - Give your action a sensible name
-   - The trigger should be set to `Post User Registration`
-   - The runtime should be set to `Node 18`
-   - Click `Create`
-8. Paste in the code below, then click `Deploy`
-9. Finally, go to your Auth0 application settings to update `Allowed Callback Urls` and `Allowed Logout URLs` with your new localtunnel URLs.
-
-#### What your updated Auth0 URLs might look like
-
-![An image of the Auth0 fields for updating callback and logout URLs](/images/updated_urls.png)
-
-#### Post User Registration Code
-
-```js
-exports.onExecutePostUserRegistration = async (event, api) => {
-  fetch("https://<your-domain>.loca.lt/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: event.user.email
-      })
-    }
-  )
-};
-```
-
-![An image showing the JS code that is used in the post user registration action](/images/post_user_registration.png)
-
-Now, when a user signs up, an HTTP request will be sent to your locally running app and a user will be added to your local database whenever someone signs up. Test this by signing up then looking at the contents of your local `users` table.
-
-> NOTE: As mentioned above, each member of the team needs their own Auth0 app and they'll each need to do the above set up for `users`.
-
 ## Running the tests
 
 - Install chromedriver using `brew install chromedriver`
@@ -126,7 +79,7 @@ complexity, in Java. It's OK if you need to pause here with Acebook and learn ho
 - [ ] I can explain the naming convention for flyway migration files
 
 ### Selenium
-- [ ] I can explain the code in `SignUpTest.java`
+- [ ] I can explain the code in `feature.SignUpTest.java`
 - [ ] I can write a new feature test for unsuccessful sign up
 
 ### Faker
